@@ -10,4 +10,11 @@ import UIKit
 
 extension UIImage{
     
+    /*
+     UIImage+Namespace 파일 내 UIImage 추가 예시입니다.
+     
+     public static let calenderBackgroundAll = UIImage(named: "calenderBackgroundAll")!
+     
+     */
+    
 }
