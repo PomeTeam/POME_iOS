@@ -18,6 +18,11 @@
 		5724EC0A29100C8800DC529B /* POMEUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC0929100C8800DC529B /* POMEUITestsLaunchTests.swift */; };
 		5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC2229160D7100DC529B /* SSOOYA.storyboard */; };
 		5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC2429160D7A00DC529B /* gomin.storyboard */; };
+		5724EC2D29162B3500DC529B /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC2C29162B3500DC529B /* UIFont.swift */; };
+		5724EC4129162F2300DC529B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3D29162F2200DC529B /* Pretendard-Medium.otf */; };
+		5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */; };
+		5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3F29162F2300DC529B /* Pretendard-Bold.otf */; };
+		5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC4029162F2300DC529B /* Pretendard-Regular.otf */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -63,6 +68,11 @@
 		5724EC2229160D7100DC529B /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
 		5724EC2429160D7A00DC529B /* gomin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gomin.storyboard; sourceTree = "<group>"; };
 		5724EC2A2916166B00DC529B /* AppKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
+		5724EC2C29162B3500DC529B /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		5724EC3D29162F2200DC529B /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		5724EC3F29162F2300DC529B /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		5724EC4029162F2300DC529B /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +199,7 @@
 		5724EC1A291012E000DC529B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC2B291629B900DC529B /* Extension */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -247,6 +258,7 @@
 		5724EC272916159600DC529B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC2E29162DAA00DC529B /* Font */,
 				5724EBF129100C8700DC529B /* LaunchScreen.storyboard */,
 				5724EBEC29100C8500DC529B /* Main.storyboard */,
 				5724EC2229160D7100DC529B /* SSOOYA.storyboard */,
@@ -254,6 +266,25 @@
 				5724EBEF29100C8700DC529B /* Assets.xcassets */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		5724EC2B291629B900DC529B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC2C29162B3500DC529B /* UIFont.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		5724EC2E29162DAA00DC529B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC3F29162F2300DC529B /* Pretendard-Bold.otf */,
+				5724EC3D29162F2200DC529B /* Pretendard-Medium.otf */,
+				5724EC4029162F2300DC529B /* Pretendard-Regular.otf */,
+				5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -389,10 +420,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5724EBF329100C8700DC529B /* LaunchScreen.storyboard in Resources */,
+				5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */,
 				5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */,
+				5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */,
+				5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */,
 				5724EBF029100C8700DC529B /* Assets.xcassets in Resources */,
 				5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */,
 				5724EBEE29100C8500DC529B /* Main.storyboard in Resources */,
+				5724EC4129162F2300DC529B /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +557,7 @@
 			files = (
 				5724EBEB29100C8500DC529B /* ViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
+				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
