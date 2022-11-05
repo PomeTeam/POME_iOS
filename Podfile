@@ -11,6 +11,8 @@ target 'POME' do
 
   pod 'Then'
 
+  pod 'Alamofire'
+
   pod 'RxSwift'
   pod 'RxCocoa'
 
