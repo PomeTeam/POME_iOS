@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
-		5724EBEB29100C8500DC529B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBEA29100C8500DC529B /* ViewController.swift */; };
+		5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBEA29100C8500DC529B /* BaseViewController.swift */; };
 		5724EBEE29100C8500DC529B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EBEC29100C8500DC529B /* Main.storyboard */; };
 		5724EBF029100C8700DC529B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5724EBEF29100C8700DC529B /* Assets.xcassets */; };
 		5724EBF329100C8700DC529B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EBF129100C8700DC529B /* LaunchScreen.storyboard */; };
@@ -57,7 +57,7 @@
 		5724EBE329100C8500DC529B /* POME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5724EBE629100C8500DC529B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5724EBE829100C8500DC529B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5724EBEA29100C8500DC529B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5724EBEA29100C8500DC529B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5724EBED29100C8500DC529B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5724EBEF29100C8700DC529B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5724EBF229100C8700DC529B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				5724EBEA29100C8500DC529B /* ViewController.swift */,
+				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -203,6 +203,7 @@
 		5724EC1A291012E000DC529B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC4B291650AD00DC529B /* DesignSystem */,
 				5724EC2B291629B900DC529B /* extension */,
 			);
 			path = Resource;
@@ -291,6 +292,13 @@
 				5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */,
 			);
 			path = Font;
+			sourceTree = "<group>";
+		};
+		5724EC4B291650AD00DC529B /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -561,7 +569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5724EBEB29100C8500DC529B /* ViewController.swift in Sources */,
+				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* UIImage+Namespace.swift in Sources */,

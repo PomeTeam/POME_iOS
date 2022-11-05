@@ -17,4 +17,5 @@ extension UIImage{
      
      */
     
+    public static let back_arrow = UIImage(named: "back_arrow")!
 }

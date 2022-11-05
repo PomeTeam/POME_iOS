@@ -1,0 +1,69 @@
+//
+//  ViewController.swift
+//  POME
+//
+//  Created by 박지윤 on 2022/10/31.
+//
+
+import UIKit
+import SnapKit
+import Then
+
+class BaseViewController: UIViewController {
+    
+    let navigationView = UIView()
+    
+    lazy var backBtn = UIButton().then{
+        $0.setImage(UIImage.back_arrow, for: .normal)
+        $0.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        style()
+        layout()
+        initialize()
+    }
+    
+    /* BaseViewController method
+     
+     1. style: ViewController의 property를 변경할 때 사용합니다.
+     2. layout: ViewController에 View 추가 및 레이아웃을 설정할 때 사용합니다.
+     3. initialize: TableView, CollectionView 등의 delegate를 설정하거나 ViewController 안에서 초기화 작업이 필요한 경우 사용합니다.
+    */
+    
+    func style() {
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+    }
+    
+    func layout() {
+        
+        self.view.addSubview(navigationView)
+        self.navigationView.addSubview(backBtn)
+        
+        navigationView.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
+            $0.height.equalTo(44)
+        }
+        
+        backBtn.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(10)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().offset(16)
+            $0.width.equalTo(backBtn.snp.height)
+        }
+    }
+    
+    func initialize() {}
+    
+    @objc func backBtnDidClicked(){
+        self.navigationController?.popViewController(animated: true)
+    }
+
+
+}
+
