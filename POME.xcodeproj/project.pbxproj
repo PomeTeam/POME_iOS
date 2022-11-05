@@ -62,6 +62,7 @@
 		5724EC0929100C8800DC529B /* POMEUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMEUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5724EC2229160D7100DC529B /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
 		5724EC2429160D7A00DC529B /* gomin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gomin.storyboard; sourceTree = "<group>"; };
+		5724EC2A2916166B00DC529B /* AppKey.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EBF429100C8700DC529B /* Info.plist */,
+				5724EC2A2916166B00DC529B /* AppKey.xcconfig */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -694,7 +696,7 @@
 		};
 		5724EC0E29100C8800DC529B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */;
+			baseConfigurationReference = 5724EC2A2916166B00DC529B /* AppKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -702,7 +704,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = POME/Info.plist;
+				INFOPLIST_FILE = POME/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -731,7 +733,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = POME/Info.plist;
+				INFOPLIST_FILE = POME/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
