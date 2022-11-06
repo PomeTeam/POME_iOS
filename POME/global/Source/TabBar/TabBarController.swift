@@ -30,8 +30,7 @@ class TabBarController: UITabBarController {
         let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: Image.alarmActivate)),
                     UINavigationController(rootViewController: ReviewViewController(btnImage: Image.alarmActivate)),
                     UINavigationController(rootViewController: FriendViewController(btnImage: Image.addPeople)),
-                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))
-                    ]
+                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
         
         TabBarItem.allCases.forEach {
             tabs[$0.rawValue].tabBarItem = $0.asTabBarItem()

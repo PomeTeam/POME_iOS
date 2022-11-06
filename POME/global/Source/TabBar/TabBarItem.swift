@@ -17,9 +17,9 @@ enum TabBarItem: Int, CaseIterable {
 extension TabBarItem {
     var title: String {
         switch self {
-        case .record:         return "기록"
-        case .review:        return "회고"
-        case .friend:       return "친구"
+        case .record:     return "기록"
+        case .review:     return "회고"
+        case .friend:     return "친구"
         case .mypage:     return "마이"
         }
     }
@@ -28,19 +28,19 @@ extension TabBarItem {
 extension TabBarItem {
     var inactiveIcon: UIImage? {
         switch self {
-        case .record:         return Image.recordActivate
-        case .review:        return Image.reviewActivate
-        case .friend:       return Image.friendActivate
-        case .mypage:     return Image.mypageActivate
+        case .record:     return Image.recordInactivate
+        case .review:     return Image.reviewInactivate
+        case .friend:     return Image.friendInactivate
+        case .mypage:     return Image.mypageInactivate
         }
     }
     
     var activeIcon: UIImage? {
         switch self {
-        case .record:         return Image.recordInactivate
-        case .review:        return Image.reviewInactivate
-        case .friend:       return Image.friendInactivate
-        case .mypage:     return Image.mypageInactivate
+        case .record:     return Image.recordActivate
+        case .review:     return Image.reviewActivate
+        case .friend:     return Image.friendActivate
+        case .mypage:     return Image.mypageActivate
         }
     }
 }
@@ -49,8 +49,8 @@ extension TabBarItem {
     public func asTabBarItem() -> UITabBarItem {
         return UITabBarItem(
             title: title,
-            image: activeIcon,
-            selectedImage: inactiveIcon
+            image: inactiveIcon,
+            selectedImage: activeIcon
         )
     }
 }
