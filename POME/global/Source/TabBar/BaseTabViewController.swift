@@ -60,6 +60,6 @@ class BaseTabViewController: UIViewController {
     
     func initialize() {}
     
-    @objc func topBtnDidClicked() {}
+    @objc func topBtnDidClicked() {} //각 TabVC에서 topBtnDidClicked를 override해서 event 기능 구현하면 됩니다.
 
 }
