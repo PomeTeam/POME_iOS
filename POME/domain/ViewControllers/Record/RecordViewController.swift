@@ -1,5 +1,5 @@
 //
-//  TabBarController.swift
+//  RecordViewController.swift
 //  POME
 //
 //  Created by 박지윤 on 2022/11/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class RecordViewController: BaseTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

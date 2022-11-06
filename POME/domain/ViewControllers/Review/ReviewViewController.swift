@@ -1,5 +1,5 @@
 //
-//  BaseTabViewController.swift
+//  ReviewViewController.swift
 //  POME
 //
 //  Created by 박지윤 on 2022/11/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseTabViewController: UIViewController {
+class ReviewViewController: BaseTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

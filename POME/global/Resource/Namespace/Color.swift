@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIColor{
+enum Color{
     
     //MARK: - Mint
     static let main = UIColor(red: 0.482, green: 0.894, blue: 0.561, alpha: 1)
