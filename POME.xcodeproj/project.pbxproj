@@ -28,6 +28,11 @@
 		5724EC4F29168A8800DC529B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC4E29168A8800DC529B /* BaseView.swift */; };
 		5724EC512917680A00DC529B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC502917680A00DC529B /* TabBarController.swift */; };
 		5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC522917682400DC529B /* BaseTabViewController.swift */; };
+		5724EC592917734C00DC529B /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC582917734C00DC529B /* RecordViewController.swift */; };
+		5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC5A2917735300DC529B /* ReviewViewController.swift */; };
+		5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC5C2917735B00DC529B /* FriendViewController.swift */; };
+		5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC5E2917736300DC529B /* MyPageViewController.swift */; };
+		5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6129177BF000DC529B /* TabBarItem.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -83,6 +88,11 @@
 		5724EC4E29168A8800DC529B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		5724EC502917680A00DC529B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5724EC522917682400DC529B /* BaseTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabViewController.swift; sourceTree = "<group>"; };
+		5724EC582917734C00DC529B /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		5724EC5A2917735300DC529B /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		5724EC5C2917735B00DC529B /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
+		5724EC5E2917736300DC529B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		5724EC6129177BF000DC529B /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -203,8 +213,7 @@
 			children = (
 				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
 				5724EC4E29168A8800DC529B /* BaseView.swift */,
-				5724EC502917680A00DC529B /* TabBarController.swift */,
-				5724EC522917682400DC529B /* BaseTabViewController.swift */,
+				5724EC6029177BD600DC529B /* TabBar */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -242,6 +251,10 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC54291772DF00DC529B /* Record */,
+				5724EC55291772EA00DC529B /* Review */,
+				5724EC56291772FA00DC529B /* Friend */,
+				5724EC572917730900DC529B /* MyPage */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -308,6 +321,48 @@
 			children = (
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		5724EC54291772DF00DC529B /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC582917734C00DC529B /* RecordViewController.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		5724EC55291772EA00DC529B /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC5A2917735300DC529B /* ReviewViewController.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		5724EC56291772FA00DC529B /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC5C2917735B00DC529B /* FriendViewController.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
+		5724EC572917730900DC529B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		5724EC6029177BD600DC529B /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC6129177BF000DC529B /* TabBarItem.swift */,
+				5724EC502917680A00DC529B /* TabBarController.swift */,
+				5724EC522917682400DC529B /* BaseTabViewController.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -578,13 +633,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
+				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* UIImage+Namespace.swift in Sources */,
+				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
+				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC48291638BC00DC529B /* UIColor.swift in Sources */,
 			);

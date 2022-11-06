@@ -17,5 +17,31 @@ extension UIImage{
      
      */
     
+    //MARK: - NavigationImage
+    
     public static let back_arrow = UIImage(named: "back_arrow")!
+    
+    public static let add_people = UIImage(named: "add_people")!
+    
+    public static let alarm_activate = UIImage(named: "alarm_activate")!
+    
+    public static let setting = UIImage(named: "setting")!
+    
+    //MARK:- TabBarImage
+    
+    public static let recordActivate = UIImage(named: "record_activate")!
+    
+    public static let reviewActivate = UIImage(named: "review_activate")!
+    
+    public static let friendActivate = UIImage(named: "friend_activate")!
+    
+    public static let mypageActivate = UIImage(named: "mypage_activate")!
+    
+    public static let recordInactivate = UIImage(named: "record_inactivate")!
+    
+    public static let reviewInactivate = UIImage(named: "review_inactivate")!
+    
+    public static let friendInactivate = UIImage(named: "friend_inactivate")!
+    
+    public static let mypageInactivate = UIImage(named: "mypage_inactivate")!
 }
