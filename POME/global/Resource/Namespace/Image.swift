@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIImage{
+enum Image{
     
     /*
      UIImage+Namespace 파일 내 UIImage 추가 예시입니다.
@@ -19,11 +19,11 @@ extension UIImage{
     
     //MARK: - NavigationImage
     
-    public static let back_arrow = UIImage(named: "back_arrow")!
+    public static let backArrow = UIImage(named: "back_arrow")!
     
-    public static let add_people = UIImage(named: "add_people")!
+    public static let addPeople = UIImage(named: "add_people")!
     
-    public static let alarm_activate = UIImage(named: "alarm_activate")!
+    public static let alarmActivate = UIImage(named: "alarm_activate")!
     
     public static let setting = UIImage(named: "setting")!
     

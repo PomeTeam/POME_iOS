@@ -18,8 +18,8 @@ class TabBarController: UITabBarController {
     }
     
     private func setTabBarAppearance() {
-        UITabBar.appearance().tintColor = UIColor.main
-        UITabBar.appearance().unselectedItemTintColor = UIColor.grey_4
+        UITabBar.appearance().tintColor = Color.main
+        UITabBar.appearance().unselectedItemTintColor = Color.grey_4
         
         let fontAttributes = [NSAttributedString.Key.font: UIFont.autoPretendard(type: .sb_10)]
         UITabBarItem.appearance().setTitleTextAttributes(fontAttributes, for: .normal)
@@ -31,10 +31,10 @@ class TabBarController: UITabBarController {
     
     func setTabBarItems(){
         
-        let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: UIImage.alarm_activate)),
-                    UINavigationController(rootViewController: ReviewViewController(btnImage: UIImage.alarm_activate)),
-                    UINavigationController(rootViewController: FriendViewController(btnImage: UIImage.add_people)),
-                    UINavigationController(rootViewController: MyPageViewController(btnImage: UIImage.setting))
+        let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: Image.alarmActivate)),
+                    UINavigationController(rootViewController: ReviewViewController(btnImage: Image.alarmActivate)),
+                    UINavigationController(rootViewController: FriendViewController(btnImage: Image.addPeople)),
+                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))
                     ]
         
         TabBarItem.allCases.forEach {

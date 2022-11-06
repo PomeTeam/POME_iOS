@@ -23,8 +23,8 @@
 		5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */; };
 		5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3F29162F2300DC529B /* Pretendard-Bold.otf */; };
 		5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC4029162F2300DC529B /* Pretendard-Regular.otf */; };
-		5724EC48291638BC00DC529B /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC47291638BC00DC529B /* UIColor.swift */; };
-		5724EC4A291644AE00DC529B /* UIImage+Namespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC49291644AE00DC529B /* UIImage+Namespace.swift */; };
+		5724EC48291638BC00DC529B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC47291638BC00DC529B /* Color.swift */; };
+		5724EC4A291644AE00DC529B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC49291644AE00DC529B /* Image.swift */; };
 		5724EC4F29168A8800DC529B /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC4E29168A8800DC529B /* BaseView.swift */; };
 		5724EC512917680A00DC529B /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC502917680A00DC529B /* TabBarController.swift */; };
 		5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC522917682400DC529B /* BaseTabViewController.swift */; };
@@ -83,8 +83,8 @@
 		5724EC3E29162F2200DC529B /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		5724EC3F29162F2300DC529B /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		5724EC4029162F2300DC529B /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
-		5724EC47291638BC00DC529B /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
-		5724EC49291644AE00DC529B /* UIImage+Namespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Namespace.swift"; sourceTree = "<group>"; };
+		5724EC47291638BC00DC529B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		5724EC49291644AE00DC529B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		5724EC4E29168A8800DC529B /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		5724EC502917680A00DC529B /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		5724EC522917682400DC529B /* BaseTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabViewController.swift; sourceTree = "<group>"; };
@@ -222,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC4B291650AD00DC529B /* DesignSystem */,
+				5724EC632917879300DC529B /* Namespace */,
 				5724EC2B291629B900DC529B /* extension */,
 			);
 			path = Resource;
@@ -299,8 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				5724EC2C29162B3500DC529B /* UIFont.swift */,
-				5724EC47291638BC00DC529B /* UIColor.swift */,
-				5724EC49291644AE00DC529B /* UIImage+Namespace.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -363,6 +362,15 @@
 				5724EC522917682400DC529B /* BaseTabViewController.swift */,
 			);
 			path = TabBar;
+			sourceTree = "<group>";
+		};
+		5724EC632917879300DC529B /* Namespace */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC47291638BC00DC529B /* Color.swift */,
+				5724EC49291644AE00DC529B /* Image.swift */,
+			);
+			path = Namespace;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -640,13 +648,13 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
-				5724EC4A291644AE00DC529B /* UIImage+Namespace.swift in Sources */,
+				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
-				5724EC48291638BC00DC529B /* UIColor.swift in Sources */,
+				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

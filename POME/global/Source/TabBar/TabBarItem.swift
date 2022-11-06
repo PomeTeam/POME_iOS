@@ -28,19 +28,19 @@ extension TabBarItem {
 extension TabBarItem {
     var inactiveIcon: UIImage? {
         switch self {
-        case .record:         return UIImage.recordActivate
-        case .review:        return UIImage.reviewActivate
-        case .friend:       return UIImage.friendActivate
-        case .mypage:     return UIImage.mypageActivate
+        case .record:         return Image.recordActivate
+        case .review:        return Image.reviewActivate
+        case .friend:       return Image.friendActivate
+        case .mypage:     return Image.mypageActivate
         }
     }
     
     var activeIcon: UIImage? {
         switch self {
-        case .record:         return UIImage.recordInactivate
-        case .review:        return UIImage.reviewInactivate
-        case .friend:       return UIImage.friendInactivate
-        case .mypage:     return UIImage.mypageInactivate
+        case .record:         return Image.recordInactivate
+        case .review:        return Image.reviewInactivate
+        case .friend:       return Image.friendInactivate
+        case .mypage:     return Image.mypageInactivate
         }
     }
 }
