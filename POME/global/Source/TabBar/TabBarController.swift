@@ -25,17 +25,12 @@ class TabBarController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes(fontAttributes, for: .normal)
     }
     
-    func setDelegate(){
-        self.delegate = self
-    }
-    
     func setTabBarItems(){
         
         let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: Image.alarmActivate)),
                     UINavigationController(rootViewController: ReviewViewController(btnImage: Image.alarmActivate)),
                     UINavigationController(rootViewController: FriendViewController(btnImage: Image.addPeople)),
-                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))
-                    ]
+                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
         
         TabBarItem.allCases.forEach {
             tabs[$0.rawValue].tabBarItem = $0.asTabBarItem()
@@ -45,12 +40,4 @@ class TabBarController: UITabBarController {
         setViewControllers(tabs, animated: true)
     }
 
-}
-
-extension TabBarController: UITabBarControllerDelegate{
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let tabBarItemIndex = viewController.tabBarItem.tag
-        return true
-    }
 }
