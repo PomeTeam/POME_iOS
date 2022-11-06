@@ -25,10 +25,6 @@ class TabBarController: UITabBarController {
         UITabBarItem.appearance().setTitleTextAttributes(fontAttributes, for: .normal)
     }
     
-    func setDelegate(){
-        self.delegate = self
-    }
-    
     func setTabBarItems(){
         
         let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: Image.alarmActivate)),
@@ -45,12 +41,4 @@ class TabBarController: UITabBarController {
         setViewControllers(tabs, animated: true)
     }
 
-}
-
-extension TabBarController: UITabBarControllerDelegate{
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        let tabBarItemIndex = viewController.tabBarItem.tag
-        return true
-    }
 }
