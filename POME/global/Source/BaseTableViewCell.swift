@@ -9,9 +9,7 @@ import UIKit
 
 class BaseTableViewCell: UITableViewCell {
     
-    let baseView = UIView().then{
-        $0.backgroundColor = .white
-    }
+    let baseView = UIView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

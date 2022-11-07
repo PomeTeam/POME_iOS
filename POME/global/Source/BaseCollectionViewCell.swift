@@ -9,9 +9,7 @@ import UIKit
 
 class BaseCollectionViewCell: UICollectionViewCell {
     
-    let baseView = UIView().then{
-        $0.backgroundColor = .white
-    }
+    let baseView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
