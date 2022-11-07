@@ -18,6 +18,7 @@ class TabBarController: UITabBarController {
     }
     
     private func setTabBarAppearance() {
+        UITabBar.appearance().backgroundColor = .white
         UITabBar.appearance().tintColor = Color.main
         UITabBar.appearance().unselectedItemTintColor = Color.grey_4
         
@@ -34,7 +35,7 @@ class TabBarController: UITabBarController {
         
         TabBarItem.allCases.forEach {
             tabs[$0.rawValue].tabBarItem = $0.asTabBarItem()
-            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
+//            tabs[$0.rawValue].tabBarItem.tag = $0.rawValue
         }
         
         setViewControllers(tabs, animated: true)

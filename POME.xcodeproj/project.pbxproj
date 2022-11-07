@@ -38,6 +38,7 @@
 		5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */; };
 		5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */; };
 		5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */; };
+		5724EC762919224700DC529B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC752919224700DC529B /* PaddingLabel.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -103,6 +104,7 @@
 		5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		5724EC752919224700DC529B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -221,11 +223,9 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
-				5724EC4E29168A8800DC529B /* BaseView.swift */,
-				5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */,
-				5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */,
+				5724EC732919220800DC529B /* Base */,
 				5724EC6029177BD600DC529B /* TabBar */,
+				5724EC752919224700DC529B /* PaddingLabel.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -402,6 +402,17 @@
 				5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */,
 			);
 			path = Friend;
+			sourceTree = "<group>";
+		};
+		5724EC732919220800DC529B /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
+				5724EC4E29168A8800DC529B /* BaseView.swift */,
+				5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */,
+				5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -688,6 +699,7 @@
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
+				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
