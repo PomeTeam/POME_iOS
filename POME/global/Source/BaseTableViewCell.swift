@@ -9,7 +9,9 @@ import UIKit
 
 class BaseTableViewCell: UITableViewCell {
     
-    let baseView = UIView()
+    let baseView = UIView().then{
+        $0.backgroundColor = .white
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,6 +26,7 @@ class BaseTableViewCell: UITableViewCell {
     }
     
     func setting(){ //UITableViewCell의 프로퍼티등을 변경할 때 사용하는 메서드입니다.
+        self.backgroundColor = Color.transparent
         self.selectedBackgroundView = UIView()
     }
     
