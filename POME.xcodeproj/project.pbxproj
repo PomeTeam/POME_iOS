@@ -33,6 +33,11 @@
 		5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC5C2917735B00DC529B /* FriendViewController.swift */; };
 		5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC5E2917736300DC529B /* MyPageViewController.swift */; };
 		5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6129177BF000DC529B /* TabBarItem.swift */; };
+		5724EC692918CECD00DC529B /* FriendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC682918CECD00DC529B /* FriendView.swift */; };
+		5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6B2918CEE200DC529B /* FriendCollectionViewCell.swift */; };
+		5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */; };
+		5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */; };
+		5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -93,6 +98,11 @@
 		5724EC5C2917735B00DC529B /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
 		5724EC5E2917736300DC529B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		5724EC6129177BF000DC529B /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		5724EC682918CECD00DC529B /* FriendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendView.swift; sourceTree = "<group>"; };
+		5724EC6B2918CEE200DC529B /* FriendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCollectionViewCell.swift; sourceTree = "<group>"; };
+		5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,6 +223,8 @@
 			children = (
 				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
 				5724EC4E29168A8800DC529B /* BaseView.swift */,
+				5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */,
+				5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */,
 				5724EC6029177BD600DC529B /* TabBar */,
 			);
 			path = Source;
@@ -245,6 +257,7 @@
 		5724EC1D2910131B00DC529B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC672918CEBA00DC529B /* Friend */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,6 +283,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC6A2918CED200DC529B /* Friend */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -371,6 +385,23 @@
 				5724EC49291644AE00DC529B /* Image.swift */,
 			);
 			path = Namespace;
+			sourceTree = "<group>";
+		};
+		5724EC672918CEBA00DC529B /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC682918CECD00DC529B /* FriendView.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
+		5724EC6A2918CED200DC529B /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC6B2918CEE200DC529B /* FriendCollectionViewCell.swift */,
+				5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */,
+			);
+			path = Friend;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -645,15 +676,20 @@
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
+				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
+				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
+				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
+				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
