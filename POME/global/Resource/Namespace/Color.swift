@@ -29,11 +29,12 @@ enum Color{
     static let light_pink = UIColor(red: 1, green: 0.957, blue: 0.953, alpha: 1)
     
     //MARK: - Grey
-    static let grey_0 = UIColor(red: 1, green: 0.565, blue: 0.541, alpha: 1)
     
-    static let grey_1 = UIColor(red: 0.973, green: 0.98, blue: 0.984, alpha: 1)
+    static let grey_0 = UIColor(red: 0.973, green: 0.98, blue: 0.984, alpha: 1)
     
-    static let grey_2 = UIColor(red: 0.949, green: 0.961, blue: 0.961, alpha: 1)
+    static let grey_1 = UIColor(red: 0.949, green: 0.961, blue: 0.961, alpha: 1)
+    
+    static let grey_2 = UIColor(red: 0.922, green: 0.933, blue: 0.937, alpha: 1)
     
     static let grey_3 = UIColor(red: 0.886, green: 0.894, blue: 0.902, alpha: 1)
     
