@@ -31,11 +31,18 @@ class FriendView: BaseView{
         $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
+        $0.backgroundColor = Color.transparent
+        
         $0.register(FriendCollectionViewCell.self, forCellWithReuseIdentifier: FriendCollectionViewCell.cellIdentifier)
         
     }
     
     let tableView = UITableView().then{
+        
+        $0.backgroundColor = Color.transparent
+        $0.showsVerticalScrollIndicator = false
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 7, right: 0)
+        
         $0.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.cellIdentifier)
     }
     
