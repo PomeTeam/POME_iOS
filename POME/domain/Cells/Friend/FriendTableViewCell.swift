@@ -108,7 +108,7 @@ class FriendTableViewCell: BaseTableViewCell {
         
         emojiStackView.insertArrangedSubview(pinkEmojiImage, at: 0)
         emojiStackView.insertArrangedSubview(greenEmojiImage, at: 0)
-        
+
         reactionStackView.insertArrangedSubview(theOtherReactionBtn, at: 0)
         reactionStackView.insertArrangedSubview(anotherReactionBtn, at: 0)
         reactionStackView.insertArrangedSubview(myReactionBtn, at: 0)

@@ -17,6 +17,13 @@ enum Image{
      
      */
     
+    public static let categoryActive = UIImage(named: "category_active")!
+    
+    public static let categoryInactive = UIImage(named: "category_inactive")!
+    
+    public static let photoDefault = UIImage(named: "photo_default")!
+    
+    
     //MARK: - NavigationImage
     
     public static let backArrow = UIImage(named: "back_arrow")!
@@ -27,7 +34,7 @@ enum Image{
     
     public static let setting = UIImage(named: "setting")!
     
-    //MARK:- TabBarImage
+    //MARK: - TabBarImage
     
     public static let recordActivate = UIImage(named: "record_activate")!
     
@@ -44,4 +51,5 @@ enum Image{
     public static let friendInactivate = UIImage(named: "friend_inactivate")!
     
     public static let mypageInactivate = UIImage(named: "mypage_inactivate")!
+    
 }
