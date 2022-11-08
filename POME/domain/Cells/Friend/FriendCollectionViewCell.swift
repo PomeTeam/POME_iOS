@@ -35,6 +35,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     }
     
     //MARK: - Override
+    
     override func hierarchy() {
         super.hierarchy()
         
@@ -58,4 +59,31 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
             $0.bottom.equalToSuperview().offset(-10)
         }
     }
+    
+    override func prepareForReuse() {
+        
+    }
+    
+    //MARK: - Method
+
+    func setSelectState(row: Int){
+        
+        self.nameLabel.textColor = Color.grey_9
+        self.nameLabel.font = UIFont.autoPretendard(type: .sb_12)
+        
+        if(row == 0){
+            profileImage.image = Image.categoryActive
+        }
+    }
+    
+    func setUnselectState(row: Int){
+        
+        self.nameLabel.textColor = Color.grey_5
+        self.nameLabel.font = UIFont.autoPretendard(type: .m_12)
+        
+        if(row == 0){
+            profileImage.image = Image.categoryInactive
+        }
+    }
+    
 }
