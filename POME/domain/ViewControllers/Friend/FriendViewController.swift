@@ -9,7 +9,13 @@ import UIKit
 
 class FriendViewController: BaseTabViewController {
     
+    //MARK: - Property
+    
+    var friendList = [String]()
+    
     let friendView = FriendView()
+    
+    //MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +24,7 @@ class FriendViewController: BaseTabViewController {
     //MARK: - Override
     
     override func layout() {
+        
         super.layout()
         
         self.view.addSubview(friendView)
@@ -42,26 +49,52 @@ class FriendViewController: BaseTabViewController {
     }
 }
 
-
+//MARK: - CollectionView Delegate
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        friendList.count + 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
+                as? FriendCollectionViewCell else { fatalError() }
+    
+        if(indexPath.row == 0){ //친구 목록 - 전체인 경우
+            cell.profileImage.image = Image.categoryInactive
+            cell.nameLabel.text = "전체"
+        }else{ //친구 목록 - 친구인 경우
+            cell.nameLabel.text = "연지뉘"
+        }
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
+        
+        cell.setSelectState(row: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
+        
+        cell.setUnselectState(row: indexPath.row)
+    }
+    
+    
+    
     
 }
 
+//MARK: - TableView Delegate
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
