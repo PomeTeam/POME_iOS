@@ -18,7 +18,6 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     }
     
     let nameLabel = UILabel().then{
-        $0.text = "연지뉘"
         $0.font = UIFont.autoPretendard(type: .m_12)
         $0.textColor = Color.grey_5
         $0.textAlignment = .center
@@ -61,7 +60,11 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func prepareForReuse() {
+        nameLabel.text = ""
+        nameLabel.textColor = Color.grey_5
+        nameLabel.font = UIFont.autoPretendard(type: .m_12)
         
+        profileImage.image = Image.photoDefault
     }
     
     //MARK: - Method

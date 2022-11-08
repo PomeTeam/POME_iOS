@@ -65,7 +65,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.profileImage.image = Image.categoryInactive
             cell.nameLabel.text = "전체"
         }else{ //친구 목록 - 친구인 경우
-            
+            cell.nameLabel.text = "연지뉘"
         }
         
         return cell
@@ -80,7 +80,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
         
         cell.setUnselectState(row: indexPath.row)
     }
