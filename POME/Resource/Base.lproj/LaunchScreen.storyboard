@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,10 +12,43 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_image" translatesAutoresizingMaskIntoConstraints="NO" id="K5I-Yu-eNu">
+                                <rect key="frame" x="63" y="224" width="288" height="288"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="288" id="BZ0-7C-dkt"/>
+                                    <constraint firstAttribute="height" constant="288" id="qE4-o2-d5L"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="NwD-6c-m0W">
+                                <rect key="frame" x="82" y="562" width="250" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="57R-iG-rhE"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mashmallow_is_yours" translatesAutoresizingMaskIntoConstraints="NO" id="rui-zZ-WMm">
+                                <rect key="frame" x="65" y="622" width="284" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="h2v-tk-sJV"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.4823529411764706" green="0.89411764705882346" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NwD-6c-m0W" secondAttribute="trailing" constant="82" id="Chz-33-U0r"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rui-zZ-WMm" secondAttribute="trailing" constant="65" id="FNb-hS-koU"/>
+                            <constraint firstItem="rui-zZ-WMm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="Fcl-CM-Yba"/>
+                            <constraint firstItem="K5I-Yu-eNu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GpG-aY-tuZ"/>
+                            <constraint firstItem="rui-zZ-WMm" firstAttribute="centerX" secondItem="K5I-Yu-eNu" secondAttribute="centerX" id="JOv-vc-3mv"/>
+                            <constraint firstItem="NwD-6c-m0W" firstAttribute="top" secondItem="K5I-Yu-eNu" secondAttribute="bottom" constant="50" id="KnY-ax-AOz"/>
+                            <constraint firstItem="NwD-6c-m0W" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="82" id="bqe-B9-hos"/>
+                            <constraint firstItem="K5I-Yu-eNu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="180" id="qws-2Q-n25"/>
+                            <constraint firstItem="NwD-6c-m0W" firstAttribute="centerX" secondItem="K5I-Yu-eNu" secondAttribute="centerX" id="rL1-rM-G41"/>
+                            <constraint firstItem="rui-zZ-WMm" firstAttribute="top" secondItem="NwD-6c-m0W" secondAttribute="bottom" constant="12.789999999999999" id="yba-MH-L2s"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -22,4 +56,9 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Mashmallow_is_yours" width="245" height="24"/>
+        <image name="logo" width="211" height="47"/>
+        <image name="splash_image" width="288" height="288"/>
+    </resources>
 </document>
