@@ -93,7 +93,7 @@ class FriendTableViewCell: BaseTableViewCell {
     override func setting() {
         super.setting()
         
-        self.baseView.layer.cornerRadius = 8
+//        self.baseView.layer.cornerRadius = 8
         self.baseView.setShadowStyle(type: .friendCard)
     }
     
