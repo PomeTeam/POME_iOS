@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		23397979291A9E7B00ECCDC3 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 23397978291A9E7B00ECCDC3 /* AppKey.xcconfig */; };
+		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
 		5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBEA29100C8500DC529B /* BaseViewController.swift */; };
@@ -67,6 +68,8 @@
 		118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
 		23397978291A9E7B00ECCDC3 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = AppKey.xcconfig; path = ../../../../../Downloads/AppKey.xcconfig; sourceTree = "<group>"; };
+		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
 		34A2D712048AB778F72BF007 /* Pods-POME-POMEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.debug.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		371D134E9CB0BA0D56720052 /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,6 +200,7 @@
 			children = (
 				5724EBE629100C8500DC529B /* AppDelegate.swift */,
 				5724EBE829100C8500DC529B /* SceneDelegate.swift */,
+				23F8C505291AA3F700BC755E /* InfoPlist.strings */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -533,6 +537,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 5724EBDA29100C8500DC529B;
 			productRefGroup = 5724EBE429100C8500DC529B /* Products */;
@@ -560,6 +565,7 @@
 				5724EBF029100C8700DC529B /* Assets.xcassets in Resources */,
 				5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */,
 				5724EBEE29100C8500DC529B /* Main.storyboard in Resources */,
+				23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */,
 				5724EC4129162F2300DC529B /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -745,6 +751,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		23F8C505291AA3F700BC755E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				23F8C504291AA3F700BC755E /* en */,
+				23F8C506291AA42900BC755E /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		5724EBEC29100C8500DC529B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -768,6 +783,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -829,6 +845,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
