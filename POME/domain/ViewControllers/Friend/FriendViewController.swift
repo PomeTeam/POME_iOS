@@ -9,7 +9,13 @@ import UIKit
 
 class FriendViewController: BaseTabViewController {
     
+    //MARK: - Property
+    
+    var friendList = [String]()
+    
     let friendView = FriendView()
+    
+    //MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +24,7 @@ class FriendViewController: BaseTabViewController {
     //MARK: - Override
     
     override func layout() {
+        
         super.layout()
         
         self.view.addSubview(friendView)
@@ -46,14 +53,25 @@ class FriendViewController: BaseTabViewController {
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        10
+        friendList.count + 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
+                as? FriendCollectionViewCell else { fatalError() }
+    
+        if(indexPath.row == 0){ //친구 목록 - 전체인 경우
+            cell.profileImage.image = Image.categoryInactive
+            cell.nameLabel.text = "전체"
+        }else{ //친구 목록 - 친구인 경우
+            
+        }
         
         return cell
     }
+    
+    
     
     
 }

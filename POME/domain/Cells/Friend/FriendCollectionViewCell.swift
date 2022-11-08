@@ -14,7 +14,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - UI
     let profileImage = UIImageView().then{
-        $0.backgroundColor = Color.grey_4
+        $0.image = Image.photoDefault
     }
     
     let nameLabel = UILabel().then{
