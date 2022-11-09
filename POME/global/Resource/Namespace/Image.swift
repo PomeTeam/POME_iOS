@@ -65,6 +65,8 @@ enum Image{
     
     public static let emoji6 = UIImage(named: "emoji_6")!
     
+    public static let emojiAdd = UIImage(named: "emoji_add")!
+    
     // MARK: - Register & Add Friend
     public static let plus = UIImage(named: "plus")!
     
