@@ -13,6 +13,8 @@ class FriendTableViewCell: BaseTableViewCell {
 
     static let cellIdentifier = "FriendTableViewCell"
     
+    var delegate: CellDelegate?
+    
     //MARK: - UI
     
     let profileImage = UIImageView().then{
@@ -68,7 +70,8 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     lazy var myReactionBtn = UIButton().then{
-        $0.backgroundColor = Color.main
+        $0.setImage(Image.emojiAdd, for: .normal)
+        $0.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
     }
     
     lazy var anotherReactionBtn = UIButton().then{
@@ -89,11 +92,17 @@ class FriendTableViewCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Action
+    
+    @objc func myReactionBtnDidClicked(){
+        delegate?.sendCellIndex(row: 1)
+    }
+    
     //MARK: - Override
     override func setting() {
+        
         super.setting()
         
-//        self.baseView.layer.cornerRadius = 8
         self.baseView.setShadowStyle(type: .friendCard)
     }
     
