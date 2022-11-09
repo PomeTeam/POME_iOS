@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23397979291A9E7B00ECCDC3 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 23397978291A9E7B00ECCDC3 /* AppKey.xcconfig */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
@@ -42,6 +41,9 @@
 		5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */; };
 		5724EC762919224700DC529B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC752919224700DC529B /* PaddingLabel.swift */; };
 		5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC77291A009F00DC529B /* ShadowStyle.swift */; };
+		5724EC80291B23DF00DC529B /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC7F291B23DF00DC529B /* AppKey.xcconfig */; };
+		5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC81291B246800DC529B /* EmojiFloatingView.swift */; };
+		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -67,7 +69,6 @@
 /* Begin PBXFileReference section */
 		118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
-		23397978291A9E7B00ECCDC3 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = AppKey.xcconfig; path = ../../../../../Downloads/AppKey.xcconfig; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +112,9 @@
 		5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC752919224700DC529B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5724EC77291A009F00DC529B /* ShadowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowStyle.swift; sourceTree = "<group>"; };
+		5724EC7F291B23DF00DC529B /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
+		5724EC81291B246800DC529B /* EmojiFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingView.swift; sourceTree = "<group>"; };
+		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -299,7 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EBF429100C8700DC529B /* Info.plist */,
-				23397978291A9E7B00ECCDC3 /* AppKey.xcconfig */,
+				5724EC7F291B23DF00DC529B /* AppKey.xcconfig */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -399,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC682918CECD00DC529B /* FriendView.swift */,
+				5724EC81291B246800DC529B /* EmojiFloatingView.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 			children = (
 				5724EC6B2918CEE200DC529B /* FriendCollectionViewCell.swift */,
 				5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */,
+				5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -558,11 +564,11 @@
 			files = (
 				5724EBF329100C8700DC529B /* LaunchScreen.storyboard in Resources */,
 				5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */,
-				23397979291A9E7B00ECCDC3 /* AppKey.xcconfig in Resources */,
 				5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */,
 				5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */,
 				5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */,
 				5724EBF029100C8700DC529B /* Assets.xcassets in Resources */,
+				5724EC80291B23DF00DC529B /* AppKey.xcconfig in Resources */,
 				5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */,
 				5724EBEE29100C8500DC529B /* Main.storyboard in Resources */,
 				23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */,
@@ -705,9 +711,11 @@
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
+				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
@@ -899,7 +907,7 @@
 		};
 		5724EC0E29100C8800DC529B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */;
+			baseConfigurationReference = 5724EC7F291B23DF00DC529B /* AppKey.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

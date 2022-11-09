@@ -15,6 +15,8 @@ class FriendViewController: BaseTabViewController {
     
     let friendView = FriendView()
     
+    let emoijiFloatingView = EmojiFloatingView()
+    
     //MARK: - LifeCycle
 
     override func viewDidLoad() {
@@ -42,6 +44,9 @@ class FriendViewController: BaseTabViewController {
         
         friendView.collectionView.delegate = self
         friendView.collectionView.dataSource = self
+        
+        emoijiFloatingView.collectionView.delegate = self
+        emoijiFloatingView.collectionView.dataSource = self
     }
     
     override func topBtnDidClicked() {

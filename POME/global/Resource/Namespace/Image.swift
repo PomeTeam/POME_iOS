@@ -52,4 +52,17 @@ enum Image{
     
     public static let mypageInactivate = UIImage(named: "mypage_inactivate")!
     
+    //MARK: - Emoji
+    public static let emoji1 = UIImage(named: "emoji_1")!
+    
+    public static let emoji2 = UIImage(named: "emoji_2")!
+    
+    public static let emoji3 = UIImage(named: "emoji_3")!
+    
+    public static let emoji4 = UIImage(named: "emoji_4")!
+    
+    public static let emoji5 = UIImage(named: "emoji_5")!
+    
+    public static let emoji6 = UIImage(named: "emoji_6")!
+    
 }
