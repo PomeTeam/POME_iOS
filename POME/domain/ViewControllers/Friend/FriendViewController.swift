@@ -108,6 +108,14 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == friendView.collectionView){
             return CGSize(width: 52, height: 96)
         }else{
+            
+            /*
+             leftPadding = 29
+             rightPadding = 16
+             ollectionView left/rightPadding = 16
+             spacing = 14
+             */
+            
             let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
             return CGSize(width: remainWidth/6, height: remainWidth/6)
         }
@@ -135,7 +143,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
     }
     
     func sendCellIndex(indexPath: IndexPath) {
-        print("by sender", indexPath)
         
         emoijiFloatingView = EmojiFloatingView()
         
@@ -147,6 +154,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
+        //TODO: Cell별 y값 조정 필요
         emoijiFloatingView.shadowView.snp.makeConstraints{
             $0.centerY.equalToSuperview()
         }
