@@ -10,6 +10,8 @@
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
+		2380877E291B502E00072763 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877D291B502E00072763 /* RegisterView.swift */; };
+		23808782291B53AF00072763 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808781291B53AF00072763 /* BaseLabel.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
@@ -76,6 +78,8 @@
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
+		2380877D291B502E00072763 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		23808781291B53AF00072763 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
@@ -160,6 +164,14 @@
 			isa = PBXGroup;
 			children = (
 				23808774291B3ACF00072763 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		2380877C291B502100072763 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				2380877D291B502E00072763 /* RegisterView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -285,6 +297,7 @@
 		5724EC1D2910131B00DC529B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2380877C291B502100072763 /* Register */,
 				5724EC672918CEBA00DC529B /* Friend */,
 			);
 			path = Views;
@@ -445,6 +458,7 @@
 				5724EC4E29168A8800DC529B /* BaseView.swift */,
 				5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */,
 				5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */,
+				23808781291B53AF00072763 /* BaseLabel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -737,6 +751,8 @@
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
+				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
+				23808782291B53AF00072763 /* BaseLabel.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
