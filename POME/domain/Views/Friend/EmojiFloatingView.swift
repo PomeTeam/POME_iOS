@@ -49,7 +49,7 @@ class EmojiFloatingView: BaseView {
     }
     
     override func constraint() {
-//        collectionView.backgroundColor = .red
+
         shadowView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }

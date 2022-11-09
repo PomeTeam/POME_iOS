@@ -65,7 +65,7 @@ class FriendViewController: BaseTabViewController {
 }
 
 //MARK: - CollectionView Delegate
-extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return collectionView == friendView.collectionView ? friendList.count + 10 : 6
@@ -88,7 +88,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }else{
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
                     as? EmojiFloatingCollectionViewCell else { fatalError() }
-            cell.emojiImage.backgroundColor = .blue
             cell.emojiImage.image = UIImage(named: "emoji_\(indexPath.row + 1)")
             return cell
         }
@@ -106,6 +105,18 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
         
         cell.setUnselectState(row: indexPath.row)
+    }
+    
+    //EmojiFloatingCollectionView 위한 사이즈 조정..
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        
+        if(collectionView == friendView.collectionView){
+            return CGSize(width: 52, height: 96)
+        }else{
+            let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
+            
+            return CGSize(width: remainWidth/6, height: remainWidth/6)
+        }
     }
     
     
