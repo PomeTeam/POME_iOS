@@ -27,7 +27,6 @@ class BaseLabel: UILabel {
             attrString.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attrString.length))
             self.attributedText = attrString
         }
-        self.textAlignment = .center
         
         super.drawText(in: rect)
     }

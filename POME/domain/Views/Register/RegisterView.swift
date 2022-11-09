@@ -10,7 +10,7 @@ import UIKit
 
 class RegisterView: BaseView {
     // MARK: - Views
-    let registerTitleLabel = UILabel().then{
+    let registerTitleLabel = BaseLabel().then{
         $0.text = "나만의 프로필을\n만들어볼까요?"
         $0.textColor = Color.grey_9
         $0.font = UIFont.autoPretendard(type: .b_24)
