@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
+		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
+		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
@@ -69,6 +72,9 @@
 /* Begin PBXFileReference section */
 		118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
+		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,6 +154,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23808773291B3ABE00072763 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				23808774291B3ACF00072763 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		5724EBDA29100C8500DC529B = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +290,7 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				23808773291B3ABE00072763 /* Register */,
 				5724EC54291772DF00DC529B /* Record */,
 				5724EC55291772EA00DC529B /* Review */,
 				5724EC56291772FA00DC529B /* Friend */,
@@ -325,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC2C29162B3500DC529B /* UIFont.swift */,
+				23808776291B404A00072763 /* UITextField.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -344,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
+				2380877A291B445100072763 /* DefaultButton.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -701,8 +718,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
+				23808777291B404A00072763 /* UITextField.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
+				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
@@ -713,6 +732,7 @@
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
+				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
