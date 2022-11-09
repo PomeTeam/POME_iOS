@@ -6,15 +6,21 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RegisterViewController: UIViewController {
     
     // MARK: - Properties
     var registerView: RegisterView!
     let maskView = UIImageView()
+    
     let imagePickerController = UIImagePickerController()
     var selectedPhoto: UIImage!
-    var name: String!
+    
+    let name =  BehaviorRelay(value: "")
+    
+    let disposeBag = DisposeBag()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -45,24 +51,40 @@ class RegisterViewController: UIViewController {
         // imagePicker delegate
         imagePickerController.delegate = self
         
-        registerView.completeButton.addTarget(self, action: #selector(completeButtonDidTap), for: .touchUpInside)
-        registerView.nameTextField.addTarget(self, action: #selector(nameTextFieldEditingChanged), for: .editingChanged)
-        
-        registerView.profileButton.addTarget(self, action: #selector(albumButtonnDidTap), for: .touchUpInside)
+        initButton()
+        initNameTextField()
+    }
+    
+    func initButton() {
         registerView.profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.albumButtonnDidTap)))
+        registerView.profileButton.rx.tap
+            .bind {self.albumButtonnDidTap()}
+            .disposed(by: disposeBag)
+        registerView.completeButton.rx.tap
+            .bind {self.completeButtonDidTap()}
+            .disposed(by: disposeBag)
     }
-
-    @objc func completeButtonDidTap() {
-        print("click!")
-    }
-    @objc func albumButtonnDidTap() {
-        self.imagePickerController.sourceType = .photoLibrary
-        self.present(imagePickerController, animated: true, completion: nil)
-    }
-    @objc func nameTextFieldEditingChanged(_ sender: UITextField) {
-        let text = sender.text ?? ""
-        self.name = text
-        checkValidName(self.name)
+    func initNameTextField() {
+        // editingChanged 이벤트가 발생 했을 때
+        registerView.nameTextField.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe(onNext: { _ in
+//                print("editingChanged : \(self.registerView.nameTextField.text ?? "")")
+            }).disposed(by: disposeBag)
+        
+        // textField.rx.text의 변경이 있을 때
+        self.registerView.nameTextField.rx.text.orEmpty
+                    .distinctUntilChanged()
+                    .map { $0 as String }
+                    .bind(to: self.name)
+                    .disposed(by: disposeBag)
+                
+        self.name.skip(1).distinctUntilChanged()
+            .subscribe( onNext: { newValue in
+//            print("name changed : \(newValue) ")
+            self.checkValidName(newValue)
+        }).disposed(by: disposeBag)
+        
     }
     func checkValidName(_ name: String) {
         if name.count > 0 {
@@ -79,6 +101,14 @@ class RegisterViewController: UIViewController {
             registerView.completeButton.isActivate(false)
         }
         registerView.messageLabel.isHidden = false
+    }
+    // MARK: - Actions
+    @objc func completeButtonDidTap() {
+        print("click!")
+    }
+    @objc func albumButtonnDidTap() {
+        self.imagePickerController.sourceType = .photoLibrary
+        self.present(imagePickerController, animated: true, completion: nil)
     }
 }
 // MARK: - ImagePicker Delegate
