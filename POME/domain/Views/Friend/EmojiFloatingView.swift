@@ -39,6 +39,17 @@ class EmojiFloatingView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func style() {
+        
+        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
+        
+        self.addGestureRecognizer(dismissGesture)
+    }
+    
+    @objc func dismiss(){
+        self.removeFromSuperview()
+    }
+    
     override func hierarchy() {
         self.addSubview(shadowView)
         

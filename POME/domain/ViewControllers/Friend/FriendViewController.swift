@@ -53,21 +53,6 @@ class FriendViewController: BaseTabViewController {
     
     override func topBtnDidClicked() {
         print("top btn did clicked")
-        
-        //TEST
-        emoijiFloatingView = EmojiFloatingView()
-        
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
-        
-        self.view.addSubview(emoijiFloatingView)
-
-        emoijiFloatingView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        emoijiFloatingView.shadowView.snp.makeConstraints{
-            $0.centerY.equalToSuperview()
-        }
     }
 }
 
@@ -151,6 +136,20 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
     
     func sendCellIndex(indexPath: IndexPath) {
         print("by sender", indexPath)
+        
+        emoijiFloatingView = EmojiFloatingView()
+        
+        guard let emoijiFloatingView = emoijiFloatingView else { return }
+        
+        self.view.addSubview(emoijiFloatingView)
+
+        emoijiFloatingView.snp.makeConstraints{
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        emoijiFloatingView.shadowView.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+        }
     }
     
     
