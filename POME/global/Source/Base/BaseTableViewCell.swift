@@ -40,4 +40,11 @@ class BaseTableViewCell: UITableViewCell {
         }
     }
     
+    func getCellIndex() -> IndexPath?{
+        
+        guard let tableView = self.superview as? UITableView, let cellIndex =  tableView.indexPath(for: self) else { return nil }
+        
+        return cellIndex
+    }
+    
 }

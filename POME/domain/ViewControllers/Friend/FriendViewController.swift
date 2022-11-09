@@ -149,8 +149,8 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         return cell
     }
     
-    func sendCellIndex(row: Int) {
-        print("by sender", row)
+    func sendCellIndex(indexPath: IndexPath) {
+        print("by sender", indexPath)
     }
     
     
