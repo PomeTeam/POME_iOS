@@ -95,7 +95,10 @@ class FriendTableViewCell: BaseTableViewCell {
     //MARK: - Action
     
     @objc func myReactionBtnDidClicked(){
-        delegate?.sendCellIndex(row: 1)
+        
+        guard let index = getCellIndex() else { return }
+        
+        delegate?.sendCellIndex(indexPath: index)
     }
     
     //MARK: - Override

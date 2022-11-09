@@ -34,4 +34,11 @@ class BaseCollectionViewCell: UICollectionViewCell {
             make.leading.trailing.top.bottom.equalToSuperview()
         }
     }
+    
+    func getCellIndex() -> IndexPath?{
+        
+        guard let collectionView = self.superview as? UICollectionView, let cellIndex =  collectionView.indexPath(for: self) else { return nil }
+        
+        return cellIndex
+    }
 }
