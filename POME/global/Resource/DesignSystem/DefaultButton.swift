@@ -11,13 +11,27 @@ import UIKit
 class DefaultButton: UIButton {
     
     // MARK: - Life Cycle
+    
+    // 디폴트 초록 배경 버튼
     init(titleStr: String) {
         super.init(frame: CGRect.zero)
         
         self.setTitle(titleStr, for: .normal)
+        self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = UIFont.autoPretendard(type: .b_18)
-        self.titleLabel?.textColor = .white
         self.backgroundColor = Color.main
+        
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 6
+    }
+    // 배경색, 글씨색 설정
+    init(titleStr: String, backgroundColor: UIColor, titleColor: UIColor) {
+        super.init(frame: CGRect.zero)
+        
+        self.setTitle(titleStr, for: .normal)
+        self.setTitleColor(titleColor, for: .normal)
+        self.titleLabel?.font = UIFont.autoPretendard(type: .b_18)
+        self.backgroundColor = backgroundColor
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 6
