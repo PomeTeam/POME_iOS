@@ -74,4 +74,6 @@ enum Image{
     
     public static let warning = UIImage(named: "warning")!
     
+    public static let search = UIImage(named: "search")!
+    
 }

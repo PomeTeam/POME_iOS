@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CompleteRegisterViewController: UIViewController {
     // MARK: - Views
@@ -28,6 +30,8 @@ class CompleteRegisterViewController: UIViewController {
     let addButton = DefaultButton(titleStr: "추가할래요")
 
     // MARK: - Life Cycle
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,6 +43,8 @@ class CompleteRegisterViewController: UIViewController {
     func style() {
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
+        
+        initButton()
     }
     func layout() {
         self.view.addSubview(titleLabel)
@@ -69,5 +75,13 @@ class CompleteRegisterViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalTo(addButton.snp.top).offset(-12)
         }
+    }
+    func initButton() {
+        addButton.rx.tap
+            .bind {
+                let vc = FriendSearchViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }

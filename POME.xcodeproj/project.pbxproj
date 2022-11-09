@@ -14,6 +14,8 @@
 		23808782291B53AF00072763 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808781291B53AF00072763 /* BaseLabel.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
+		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
+		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
@@ -84,6 +86,8 @@
 		23808781291B53AF00072763 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
+		23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
+		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 		23808773291B3ABE00072763 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				23F364D2291B7AA2009232B4 /* AddFriend */,
 				23808774291B3ACF00072763 /* RegisterViewController.swift */,
 				23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */,
 				23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */,
@@ -177,9 +182,26 @@
 		2380877C291B502100072763 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				23F364D5291B7BA9009232B4 /* AddFriend */,
 				2380877D291B502E00072763 /* RegisterView.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		23F364D2291B7AA2009232B4 /* AddFriend */ = {
+			isa = PBXGroup;
+			children = (
+				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
+			);
+			path = AddFriend;
+			sourceTree = "<group>";
+		};
+		23F364D5291B7BA9009232B4 /* AddFriend */ = {
+			isa = PBXGroup;
+			children = (
+				23F364D6291B7BB4009232B4 /* FriendSearchView.swift */,
+			);
+			path = AddFriend;
 			sourceTree = "<group>";
 		};
 		5724EBDA29100C8500DC529B = {
@@ -747,6 +769,7 @@
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
+				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
@@ -756,6 +779,7 @@
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
+				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
 				23808782291B53AF00072763 /* BaseLabel.swift in Sources */,
