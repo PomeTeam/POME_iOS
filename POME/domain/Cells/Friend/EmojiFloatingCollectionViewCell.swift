@@ -26,12 +26,14 @@ class EmojiFloatingCollectionViewCell: BaseCollectionViewCell {
     //MARK: - Override
     
     override func hierarchy(){
+        
         super.hierarchy()
         
         self.baseView.addSubview(emojiImage)
     }
     
     override func layout(){
+        
         super.layout()
         
         emojiImage.snp.makeConstraints{

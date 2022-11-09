@@ -34,10 +34,12 @@ extension ShadowStyle{
     
     private var shadowDescription: ShadowDescription{
         switch self{
-        case .goalCard:         return ShadowDescription(cornerRadius: 6, shadowColor: Color.shadow,
+        case .goalCard:         return ShadowDescription(cornerRadius: 6,
+                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.1),
                                                          shadowRadius: 15, shadowOffset: CGSize(width: 0, height: 4))
             
-        case .emojiCard:        return ShadowDescription(cornerRadius: 6, shadowColor: Color.shadow,
+        case .emojiCard:        return ShadowDescription(cornerRadius: 6,
+                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.12),
                                                          shadowRadius: 8, shadowOffset: CGSize(width: 0, height: 2))
         
         case .friendCard:       return ShadowDescription(cornerRadius: 8,
@@ -48,10 +50,12 @@ extension ShadowStyle{
                                                          shadowColor: UIColor(red: 0.431, green: 0.767, blue: 0.495, alpha: 0.15),
                                                          shadowRadius: 16, shadowOffset: CGSize(width: 0, height: 4))
             
-        case .emojiFloating:    return ShadowDescription(cornerRadius: 30, shadowColor: Color.shadow,
+        case .emojiFloating:    return ShadowDescription(cornerRadius: 54/2,
+                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.2),
                                                          shadowRadius: 8, shadowOffset: CGSize(width: 0, height: 0))
             
-        case .goalEdit:         return ShadowDescription(cornerRadius: 0, shadowColor: Color.shadow,
+        case .goalEdit:         return ShadowDescription(cornerRadius: 0,
+                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.15),
                                                          shadowRadius: 30, shadowOffset: CGSize(width: 0, height: 4))
             
         case .bottomBar:        return ShadowDescription(cornerRadius: 0,
