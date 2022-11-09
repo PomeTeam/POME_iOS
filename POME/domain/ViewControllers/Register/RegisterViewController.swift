@@ -29,6 +29,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        style()
         layout()
         initialize()
     }
@@ -46,6 +47,10 @@ class RegisterViewController: UIViewController {
         self.removeKeyboardNotifications()
     }
     // MARK: - Methods
+    func style() {
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+    }
     func layout() {
         registerView = RegisterView()
         self.view.addSubview(registerView)
@@ -114,7 +119,8 @@ class RegisterViewController: UIViewController {
     }
     // MARK: - Actions
     @objc func completeButtonDidTap() {
-        print("click!")
+        let vc = CompleteRegisterViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func albumButtonnDidTap() {
         self.imagePickerController.sourceType = .photoLibrary
