@@ -11,6 +11,7 @@ class EmojiFloatingView: BaseView {
     
     let shadowView = UIView().then{
         $0.clipsToBounds = true
+        $0.backgroundColor = .white
         $0.setShadowStyle(type: .emojiFloating)
     }
     
@@ -38,7 +39,7 @@ class EmojiFloatingView: BaseView {
     }
     
     override func style() {
-//        self.backgroundColor = .white
+        self.backgroundColor = Color.main
 //        self.clipsToBounds = true
 //        self.setShadowStyle(type: .emojiFloating)
     }
@@ -51,8 +52,12 @@ class EmojiFloatingView: BaseView {
     override func constraint() {
 
         shadowView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().offset(29)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.height.equalTo(54)
         }
+        
         collectionView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }

@@ -56,8 +56,8 @@ class FriendViewController: BaseTabViewController {
         self.view.addSubview(emoijiFloatingView)
 
         emoijiFloatingView.snp.makeConstraints{
-            $0.leading.equalToSuperview().offset(29)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
             $0.height.equalTo(54)
         }
