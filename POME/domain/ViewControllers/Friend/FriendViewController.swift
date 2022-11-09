@@ -15,7 +15,12 @@ class FriendViewController: BaseTabViewController {
     
     let friendView = FriendView()
     
-    let emoijiFloatingView = EmojiFloatingView()
+    var emoijiFloatingView: EmojiFloatingView?{
+        didSet{
+            emoijiFloatingView?.collectionView.delegate = self
+            emoijiFloatingView?.collectionView.dataSource = self
+        }
+    }
     
     //MARK: - LifeCycle
 
@@ -44,15 +49,16 @@ class FriendViewController: BaseTabViewController {
         
         friendView.collectionView.delegate = self
         friendView.collectionView.dataSource = self
-        
-        emoijiFloatingView.collectionView.delegate = self
-        emoijiFloatingView.collectionView.dataSource = self
     }
     
     override func topBtnDidClicked() {
         print("top btn did clicked")
         
         //TEST
+        emoijiFloatingView = EmojiFloatingView()
+        
+        guard let emoijiFloatingView = emoijiFloatingView else { return }
+        
         self.view.addSubview(emoijiFloatingView)
 
         emoijiFloatingView.snp.makeConstraints{
@@ -96,9 +102,14 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
-        
-        cell.setSelectState(row: indexPath.row)
+        if(collectionView == friendView.collectionView){
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
+            
+            cell.setSelectState(row: indexPath.row)
+        }else{
+            
+            
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -108,14 +119,12 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.setUnselectState(row: indexPath.row)
     }
     
-    //EmojiFloatingCollectionView 위한 사이즈 조정..
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         
         if(collectionView == friendView.collectionView){
             return CGSize(width: 52, height: 96)
         }else{
             let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
-            
             return CGSize(width: remainWidth/6, height: remainWidth/6)
         }
     }

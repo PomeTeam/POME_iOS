@@ -15,6 +15,7 @@ class EmojiFloatingView: BaseView {
     }
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+        
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.itemSize = CGSize(width: 38, height: 38)
             $0.minimumLineSpacing = 14
@@ -38,11 +39,9 @@ class EmojiFloatingView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func style() {
-    }
-    
     override func hierarchy() {
         self.addSubview(shadowView)
+        
         shadowView.addSubview(collectionView)
     }
     
