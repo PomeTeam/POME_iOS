@@ -107,8 +107,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             cell.setSelectState(row: indexPath.row)
         }else{
-            
-            
+            print("collectionCell click", indexPath.row)
         }
     }
     
@@ -135,14 +134,23 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 //MARK: - TableView Delegate
-extension FriendViewController: UITableViewDelegate, UITableViewDataSource{
+extension FriendViewController: UITableViewDelegate, UITableViewDataSource, CellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        FriendTableViewCell()
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
+        
+        cell.delegate = self
+                
+        return cell
+    }
+    
+    func sendCellIndex(row: Int) {
+        print("by sender", row)
     }
     
     
