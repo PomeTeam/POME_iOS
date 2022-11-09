@@ -51,6 +51,16 @@ class FriendViewController: BaseTabViewController {
     
     override func topBtnDidClicked() {
         print("top btn did clicked")
+        
+        //TEST
+        self.view.addSubview(emoijiFloatingView)
+
+        emoijiFloatingView.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(29)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(54)
+        }
     }
 }
 
@@ -58,22 +68,30 @@ class FriendViewController: BaseTabViewController {
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        friendList.count + 10
+        return collectionView == friendView.collectionView ? friendList.count + 10 : 6
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
-                as? FriendCollectionViewCell else { fatalError() }
-    
-        if(indexPath.row == 0){ //친구 목록 - 전체인 경우
-            cell.profileImage.image = Image.categoryInactive
-            cell.nameLabel.text = "전체"
-        }else{ //친구 목록 - 친구인 경우
-            cell.nameLabel.text = "연지뉘"
+        if(collectionView == friendView.collectionView){
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
+                    as? FriendCollectionViewCell else { fatalError() }
+            
+            if(indexPath.row == 0){ //친구 목록 - 전체인 경우
+                cell.profileImage.image = Image.categoryInactive
+                cell.nameLabel.text = "전체"
+            }else{ //친구 목록 - 친구인 경우
+                cell.nameLabel.text = "연지뉘"
+            }
+            
+            return cell
+        }else{
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
+                    as? EmojiFloatingCollectionViewCell else { fatalError() }
+            cell.emojiImage.backgroundColor = .blue
+            cell.emojiImage.image = UIImage(named: "emoji_\(indexPath.row + 1)")
+            return cell
         }
-        
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
