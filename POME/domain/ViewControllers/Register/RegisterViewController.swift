@@ -16,7 +16,11 @@ class RegisterViewController: UIViewController {
     }
     let profileImage = UIImageView().then{
         $0.image = Image.photoDefault
+        $0.isUserInteractionEnabled = true
+        $0.layer.masksToBounds = true
+        $0.contentMode = .scaleAspectFill
     }
+    let maskView = UIImageView()
     let profileButton = UIButton().then{
         $0.setImage(Image.plus, for: .normal)
     }
@@ -45,17 +49,24 @@ class RegisterViewController: UIViewController {
         $0.isActivate(false)
     }
 
+    let imagePickerController = UIImagePickerController()
+    var selectedPhoto: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layout()
         initialize()
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        maskView.frame = profileImage.bounds
+    }
     
     func layout() {
         self.view.addSubview(registerTitleLabel)
         self.view.addSubview(profileImage)
-        profileImage.addSubview(profileButton)
+        self.view.addSubview(profileButton)
         
         self.view.addSubview(nameTextField)
         self.view.addSubview(messageLabel)
@@ -74,8 +85,8 @@ class RegisterViewController: UIViewController {
         }
         profileButton.snp.makeConstraints { make in
             make.width.height.equalTo(24)
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-7)
+            make.trailing.equalTo(profileImage)
+            make.bottom.equalTo(profileImage).offset(-7)
         }
         
         nameTextField.snp.makeConstraints { make in
@@ -99,10 +110,33 @@ class RegisterViewController: UIViewController {
         }
     }
     func initialize() {
+        maskView.image = Image.photoDefault
+        profileImage.mask = maskView
+        // imagePicker delegate
+        imagePickerController.delegate = self
+        
         completeButton.addTarget(self, action: #selector(completeButtonDidTap), for: .touchUpInside)
+        
+        profileButton.addTarget(self, action: #selector(albumButtonnDidTap), for: .touchUpInside)
+        profileImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.albumButtonnDidTap)))
     }
 
     @objc func completeButtonDidTap() {
         print("click!")
+    }
+    @objc func albumButtonnDidTap() {
+        self.imagePickerController.sourceType = .photoLibrary
+        self.present(imagePickerController, animated: true, completion: nil)
+    }
+}
+// MARK: - ImagePicker Delegate
+extension RegisterViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.selectedPhoto = UIImage()
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.selectedPhoto = image
+            self.profileImage.image = image
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
