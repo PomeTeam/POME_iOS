@@ -22,6 +22,9 @@ class RegisterViewController: UIViewController {
     
     let disposeBag = DisposeBag()
     
+    // keyboard
+    var restoreFrameValue: CGFloat = 0.0
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +39,12 @@ class RegisterViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.addKeyboardNotifications()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        self.removeKeyboardNotifications()
+    }
     // MARK: - Methods
     func layout() {
         registerView = RegisterView()
@@ -46,6 +54,8 @@ class RegisterViewController: UIViewController {
         }
     }
     func initialize() {
+        registerView.nameTextField.delegate = self
+        
         maskView.image = Image.photoDefault
         registerView.profileImage.mask = maskView
         // imagePicker delegate
@@ -121,4 +131,55 @@ extension RegisterViewController : UIImagePickerControllerDelegate, UINavigation
         }
         self.dismiss(animated: true, completion: nil)
     }
+}
+// MARK: - TextField & Keyboard Methods
+extension RegisterViewController: UITextFieldDelegate {
+    func addKeyboardNotifications() {
+        // 키보드가 나타날 때 앱에게 알리는 메서드 추가
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        // 키보드가 사라질 때 앱에게 알리는 메서드 추가
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillDisappear(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    func removeKeyboardNotifications() {
+        // 키보드가 나타날 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        // 키보드가 사라질 때 앱에게 알리는 메서드 제거
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillAppear(noti: NSNotification) {
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height + 10
+            let viewHeight = Const.Device.HEIGHT - self.registerView.messageLabel.frame.origin.y
+            print(keyboardHeight, viewHeight)
+            if viewHeight < keyboardHeight {
+                let dif = keyboardHeight - viewHeight
+                self.view.frame.origin.y -= (dif + 20)
+            }
+        }
+        print("keyboard Will appear Execute")
+    }
+    
+    @objc func keyboardWillDisappear(noti: NSNotification) {
+        if self.view.frame.origin.y != restoreFrameValue {
+            if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                self.view.frame.origin.y += keyboardHeight
+            }
+            print("keyboard Will Disappear Execute")
+        }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textFieldShouldReturn Execute")
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing Execute")
+        self.view.frame.origin.y = self.restoreFrameValue
+        return true
+    }
+    
 }
