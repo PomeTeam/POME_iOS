@@ -10,7 +10,6 @@ import UIKit
 class EmojiFloatingView: BaseView {
     
     let shadowView = UIView().then{
-        $0.clipsToBounds = true
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .emojiFloating)
     }
@@ -26,6 +25,7 @@ class EmojiFloatingView: BaseView {
         $0.collectionViewLayout = flowLayout
         $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        $0.backgroundColor = Color.transparent
         
         $0.register(EmojiFloatingCollectionViewCell.self, forCellWithReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier)
     }
@@ -39,9 +39,6 @@ class EmojiFloatingView: BaseView {
     }
     
     override func style() {
-        self.backgroundColor = Color.main
-//        self.clipsToBounds = true
-//        self.setShadowStyle(type: .emojiFloating)
     }
     
     override func hierarchy() {
@@ -52,7 +49,6 @@ class EmojiFloatingView: BaseView {
     override func constraint() {
 
         shadowView.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview()
             $0.leading.equalToSuperview().offset(29)
             $0.trailing.equalToSuperview().offset(-16)
             $0.height.equalTo(54)
