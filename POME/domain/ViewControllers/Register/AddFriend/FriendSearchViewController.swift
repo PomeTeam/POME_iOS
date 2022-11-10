@@ -55,6 +55,7 @@ class FriendSearchViewController: BaseViewController {
             .bind {
                 print("click!")
                 self.view.endEditing(true)
+                self.friendSearchView.showEmptyView()
             }
             .disposed(by: disposeBag)
     }

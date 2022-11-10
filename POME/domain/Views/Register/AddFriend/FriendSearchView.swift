@@ -44,6 +44,8 @@ class FriendSearchView: BaseView {
     override func style() {
         searchTextField.inputAccessoryView = accessoryView // <-
         searchTableView = UITableView()
+        
+        hideEmptyView()
     }
     override func hierarchy() {
         addSubview(searchTextField)
@@ -92,5 +94,48 @@ class FriendSearchView: BaseView {
             
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
+    }
+}
+// MARK: Empty View
+extension FriendSearchView {
+    func showEmptyView() {
+        let stack = UIView().then{
+            $0.backgroundColor = .clear
+        }
+        let warningImage = UIImageView().then{
+            $0.image = Image.warning
+        }
+        let messageLabel = UILabel().then{
+            $0.font = UIFont.autoPretendard(type: .m_14)
+            $0.textColor = Color.grey_5
+            $0.textAlignment = .center
+            $0.text = "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?"
+            $0.numberOfLines = 0
+            $0.sizeToFit()
+        }
+        let backgroudView = UIView(frame: CGRect(x: 0, y: 0, width: searchTableView.bounds.width, height: searchTableView.bounds.height))
+        
+        stack.addSubview(warningImage)
+        stack.addSubview(messageLabel)
+        backgroudView.addSubview(stack)
+        
+        stack.snp.makeConstraints { make in
+            make.width.equalTo(180)
+            make.height.equalTo(70)
+            make.centerX.centerY.equalToSuperview()
+        }
+        warningImage.snp.makeConstraints { make in
+            make.width.height.equalTo(24)
+            make.centerX.top.equalToSuperview()
+        }
+        messageLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(warningImage.snp.bottom).offset(12)
+        }
+        
+        searchTableView.backgroundView = backgroudView
+    }
+    func hideEmptyView() {
+        searchTableView.backgroundView?.isHidden = true
     }
 }
