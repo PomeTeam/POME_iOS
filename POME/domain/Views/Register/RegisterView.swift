@@ -10,7 +10,7 @@ import UIKit
 
 class RegisterView: BaseView {
     // MARK: - Views
-    let registerTitleLabel = BaseLabel().then{
+    let registerTitleLabel = BaseLabel(.left).then{
         $0.text = "나만의 프로필을\n만들어볼까요?"
         $0.textColor = Color.grey_9
         $0.font = UIFont.autoPretendard(type: .b_24)
@@ -39,12 +39,11 @@ class RegisterView: BaseView {
         $0.font = UIFont.autoPretendard(type: .m_14)
         $0.textColor = Color.main
     }
-    let guideLabel = BaseLabel().then{
+    let guideLabel = BaseLabel(.center).then{
         $0.text = "입력한 정보는 회원을 식별하고 친구간 커뮤니케이션을 위한\n동의 목적으로만 사용되며 포미 이용기간 동안 보관돼요"
         $0.font = UIFont.autoPretendard(type: .m_12)
         $0.textColor = Color.grey_5
         $0.numberOfLines = 0
-        $0.textAlignment = .center
     }
     var completeButton = DefaultButton(titleStr: "입력했어요").then{
         $0.isActivate(false)
