@@ -39,6 +39,18 @@ class EmojiFloatingView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func style() {
+        
+        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
+        dismissGesture.delegate = self
+        
+        self.addGestureRecognizer(dismissGesture)
+    }
+    
+    @objc func dismiss(){
+        self.removeFromSuperview()
+    }
+    
     override func hierarchy() {
         self.addSubview(shadowView)
         
@@ -58,4 +70,14 @@ class EmojiFloatingView: BaseView {
         }
     }
 
+}
+
+extension EmojiFloatingView: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        guard touch.view?.isDescendant(of: self.shadowView) == false else { return false }
+        
+        return true
+    }
 }

@@ -11,7 +11,17 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
+    var selectCellIndex: Int?
+    
     var friendList = [String]()
+    
+    var friendCardList = [Int](repeating: 0, count: 10){
+        didSet{
+            friendView.tableView.reloadData()
+        }
+    }
+    
+    //MARK: - UI
     
     let friendView = FriendView()
     
@@ -53,21 +63,6 @@ class FriendViewController: BaseTabViewController {
     
     override func topBtnDidClicked() {
         print("top btn did clicked")
-        
-        //TEST
-        emoijiFloatingView = EmojiFloatingView()
-        
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
-        
-        self.view.addSubview(emoijiFloatingView)
-
-        emoijiFloatingView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        
-        emoijiFloatingView.shadowView.snp.makeConstraints{
-            $0.centerY.equalToSuperview()
-        }
     }
 }
 
@@ -107,7 +102,16 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             cell.setSelectState(row: indexPath.row)
         }else{
+            
+            //TODO: - select emoji tableViewCell에 attach
+            
             print("collectionCell click", indexPath.row)
+            
+            guard let cellIndex = self.selectCellIndex else { return }
+            
+            friendCardList[cellIndex] = indexPath.row + 1
+            
+            self.emoijiFloatingView?.dismiss()
         }
     }
     
@@ -123,6 +127,14 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == friendView.collectionView){
             return CGSize(width: 52, height: 96)
         }else{
+            
+            /*
+             leftPadding = 29
+             rightPadding = 16
+             ollectionView left/rightPadding = 16
+             spacing = 14
+             */
+            
             let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
             return CGSize(width: remainWidth/6, height: remainWidth/6)
         }
@@ -137,20 +149,37 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource, CellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        friendCardList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
         
+        cell.myReactionBtn.setImage(UIImage(named: "emoji_\(friendCardList[indexPath.row])"), for: .normal)
         cell.delegate = self
                 
         return cell
     }
     
     func sendCellIndex(indexPath: IndexPath) {
-        print("by sender", indexPath)
+        
+        self.selectCellIndex = indexPath.row
+        
+        emoijiFloatingView = EmojiFloatingView()
+        
+        guard let emoijiFloatingView = emoijiFloatingView else { return }
+        
+        self.view.addSubview(emoijiFloatingView)
+
+        emoijiFloatingView.snp.makeConstraints{
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        //TODO: Cell별 y값 조정 필요
+        emoijiFloatingView.shadowView.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+        }
     }
     
     
