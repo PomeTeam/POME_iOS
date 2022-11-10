@@ -11,7 +11,7 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
-    var selectCellIndex: Int?
+    var selectCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
     
     var friendList = [String]()
     
@@ -103,10 +103,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.setSelectState(row: indexPath.row)
         }else{
             
-            //TODO: - select emoji tableViewCell에 attach
-            
-            print("collectionCell click", indexPath.row)
-            
             guard let cellIndex = self.selectCellIndex else { return }
             
             friendCardList[cellIndex] = indexPath.row + 1
@@ -168,7 +164,12 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         
         emoijiFloatingView = EmojiFloatingView()
         
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
+        guard let emoijiFloatingView = emoijiFloatingView, let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
+        
+        emoijiFloatingView.dismissHandler = {
+            self.selectCellIndex = nil
+            self.emoijiFloatingView = nil
+        }
         
         self.view.addSubview(emoijiFloatingView)
 
@@ -176,10 +177,10 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        //TODO: Cell별 y값 조정 필요
         emoijiFloatingView.shadowView.snp.makeConstraints{
-            $0.centerY.equalToSuperview()
+            $0.top.equalTo(cell.baseView.snp.bottom).offset(-13)
         }
+        
     }
     
     
