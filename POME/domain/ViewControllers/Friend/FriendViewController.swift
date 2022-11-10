@@ -11,7 +11,17 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
+    var selectCellIndex: Int?
+    
     var friendList = [String]()
+    
+    var friendCardList = [Int](repeating: 0, count: 10){
+        didSet{
+            friendView.tableView.reloadData()
+        }
+    }
+    
+    //MARK: - UI
     
     let friendView = FriendView()
     
@@ -92,7 +102,16 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             cell.setSelectState(row: indexPath.row)
         }else{
+            
+            //TODO: - select emoji tableViewCell에 attach
+            
             print("collectionCell click", indexPath.row)
+            
+            guard let cellIndex = self.selectCellIndex else { return }
+            
+            friendCardList[cellIndex] = indexPath.row + 1
+            
+            self.emoijiFloatingView?.dismiss()
         }
     }
     
@@ -130,19 +149,22 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource, CellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        friendCardList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
         
+        cell.myReactionBtn.setImage(UIImage(named: "emoji_\(friendCardList[indexPath.row])"), for: .normal)
         cell.delegate = self
                 
         return cell
     }
     
     func sendCellIndex(indexPath: IndexPath) {
+        
+        self.selectCellIndex = indexPath.row
         
         emoijiFloatingView = EmojiFloatingView()
         
