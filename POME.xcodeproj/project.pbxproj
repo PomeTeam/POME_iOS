@@ -12,6 +12,7 @@
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
 		2380877E291B502E00072763 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877D291B502E00072763 /* RegisterView.swift */; };
 		23808782291B53AF00072763 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808781291B53AF00072763 /* BaseLabel.swift */; };
+		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
 		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
@@ -85,6 +86,7 @@
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		2380877D291B502E00072763 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		23808781291B53AF00072763 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
 		23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,14 @@
 			isa = PBXGroup;
 			children = (
 				23F364D6291B7BB4009232B4 /* FriendSearchView.swift */,
+			);
+			path = AddFriend;
+			sourceTree = "<group>";
+		};
+		23F364D8291B82AC009232B4 /* AddFriend */ = {
+			isa = PBXGroup;
+			children = (
+				238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */,
 			);
 			path = AddFriend;
 			sourceTree = "<group>";
@@ -356,6 +366,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				23F364D8291B82AC009232B4 /* AddFriend */,
 				5724EC6A2918CED200DC529B /* Friend */,
 			);
 			path = Cells;
@@ -803,6 +814,7 @@
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
+				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,

@@ -76,4 +76,6 @@ enum Image{
     
     public static let search = UIImage(named: "search")!
     
+    public static let addComplete = UIImage(named: "addComplete")!
+    
 }

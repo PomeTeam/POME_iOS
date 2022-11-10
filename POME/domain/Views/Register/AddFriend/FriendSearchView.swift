@@ -30,6 +30,8 @@ class FriendSearchView: BaseView {
     }()
     
     // MARK: - Life Cycle
+    var searchTableView: UITableView!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -40,11 +42,12 @@ class FriendSearchView: BaseView {
     // MARK: - Methods
     override func style() {
         searchTextField.inputAccessoryView = accessoryView // <-
+        searchTableView = UITableView()
     }
     override func hierarchy() {
         addSubview(searchTextField)
         addSubview(searchButton)
-//        searchTextField.addSubview(searchButton)
+        addSubview(searchTableView)
         
         accessoryView.addSubview(completeButton)
     }
@@ -62,6 +65,25 @@ class FriendSearchView: BaseView {
         completeButton.snp.makeConstraints { make in
             make.height.equalTo(50)
             make.leading.trailing.bottom.equalToSuperview().inset(16)
+        }
+        searchTableView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.top.equalTo(searchTextField.snp.bottom).offset(10)
+        }
+    }
+    func setTableView(dataSourceDelegate: UITableViewDelegate & UITableViewDataSource) {
+        searchTableView.then{
+            $0.delegate = dataSourceDelegate
+            $0.dataSource = dataSourceDelegate
+            $0.register(FriendSearchTableViewCell.self, forCellReuseIdentifier: "FriendSearchTableViewCell")
+            
+            // autoHeight
+            $0.rowHeight = UITableView.automaticDimension
+            $0.estimatedRowHeight = UITableView.automaticDimension
+            $0.showsVerticalScrollIndicator = false
+            $0.separatorStyle = .none
+            
+            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
 }

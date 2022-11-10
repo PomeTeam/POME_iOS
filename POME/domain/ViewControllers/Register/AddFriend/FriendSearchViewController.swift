@@ -30,6 +30,8 @@ class FriendSearchViewController: BaseViewController {
         super.style()
         
         friendSearchView = FriendSearchView()
+        friendSearchView.setTableView(dataSourceDelegate: self)
+        friendSearchView.searchTableView.keyboardDismissMode = .onDrag
         
         initButton()
     }
@@ -51,8 +53,28 @@ class FriendSearchViewController: BaseViewController {
     func initButton() {
         friendSearchView.searchButton.rx.tap
             .bind {
-                print("serata!")
+                print("click!")
+                self.view.endEditing(true)
             }
             .disposed(by: disposeBag)
+    }
+}
+// MARK: - TableView delegate
+extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
+        
+        cell.selectionStyle = .none
+        return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
