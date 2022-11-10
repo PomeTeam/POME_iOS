@@ -17,6 +17,7 @@ class FriendSearchViewController: BaseViewController {
     }
     
     var friendSearchView: FriendSearchView!
+    var name = BehaviorRelay(value: "")
 
     let disposeBag = DisposeBag()
     
@@ -33,7 +34,7 @@ class FriendSearchViewController: BaseViewController {
         friendSearchView.setTableView(dataSourceDelegate: self)
         friendSearchView.searchTableView.keyboardDismissMode = .onDrag
         
-        initButton()
+        initNameTextField()
     }
     override func layout() {
         super.layout()
@@ -50,14 +51,40 @@ class FriendSearchViewController: BaseViewController {
         }
         
     }
-    func initButton() {
-        friendSearchView.searchButton.rx.tap
-            .bind {
-                print("click!")
-                self.view.endEditing(true)
+    func initNameTextField() {
+        // editingChanged 이벤트가 발생 했을 때
+        friendSearchView.searchTextField.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe(onNext: { _ in
                 self.friendSearchView.showEmptyView()
-            }
+                print("editingChanged : \(self.friendSearchView.searchTextField.text ?? "")")
+            }).disposed(by: disposeBag)
+        
+        // textField.rx.text의 변경이 있을 때
+        self.friendSearchView.searchTextField.rx.text.orEmpty
+                    .distinctUntilChanged()
+                    .map({ name in
+                        return self.setValidName(name)
+                    })
+                    .bind(to: self.name)
+                    .disposed(by: disposeBag)
+                
+        self.name.skip(1).distinctUntilChanged()
+            .subscribe( onNext: { newValue in
+                print("name changed : \(newValue) ")
+            })
             .disposed(by: disposeBag)
+    }
+    func setValidName(_ nameStr: String) -> String {
+        var currName = nameStr
+        if nameStr.count <= 10 {
+            currName = nameStr.filter {!($0.isWhitespace)}
+        } else {
+            currName = self.name.value
+            self.view.endEditing(true)
+        }
+        self.friendSearchView.searchTextField.text = currName
+        return currName
     }
 }
 // MARK: - TableView delegate

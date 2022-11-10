@@ -85,13 +85,6 @@ class RegisterViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     func initNameTextField() {
-        // editingChanged 이벤트가 발생 했을 때
-        registerView.nameTextField.rx.controlEvent([.editingChanged])
-            .asObservable()
-            .subscribe(onNext: { _ in
-//                print("editingChanged : \(self.registerView.nameTextField.text ?? "")")
-            }).disposed(by: disposeBag)
-        
         // textField.rx.text의 변경이 있을 때
         self.registerView.nameTextField.rx.text.orEmpty
                     .distinctUntilChanged()
