@@ -11,7 +11,6 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     let rightButton = UIButton().then{
         $0.setImage(Image.plus, for: .normal)
         $0.setImage(Image.addComplete, for: .selected)
-//        $0.isSelected = true
     }
     let profileImg = UIImageView().then{
 //        $0.image = Image.photoDefault
@@ -68,18 +67,12 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         }
         rightButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-32)
-            make.width.equalTo(55); make.height.equalTo(22)
             make.centerY.equalToSuperview()
         }
     }
     @objc func rightButtonDidTap() {
         if !(rightButton.isSelected) {
             rightButton.isSelected = true
-            rightButton.snp.makeConstraints { make in
-                make.width.equalTo(55)
-                make.height.equalTo(22)
-            }
-//            rightButton.isEnabled = false
         }
     }
 }

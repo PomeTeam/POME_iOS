@@ -24,6 +24,7 @@ class FriendSearchView: BaseView {
         $0.setImage(Image.search, for: .normal)
     }
     let completeButton = DefaultButton(titleStr: "완료했어요")
+    let completeButtonBottom = DefaultButton(titleStr: "완료했어요")
     
     lazy var accessoryView: UIView = {
         return UIView(frame: CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width, height: 72.0))
@@ -47,6 +48,7 @@ class FriendSearchView: BaseView {
     override func hierarchy() {
         addSubview(searchTextField)
         addSubview(searchButton)
+        addSubview(completeButtonBottom)
         addSubview(searchTableView)
         
         accessoryView.addSubview(completeButton)
@@ -66,9 +68,14 @@ class FriendSearchView: BaseView {
             make.height.equalTo(50)
             make.leading.trailing.bottom.equalToSuperview().inset(16)
         }
+        completeButtonBottom.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.leading.trailing.bottom.equalToSuperview().inset(16)
+        }
         searchTableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(searchTextField.snp.bottom).offset(10)
+            make.bottom.equalTo(completeButtonBottom.snp.top)
         }
     }
     func setTableView(dataSourceDelegate: UITableViewDelegate & UITableViewDataSource) {
