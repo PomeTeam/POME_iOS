@@ -9,6 +9,8 @@ import UIKit
 
 class EmojiFloatingView: BaseView {
     
+    var dismissHandler: (() -> ())!
+    
     let shadowView = UIView().then{
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .emojiFloating)
@@ -47,7 +49,9 @@ class EmojiFloatingView: BaseView {
         self.addGestureRecognizer(dismissGesture)
     }
     
+    //TODO: - dimiss 호출 시, selectCellIndex & emoijiFloatingView nil 처리
     @objc func dismiss(){
+        self.dismissHandler()
         self.removeFromSuperview()
     }
     
