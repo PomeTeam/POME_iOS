@@ -105,7 +105,7 @@ extension FriendSearchView {
         let warningImage = UIImageView().then{
             $0.image = Image.warning
         }
-        let messageLabel = UILabel().then{
+        let messageLabel = BaseLabel(.center).then{
             $0.font = UIFont.autoPretendard(type: .m_14)
             $0.textColor = Color.grey_5
             $0.textAlignment = .center
