@@ -164,7 +164,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         
         emoijiFloatingView = EmojiFloatingView()
         
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
+        guard let emoijiFloatingView = emoijiFloatingView, let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         emoijiFloatingView.dismissHandler = {
             self.selectCellIndex = nil
@@ -177,9 +177,8 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        //TODO: Cell별 y값 조정 필요
         emoijiFloatingView.shadowView.snp.makeConstraints{
-            $0.centerY.equalToSuperview()
+            $0.top.equalTo(cell.baseView.snp.bottom).offset(-13)
         }
         
     }

@@ -49,7 +49,6 @@ class EmojiFloatingView: BaseView {
         self.addGestureRecognizer(dismissGesture)
     }
     
-    //TODO: - dimiss 호출 시, selectCellIndex & emoijiFloatingView nil 처리
     @objc func dismiss(){
         self.dismissHandler()
         self.removeFromSuperview()
