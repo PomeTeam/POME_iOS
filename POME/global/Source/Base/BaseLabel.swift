@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class BaseLabel: UILabel {
+    var location: NSTextAlignment = .left
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -19,7 +20,15 @@ class BaseLabel: UILabel {
         
         
     }
+    init(_ location: NSTextAlignment) {
+        super.init(frame: CGRect.zero)
+        
+        self.location = location
+    }
+    
     override func drawText(in rect: CGRect) {
+        super.drawText(in: rect)
+        
         if let text = text {
             let attrString = NSMutableAttributedString(string: text)
             let paragraphStyle = NSMutableParagraphStyle()
@@ -28,6 +37,6 @@ class BaseLabel: UILabel {
             self.attributedText = attrString
         }
         
-        super.drawText(in: rect)
+        self.textAlignment = self.location
     }
 }
