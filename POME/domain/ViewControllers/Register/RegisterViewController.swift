@@ -95,18 +95,32 @@ class RegisterViewController: UIViewController {
         // textField.rx.text의 변경이 있을 때
         self.registerView.nameTextField.rx.text.orEmpty
                     .distinctUntilChanged()
-                    .map { $0 as String }
+                    .map({ name in
+                        return self.setValidName(name)
+                    })
                     .bind(to: self.name)
                     .disposed(by: disposeBag)
                 
         self.name.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
+                self.checkValidName(newValue)
 //            print("name changed : \(newValue) ")
-            self.checkValidName(newValue)
-        }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
+    }
+    func setValidName(_ nameStr: String) -> String {
+        var currName = nameStr
+        if nameStr.count <= 10 {
+            currName = nameStr.filter {!($0.isWhitespace)}
+        } else {
+            currName = self.name.value
+            self.view.endEditing(true)
+        }
+        self.registerView.nameTextField.text = currName
+        return currName
     }
     func checkValidName(_ name: String) {
-        if name.count > 0 {
+        if name.count > 0 && name.count <= 10 {
             registerView.messageLabel.then{
                 $0.text = "멋진 닉네임이네요!"
                 $0.textColor = Color.main
