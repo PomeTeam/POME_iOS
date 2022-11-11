@@ -9,6 +9,8 @@ import UIKit
 
 class EmojiFloatingView: BaseView {
     
+    var dismissHandler: (() -> ())!
+    
     let shadowView = UIView().then{
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .emojiFloating)
@@ -48,6 +50,7 @@ class EmojiFloatingView: BaseView {
     }
     
     @objc func dismiss(){
+        self.dismissHandler()
         self.removeFromSuperview()
     }
     
