@@ -78,4 +78,26 @@ enum Image{
     
     public static let addComplete = UIImage(named: "addComplete")!
     
+    // MARK: - Record
+    public static let alarm = UIImage(named: "alarm")!
+    
+    public static let emojiBackground = UIImage(named: "emoji_background")!
+    
+    public static let emojiPlus = UIImage(named: "emoji_plus")!
+    
+    public static let goalPlus = UIImage(named: "goal_plus")!
+    
+    public static let heartMint = UIImage(named: "heart_mint")!
+    
+    public static let lock = UIImage(named: "lock")!
+    
+    public static let noting = UIImage(named: "noting")!
+    
+    public static let penMint = UIImage(named: "pen_mint")!
+    
+    public static let penPink = UIImage(named: "pen_pink")!
+    
+    public static let ten = UIImage(named: "ten")!
+    
+    public static let trashCan = UIImage(named: "trashCan")!
 }
