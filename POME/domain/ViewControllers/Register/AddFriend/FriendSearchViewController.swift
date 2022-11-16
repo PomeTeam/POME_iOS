@@ -13,7 +13,7 @@ class FriendSearchViewController: BaseViewController {
     let navigationTitle = UILabel().then{
         $0.text = "친구 추가"
         $0.font = UIFont.autoPretendard(type: .sb_14)
-        $0.textColor = Color.grey_9
+        $0.textColor = Color.title
     }
     
     var friendSearchView: FriendSearchView!

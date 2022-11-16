@@ -19,7 +19,7 @@ class DefaultButton: UIButton {
         self.setTitle(titleStr, for: .normal)
         self.setTitleColor(.white, for: .normal)
         self.titleLabel?.font = UIFont.autoPretendard(type: .b_18)
-        self.backgroundColor = Color.main
+        self.backgroundColor = Color.mint100
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 6
@@ -47,11 +47,11 @@ class DefaultButton: UIButton {
     }
     
     func activateButton() {
-        self.backgroundColor = Color.main
+        self.backgroundColor = Color.mint100
         self.isEnabled = true
     }
     func inactivateButton() {
-        self.backgroundColor = Color.disabled_mint
+        self.backgroundColor = Color.mint60
         self.isEnabled = false
     }
 }

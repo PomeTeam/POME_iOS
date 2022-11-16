@@ -19,7 +19,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     
     let nameLabel = UILabel().then{
         $0.font = UIFont.autoPretendard(type: .m_12)
-        $0.textColor = Color.grey_5
+        $0.textColor = Color.grey5
         $0.textAlignment = .center
     }
     
@@ -61,7 +61,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     
     override func prepareForReuse() {
         nameLabel.text = ""
-        nameLabel.textColor = Color.grey_5
+        nameLabel.textColor = Color.grey5
         nameLabel.font = UIFont.autoPretendard(type: .m_12)
         
         profileImage.image = Image.photoDefault
@@ -71,7 +71,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
 
     func setSelectState(row: Int){
         
-        self.nameLabel.textColor = Color.grey_9
+        self.nameLabel.textColor = Color.title
         self.nameLabel.font = UIFont.autoPretendard(type: .sb_12)
         
         if(row == 0){
@@ -81,7 +81,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     
     func setUnselectState(row: Int){
         
-        self.nameLabel.textColor = Color.grey_5
+        self.nameLabel.textColor = Color.grey5
         self.nameLabel.font = UIFont.autoPretendard(type: .m_12)
         
         if(row == 0){

@@ -15,7 +15,7 @@ class FriendView: BaseView{
     let titleLabel = UILabel().then{
         $0.text = "친구 응원하기"
         $0.font = UIFont.autoPretendard(type: .b_18)
-        $0.textColor = Color.grey_9
+        $0.textColor = Color.title
     }
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{

@@ -18,37 +18,37 @@ class FriendTableViewCell: BaseTableViewCell {
     //MARK: - UI
     
     let profileImage = UIImageView().then{
-        $0.backgroundColor = Color.grey_4
+        $0.backgroundColor = Color.grey4
     }
     
     let nameLabel = UILabel().then{
         $0.text = "eunjoeme_xx"
         $0.font = UIFont.autoPretendard(type: .m_14)
-        $0.textColor = Color.grey_6
+        $0.textColor = Color.grey6
     }
     let priceLabel = UILabel().then{
         $0.text = "320,800원"
         $0.font = UIFont.autoPretendard(type: .sb_18)
-        $0.textColor = Color.grey_9
+        $0.textColor = Color.title
     }
     let memoLabel = UILabel().then{
         $0.text = "여기에 멀 치면 어케 나오나요 대박킼"
         $0.numberOfLines = 2
         $0.font = UIFont.autoPretendard(type: .m_14)
-        $0.textColor = Color.grey_8
+        $0.textColor = Color.title
     }
     let tagLabel = PaddingLabel().then{
         $0.text = "커피 대신 물을 마시자"
         $0.font = UIFont.autoPretendard(type: .m_12)
-        $0.textColor = Color.grey_5
-        $0.backgroundColor = Color.grey_1
+        $0.textColor = Color.grey5
+        $0.backgroundColor = Color.grey1
         $0.layer.cornerRadius = 4
         $0.clipsToBounds = true
     }
     let timeLabel = UILabel().then{
         $0.text = " 1시간 전"
         $0.font = UIFont.autoPretendard(type: .m_12)
-        $0.textColor = Color.grey_5
+        $0.textColor = Color.grey5
     }
     
     let emojiStackView = UIStackView().then{
@@ -57,11 +57,11 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     let greenEmojiImage = UIImageView().then{
-        $0.backgroundColor = Color.main
+        $0.backgroundColor = Color.mint100
     }
     
     let pinkEmojiImage = UIImageView().then{
-        $0.backgroundColor = Color.sub
+        $0.backgroundColor = Color.pink100
     }
     
     let reactionStackView = UIStackView().then{
@@ -75,11 +75,11 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     lazy var anotherReactionBtn = UIButton().then{
-        $0.backgroundColor = Color.sub
+        $0.backgroundColor = Color.pink100
     }
     
     lazy var theOtherReactionBtn = UIButton().then{
-        $0.backgroundColor = Color.grey_4
+        $0.backgroundColor = Color.grey4
     }
     
     //MARK: - LifeCycle

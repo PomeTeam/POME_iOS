@@ -20,7 +20,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     let profileName = UILabel().then{
         $0.text = "profileName"
         $0.font = UIFont.autoPretendard(type: .m_16)
-        $0.textColor = Color.grey_9
+        $0.textColor = Color.title
     }
 
     //MARK: - LifeCycle

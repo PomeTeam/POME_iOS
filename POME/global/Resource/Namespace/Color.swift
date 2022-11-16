@@ -11,52 +11,48 @@ import UIKit
 enum Color{
     
     //MARK: - Mint
-    static let main = UIColor(red: 0.482, green: 0.894, blue: 0.561, alpha: 1)
+    static let mint100 = UIColor(red: 123/255, green: 228/255, blue: 143/255, alpha: 1)
     
-    static let middle_mint = UIColor(red: 0.528, green: 0.913, blue: 0.602, alpha: 1)
+    static let mint90 = UIColor(red: 135/255, green: 233/255, blue: 153/255, alpha: 1)
     
-    static let disabled_mint = UIColor(red: 0.69, green: 0.937, blue: 0.737, alpha: 1)
+    static let mint60 = UIColor(red: 176/255, green: 239/255, blue: 188/255, alpha: 1)
     
-    static let light_mint = UIColor(red: 0.885, green: 0.988, blue: 0.904, alpha: 1)
+    static let mint20 = UIColor(red: 229/255, green: 250/255, blue: 233/255, alpha: 1)
     
-    static let bright_mint = UIColor(red: 0.95, green: 1, blue: 0.96, alpha: 1)
+    static let mint10 = UIColor(red: 242/255, green: 255/255, blue: 245/255, alpha: 1)
     
     //MARK: - Pink
-    static let sub = UIColor(red: 1, green: 0.565, blue: 0.541, alpha: 1)
+    static let pink100 = UIColor(red: 255/255, green: 144/255, blue: 138/255, alpha: 1)
     
-    static let middle_pink = UIColor(red: 1, green: 0.866, blue: 0.854, alpha: 1)
+    static let pink30 = UIColor(red: 255/255, green: 222/255, blue: 220/255, alpha: 1)
     
-    static let light_pink = UIColor(red: 1, green: 0.957, blue: 0.953, alpha: 1)
+    static let pink10 = UIColor(red: 255/255, green: 244/255, blue: 243/255, alpha: 1)
     
     //MARK: - Grey
     
-    static let grey_0 = UIColor(red: 0.973, green: 0.98, blue: 0.984, alpha: 1)
+    static let grey0 = UIColor(red: 248/255, green: 250/255, blue: 251/255, alpha: 1)
     
-    static let grey_1 = UIColor(red: 0.949, green: 0.961, blue: 0.961, alpha: 1)
+    static let grey1 = UIColor(red: 242/255, green: 245/255, blue: 245/255, alpha: 1)
     
-    static let grey_2 = UIColor(red: 0.922, green: 0.933, blue: 0.937, alpha: 1)
+    static let grey2 = UIColor(red: 235/255, green: 238/255, blue: 239/255, alpha: 1)
     
-    static let grey_3 = UIColor(red: 0.886, green: 0.894, blue: 0.902, alpha: 1)
+    static let grey3 = UIColor(red: 226/255, green: 228/255, blue: 230/255, alpha: 1)
     
-    static let grey_4 = UIColor(red: 0.812, green: 0.827, blue: 0.839, alpha: 1)
+    static let grey4 = UIColor(red: 207/255, green: 211/255, blue: 214/255, alpha: 1)
     
-    static let grey_5 = UIColor(red: 0.667, green: 0.686, blue: 0.702, alpha: 1)
+    static let grey5 = UIColor(red: 170/255, green: 175/255, blue: 179/255, alpha: 1)
     
-    static let grey_6 = UIColor(red: 0.533, green: 0.553, blue: 0.569, alpha: 1)
-    
-    static let grey_7 = UIColor(red: 0.306, green: 0.322, blue: 0.337, alpha: 1)
-    
-    static let grey_8 = UIColor(red: 0.216, green: 0.227, blue: 0.235, alpha: 1)
-    
-    static let grey_9 = UIColor(red: 0.161, green: 0.165, blue: 0.169, alpha: 1)
+    static let grey6 = UIColor(red: 136/255, green: 141/255, blue: 145/255, alpha: 1)
     
     //MARK: - Etc
-    static let red = UIColor(red: 0.983, green: 0.369, blue: 0.369, alpha: 1)
     
-    static let shadow = UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 1)
+    static let title = UIColor(red: 55/255, green: 58/255, blue: 60/255, alpha: 1)
     
-    static let blue_action_sheet = UIColor(red: 0.063, green: 0.51, blue: 1, alpha: 1)
+    static let body = UIColor(red: 78/255, green: 82/255, blue: 86/255, alpha: 1)
+    
+    static let red = UIColor(red: 251/255, green: 94/255, blue: 94/255, alpha: 1)
+    
+    static let blue = UIColor(red: 16/255, green: 130/255, blue: 255/255, alpha: 1)
     
     static let transparent = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0)
-    
 }

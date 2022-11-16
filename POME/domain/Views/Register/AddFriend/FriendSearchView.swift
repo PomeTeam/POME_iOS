@@ -15,8 +15,8 @@ class FriendSearchView: BaseView {
         $0.layer.cornerRadius = 8
         $0.placeholder = "친구의 닉네임을 검색해보세요"
         $0.font = UIFont.autoPretendard(type: .m_16)
-        $0.textColor = Color.grey_9
-        $0.backgroundColor = Color.grey_0
+        $0.textColor = Color.title
+        $0.backgroundColor = Color.grey0
         $0.clearButtonMode = .never
         $0.addLeftPadding(16)
     }
@@ -107,7 +107,7 @@ extension FriendSearchView {
         }
         let messageLabel = BaseLabel(.center).then{
             $0.font = UIFont.autoPretendard(type: .m_14)
-            $0.textColor = Color.grey_5
+            $0.textColor = Color.grey5
             $0.textAlignment = .center
             $0.text = "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?"
             $0.numberOfLines = 0

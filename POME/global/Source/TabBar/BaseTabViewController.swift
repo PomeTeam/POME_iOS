@@ -36,7 +36,7 @@ class BaseTabViewController: UIViewController {
     
     func style() {
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = Color.grey_0
+        self.view.backgroundColor = Color.grey0
     }
     
     func layout() {
