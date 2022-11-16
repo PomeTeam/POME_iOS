@@ -15,18 +15,18 @@ class CompleteRegisterViewController: UIViewController {
         $0.text = "회원가입 완료!\n친구를 추가해볼까요?"
         $0.numberOfLines = 0
         $0.font = UIFont.autoPretendard(type: .b_24)
-        $0.textColor = Color.grey_9
+        $0.textColor = Color.title
     }
     let subTitleLabel = BaseLabel().then{
         $0.text = "친구의 소비 기록을 확인하고\n서로 응원할 수 있어요"
         $0.numberOfLines = 0
         $0.font = UIFont.autoPretendard(type: .m_14)
-        $0.textColor = Color.grey_5
+        $0.textColor = Color.grey5
     }
     let image = UIImageView().then{
         $0.image = Image.friendIllustrator
     }
-    let nextTimeButton = DefaultButton(titleStr: "다음에 할래요", backgroundColor: .white, titleColor: Color.grey_4)
+    let nextTimeButton = DefaultButton(titleStr: "다음에 할래요", backgroundColor: .white, titleColor: Color.grey4)
     let addButton = DefaultButton(titleStr: "추가할래요")
 
     // MARK: - Life Cycle

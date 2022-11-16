@@ -116,7 +116,7 @@ class RegisterViewController: UIViewController {
         if name.count > 0 && name.count <= 10 {
             registerView.messageLabel.then{
                 $0.text = "멋진 닉네임이네요!"
-                $0.textColor = Color.main
+                $0.textColor = Color.mint100
             }
             registerView.completeButton.isActivate(true)
         } else {

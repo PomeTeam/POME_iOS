@@ -66,7 +66,7 @@ extension ShadowStyle{
                                                          shadowColor: UIColor(red: 1, green: 0.431, blue: 0.4, alpha: 0.8),
                                                          shadowRadius: 3, shadowOffset: CGSize(width: 0, height: 1))
             
-        case .toggleOff:        return ShadowDescription(cornerRadius: 0, shadowColor: Color.grey_5,
+        case .toggleOff:        return ShadowDescription(cornerRadius: 0, shadowColor: Color.grey5,
                                                          shadowRadius: 3, shadowOffset: CGSize(width: 0, height: 1))
         }
     }

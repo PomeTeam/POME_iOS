@@ -127,7 +127,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             /*
              leftPadding = 29
              rightPadding = 16
-             ollectionView left/rightPadding = 16
+             collectionView left/rightPadding = 16
              spacing = 14
              */
             
@@ -164,7 +164,8 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         
         emoijiFloatingView = EmojiFloatingView()
         
-        guard let emoijiFloatingView = emoijiFloatingView, let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
+        guard let emoijiFloatingView = emoijiFloatingView,
+                let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         emoijiFloatingView.dismissHandler = {
             self.selectCellIndex = nil

@@ -19,8 +19,8 @@ class TabBarController: UITabBarController {
     
     private func setTabBarAppearance() {
         UITabBar.appearance().backgroundColor = .white
-        UITabBar.appearance().tintColor = Color.main
-        UITabBar.appearance().unselectedItemTintColor = Color.grey_4
+        UITabBar.appearance().tintColor = Color.mint100
+        UITabBar.appearance().unselectedItemTintColor = Color.grey4
         
         let fontAttributes = [NSAttributedString.Key.font: UIFont.autoPretendard(type: .sb_10)]
         UITabBarItem.appearance().setTitleTextAttributes(fontAttributes, for: .normal)
