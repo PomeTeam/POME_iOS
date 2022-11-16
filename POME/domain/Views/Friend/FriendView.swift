@@ -14,7 +14,8 @@ class FriendView: BaseView{
     
     let titleLabel = UILabel().then{
         $0.text = "친구 응원하기"
-        $0.font = UIFont.autoPretendard(type: .b_18)
+//        $0.font = UIFont.autoPretendard(type: .b_18)
+        $0.setTypoStyle(typoStyle: .header1)
         $0.textColor = Color.title
     }
     
