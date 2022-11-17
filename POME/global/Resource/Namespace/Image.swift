@@ -23,6 +23,8 @@ enum Image{
     
     public static let photoDefault = UIImage(named: "photo_default")!
     
+    public static let more = UIImage(named: "more")!
+    
     
     //MARK: - NavigationImage
     
