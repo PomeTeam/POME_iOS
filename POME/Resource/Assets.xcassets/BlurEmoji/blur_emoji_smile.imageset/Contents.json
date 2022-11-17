@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "emotion=smile, overlay=true, number=false.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
