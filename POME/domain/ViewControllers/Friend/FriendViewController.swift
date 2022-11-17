@@ -47,7 +47,8 @@ class FriendViewController: BaseTabViewController {
         self.view.addSubview(friendView)
         
         friendView.snp.makeConstraints{
-            $0.top.equalTo(self.navigationView.snp.bottom).offset(4)
+//            $0.top.equalTo(self.navigationView.snp.bottom).offset(4)
+            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -73,6 +74,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return collectionView == friendView.collectionView ? friendList.count + 10 : 6
     }
     
+    //TODO: - 친구목록 CollectionView 초기값 0번 인덱스인 '전체'로 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if(collectionView == friendView.collectionView){
@@ -82,8 +84,10 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
                 cell.profileImage.image = Image.categoryInactive
                 cell.nameLabel.text = "전체"
+                cell.nameLabel.setTypoStyle(typoStyle: .subtitle3)
             }else{ //친구 목록 - 친구인 경우
                 cell.nameLabel.text = "연지뉘"
+                cell.nameLabel.setTypoStyle(typoStyle: .subtitle3)
             }
             
             return cell

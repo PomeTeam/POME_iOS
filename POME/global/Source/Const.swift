@@ -9,8 +9,13 @@ import Foundation
 import UIKit
 
 struct Const{
+    
     struct Device{
         static let WIDTH = UIScreen.main.bounds.size.width
         static let HEIGHT = UIScreen.main.bounds.size.height
+    }
+    
+    struct Offset{
+        static let VIEW_CONTROLLER_TOP = 92
     }
 }
