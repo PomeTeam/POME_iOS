@@ -21,11 +21,51 @@ class FriendTableViewCell: BaseTableViewCell {
         $0.backgroundColor = Color.grey4
     }
     
+    //user stackView
+    
+    let topStackView = UIStackView().then{
+        $0.spacing = 2
+        $0.axis = .horizontal
+    }
+    
     let nameLabel = UILabel().then{
         $0.text = "eunjoeme_xx"
         $0.font = UIFont.autoPretendard(type: .m_14)
         $0.textColor = Color.grey6
     }
+    let tagLabel = PaddingLabel().then{
+        $0.text = "커피 대신 물을 마시자"
+        $0.font = UIFont.autoPretendard(type: .m_12)
+        $0.textColor = Color.grey5
+        $0.backgroundColor = Color.grey1
+        $0.layer.cornerRadius = 4
+        $0.clipsToBounds = true
+    }
+    
+    let timeLabel = UILabel().then{
+        $0.text = " 1시간 전"
+        $0.font = UIFont.autoPretendard(type: .m_12)
+        $0.textColor = Color.grey5
+    }
+
+    let emotionStackView = UIStackView().then{
+        $0.spacing = -6
+        $0.axis = .horizontal
+    }
+    
+    let firstEmotionTag = UIImageView().then{
+        $0.backgroundColor = Color.mint100
+    }
+    
+    let reviewEmotionTag = UIImageView().then{
+        $0.backgroundColor = Color.pink100
+    }
+    
+    let arrowImage = UIImage().then{
+        $0.image = Image.arrow
+    }
+    
+    //
     let priceLabel = UILabel().then{
         $0.text = "320,800원"
         $0.font = UIFont.autoPretendard(type: .sb_18)
@@ -37,33 +77,8 @@ class FriendTableViewCell: BaseTableViewCell {
         $0.textColor = Color.title
         $0.numberOfLines = 2
     }
-    let tagLabel = PaddingLabel().then{
-        $0.text = "커피 대신 물을 마시자"
-        $0.font = UIFont.autoPretendard(type: .m_12)
-        $0.textColor = Color.grey5
-        $0.backgroundColor = Color.grey1
-        $0.layer.cornerRadius = 4
-        $0.clipsToBounds = true
-    }
-    let timeLabel = UILabel().then{
-        $0.text = " 1시간 전"
-        $0.font = UIFont.autoPretendard(type: .m_12)
-        $0.textColor = Color.grey5
-    }
     
-    let emojiStackView = UIStackView().then{
-        $0.spacing = -6
-        $0.axis = .horizontal
-    }
-    
-    let greenEmojiImage = UIImageView().then{
-        $0.backgroundColor = Color.mint100
-    }
-    
-    let pinkEmojiImage = UIImageView().then{
-        $0.backgroundColor = Color.pink100
-    }
-    
+    //
     let reactionStackView = UIStackView().then{
         $0.spacing = -6
         $0.axis = .horizontal
@@ -74,12 +89,16 @@ class FriendTableViewCell: BaseTableViewCell {
         $0.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
     }
     
-    lazy var anotherReactionBtn = UIButton().then{
+    lazy var othersReactionButton = UIButton().then{
         $0.backgroundColor = Color.pink100
     }
     
-    lazy var theOtherReactionBtn = UIButton().then{
-        $0.backgroundColor = Color.grey4
+    lazy var etcButton = UIButton()
+    
+    //
+    let separatorLine = UIView().then{
+        $0.backgroundColor = Color.grey2
+        
     }
     
     //MARK: - LifeCycle
@@ -121,14 +140,13 @@ class FriendTableViewCell: BaseTableViewCell {
         self.baseView.addSubview(tagLabel)
         
         self.baseView.addSubview(timeLabel)
-        self.baseView.addSubview(emojiStackView)
+        self.baseView.addSubview(emotionStackView)
         self.baseView.addSubview(reactionStackView)
         
-        emojiStackView.insertArrangedSubview(pinkEmojiImage, at: 0)
-        emojiStackView.insertArrangedSubview(greenEmojiImage, at: 0)
+        emotionStackView.insertArrangedSubview(reviewEmotionTag, at: 0)
+        emotionStackView.insertArrangedSubview(firstEmotionTag, at: 0)
 
-        reactionStackView.insertArrangedSubview(theOtherReactionBtn, at: 0)
-        reactionStackView.insertArrangedSubview(anotherReactionBtn, at: 0)
+        reactionStackView.insertArrangedSubview(othersReactionButton, at: 0)
         reactionStackView.insertArrangedSubview(myReactionBtn, at: 0)
     }
     
@@ -176,21 +194,21 @@ class FriendTableViewCell: BaseTableViewCell {
             $0.trailing.equalToSuperview().offset(-16)
         }
         
-        emojiStackView.snp.makeConstraints{
+        emotionStackView.snp.makeConstraints{
             $0.top.equalTo(timeLabel.snp.bottom).offset(14)
             $0.trailing.equalTo(timeLabel)
         }
         
-        greenEmojiImage.snp.makeConstraints{
+        firstEmotionTag.snp.makeConstraints{
             $0.width.height.equalTo(34)
         }
         
-        pinkEmojiImage.snp.makeConstraints{
+        reviewEmotionTag.snp.makeConstraints{
             $0.width.height.equalTo(34)
         }
         
         reactionStackView.snp.makeConstraints{
-            $0.top.equalTo(emojiStackView.snp.bottom).offset(31)
+            $0.top.equalTo(emotionStackView.snp.bottom).offset(31)
             $0.trailing.equalTo(timeLabel)
             $0.height.equalTo(28)
             $0.bottom.equalToSuperview().offset(-20)
@@ -200,7 +218,7 @@ class FriendTableViewCell: BaseTableViewCell {
             $0.width.height.equalTo(28)
         }
         
-        anotherReactionBtn.snp.makeConstraints{
+        othersReactionButton.snp.makeConstraints{
             $0.width.height.equalTo(myReactionBtn)
         }
         

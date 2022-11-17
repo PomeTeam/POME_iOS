@@ -67,6 +67,12 @@ enum Image{
     
     public static let emojiAdd = UIImage(named: "emoji_0")!
     
+    public static let reviewHappy = UIImage(named: "review_happy")!
+    
+    public static let reviewWhat = UIImage(named: "review_what")!
+    
+    public static let reviewSad = UIImage(named: "review_sad")!
+    
     // MARK: - Register & Add Friend
     public static let plus = UIImage(named: "plus")!
     
@@ -102,9 +108,10 @@ enum Image{
     public static let trashCan = UIImage(named: "trashCan")!
     
     //MARK: - Tag
-    public static let reviewHappy = UIImage(named: "review_happy")!
     
-    public static let reviewWhat = UIImage(named: "review_what")!
+    public static let tagArrow = UIImage(named: "tag_arrow")
     
-    public static let reviewSad = UIImage(named: "review_sad")!
+    public static let tagUnselect = UIImage(named: "tag_unselect")
+    
+    public static let toast = UIImage(named: "toast")
 }
