@@ -92,7 +92,7 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     lazy var othersReactionButton = UIButton().then{
-        $0.backgroundColor = Color.pink100
+        $0.setImage(Image.EmojiBlurFlex, for: .normal)
     }
     
     lazy var moreButton = UIButton().then{
