@@ -105,12 +105,14 @@ extension UILabel {
     func setTypoStyle(font: UIFont, kernValue: Double, lineSpacing: CGFloat) {
         if let labelText = text, labelText.count > 0 {
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
+            paragraphStyle.maximumLineHeight = lineSpacing
+            paragraphStyle.minimumLineHeight = lineSpacing
             attributedText = NSAttributedString(string: labelText,
                                                 attributes: [
                                                     .font: font,
                                                     .kern: kernValue,
-                                                    .paragraphStyle: paragraphStyle])
+                                                    .paragraphStyle: paragraphStyle,
+                                                    .baselineOffset: (lineSpacing - font.lineHeight) / 4])
         }
     }
     
@@ -122,12 +124,14 @@ extension UILabel {
         
         if let labelText = text, labelText.count > 0 {
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
+            paragraphStyle.maximumLineHeight = lineSpacing
+            paragraphStyle.minimumLineHeight = lineSpacing
             attributedText = NSAttributedString(string: labelText,
                                                 attributes: [
                                                     .font: font,
                                                     .kern: kernValue,
-                                                    .paragraphStyle: paragraphStyle])
+                                                    .paragraphStyle: paragraphStyle,
+                                                    .baselineOffset: (lineSpacing - font.lineHeight) / 4])
         }
     }
 }

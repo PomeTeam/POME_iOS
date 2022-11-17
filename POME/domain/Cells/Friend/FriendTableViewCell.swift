@@ -159,9 +159,9 @@ class FriendTableViewCell: BaseTableViewCell {
         
         super.layout()
 
-        self.baseView.snp.makeConstraints{
-            $0.height.equalTo(214)
-        }
+//        self.baseView.snp.makeConstraints{
+//            $0.height.equalTo(214)//214
+//        }
         
         profileImage.snp.makeConstraints{
             $0.top.equalToSuperview().offset(20)
