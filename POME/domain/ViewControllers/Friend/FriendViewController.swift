@@ -153,7 +153,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
         
-        cell.myReactionBtn.setImage(UIImage(named: "emoji_\(friendCardList[indexPath.row])"), for: .normal)
+//        cell.myReactionBtn.setImage(UIImage(named: "emoji_\(friendCardList[indexPath.row])"), for: .normal)
         cell.delegate = self
                 
         return cell

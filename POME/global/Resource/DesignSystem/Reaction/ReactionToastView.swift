@@ -7,22 +7,6 @@
 
 import UIKit
 
-enum Reaction{
-    case smile
-    case flex
-    case funny
-    case happy
-    case what
-    case sad
-}
-
-struct ReactionImage{
-    let defaultImage: UIImage
-    let blurImage: UIImage
-}
-
-extension Reaction
-
 class ReactionToastView: UIView {
 
     override init(frame: CGRect) {

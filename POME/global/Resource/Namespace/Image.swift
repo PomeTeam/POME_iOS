@@ -48,19 +48,19 @@ enum Image{
     public static let mypageInactivate = UIImage(named: "mypage_inactivate")!
     
     //MARK: - Emoji
-    public static let emoji1 = UIImage(named: "emoji_1")!
+    public static let emojiHappy = UIImage(named: "emoji_happy")!
     
-    public static let emoji2 = UIImage(named: "emoji_2")!
+    public static let emojiSmile = UIImage(named: "emoji_smile")!
     
-    public static let emoji3 = UIImage(named: "emoji_3")!
+    public static let emojiSad = UIImage(named: "emoji_sad")!
     
-    public static let emoji4 = UIImage(named: "emoji_4")!
+    public static let emojiWhat = UIImage(named: "emoji_what")!
     
-    public static let emoji5 = UIImage(named: "emoji_5")!
+    public static let emojiFlex = UIImage(named: "emoji_flex")!
     
-    public static let emoji6 = UIImage(named: "emoji_6")!
+    public static let emojiFunny = UIImage(named: "emoji_funny")!
     
-    public static let emojiAdd = UIImage(named: "emoji_0")!
+    public static let emojiAdd = UIImage(named: "emoji_add")!
     
     public static let reviewHappy = UIImage(named: "review_happy")!
     
@@ -69,17 +69,17 @@ enum Image{
     public static let reviewSad = UIImage(named: "review_sad")!
     
     //MARK: - BlurEmoji
-    public static let EmojiBlurFlex = UIImage(named: "blur_emoji_flex")!
+    public static let emojiBlurFlex = UIImage(named: "blur_emoji_flex")!
     
-    public static let EmojiBlurFunny = UIImage(named: "blur_emoji_funny")!
+    public static let emojiBlurFunny = UIImage(named: "blur_emoji_funny")!
     
-    public static let EmojiBlurHappy = UIImage(named: "blur_emoji_happy")!
+    public static let emojiBlurHappy = UIImage(named: "blur_emoji_happy")!
     
-    public static let EmojiBlurSad = UIImage(named: "blur_emoji_sad")!
+    public static let emojiBlurSad = UIImage(named: "blur_emoji_sad")!
     
-    public static let EmojiBlurSmile = UIImage(named: "blur_emoji_smile")!
+    public static let emojiBlurSmile = UIImage(named: "blur_emoji_smile")!
     
-    public static let EmojiBlurWhat = UIImage(named: "blur_emoji_what")!
+    public static let emojiBlurWhat = UIImage(named: "blur_emoji_what")!
     
     // MARK: - Register & Add Friend
     public static let plus = UIImage(named: "plus")!
