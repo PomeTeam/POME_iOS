@@ -83,10 +83,8 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
                 cell.profileImage.image = Image.categoryInactive
                 cell.nameLabel.text = "전체"
-                cell.nameLabel.setTypoStyle(typoStyle: .subtitle3)
             }else{ //친구 목록 - 친구인 경우
                 cell.nameLabel.text = "연지뉘"
-                cell.nameLabel.setTypoStyle(typoStyle: .subtitle3)
             }
             
             return cell
