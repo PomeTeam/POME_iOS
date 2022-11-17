@@ -60,7 +60,8 @@
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
-		57CCA7632925AF8B007E22D1 /* EmojiToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* EmojiToastView.swift */; };
+		57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */; };
+		57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionInfo.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -148,7 +149,8 @@
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
-		57CCA7622925AF8B007E22D1 /* EmojiToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiToastView.swift; sourceTree = "<group>"; };
+		57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionToastView.swift; sourceTree = "<group>"; };
+		57CCA76429265924007E22D1 /* ReactionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionInfo.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -317,7 +319,6 @@
 				5724EC87291B7AFF00DC529B /* Protocol */,
 				5724EC752919224700DC529B /* PaddingLabel.swift */,
 				5724EC85291B4C9200DC529B /* Const.swift */,
-				57CCA7622925AF8B007E22D1 /* EmojiToastView.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -431,6 +432,7 @@
 				57B32C3C292466010018C0CB /* TypoStyle.swift */,
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
 				2380877A291B445100072763 /* DefaultButton.swift */,
+				57CCA7662926592A007E22D1 /* Reaction */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -526,6 +528,15 @@
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		57CCA7662926592A007E22D1 /* Reaction */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA76429265924007E22D1 /* ReactionInfo.swift */,
+				57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */,
+			);
+			path = Reaction;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -814,6 +825,7 @@
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
+				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
@@ -832,7 +844,7 @@
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
-				57CCA7632925AF8B007E22D1 /* EmojiToastView.swift in Sources */,
+				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
