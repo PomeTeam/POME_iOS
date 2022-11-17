@@ -35,8 +35,8 @@ class BaseTabViewController: UIViewController {
     }
     
     func style() {
+        self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = Color.grey0
     }
     
     func layout() {
@@ -47,13 +47,13 @@ class BaseTabViewController: UIViewController {
         navigationView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(self.view.safeAreaLayoutGuide)
-            $0.height.equalTo(44)
+            $0.height.equalTo(48)
         }
         
         topBtn.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(10)
+            $0.top.equalToSuperview().offset(12)
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.trailing.equalToSuperview().offset(-20)
             $0.width.equalTo(topBtn.snp.height)
         }
     }

@@ -31,7 +31,7 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     let nameLabel = UILabel().then{
-        $0.text = "eunjoeme_xx"
+        $0.text = "규렌버"
         $0.textColor = Color.body
         $0.setTypoStyle(typoStyle: .subtitle3)
     }
@@ -43,7 +43,7 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     let timeLabel = UILabel().then{
-        $0.text = "· 44분 전"
+        $0.text = "· 44분 전   "
         $0.textColor = Color.grey5
         $0.setTypoStyle(typoStyle: .body3)
     }
@@ -78,7 +78,6 @@ class FriendTableViewCell: BaseTableViewCell {
         $0.textColor = Color.title
         $0.setTypoStyle(typoStyle: .body2)
         $0.numberOfLines = 2
-        $0.backgroundColor = .red
     }
     
     //
@@ -159,10 +158,6 @@ class FriendTableViewCell: BaseTableViewCell {
         
         super.layout()
 
-        self.baseView.snp.makeConstraints{
-            $0.height.equalTo(214)
-        }
-        
         profileImage.snp.makeConstraints{
             $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(24)
@@ -177,7 +172,9 @@ class FriendTableViewCell: BaseTableViewCell {
         }
         
         topStackView.snp.makeConstraints{
+            $0.leading.equalToSuperview()
             $0.top.leading.equalToSuperview()
+            $0.height.equalTo(nameLabel.font.lineHeight) //14
             $0.trailing.lessThanOrEqualToSuperview()
         }
     

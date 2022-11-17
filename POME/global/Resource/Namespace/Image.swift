@@ -10,13 +10,6 @@ import UIKit
 
 enum Image{
     
-    /*
-     UIImage+Namespace 파일 내 UIImage 추가 예시입니다.
-     
-     public static let calenderBackgroundAll = UIImage(named: "calenderBackgroundAll")!
-     
-     */
-    
     public static let categoryActive = UIImage(named: "category_active")!
     
     public static let categoryInactive = UIImage(named: "category_inactive")!
@@ -74,6 +67,19 @@ enum Image{
     public static let reviewWhat = UIImage(named: "review_what")!
     
     public static let reviewSad = UIImage(named: "review_sad")!
+    
+    //MARK: - BlurEmoji
+    public static let EmojiBlurFlex = UIImage(named: "blur_emoji_flex")!
+    
+    public static let EmojiBlurFunny = UIImage(named: "blur_emoji_funny")!
+    
+    public static let EmojiBlurHappy = UIImage(named: "blur_emoji_happy")!
+    
+    public static let EmojiBlurSad = UIImage(named: "blur_emoji_sad")!
+    
+    public static let EmojiBlurSmile = UIImage(named: "blur_emoji_smile")!
+    
+    public static let EmojiBlurWhat = UIImage(named: "blur_emoji_what")!
     
     // MARK: - Register & Add Friend
     public static let plus = UIImage(named: "plus")!

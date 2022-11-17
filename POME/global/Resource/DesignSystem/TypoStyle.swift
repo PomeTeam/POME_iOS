@@ -103,14 +103,23 @@ extension TypoStyle {
 extension UILabel {
     
     func setTypoStyle(font: UIFont, kernValue: Double, lineSpacing: CGFloat) {
-        if let labelText = text, labelText.count > 0 {
+        if let labelText = text, labelText.count > 0, let attributedText = self.attributedText {
+
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
-            attributedText = NSAttributedString(string: labelText,
-                                                attributes: [
-                                                    .font: font,
-                                                    .kern: kernValue,
-                                                    .paragraphStyle: paragraphStyle])
+            paragraphStyle.maximumLineHeight = lineSpacing
+            paragraphStyle.minimumLineHeight = lineSpacing
+            
+            
+             let attributedString = NSMutableAttributedString(attributedString: attributedText)
+            
+            attributedString.addAttributes([.font:font,
+                                                .kern:kernValue,
+                                                .paragraphStyle: paragraphStyle,
+                                                .baselineOffset: (lineSpacing - font.lineHeight) / 4
+            ], range: NSRange(location: 0,
+                              length: attributedString.length))
+            
+            self.attributedText = attributedString
         }
     }
     
@@ -119,15 +128,24 @@ extension UILabel {
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
         let lineSpacing = typoStyle.labelDescription.lineHeight
-        
-        if let labelText = text, labelText.count > 0 {
+
+        if let labelText = text, labelText.count > 0, let attributedText = self.attributedText {
+
             let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
-            attributedText = NSAttributedString(string: labelText,
-                                                attributes: [
-                                                    .font: font,
-                                                    .kern: kernValue,
-                                                    .paragraphStyle: paragraphStyle])
+            paragraphStyle.maximumLineHeight = lineSpacing
+            paragraphStyle.minimumLineHeight = lineSpacing
+            
+            
+             let attributedString = NSMutableAttributedString(attributedString: attributedText)
+            
+            attributedString.addAttributes([.font:font,
+                                                .kern:kernValue,
+                                                .paragraphStyle: paragraphStyle,
+                                                .baselineOffset: (lineSpacing - font.lineHeight) / 4
+            ], range: NSRange(location: 0,
+                              length: attributedString.length))
+            
+            self.attributedText = attributedString
         }
     }
 }
