@@ -33,9 +33,9 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     let memoLabel = UILabel().then{
         $0.text = "여기에 멀 치면 어케 나오나요 대박킼"
-        $0.numberOfLines = 2
-        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTypoStyle(typoStyle: .body2)
         $0.textColor = Color.title
+        $0.numberOfLines = 2
     }
     let tagLabel = PaddingLabel().then{
         $0.text = "커피 대신 물을 마시자"
