@@ -100,4 +100,11 @@ enum Image{
     public static let ten = UIImage(named: "ten")!
     
     public static let trashCan = UIImage(named: "trashCan")!
+    
+    //MARK: - Tag
+    public static let reviewHappy = UIImage(named: "review_happy")!
+    
+    public static let reviewWhat = UIImage(named: "review_what")!
+    
+    public static let reviewSad = UIImage(named: "review_sad")!
 }
