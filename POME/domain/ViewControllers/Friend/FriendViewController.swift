@@ -47,7 +47,6 @@ class FriendViewController: BaseTabViewController {
         self.view.addSubview(friendView)
         
         friendView.snp.makeConstraints{
-//            $0.top.equalTo(self.navigationView.snp.bottom).offset(4)
             $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
         }
@@ -125,7 +124,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         
         if(collectionView == friendView.collectionView){
-            return CGSize(width: 52, height: 96)
+            return FriendCollectionViewCell.cellSize
         }else{
             
             /*

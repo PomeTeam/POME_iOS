@@ -12,35 +12,28 @@ class FriendView: BaseView{
     
     //MARK: - UI
     
-    let titleLabel = UILabel().then{
-        $0.text = "친구 응원하기"
-//        $0.font = UIFont.autoPretendard(type: .b_18)
-        $0.setTypoStyle(typoStyle: .header1)
-        $0.textColor = Color.title
-    }
-    
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
-            $0.minimumLineSpacing = 18
-            $0.minimumInteritemSpacing = 18
-            $0.itemSize = CGSize(width: 52, height: 96)
+            $0.minimumLineSpacing = 16
+            $0.minimumInteritemSpacing = 16
+            $0.itemSize = FriendCollectionViewCell.cellSize
             $0.scrollDirection = .horizontal
         }
         
         $0.collectionViewLayout = flowLayout
         $0.showsHorizontalScrollIndicator = false
-        $0.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        
-        $0.backgroundColor = Color.transparent
-        
+        $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 16)
+
         $0.register(FriendCollectionViewCell.self, forCellWithReuseIdentifier: FriendCollectionViewCell.cellIdentifier)
         
     }
     
+    let separatorLine = UIView().then{
+        $0.backgroundColor = Color.grey2
+    }
+    
     let tableView = UITableView().then{
-        
-        $0.backgroundColor = Color.transparent
         $0.showsVerticalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 7, right: 0)
         
@@ -59,26 +52,27 @@ class FriendView: BaseView{
     
     //MARK: - Method
     override func hierarchy() {
-        self.addSubview(titleLabel)
         self.addSubview(collectionView)
+        self.addSubview(separatorLine)
         self.addSubview(tableView)
     }
     
     override func constraint() {
         
-        titleLabel.snp.makeConstraints{
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(16)
-        }
-        
         collectionView.snp.makeConstraints{
-            $0.height.equalTo(96)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
+            $0.height.equalTo(86)
+            $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
         }
         
+        separatorLine.snp.makeConstraints{
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(1)
+            $0.bottom.equalTo(collectionView)
+        }
+        
         tableView.snp.makeConstraints{
-            $0.top.equalTo(collectionView.snp.bottom).offset(7)
+            $0.top.equalTo(collectionView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
