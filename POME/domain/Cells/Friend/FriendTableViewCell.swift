@@ -92,7 +92,7 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     lazy var othersReactionButton = UIButton().then{
-        $0.setImage(Image.EmojiBlurFlex, for: .normal)
+        $0.setImage(Image.emojiBlurFlex, for: .normal)
     }
     
     lazy var moreButton = UIButton().then{
