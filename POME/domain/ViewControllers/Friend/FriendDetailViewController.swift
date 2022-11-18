@@ -24,6 +24,14 @@ class FriendDetailViewController: BaseViewController {
         super.viewDidLoad()
     }
     
+    override func style(){
+        
+        super.style()
+        
+        //MARK: - 지금은 이렇게 넣지만... 데이터 바인딩할 때 데이터 한꺼번에 처리되도록 함수 만들기
+        self.setNavigationTitleLabel(title: "닉네임 입력받기")
+    }
+    
     override func layout() {
         
         super.layout()

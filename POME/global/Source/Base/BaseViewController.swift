@@ -17,6 +17,16 @@ class BaseViewController: UIViewController {
         $0.setImage(Image.backArrow, for: .normal)
         $0.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
     }
+    
+    lazy var titleLabel = UILabel().then{
+        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.textColor = Color.title
+    }
+    
+    lazy var etcButton = UIButton().then{
+        $0.titleLabel?.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTitleColor(Color.title, for: .normal)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +72,30 @@ class BaseViewController: UIViewController {
     
     @objc func backBtnDidClicked(){
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func setNavigationTitleLabel(title: String){
+        self.titleLabel.text = title
+        
+        self.navigationView.addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(14)
+            $0.centerY.centerX.equalToSuperview()
+        }
+    }
+    
+    func setEtcButton(title: String){
+        
+        self.etcButton.setTitle(title, for: .normal)
+        
+        self.navigationView.addSubview(etcButton)
+        
+        etcButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(14)
+            $0.trailing.equalToSuperview().offset(-20)
+            $0.centerY.equalToSuperview()
+        }
     }
 
 
