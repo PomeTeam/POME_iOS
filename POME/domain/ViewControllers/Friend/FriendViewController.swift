@@ -15,7 +15,7 @@ class FriendViewController: BaseTabViewController {
     
     var friendList = [String]()
     
-    var friendCardList = [Int](repeating: 0, count: 10){
+    var friendCardList = [Reaction?](repeating: nil, count: 10){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -91,11 +91,13 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }else{
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
                     as? EmojiFloatingCollectionViewCell else { fatalError() }
-            cell.emojiImage.image = UIImage(named: "emoji_\(indexPath.row + 1)")
+            
+            cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
+            
             return cell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if(collectionView == friendView.collectionView){
@@ -104,11 +106,13 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.setSelectState(row: indexPath.row)
         }else{
             
-            guard let cellIndex = self.selectCellIndex else { return }
+            guard let cellIndex = self.selectCellIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
             
-            friendCardList[cellIndex] = indexPath.row + 1
+            friendCardList[cellIndex] = reaction
             
             self.emoijiFloatingView?.dismiss()
+            
+            ReactionToastView(type: reaction).show(in: self)
         }
     }
     
@@ -152,8 +156,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
-        
-//        cell.myReactionBtn.setImage(UIImage(named: "emoji_\(friendCardList[indexPath.row])"), for: .normal)
+
+        if let reaction = friendCardList[indexPath.row] {
+            cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+        }
+
         cell.delegate = self
                 
         return cell

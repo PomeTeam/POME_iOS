@@ -35,7 +35,7 @@ extension Reaction{
         }
     }
     
-    var imageDescription: ReactionImage{
+    private var imageDescription: ReactionImage{
         switch self{
         case .smile:    return ReactionImage(defaultImage: Image.emojiSmile,
                                              blurImage: Image.emojiBlurSmile)
@@ -50,6 +50,14 @@ extension Reaction{
         case .sad:      return ReactionImage(defaultImage: Image.emojiSad,
                                              blurImage: Image.emojiBlurSad)
         }
+    }
+    
+    var defaultImage: UIImage{
+        return self.imageDescription.defaultImage
+    }
+    
+    var blurImage: UIImage{
+        return self.imageDescription.blurImage
     }
 
 }
