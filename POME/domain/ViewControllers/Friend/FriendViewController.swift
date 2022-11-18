@@ -159,6 +159,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = FriendDetailViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func sendCellIndex(indexPath: IndexPath) {
         
         self.selectCellIndex = indexPath.row

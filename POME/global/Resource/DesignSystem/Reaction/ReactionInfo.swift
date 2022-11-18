@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum Reaction: Int, CaseIterable{
-    case happy = 0
+    case happy = 0 //rawValue로 index 값 할당
     case what
     case funny
     case flex
@@ -53,4 +53,3 @@ extension Reaction{
     }
 
 }
-
