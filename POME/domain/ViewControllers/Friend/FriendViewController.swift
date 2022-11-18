@@ -93,7 +93,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                     as? EmojiFloatingCollectionViewCell else { fatalError() }
             
             cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-            
+    
             return cell
         }
     }
@@ -192,7 +192,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         }
         
         emoijiFloatingView.shadowView.snp.makeConstraints{
-            $0.top.equalTo(cell.baseView.snp.bottom).offset(-13)
+            $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }
         
     }
