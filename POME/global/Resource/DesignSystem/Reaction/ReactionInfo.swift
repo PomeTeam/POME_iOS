@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum Reaction: Int, CaseIterable{
-    case happy = 0
+    case happy = 0 //rawValue로 index 값 할당
     case what
     case funny
     case flex
@@ -35,7 +35,7 @@ extension Reaction{
         }
     }
     
-    var imageDescription: ReactionImage{
+    private var imageDescription: ReactionImage{
         switch self{
         case .smile:    return ReactionImage(defaultImage: Image.emojiSmile,
                                              blurImage: Image.emojiBlurSmile)
@@ -51,6 +51,13 @@ extension Reaction{
                                              blurImage: Image.emojiBlurSad)
         }
     }
+    
+    var defaultImage: UIImage{
+        return self.imageDescription.defaultImage
+    }
+    
+    var blurImage: UIImage{
+        return self.imageDescription.blurImage
+    }
 
 }
-
