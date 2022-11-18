@@ -37,6 +37,16 @@ class FriendTableViewCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+//        mainView.nameLabel.text = ""
+//        mainView.tagLabel.text = ""
+//        mainView.timeLabel.text = ""
+//        mainView.priceLabel.text = ""
+//        mainView.memoLabel.text = ""
+        
+        mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
+    }
+    
     //MARK: - Action
     
     @objc func myReactionBtnDidClicked(){
