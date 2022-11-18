@@ -11,11 +11,11 @@ import UIKit
 struct Const{
     
     struct Device{
-        static let WIDTH = UIScreen.main.bounds.size.width
-        static let HEIGHT = UIScreen.main.bounds.size.height
+        static let WIDTH: CGFloat = UIScreen.main.bounds.size.width
+        static let HEIGHT: CGFloat = UIScreen.main.bounds.size.height
     }
     
     struct Offset{
-        static let VIEW_CONTROLLER_TOP = 92
+        static let VIEW_CONTROLLER_TOP: CGFloat = 92
     }
 }

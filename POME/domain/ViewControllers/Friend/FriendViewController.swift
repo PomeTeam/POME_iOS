@@ -128,16 +128,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == friendView.collectionView){
             return FriendCollectionViewCell.cellSize
         }else{
-            
-            /*
-             leftPadding = 29
-             rightPadding = 16
-             collectionView left/rightPadding = 16
-             spacing = 14
-             */
-            
-            let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
-            return CGSize(width: remainWidth/6, height: remainWidth/6)
+            return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
         }
     }
     
