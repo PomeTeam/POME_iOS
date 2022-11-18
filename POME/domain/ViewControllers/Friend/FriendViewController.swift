@@ -13,9 +13,13 @@ class FriendViewController: BaseTabViewController {
     
     var selectCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
     
-    var friendList = [String]()
+    var friendList = [String](){
+        didSet{
+            isFriendListEmpty()
+        }
+    }
     
-    var friendCardList = [Reaction?](repeating: nil, count: 10){
+    var friendCardList = [Reaction?](repeating: nil, count: 0){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -24,6 +28,8 @@ class FriendViewController: BaseTabViewController {
     //MARK: - UI
     
     let friendView = FriendView()
+    
+    var emptyFriendView: FriendTableEmptyView?
     
     var emoijiFloatingView: EmojiFloatingView?{
         didSet{
@@ -45,11 +51,13 @@ class FriendViewController: BaseTabViewController {
         super.layout()
         
         self.view.addSubview(friendView)
-        
+
         friendView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+        
+        isFriendListEmpty()
     }
     
     override func initialize() {
@@ -64,13 +72,43 @@ class FriendViewController: BaseTabViewController {
     override func topBtnDidClicked() {
         print("top btn did clicked")
     }
+    
+    //MARK: - Method
+    private func isFriendListEmpty(){
+        
+        /*
+         친구 리스트 0 -> x
+         친구 리스트 x -> 0
+         */
+        
+        if(friendList.isEmpty){
+            emptyFriendView = FriendTableEmptyView()
+            
+            guard let emptyFriendView = emptyFriendView else {
+                return
+            }
+
+            self.view.addSubview(emptyFriendView)
+            
+            emptyFriendView.snp.makeConstraints{
+                $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
+        }else{
+            guard let emptyFriendView = emptyFriendView else {
+                return
+            }
+            emptyFriendView.removeFromSuperview()
+            self.emptyFriendView = nil
+        }
+    }
 }
 
 //MARK: - CollectionView Delegate
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == friendView.collectionView ? friendList.count + 10 : 6
+        return collectionView == friendView.collectionView ? friendList.count + 1 : 6
     }
     
     //TODO: - 친구목록 CollectionView 초기값 0번 인덱스인 '전체'로 설정
