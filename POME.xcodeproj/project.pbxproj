@@ -66,6 +66,10 @@
 		57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmotionTagView.swift */; };
 		57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */; };
 		57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77329286EC2007E22D1 /* SheetInfo.swift */; };
+		57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */; };
+		57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */; };
+		57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77E29290212007E22D1 /* FriendReactionCollectionViewCell.swift */; };
+		57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -161,6 +165,10 @@
 		57CCA76F29286AFC007E22D1 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "POME-Bridging-Header.h"; path = "POME/Resource/POME-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSheetViewController.swift; sourceTree = "<group>"; };
 		57CCA77329286EC2007E22D1 /* SheetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetInfo.swift; sourceTree = "<group>"; };
+		57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewController.swift; sourceTree = "<group>"; };
+		57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetView.swift; sourceTree = "<group>"; };
+		57CCA77E29290212007E22D1 /* FriendReactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionCollectionViewCell.swift; sourceTree = "<group>"; };
+		57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTypeCollectionViewCell.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -472,6 +480,7 @@
 			children = (
 				5724EC5C2917735B00DC529B /* FriendViewController.swift */,
 				57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */,
+				57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -510,6 +519,7 @@
 				5724EC81291B246800DC529B /* EmojiFloatingView.swift */,
 				57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */,
 				57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */,
+				57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -517,6 +527,7 @@
 		5724EC6A2918CED200DC529B /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA77D292901EF007E22D1 /* Sheet */,
 				5724EC6B2918CEE200DC529B /* FriendCollectionViewCell.swift */,
 				5724EC6D2918CEFC00DC529B /* FriendTableViewCell.swift */,
 				5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */,
@@ -567,6 +578,15 @@
 			children = (
 				57CCA77329286EC2007E22D1 /* SheetInfo.swift */,
 				57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
+		57CCA77D292901EF007E22D1 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA77E29290212007E22D1 /* FriendReactionCollectionViewCell.swift */,
+				57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -842,10 +862,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
+				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
@@ -853,8 +875,10 @@
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
+				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
+				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
