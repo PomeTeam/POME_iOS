@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum SheetType{
-
+enum SheetType: CGFloat{
+    case friendReaction = 348 //314 + 34
+    case emotionFilter = 252 //218+34
 }

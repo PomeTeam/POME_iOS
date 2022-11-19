@@ -26,11 +26,11 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         
         let controller: UISheetPresentationController = .init(presentedViewController: presented, presenting: presenting)
         
-        let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: 300 * Const.Device.HEIGHT / 810)
+        let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: type.rawValue * Const.Device.HEIGHT / 812)
     
         controller.detents = [detent]
         controller.preferredCornerRadius = 16
-//        controller.prefersGrabberVisible = bottomSheetType.grabberVisibility
+        controller.prefersGrabberVisible = false
         
         return controller
     }
@@ -45,11 +45,10 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         transitioningDelegate = self
     }
     
-    func layout() {
-    }
+    func layout() {}
     
-//    func setBottomSheetStyle(type: BottomSheetType){
-//        self.bottomSheetType = type
-//    }
+    func setBottomSheetStyle(type: SheetType){
+        self.type = type
+    }
 
 }
