@@ -61,7 +61,7 @@ class ReactionToastView: BaseView {
         stackView.addArrangedSubview(messageLabel)
     }
     
-    override func constraint() {
+    override func layout() {
         
         self.snp.makeConstraints{
             $0.height.equalTo(42)

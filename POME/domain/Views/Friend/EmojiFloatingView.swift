@@ -60,7 +60,7 @@ class EmojiFloatingView: BaseView {
         shadowView.addSubview(collectionView)
     }
     
-    override func constraint() {
+    override func layout() {
 
         shadowView.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(23)

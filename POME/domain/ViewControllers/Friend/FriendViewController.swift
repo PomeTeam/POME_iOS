@@ -15,13 +15,13 @@ class FriendViewController: BaseTabViewController {
     
     var selectCardCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
     
-    var friendList = [String](){
+    var friendList = [String?](repeating: nil, count: 10){
         didSet{
             isFriendListEmpty()
         }
     }
     
-    var friendCardList = [Reaction?](repeating: nil, count: 0){
+    var friendCardList = [Reaction?](repeating: nil, count: 10){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -112,7 +112,7 @@ class FriendViewController: BaseTabViewController {
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == friendView.collectionView ? friendList.count + 10 : 6
+        return collectionView == friendView.collectionView ? friendList.count + 1 : 6
     }
     
     //TODO: - By 초기값 설정(select item은 X), 다른 셀 선택해도
@@ -205,6 +205,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         if let reaction = friendCardList[indexPath.row] {
             cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
         }
+        
+        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
+        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad) 
 
         cell.delegate = self
                 

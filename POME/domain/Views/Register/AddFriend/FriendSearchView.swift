@@ -55,7 +55,7 @@ class FriendSearchView: BaseView {
         
         accessoryView.addSubview(completeButton)
     }
-    override func constraint() {
+    override func layout() {
         searchTextField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.height.equalTo(54)

@@ -62,8 +62,8 @@
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
 		57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */; };
 		57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionInfo.swift */; };
-		57CCA7692928679E007E22D1 /* EmojiTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */; };
-		57CCA76B292867D6007E22D1 /* EmojiTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmojiTagView.swift */; };
+		57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */; };
+		57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmotionTagView.swift */; };
 		57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */; };
 		57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77329286EC2007E22D1 /* SheetInfo.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
@@ -155,8 +155,8 @@
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionToastView.swift; sourceTree = "<group>"; };
 		57CCA76429265924007E22D1 /* ReactionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionInfo.swift; sourceTree = "<group>"; };
-		57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTagInfo.swift; sourceTree = "<group>"; };
-		57CCA76A292867D6007E22D1 /* EmojiTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTagView.swift; sourceTree = "<group>"; };
+		57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagInfo.swift; sourceTree = "<group>"; };
+		57CCA76A292867D6007E22D1 /* EmotionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagView.swift; sourceTree = "<group>"; };
 		57CCA76E29286AD5007E22D1 /* UISheetPresentationControllerDetent+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISheetPresentationControllerDetent+Private.h"; sourceTree = "<group>"; };
 		57CCA76F29286AFC007E22D1 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "POME-Bridging-Header.h"; path = "POME/Resource/POME-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSheetViewController.swift; sourceTree = "<group>"; };
@@ -556,8 +556,8 @@
 		57CCA76729286761007E22D1 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */,
-				57CCA76A292867D6007E22D1 /* EmojiTagView.swift */,
+				57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */,
+				57CCA76A292867D6007E22D1 /* EmotionTagView.swift */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -854,7 +854,7 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
-				57CCA76B292867D6007E22D1 /* EmojiTagView.swift in Sources */,
+				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
@@ -885,7 +885,7 @@
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
-				57CCA7692928679E007E22D1 /* EmojiTagInfo.swift in Sources */,
+				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

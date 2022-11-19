@@ -43,18 +43,15 @@ class FriendDetailView: BaseView {
         $0.setTypoStyle(typoStyle: .body3)
     }
 
+    //
     let emotionStackView = UIStackView().then{
         $0.spacing = 2
         $0.axis = .horizontal
     }
     
-    let firstEmotionTag = UIImageView().then{
-        $0.backgroundColor = Color.mint100
-    }
+    var firstEmotionTag = EmotionTagView()
     
-    let reviewEmotionTag = UIImageView().then{
-        $0.backgroundColor = Color.pink100
-    }
+    var secondEmotionTag = EmotionTagView()
     
     let tagArrowBackgroundView = UIView()
     
@@ -124,16 +121,16 @@ class FriendDetailView: BaseView {
         emotionStackView.addArrangedSubview(firstEmotionTag)
         emotionStackView.addArrangedSubview(tagArrowBackgroundView)
         tagArrowBackgroundView.addSubview(tagArrowImage)
-        emotionStackView.addArrangedSubview(reviewEmotionTag)
+        emotionStackView.addArrangedSubview(secondEmotionTag)
 
         reactionStackView.insertArrangedSubview(othersReactionButton, at: 0)
         reactionStackView.insertArrangedSubview(myReactionBtn, at: 0)
     }
 
 
-    override func constraint() {
+    override func layout() {
         
-        super.constraint()
+        super.layout()
 
         profileImage.snp.makeConstraints{
             $0.top.equalToSuperview()
@@ -164,7 +161,6 @@ class FriendDetailView: BaseView {
         
         firstEmotionTag.snp.makeConstraints{
             $0.height.equalToSuperview()
-            $0.width.equalTo(70)
         }
         
         tagArrowBackgroundView.snp.makeConstraints{
@@ -176,9 +172,8 @@ class FriendDetailView: BaseView {
             $0.centerY.equalToSuperview()
         }
         
-        reviewEmotionTag.snp.makeConstraints{
+        secondEmotionTag.snp.makeConstraints{
             $0.height.equalToSuperview()
-            $0.width.equalTo(70)
         }
         
         priceLabel.snp.makeConstraints{

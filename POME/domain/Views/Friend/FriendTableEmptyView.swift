@@ -40,7 +40,7 @@ class FriendTableEmptyView: BaseView {
         stackView.addArrangedSubview(emptyLabel)
     }
     
-    override func constraint() {
+    override func layout() {
         
         stackView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
