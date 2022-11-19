@@ -94,5 +94,9 @@ extension FriendDetailViewController: UICollectionViewDelegate, UICollectionView
         ReactionToastView(type: reaction).show(in: self)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
+    }
+    
     
 }

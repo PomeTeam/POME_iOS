@@ -11,6 +11,14 @@ class EmojiFloatingCollectionViewCell: BaseCollectionViewCell {
     
     static let cellIdentifier = "EmojiFloatingCollectionViewCell"
     
+    /*
+     leftPadding = 23
+     rightPadding = 22
+     collectionView left/rightPadding = 16
+     spacing = 14
+     */
+    static let cellWidth = (Const.Device.WIDTH - (45 + 16 * 2 + 14 * 5)) / 6
+    
     let emojiImage = UIImageView()
     
     //MARK: - LifeCycle
@@ -38,8 +46,9 @@ class EmojiFloatingCollectionViewCell: BaseCollectionViewCell {
         
         emojiImage.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
-            $0.width.height.equalTo(38)
+            $0.width.height.equalTo(EmojiFloatingCollectionViewCell.cellWidth)
         }
     }
     
 }
+

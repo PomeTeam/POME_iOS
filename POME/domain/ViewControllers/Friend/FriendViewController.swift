@@ -11,11 +11,17 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
-    var selectCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
+    var selectFriendCellIndex: Int = 0
     
-    var friendList = [String]()
+    var selectCardCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
     
-    var friendCardList = [Reaction?](repeating: nil, count: 10){
+    var friendList = [String](){
+        didSet{
+            isFriendListEmpty()
+        }
+    }
+    
+    var friendCardList = [Reaction?](repeating: nil, count: 0){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -24,6 +30,8 @@ class FriendViewController: BaseTabViewController {
     //MARK: - UI
     
     let friendView = FriendView()
+    
+    var emptyFriendView: FriendTableEmptyView?
     
     var emoijiFloatingView: EmojiFloatingView?{
         didSet{
@@ -45,11 +53,13 @@ class FriendViewController: BaseTabViewController {
         super.layout()
         
         self.view.addSubview(friendView)
-        
+
         friendView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+        
+        isFriendListEmpty()
     }
     
     override func initialize() {
@@ -64,6 +74,38 @@ class FriendViewController: BaseTabViewController {
     override func topBtnDidClicked() {
         print("top btn did clicked")
     }
+    
+    //MARK: - Method
+    private func isFriendListEmpty(){
+        
+        /*
+         친구 리스트 0 -> x
+         친구 리스트 x -> 0
+         */
+        
+        if(friendList.isEmpty){
+            emptyFriendView = FriendTableEmptyView()
+            
+            guard let emptyFriendView = emptyFriendView else {
+                return
+            }
+
+            self.view.addSubview(emptyFriendView)
+            
+            emptyFriendView.snp.makeConstraints{
+                $0.top.equalToSuperview().offset(178)
+                $0.leading.trailing.equalToSuperview()
+                $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            }
+
+        }else{
+            guard let emptyFriendView = emptyFriendView else {
+                return
+            }
+            emptyFriendView.removeFromSuperview()
+            self.emptyFriendView = nil
+        }
+    }
 }
 
 //MARK: - CollectionView Delegate
@@ -73,7 +115,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return collectionView == friendView.collectionView ? friendList.count + 10 : 6
     }
     
-    //TODO: - 친구목록 CollectionView 초기값 0번 인덱스인 '전체'로 설정
+    //TODO: - By 초기값 설정(select item은 X), 다른 셀 선택해도
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if(collectionView == friendView.collectionView){
@@ -85,6 +127,10 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.nameLabel.text = "전체"
             }else{ //친구 목록 - 친구인 경우
                 cell.nameLabel.text = "연지뉘"
+            }
+            
+            if(indexPath.row == selectFriendCellIndex){
+                cell.setSelectState(row: indexPath.row)
             }
             
             return cell
@@ -101,12 +147,20 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if(collectionView == friendView.collectionView){
-            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
+            
+            if(selectFriendCellIndex == 0 && indexPath.row != 0){
+                guard let cell = friendView.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
+                cell.setUnselectState(row: 0)
+            }
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
             
             cell.setSelectState(row: indexPath.row)
+            
+            self.selectFriendCellIndex = indexPath.row
         }else{
             
-            guard let cellIndex = self.selectCellIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
+            guard let cellIndex = self.selectCardCellIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
             
             friendCardList[cellIndex] = reaction
             
@@ -128,16 +182,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(collectionView == friendView.collectionView){
             return FriendCollectionViewCell.cellSize
         }else{
-            
-            /*
-             leftPadding = 29
-             rightPadding = 16
-             collectionView left/rightPadding = 16
-             spacing = 14
-             */
-            
-            let remainWidth = Const.Device.WIDTH - (29 + 16 * 3 + 14 * 5)
-            return CGSize(width: remainWidth/6, height: remainWidth/6)
+            return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
         }
     }
     
@@ -173,7 +218,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
     
     func sendCellIndex(indexPath: IndexPath) {
         
-        self.selectCellIndex = indexPath.row
+        self.selectCardCellIndex = indexPath.row
         
         emoijiFloatingView = EmojiFloatingView()
         
@@ -181,7 +226,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
                 let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         emoijiFloatingView.dismissHandler = {
-            self.selectCellIndex = nil
+            self.selectCardCellIndex = nil
             self.emoijiFloatingView = nil
         }
         

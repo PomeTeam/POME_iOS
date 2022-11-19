@@ -19,7 +19,7 @@ class EmojiFloatingView: BaseView {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
-            $0.itemSize = CGSize(width: 38, height: 38)
+            $0.itemSize = CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
             $0.minimumLineSpacing = 14
             $0.minimumInteritemSpacing = 14
             $0.scrollDirection = .horizontal
@@ -63,8 +63,8 @@ class EmojiFloatingView: BaseView {
     override func constraint() {
 
         shadowView.snp.makeConstraints{
-            $0.leading.equalToSuperview().offset(29)
-            $0.trailing.equalToSuperview().offset(-16)
+            $0.leading.equalToSuperview().offset(23)
+            $0.trailing.equalToSuperview().offset(-22)
             $0.height.equalTo(54)
         }
         
