@@ -75,7 +75,7 @@ class RegisterView: BaseView {
         addSubview(guideLabel)
     }
     
-    override func constraint() {
+    override func layout() {
         registerTitleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.top.equalTo(super.safeAreaLayoutGuide).offset(56)

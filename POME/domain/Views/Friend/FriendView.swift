@@ -57,7 +57,7 @@ class FriendView: BaseView{
         self.addSubview(tableView)
     }
     
-    override func constraint() {
+    override func layout() {
         
         collectionView.snp.makeConstraints{
             $0.height.equalTo(86)

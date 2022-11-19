@@ -14,7 +14,7 @@ class BaseView: UIView {
         
         style()
         hierarchy()
-        constraint()
+        layout()
     }
     
     /*
@@ -28,7 +28,7 @@ class BaseView: UIView {
     
     func hierarchy() {}
     
-    func constraint() {}
+    func layout() {}
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
