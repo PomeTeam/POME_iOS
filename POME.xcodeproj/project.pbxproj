@@ -62,6 +62,8 @@
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
 		57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */; };
 		57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionInfo.swift */; };
+		57CCA7692928679E007E22D1 /* EmojiTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */; };
+		57CCA76B292867D6007E22D1 /* EmojiTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmojiTagView.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -151,6 +153,8 @@
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionToastView.swift; sourceTree = "<group>"; };
 		57CCA76429265924007E22D1 /* ReactionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionInfo.swift; sourceTree = "<group>"; };
+		57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTagInfo.swift; sourceTree = "<group>"; };
+		57CCA76A292867D6007E22D1 /* EmojiTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTagView.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -432,6 +436,7 @@
 				57B32C3C292466010018C0CB /* TypoStyle.swift */,
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
 				2380877A291B445100072763 /* DefaultButton.swift */,
+				57CCA76729286761007E22D1 /* Tag */,
 				57CCA7662926592A007E22D1 /* Reaction */,
 			);
 			path = DesignSystem;
@@ -537,6 +542,15 @@
 				57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */,
 			);
 			path = Reaction;
+			sourceTree = "<group>";
+		};
+		57CCA76729286761007E22D1 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA7682928679E007E22D1 /* EmojiTagInfo.swift */,
+				57CCA76A292867D6007E22D1 /* EmojiTagView.swift */,
+			);
+			path = Tag;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -822,6 +836,7 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
+				57CCA76B292867D6007E22D1 /* EmojiTagView.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
@@ -850,6 +865,7 @@
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
+				57CCA7692928679E007E22D1 /* EmojiTagInfo.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

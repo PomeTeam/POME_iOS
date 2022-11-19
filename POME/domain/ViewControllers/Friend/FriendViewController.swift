@@ -153,7 +153,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.setUnselectState(row: 0)
             }
             
-            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { fatalError() }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
             
             cell.setSelectState(row: indexPath.row)
             
