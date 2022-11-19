@@ -192,7 +192,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 //MARK: - TableView Delegate
-extension FriendViewController: UITableViewDelegate, UITableViewDataSource, CellDelegate{
+extension FriendViewController: UITableViewDelegate, UITableViewDataSource, FriendCellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         friendCardList.count
@@ -219,7 +219,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func sendCellIndex(indexPath: IndexPath) {
+    func presentEmojiFloatingView(indexPath: IndexPath) {
         
         self.selectCardCellIndex = indexPath.row
         
@@ -243,6 +243,12 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Cell
             $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }
         
+    }
+    
+    func presentReactionSheet(indexPath: IndexPath) {
+        let sheet = FriendReactionSheetViewController()
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
     }
     
     
