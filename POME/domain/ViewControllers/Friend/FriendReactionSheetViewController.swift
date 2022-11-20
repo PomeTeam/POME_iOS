@@ -61,8 +61,9 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
             
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { fatalError() }
             
-            if(indexPath.row == selectReaction){
+            if(indexPath.row == selectReaction && indexPath.row == 0){ //0번 인덱스일 때만 실행되는 코드
                 cell.setSelectState(at: indexPath.row)
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
             }else{
                 cell.setUnselectState(at: indexPath.row)
             }
@@ -79,18 +80,21 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select?", indexPath)
+        print("new cell is select", indexPath)
         if(collectionView == mainView.emotionCollectionView){
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { return }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
             
             cell.setSelectState(at: indexPath.row)
+            
             selectReaction = indexPath.row
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        print("change unselect", indexPath)
         if(collectionView == mainView.emotionCollectionView){
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { return }
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
             
             cell.setUnselectState(at: indexPath.row)
         }

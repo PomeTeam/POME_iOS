@@ -48,7 +48,6 @@ class ReactionTypeCollectionViewCell: BaseCollectionViewCell {
     }
     
     func setSelectState(at row: Int){
-        print("접근?", row)
         self.reactionImage.image = row == 0 ? Image.categoryActive : Reaction(rawValue: row - 1)?.selectImage
     }
     
