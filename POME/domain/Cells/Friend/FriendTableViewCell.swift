@@ -13,10 +13,11 @@ class FriendTableViewCell: BaseTableViewCell {
 
     static let cellIdentifier = "FriendTableViewCell"
     
-    var delegate: CellDelegate?
+    var delegate: FriendCellDelegate?
     
     let mainView = FriendDetailView().then{
         $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        $0.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
         
         $0.memoLabel.numberOfLines = 2
     }
@@ -53,7 +54,14 @@ class FriendTableViewCell: BaseTableViewCell {
         
         guard let index = getCellIndex() else { return }
 
-        delegate?.sendCellIndex(indexPath: index)
+        delegate?.presentEmojiFloatingView(indexPath: index)
+    }
+    
+    @objc func othersReactionBtnDidClicked(){
+        
+        guard let index = getCellIndex() else { return }
+
+        delegate?.presentReactionSheet(indexPath: index)
     }
     
     //MARK: - Override

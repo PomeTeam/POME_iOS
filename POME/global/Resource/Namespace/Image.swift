@@ -81,6 +81,34 @@ enum Image{
     
     public static let emojiBlurWhat = UIImage(named: "blur_emoji_what")!
     
+    //MARK: - EmotionSelect
+    public static let emojiHappySelect = UIImage(named: "emoji_happy_select")!
+    
+    public static let emojiSmileSelect = UIImage(named: "emoji_smile_select")!
+    
+    public static let emojiSadSelect = UIImage(named: "emoji_sad_select")!
+    
+    public static let emojiWhatSelect = UIImage(named: "emoji_what_select")!
+    
+    public static let emojiFlexSelect = UIImage(named: "emoji_flex_select")!
+    
+    public static let emojiFunnySelect = UIImage(named: "emoji_funny_select")!
+    
+    
+    //MARK: - EmotionUnselect
+    public static let emojiHappyUnSelect = UIImage(named: "emoji_happy_unselect")!
+    
+    public static let emojiSmileUnSelect = UIImage(named: "emoji_smile_unselect")!
+    
+    public static let emojiSadUnSelect = UIImage(named: "emoji_sad_unselect")!
+    
+    public static let emojiWhatUnSelect = UIImage(named: "emoji_what_unselect")!
+    
+    public static let emojiFlexUnSelect = UIImage(named: "emoji_flex_unselect")!
+    
+    public static let emojiFunnyUnSelect = UIImage(named: "emoji_funny_unselect")!
+    
+    
     // MARK: - Register & Add Friend
     public static let plus = UIImage(named: "plus")!
     
