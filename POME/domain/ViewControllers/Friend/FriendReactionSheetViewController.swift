@@ -9,7 +9,12 @@ import UIKit
 
 class FriendReactionSheetViewController: BaseSheetViewController {
     
+    //MARK: - Properties
+    var selectReaction: Int = 0
+    
     let mainView = FriendReactionSheetView()
+    
+    //MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +28,14 @@ class FriendReactionSheetViewController: BaseSheetViewController {
     }
     
     override func initialize() {
+        
         super.initialize()
+        
+        mainView.emotionCollectionView.delegate = self
+        mainView.emotionCollectionView.dataSource = self
+        
+        mainView.friendEmotionCollectionView.delegate = self
+        mainView.friendEmotionCollectionView.dataSource = self
     }
     
     override func layout() {
@@ -35,4 +47,54 @@ class FriendReactionSheetViewController: BaseSheetViewController {
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
+}
+
+//MARK: - CollectionViewDelegate
+extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        collectionView == mainView.emotionCollectionView ? 7 : 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if(collectionView == mainView.emotionCollectionView){
+            
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { fatalError() }
+            
+            if(indexPath.row == selectReaction){
+                cell.setSelectState(at: indexPath.row)
+            }else{
+                cell.setUnselectState(at: indexPath.row)
+            }
+            
+            return cell
+        }else{
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendReactionCollectionViewCell.cellIdenifier, for: indexPath) as? FriendReactionCollectionViewCell else { fatalError() }
+            
+            cell.reactionImage.image = Image.emojiSad
+            cell.nicknameLabel.text = "기획기획"
+            
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("select?", indexPath)
+        if(collectionView == mainView.emotionCollectionView){
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { return }
+            
+            cell.setSelectState(at: indexPath.row)
+            selectReaction = indexPath.row
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if(collectionView == mainView.emotionCollectionView){
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { return }
+            
+            cell.setUnselectState(at: indexPath.row)
+        }
+    }
+    
+    
 }

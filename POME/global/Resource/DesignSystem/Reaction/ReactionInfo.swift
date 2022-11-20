@@ -17,9 +17,11 @@ enum Reaction: Int, CaseIterable{
     case smile
 }
 
-struct ReactionImage{
-    let defaultImage: UIImage
-    let blurImage: UIImage
+struct ReactionIcon{
+    let defaultIcon: UIImage
+    let blurIcon: UIImage
+    let selectIcon: UIImage
+    let unselectIcon: UIImage
 }
 
 extension Reaction{
@@ -35,29 +37,54 @@ extension Reaction{
         }
     }
     
-    private var imageDescription: ReactionImage{
+    private var imageDescription: ReactionIcon{
         switch self{
-        case .smile:    return ReactionImage(defaultImage: Image.emojiSmile,
-                                             blurImage: Image.emojiBlurSmile)
-        case .flex:     return ReactionImage(defaultImage: Image.emojiFlex,
-                                             blurImage: Image.emojiBlurFlex)
-        case .funny:    return ReactionImage(defaultImage: Image.emojiFunny,
-                                             blurImage: Image.emojiBlurFunny)
-        case .happy:    return ReactionImage(defaultImage: Image.emojiHappy,
-                                             blurImage: Image.emojiBlurHappy)
-        case .what:     return ReactionImage(defaultImage: Image.emojiWhat,
-                                             blurImage: Image.emojiBlurWhat)
-        case .sad:      return ReactionImage(defaultImage: Image.emojiSad,
-                                             blurImage: Image.emojiBlurSad)
+        case .smile:    return ReactionIcon(defaultIcon: Image.emojiSmile,
+                                            blurIcon: Image.emojiBlurSmile,
+                                            selectIcon: Image.emojiSmileSelect,
+                                            unselectIcon: Image.emojiSmileUnSelect)
+            
+        case .flex:     return ReactionIcon(defaultIcon: Image.emojiFlex,
+                                            blurIcon: Image.emojiBlurFlex,
+                                            selectIcon: Image.emojiFlexSelect,
+                                            unselectIcon: Image.emojiFlexUnSelect)
+            
+        case .funny:    return ReactionIcon(defaultIcon: Image.emojiFunny,
+                                            blurIcon: Image.emojiBlurFunny,
+                                            selectIcon: Image.emojiFunnySelect,
+                                            unselectIcon: Image.emojiFunnyUnSelect)
+            
+        case .happy:    return ReactionIcon(defaultIcon: Image.emojiHappy,
+                                            blurIcon: Image.emojiBlurHappy,
+                                            selectIcon: Image.emojiHappySelect,
+                                            unselectIcon: Image.emojiHappyUnSelect)
+            
+        case .what:     return ReactionIcon(defaultIcon: Image.emojiWhat,
+                                            blurIcon: Image.emojiBlurWhat,
+                                            selectIcon: Image.emojiWhatSelect,
+                                            unselectIcon: Image.emojiWhatUnSelect)
+            
+        case .sad:      return ReactionIcon(defaultIcon: Image.emojiSad,
+                                            blurIcon: Image.emojiBlurSad,
+                                            selectIcon: Image.emojiSadSelect,
+                                            unselectIcon: Image.emojiSadUnSelect)
         }
     }
     
     var defaultImage: UIImage{
-        return self.imageDescription.defaultImage
+        return self.imageDescription.defaultIcon
     }
     
     var blurImage: UIImage{
-        return self.imageDescription.blurImage
+        return self.imageDescription.blurIcon
+    }
+    
+    var selectImage: UIImage{
+        return self.imageDescription.selectIcon
+    }
+    
+    var unselectImage: UIImage{
+        return self.imageDescription.unselectIcon
     }
 
 }
