@@ -26,7 +26,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         
         let controller: UISheetPresentationController = .init(presentedViewController: presented, presenting: presenting)
         
-        let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: type.rawValue * Const.Device.HEIGHT / 812)
+        let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: type.rawValue)//type.rawValue * Const.Device.HEIGHT / 812
     
         controller.detents = [detent]
         controller.preferredCornerRadius = 16
