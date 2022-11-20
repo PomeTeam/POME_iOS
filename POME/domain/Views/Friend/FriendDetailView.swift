@@ -82,8 +82,13 @@ class FriendDetailView: BaseView {
         $0.setImage(Image.emojiAdd, for: .normal)
     }
     
-    lazy var othersReactionButton = UIButton().then{
-        $0.setImage(Image.emojiBlurFlex, for: .normal)
+    lazy var othersReactionButton = UIButton()
+    
+    lazy var othersReactionCountLabel = UILabel().then{
+        $0.text = " "
+        $0.setTypoStyle(typoStyle: .subtitle3)
+        $0.textColor = .white
+        $0.isUserInteractionEnabled = false
     }
     
     lazy var moreButton = UIButton().then{
@@ -96,6 +101,39 @@ class FriendDetailView: BaseView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Method
+    
+    func setOthersReaction(count: Int){
+        
+        if(count == 0){
+            //TODO: 0개일 때 어떤 이모지 사용...?
+            othersReactionButton.setImage(Image.emojiAdd, for: .normal)
+            return
+        }else if(count == 1){
+            othersReactionButton.setImage(Image.emojiHappy, for: .normal)
+            return
+        }
+        
+        //count > 1인 경우 아래 코드 실행
+        self.othersReactionButton.addSubview(othersReactionCountLabel)
+
+        othersReactionCountLabel.snp.makeConstraints{
+            $0.leading.top.equalToSuperview().offset(6)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        let countString: String!
+        
+        if(count < 10){
+            countString = "+\(count)"
+        }else{
+            countString = "9+"
+        }
+        
+        othersReactionCountLabel.text = countString
+        othersReactionButton.setImage(Image.emojiBlurSad, for: .normal)
     }
     
     //MARK: - Override
@@ -199,7 +237,7 @@ class FriendDetailView: BaseView {
         }
         
         othersReactionButton.snp.makeConstraints{
-            $0.width.height.equalTo(myReactionBtn)
+            $0.width.height.equalTo(28)
         }
         
         moreButton.snp.makeConstraints{
