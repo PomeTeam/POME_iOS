@@ -23,8 +23,11 @@ class ReviewView: BaseView {
     
     let goalBannerView = UIView()
     let goalTagStackView = UIStackView()
+    
     let goalIsPublicLabel = UILabel()
+
     let goalRemainDateLabel = UILabel()
+    
     let goalTitleLabel = UILabel()
     
     let reviewTitleLabel = UILabel().then{
@@ -46,10 +49,11 @@ class ReviewView: BaseView {
     let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
     let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
-    let reloadingStackView = UIStackView()
+    let reloadingView = UIView()
     let reloadingLabel = UILabel().then{
         $0.text = "초기화"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
+        $0.textColor = Color.grey5
     }
     let reloadingImage = UIImageView().then{
         $0.image = Image.reloading
@@ -78,7 +82,7 @@ class ReviewView: BaseView {
         self.addSubview(reviewTitleLabel)
         self.addSubview(titleUnderStackView)
         self.addSubview(filterStackView)
-        self.addSubview(reloadingStackView)
+        self.addSubview(reloadingView)
         self.addSubview(consumeTableView)
         
         goalBannerView.addSubview(goalTagStackView)
@@ -88,10 +92,16 @@ class ReviewView: BaseView {
         goalTagStackView.addArrangedSubview(goalRemainDateLabel)
         
         titleUnderStackView.addArrangedSubview(filterStackView)
-        titleUnderStackView.addArrangedSubview(reloadingStackView)
+        titleUnderStackView.addArrangedSubview(reloadingView)
         
         filterStackView.addArrangedSubview(firstEmotionFilter)
         filterStackView.addArrangedSubview(secondEmotionFilter)
+        
+        reloadingView.addSubview(reloadingLabel)
+        reloadingView.addSubview(reloadingImage)
+        
+        titleUnderStackView.backgroundColor = .red
+        reloadingView.backgroundColor = .blue
     }
     
     override func layout() {
@@ -123,6 +133,22 @@ class ReviewView: BaseView {
         
 //        filterStackView.snp.makeConstraints{
 //        }
+        
+        reloadingView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(5)
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-6)
+        }
+        
+        reloadingLabel.snp.makeConstraints{
+            $0.top.bottom.leading.equalToSuperview()
+        }
+        
+        reloadingImage.snp.makeConstraints{
+            $0.leading.equalTo(reloadingLabel.snp.trailing).offset(2)
+            $0.trailing.equalToSuperview()
+            $0.width.height.equalTo(14)
+        }
         
         consumeTableView.snp.makeConstraints{
             $0.top.equalTo(filterStackView.snp.bottom).offset(10 + 12 - 7)
