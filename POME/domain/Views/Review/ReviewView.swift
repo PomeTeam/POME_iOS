@@ -34,7 +34,11 @@ class ReviewView: BaseView {
 
     let goalRemainDateLabel = DayTagLabel.generateDateEndTag()
     
-    let goalTitleLabel = UILabel()
+    let goalTitleLabel = UILabel().then{
+        $0.text = "커피 대신 물을 마시자"
+        $0.textColor = Color.title
+        $0.setTypoStyleWithSingleLine(typoStyle: .title2)
+    }
     
     let reviewTitleLabel = UILabel().then{
         $0.text = "씀씀이 돌아보기"
