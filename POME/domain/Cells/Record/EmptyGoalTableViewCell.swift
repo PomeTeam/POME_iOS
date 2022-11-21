@@ -54,7 +54,7 @@ class EmptyGoalTableViewCell: BaseTableViewCell {
         
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.bottom.equalToSuperview().inset(13)
+            make.top.bottom.equalToSuperview().inset(12)
             make.height.equalTo(157)
         }
         emptyGoalImage.snp.makeConstraints { make in

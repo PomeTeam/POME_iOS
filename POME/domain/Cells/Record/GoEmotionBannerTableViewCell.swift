@@ -32,6 +32,9 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
         $0.numberOfLines = 0
         $0.textColor = Color.grey6
     }
+    let arrowImage = UIImageView().then{
+        $0.image = Image.rightArrow
+    }
 
     //MARK: - LifeCycle
     
@@ -53,9 +56,11 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
         
         self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(backView)
+        
         backView.addSubview(heartImage)
         backView.addSubview(bannerTitleLabel)
         backView.addSubview(subTitleLabel)
+        backView.addSubview(arrowImage)
     }
     override func layout() {
         super.layout()
@@ -67,7 +72,7 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(titleLabel.snp.bottom).offset(16)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-12)
             make.height.equalTo(74)
         }
         heartImage.snp.makeConstraints { make in
@@ -82,6 +87,11 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
         subTitleLabel.snp.makeConstraints { make in
             make.leading.equalTo(bannerTitleLabel)
             make.top.equalTo(bannerTitleLabel.snp.bottom).offset(4)
+        }
+        arrowImage.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+            make.top.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-14)
         }
     }
 }

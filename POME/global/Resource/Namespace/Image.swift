@@ -16,9 +16,9 @@ enum Image{
     
     public static let photoDefault = UIImage(named: "photo_default")!
     
-    public static let more = UIImage(named: "more")!
+    public static let moreHorizontal = UIImage(named: "more_horizontal")!
     
-    
+    public static let moreVertical = UIImage(named: "more_vertical")!
     //MARK: - NavigationImage
     
     public static let backArrow = UIImage(named: "back_arrow")!

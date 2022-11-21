@@ -59,6 +59,7 @@ class RecordView: BaseView {
             $0.register(GoalCollectionViewTableViewCell.self, forCellReuseIdentifier: "GoalCollectionViewTableViewCell")
             $0.register(EmptyGoalTableViewCell.self, forCellReuseIdentifier: "GoalTableViewCell")
             $0.register(GoEmotionBannerTableViewCell.self, forCellReuseIdentifier: "GoEmotionBannerTableViewCell")
+            $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
             
             // autoHeight
             $0.rowHeight = UITableView.automaticDimension
