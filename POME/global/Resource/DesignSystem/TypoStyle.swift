@@ -133,7 +133,7 @@ extension UILabel {
              let attributedString = NSMutableAttributedString(attributedString: attributedText)
             
             attributedString.addAttributes([.font:font,
-                                                .kern:kernValue],
+                                            .kern:kernValue],
                                            range: NSRange(location: 0,
                                                           length: attributedString.length))
             
@@ -156,9 +156,9 @@ extension UILabel {
              let attributedString = NSMutableAttributedString(attributedString: attributedText)
             
             attributedString.addAttributes([.font:font,
-                                                .kern:kernValue,
-                                                .paragraphStyle: paragraphStyle,
-                                                .baselineOffset: (lineSpacing - font.lineHeight) / 4
+                                            .kern:kernValue,
+                                            .paragraphStyle: paragraphStyle,
+                                            .baselineOffset: (lineSpacing - font.lineHeight) / 4
             ], range: NSRange(location: 0,
                               length: attributedString.length))
             

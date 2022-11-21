@@ -9,10 +9,7 @@ import UIKit
 
 class ReviewViewController: BaseTabViewController {
     
-    let mainView = ReviewView().then{
-        $0.backgroundColor = .red
-        $0.goalTagCollectionView.backgroundColor = .blue
-    }
+    let mainView = ReviewView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
