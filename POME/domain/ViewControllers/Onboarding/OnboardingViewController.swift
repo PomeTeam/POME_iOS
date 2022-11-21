@@ -33,7 +33,7 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func startButtonDidTap() {
-        let vc = OnboardingViewController()
+        let vc = AppRegisterViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
