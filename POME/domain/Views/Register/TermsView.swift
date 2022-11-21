@@ -31,12 +31,15 @@ class TermsView: BaseView {
         $0.spacing = 23     //
     }
     let useTermLabel = UILabel().then{
+        $0.isUserInteractionEnabled = true
         $0.setUnderLine("이용 약관 동의 (필수)", UIFont.autoPretendard(type: .r_16), Color.title)
     }
     let privacyTermLabel = UILabel().then{
+        $0.isUserInteractionEnabled = true
         $0.setUnderLine("개인정보 수집 및 이용 동의 (필수)", UIFont.autoPretendard(type: .r_16), Color.title)
     }
     let marketingTermLabel = UILabel().then{
+        $0.isUserInteractionEnabled = true
         $0.setUnderLine("마케팅 정보 수집 동의 (선택)", UIFont.autoPretendard(type: .r_16), Color.title)
     }
     

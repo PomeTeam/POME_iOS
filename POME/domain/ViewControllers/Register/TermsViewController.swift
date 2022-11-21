@@ -15,6 +15,7 @@ class TermsViewController: UIViewController {
 
         style()
         layout()
+        initialize()
     }
     func style() {
         self.navigationController?.navigationBar.isHidden = true
@@ -28,6 +29,49 @@ class TermsViewController: UIViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
+    func initialize() {
+        let useTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        termsView.useTermLabel.addGestureRecognizer(useTermTap)
+        let privTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        termsView.privacyTermLabel.addGestureRecognizer(privTermTap)
+        let markTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        termsView.marketingTermLabel.addGestureRecognizer(markTermTap)
+        
+        termsView.allAgreeCheck.addTarget(self, action: #selector(allAgreeButtonDidTap), for: .touchUpInside)
+        termsView.useTermCheck.addTarget(self, action: #selector(useTermCheckDidTap), for: .touchUpInside)
+        termsView.privacyTermCheck.addTarget(self, action: #selector(privacyTermCheckDidTap), for: .touchUpInside)
+        termsView.marketingTermCheck.addTarget(self, action: #selector(marketingTermCheckDidTap), for: .touchUpInside)
+    }
+    
+    @objc func termDetailButtonDidTap(sender: UITapGestureRecognizer) {
+//        print("ckick")
+//        self.navigationController?.pushViewController(TermsViewController(), animated: true)
+    }
+    @objc func allAgreeButtonDidTap() {
+        if !termsView.allAgreeCheck.isSelected {
+            termsView.allAgreeCheck.isSelected = true
+            termsView.useTermCheck.isSelected = true
+            termsView.privacyTermCheck.isSelected = true
+            termsView.marketingTermCheck.isSelected = true
+        } else {
+            termsView.allAgreeCheck.isSelected = false
+            termsView.useTermCheck.isSelected = false
+            termsView.privacyTermCheck.isSelected = false
+            termsView.marketingTermCheck.isSelected = false
+        }
+    }
+    @objc func useTermCheckDidTap() {
+        let button = termsView.useTermCheck
+        button.isSelected.toggle()
+    }
+    @objc func privacyTermCheckDidTap() {
+        let button = termsView.privacyTermCheck
+        button.isSelected.toggle()
+    }
+    @objc func marketingTermCheckDidTap() {
+        let button = termsView.marketingTermCheck
+        button.isSelected.toggle()
+    }
 }
 class TermCheckButton: UIButton {
     init() {
@@ -40,13 +84,4 @@ class TermCheckButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 }
-extension UILabel {
-    func setUnderLine(_ title: String, _ font: UIFont, _ textColor: UIColor) {
-        let text = title
-        let attributeString = NSMutableAttributedString(string: text)
-        attributeString.addAttribute(.underlineStyle , value: 1, range: NSRange.init(location: 0, length: text.count))
-        attributeString.addAttribute(.font, value: font, range: NSRange(location: 0, length: text.count))
-        attributeString.addAttribute(.foregroundColor, value: textColor, range: NSRange(location: 0, length: text.count))
-        self.attributedText = attributeString
-    }
-}
+

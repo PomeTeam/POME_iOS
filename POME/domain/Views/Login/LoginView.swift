@@ -45,7 +45,7 @@ class LoginView: BaseView {
         logoImage.snp.makeConstraints { make in
             make.width.height.equalTo(230)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(135)
+            make.top.equalToSuperview().offset(87)
         }
         logo.snp.makeConstraints { make in
             make.width.equalTo(170)
