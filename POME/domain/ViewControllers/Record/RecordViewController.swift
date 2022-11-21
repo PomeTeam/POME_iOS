@@ -20,6 +20,7 @@ class RecordViewController: BaseTabViewController {
         
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
+        showEmptyView()
     }
     override func layout() {
         super.layout()
@@ -63,7 +64,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
 // MARK: - TableView delegate
 extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
@@ -87,16 +88,59 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         default:
-            let cell = UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
+            
+            cell.selectionStyle = .none
             return cell
         }
        
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 70
-//    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+// MARK: Empty View
+extension RecordViewController {
+    func showEmptyView() {
+        let stack = UIView().then{
+            $0.backgroundColor = .clear
+        }
+        let icon = UIImageView().then{
+            $0.image = Image.noting
+        }
+        let messageLabel = UILabel().then{
+            $0.textColor = Color.grey5
+            $0.textAlignment = .center
+            $0.text = "기록한 씀씀이가 없어요"
+            $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
+            $0.numberOfLines = 0
+            $0.sizeToFit()
+        }
+        let backgroudView = UIView(frame: CGRect(x: 0, y: 0, width: recordView.recordTableView.bounds.width, height: recordView.recordTableView.bounds.height))
+        
+        stack.addSubview(icon)
+        stack.addSubview(messageLabel)
+        backgroudView.addSubview(stack)
+        
+        stack.snp.makeConstraints { make in
+            make.width.equalTo(180)
+            make.height.equalTo(70)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-200)
+        }
+        icon.snp.makeConstraints { make in
+            make.width.height.equalTo(24)
+            make.centerX.top.equalToSuperview()
+        }
+        messageLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(icon.snp.bottom).offset(12)
+        }
+        
+        recordView.recordTableView.backgroundView = backgroudView
+    }
+    func hideEmptyView() {
+        recordView.recordTableView.backgroundView?.isHidden = true
     }
 }
