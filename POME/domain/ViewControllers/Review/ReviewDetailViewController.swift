@@ -7,14 +7,25 @@
 
 import UIKit
 
-class ReviewDetailViewController: UIView {
+class ReviewDetailViewController: BaseViewController {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    let mainView = ReviewDetailView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
-    */
-
+    
+    override func layout(){
+        
+        super.layout()
+        
+        self.view.addSubview(mainView)
+        
+        mainView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP + 16)
+            $0.leading.equalToSuperview().offset(24)
+            $0.trailing.equalToSuperview().offset(-24)
+            $0.bottom.lessThanOrEqualToSuperview()
+        }
+    }
 }
