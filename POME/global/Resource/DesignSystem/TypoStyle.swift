@@ -123,7 +123,25 @@ extension UILabel {
         }
     }
     
-    func setTypoStyle(typoStyle: TypoStyle) {
+    func setTypoStyleWithSingleLine(typoStyle: TypoStyle) {
+        
+        let font = typoStyle.font
+        let kernValue = typoStyle.labelDescription.kern
+
+        if let labelText = text, labelText.count > 0, let attributedText = self.attributedText {
+            
+             let attributedString = NSMutableAttributedString(attributedString: attributedText)
+            
+            attributedString.addAttributes([.font:font,
+                                                .kern:kernValue],
+                                           range: NSRange(location: 0,
+                                                          length: attributedString.length))
+            
+            self.attributedText = attributedString
+        }
+    }
+    
+    func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
@@ -134,7 +152,6 @@ extension UILabel {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.maximumLineHeight = lineSpacing
             paragraphStyle.minimumLineHeight = lineSpacing
-            
             
              let attributedString = NSMutableAttributedString(attributedString: attributedText)
             

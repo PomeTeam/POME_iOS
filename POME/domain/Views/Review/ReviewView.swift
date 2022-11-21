@@ -15,6 +15,7 @@ class ReviewView: BaseView {
         }
         
         $0.collectionViewLayout = flowLayout
+        $0.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
         $0.register(GoalCategoryCollectionViewCell.self, forCellWithReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier)
     }
@@ -79,12 +80,13 @@ class ReviewView: BaseView {
     override func layout() {
         
         goalTagCollectionView.snp.makeConstraints{
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(42)
+            $0.top.equalToSuperview().offset(6)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(30)
         }
         
         goalBannerView.snp.makeConstraints{
-            $0.top.equalTo(goalTagCollectionView.snp.bottom).offset(12)
+            $0.top.equalTo(goalTagCollectionView.snp.bottom).offset(18)
             $0.height.equalTo(83)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
