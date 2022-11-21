@@ -13,9 +13,11 @@ class ReviewView: BaseView {
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.minimumInteritemSpacing = 8
             $0.minimumLineSpacing = 8
+            $0.scrollDirection = .horizontal
         }
         
         $0.collectionViewLayout = flowLayout
+        $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         
         $0.register(GoalCategoryCollectionViewCell.self, forCellWithReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier)
@@ -51,7 +53,6 @@ class ReviewView: BaseView {
     
     let titleUnderStackView = UIStackView().then{
         $0.spacing = 86
-        $0.distribution = .fill
     }
     
     let filterStackView = UIStackView().then{
@@ -63,10 +64,12 @@ class ReviewView: BaseView {
     let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
     let reloadingView = UIView()
+    
     let reloadingLabel = UILabel().then{
         $0.text = "초기화"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
+        $0.textAlignment = .right
     }
     let reloadingImage = UIImageView().then{
         $0.image = Image.reloading
@@ -154,8 +157,25 @@ class ReviewView: BaseView {
             $0.height.equalTo(30)
         }
         
-//        filterStackView.snp.makeConstraints{
-//        }
+        filterStackView.snp.makeConstraints{
+            $0.top.leading.bottom.equalToSuperview()
+        }
+        
+        reloadingView.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-6)
+        }
+        
+        reloadingLabel.snp.makeConstraints{
+            $0.top.leading.bottom.equalToSuperview()
+        }
+        
+        reloadingImage.snp.makeConstraints{
+            $0.width.height.equalTo(14)
+            $0.leading.equalTo(reloadingLabel.snp.trailing).offset(2)
+            $0.trailing.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
 
         consumeTableView.snp.makeConstraints{
             $0.top.equalTo(filterStackView.snp.bottom).offset(10 + 12 - 7)
@@ -260,6 +280,7 @@ extension ReviewView{
             super.layout()
             
             filterButton.snp.makeConstraints{
+                $0.height.equalTo(30)
                 $0.top.bottom.leading.trailing.equalToSuperview()
             }
             
