@@ -51,7 +51,9 @@ class TermsView: BaseView {
     let privacyTermCheck = TermCheckButton()
     let marketingTermCheck = TermCheckButton()
     
-    let agreeButton = DefaultButton(titleStr: "동의했어요")
+    let agreeButton = DefaultButton(titleStr: "동의했어요").then{
+        $0.isActivate(false)
+    }
     
     //MARK: - LifeCycle
     override init(frame: CGRect) {
