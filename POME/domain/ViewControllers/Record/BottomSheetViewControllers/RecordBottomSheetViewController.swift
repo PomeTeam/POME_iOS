@@ -55,8 +55,6 @@ class RecordBottomSheetViewController: BaseSheetViewController {
         super.style()
         
         self.setBottomSheetStyle(type: .recordHome)
-        titleLabel.text = "지금은 씀씀이를 기록할 수 없어요"
-//        subTitleLabel.text = "나만의 소비 목표를 설정하고\n기록을 시작해보세요!"
     }
     
     override func initialize() {

@@ -19,6 +19,7 @@ class GoalCategoryCollectionViewCell: BaseCollectionViewCell {
     let goalCategoryLabel = UILabel().then{
         $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+        $0.textAlignment = .center
     }
     
     //MARK: - LifeCycle
@@ -36,11 +37,19 @@ class GoalCategoryCollectionViewCell: BaseCollectionViewCell {
     func setSelectState(){
         goalCategoryView.backgroundColor = Color.mint100
         goalCategoryLabel.textColor = .white
+        self.isUserInteractionEnabled = true
     }
     
     func setUnselectState(){
         goalCategoryView.backgroundColor = .white
         goalCategoryLabel.textColor = Color.grey5
+        self.isUserInteractionEnabled = true
+    }
+    
+    func setInactivateState(){
+        goalCategoryView.backgroundColor = .white
+        goalCategoryLabel.textColor = Color.grey3
+        self.isUserInteractionEnabled = false
     }
     
     //MARK: - Override

@@ -33,7 +33,7 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
         $0.textColor = Color.grey6
     }
     let arrowImage = UIImageView().then{
-        $0.image = Image.rightArrow
+        $0.image = Image.rightArrowGreen
     }
 
     //MARK: - LifeCycle
