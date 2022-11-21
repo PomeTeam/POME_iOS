@@ -147,6 +147,10 @@ enum Image{
 
     public static let trashCan = UIImage(named: "trashCan")!
     
+    public static let rightArrow = UIImage(named: "arrow_right")!
+    
+    public static let mintMarshmallow = UIImage(named: "marshmallow_mint")!
+    
     // MARK: - Review
     public static let sheetCancel = UIImage(named: "cancel_sheet")!
     
