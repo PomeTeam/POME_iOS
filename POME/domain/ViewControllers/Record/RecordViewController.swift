@@ -96,6 +96,9 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath)
                 as? GoalCategoryCollectionViewCell else { fatalError() }
         cell.goalCategoryLabel.text = categoryTitles[indexPath.row]
+        if indexPath.row == 0 {cell.setSelectState()}
+        else if indexPath.row == 4 {cell.setInactivateState()}  //임시
+        else {cell.setUnselectState()}
         return cell
     }
     
