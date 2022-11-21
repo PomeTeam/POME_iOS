@@ -64,6 +64,7 @@ extension ShadowStyle{
 extension UIView{
     
     func setShadowStyle(type: ShadowStyle){
+        self.backgroundColor = .white
         self.layer.cornerRadius = type.cornerRadius ?? 0
         self.layer.shadowColor = type.shadowColor
         self.layer.shadowOpacity = type.shadowOpacity
