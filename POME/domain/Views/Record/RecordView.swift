@@ -56,9 +56,14 @@ class RecordView: BaseView {
     }
     func setTableView() {
         recordTableView = UITableView().then{
-            $0.register(GoalCollectionViewTableViewCell.self, forCellReuseIdentifier: "GoalCollectionViewTableViewCell")
-            $0.register(EmptyGoalTableViewCell.self, forCellReuseIdentifier: "GoalTableViewCell")
+            // 목표 카테고리 바
+            $0.register(GoalCategoryTableViewCell.self, forCellReuseIdentifier: "GoalCategoryTableViewCell")
+            // 목표 카드
+            $0.register(GoalTableViewCell.self, forCellReuseIdentifier: "GoalTableViewCell")
+            $0.register(EmptyGoalTableViewCell.self, forCellReuseIdentifier: "EmptyGoalTableViewCell")
+            // 감정 남기기
             $0.register(GoEmotionBannerTableViewCell.self, forCellReuseIdentifier: "GoEmotionBannerTableViewCell")
+            // 기록 카드
             $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
             
             // autoHeight

@@ -34,7 +34,13 @@ class RecordViewController: BaseTabViewController {
     override func initialize() {
         super.initialize()
         
-        
+        recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
+    }
+    // MARK: - Actions
+    @objc func writeButtonDidTap() {
+        let sheet = RecordBottomSheetViewController(Image.emptyGoal, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
     }
 }
 //MARK: - CollectionView Delegate
@@ -45,14 +51,14 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCollectionViewCell.cellIdentifier, for: indexPath)
-                as? GoalCollectionViewCell else { fatalError() }
-        cell.goalTitleLabel.text = categoryTitles[indexPath.row]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath)
+                as? GoalCategoryCollectionViewCell else { fatalError() }
+        cell.goalCategoryLabel.text = categoryTitles[indexPath.row]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalCollectionViewCell else { fatalError() }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalCategoryCollectionViewCell else { fatalError() }
         cell.isSelected = true
     }
     // 글자수에 따른 셀 너비 조정
@@ -70,7 +76,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let tag = indexPath.row
         switch tag {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCollectionViewTableViewCell", for: indexPath) as? GoalCollectionViewTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCategoryTableViewCell", for: indexPath) as? GoalCategoryTableViewCell else { return UITableViewCell() }
             
             cell.selectionStyle = .none
             cell.goalCollectionView.delegate = self
@@ -78,7 +84,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
             
             cell.selectionStyle = .none
             return cell

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalCollectionViewTableViewCell: BaseTableViewCell {
+class GoalCategoryTableViewCell: BaseTableViewCell {
     let goalPlusButton = UIButton().then{
         $0.setImage(Image.goalPlus, for: .normal)
     }
@@ -66,7 +66,7 @@ class GoalCollectionViewTableViewCell: BaseTableViewCell {
             
             $0.backgroundColor = Color.transparent
             
-            $0.register(GoalCollectionViewCell.self, forCellWithReuseIdentifier: GoalCollectionViewCell.cellIdentifier)
+            $0.register(GoalCategoryCollectionViewCell.self, forCellWithReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier)
         }
     }
 }
