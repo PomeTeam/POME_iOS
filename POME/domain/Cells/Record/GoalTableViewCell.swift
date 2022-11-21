@@ -56,6 +56,7 @@ class GoalTableViewCell: BaseTableViewCell {
         
         // ProgressBar ratio
         self.progressBarView.ratio = 0.3
+        
     }
     override func hierarchy() {
         super.hierarchy()

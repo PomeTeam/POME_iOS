@@ -42,6 +42,20 @@ class RecordViewController: BaseTabViewController {
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
+    @objc func alertMenuButtonDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
+            let dialog = PopUpViewController(Image.trashCan, "목표를 삭제하시겠어요?", "해당 목표에서 작성한 기록도 모두 삭제돼요", "삭제할게요", "아니요")
+            dialog.modalPresentationStyle = .overFullScreen
+            self.present(dialog, animated: false, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true)
+    }
 }
 //MARK: - CollectionView Delegate
 extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -85,7 +99,8 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
-            
+            // Alert Menu
+            cell.menuButton.addTarget(self, action: #selector(alertMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
             return cell
         case 2:
@@ -106,7 +121,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-// MARK: Empty View
+// MARK: - Empty View
 extension RecordViewController {
     func showEmptyView() {
         let stack = UIView().then{
