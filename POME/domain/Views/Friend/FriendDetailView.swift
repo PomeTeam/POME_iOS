@@ -133,7 +133,7 @@ class FriendDetailView: BaseView {
         }
         
         othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(Image.emojiBlurSad, for: .normal)
+        othersReactionButton.setImage(Image.emojiBlurHappy, for: .normal)
     }
     
     //MARK: - Override
