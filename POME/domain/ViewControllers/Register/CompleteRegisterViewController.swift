@@ -26,7 +26,7 @@ class CompleteRegisterViewController: UIViewController {
     let image = UIImageView().then{
         $0.image = Image.friendIllustrator
     }
-    let nextTimeButton = DefaultButton(titleStr: "다음에 할래요", backgroundColor: .white, titleColor: Color.grey4)
+    let nextTimeButton = DefaultButton(titleStr: "다음에 할래요", font: UIFont.autoPretendard(type: .sb_16), backgroundColor: .white, titleColor: Color.grey4)
     let addButton = DefaultButton(titleStr: "추가할래요")
 
     // MARK: - Life Cycle
