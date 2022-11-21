@@ -133,23 +133,7 @@ class ReviewView: BaseView {
         
 //        filterStackView.snp.makeConstraints{
 //        }
-        
-        reloadingView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(5)
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-6)
-        }
-        
-        reloadingLabel.snp.makeConstraints{
-            $0.top.bottom.leading.equalToSuperview()
-        }
-        
-        reloadingImage.snp.makeConstraints{
-            $0.leading.equalTo(reloadingLabel.snp.trailing).offset(2)
-            $0.trailing.equalToSuperview()
-            $0.width.height.equalTo(14)
-        }
-        
+
         consumeTableView.snp.makeConstraints{
             $0.top.equalTo(filterStackView.snp.bottom).offset(10 + 12 - 7)
             $0.leading.trailing.bottom.equalToSuperview()
