@@ -20,6 +20,7 @@
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
+		2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* PopUpViewController.swift */; };
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
@@ -135,6 +136,7 @@
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
+		2367FC5B292BECB8006ED970 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
@@ -290,6 +292,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		2367FC5A292BEC53006ED970 /* PopUp */ = {
+			isa = PBXGroup;
+			children = (
+				2367FC5B292BECB8006ED970 /* PopUpViewController.swift */,
+			);
+			path = PopUp;
+			sourceTree = "<group>";
+		};
 		23808773291B3ABE00072763 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +443,7 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2367FC5A292BEC53006ED970 /* PopUp */,
 				5724EC732919220800DC529B /* Base */,
 				5724EC6029177BD600DC529B /* TabBar */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
@@ -1067,6 +1078,7 @@
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
+				2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
