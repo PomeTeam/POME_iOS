@@ -41,12 +41,18 @@ class TermsViewController: UIViewController {
         termsView.useTermCheck.addTarget(self, action: #selector(useTermCheckDidTap), for: .touchUpInside)
         termsView.privacyTermCheck.addTarget(self, action: #selector(privacyTermCheckDidTap), for: .touchUpInside)
         termsView.marketingTermCheck.addTarget(self, action: #selector(marketingTermCheckDidTap), for: .touchUpInside)
+        
+        termsView.agreeButton.addTarget(self, action: #selector(agreeButtonDidTap), for: .touchUpInside)
     }
     func isValidCheck() {
         let isValid = termsView.useTermCheck.isSelected && termsView.privacyTermCheck.isSelected
         termsView.agreeButton.isActivate(isValid)
     }
     
+    // MARK: - Actions
+    @objc func agreeButtonDidTap() {
+        self.navigationController?.pushViewController(RegisterViewController(), animated: true)
+    }
     @objc func termDetailButtonDidTap(sender: UITapGestureRecognizer) {
 //        print("ckick")
         self.navigationController?.pushViewController(TermDetailViewController(), animated: true)

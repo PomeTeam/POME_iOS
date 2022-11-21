@@ -33,10 +33,6 @@ class RegisterViewController: UIViewController {
         layout()
         initialize()
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        maskView.frame = registerView.profileImage.bounds
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -60,9 +56,6 @@ class RegisterViewController: UIViewController {
     }
     func initialize() {
         registerView.nameTextField.delegate = self
-        
-        maskView.image = Image.photoDefault
-        registerView.profileImage.mask = maskView
         
         // imagePicker delegate
         imagePickerController.delegate = self
