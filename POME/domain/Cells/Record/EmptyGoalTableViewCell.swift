@@ -9,7 +9,7 @@ import UIKit
 class EmptyGoalTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
         $0.backgroundColor = .white
-        $0.setShadowStyle(type: .goalCard)
+        $0.setShadowStyle(type: .card)
     }
     let emptyGoalImage = UIImageView().then{
         $0.image = Image.emptyGoal

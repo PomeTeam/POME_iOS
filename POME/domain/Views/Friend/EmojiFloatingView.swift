@@ -13,7 +13,7 @@ class EmojiFloatingView: BaseView {
     
     let shadowView = UIView().then{
         $0.backgroundColor = .white
-        $0.setShadowStyle(type: .emojiFloating)
+        $0.setShadowStyle(type: .card)
     }
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{

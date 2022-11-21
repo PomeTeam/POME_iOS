@@ -17,57 +17,23 @@ struct ShadowDescription{
 }
 
 enum ShadowStyle{
-    case goalCard
-    case emojiCard
-    case friendCard
-    
-    case floatingPencil
-    case emojiFloating
-    case goalEdit
-    case bottomBar
-    
-    case toggleOn
-    case toggleOff
+    case tabBar
+    case card
 }
 
 extension ShadowStyle{
     
     private var shadowDescription: ShadowDescription{
         switch self{
-        case .goalCard:         return ShadowDescription(cornerRadius: 6,
-                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.1),
-                                                         shadowRadius: 15, shadowOffset: CGSize(width: 0, height: 4))
+        case .card:             return ShadowDescription(cornerRadius: 6,
+                                                         shadowColor: UIColor(red: 127/255, green: 137/255, blue: 157/255, alpha: 0.12),
+                                                         shadowRadius: 30,
+                                                         shadowOffset: CGSize(width: 0, height: 10))
             
-        case .emojiCard:        return ShadowDescription(cornerRadius: 6,
-                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.12),
-                                                         shadowRadius: 8, shadowOffset: CGSize(width: 0, height: 2))
-        
-        case .friendCard:       return ShadowDescription(cornerRadius: 8,
-                                                         shadowColor: UIColor(red: 0, green: 0, blue: 0, alpha: 0.1),
-                                                         shadowRadius: 4, shadowOffset: CGSize(width: 0, height: 0))
-            
-        case .floatingPencil:   return ShadowDescription(cornerRadius: 0,
-                                                         shadowColor: UIColor(red: 0.431, green: 0.767, blue: 0.495, alpha: 0.15),
-                                                         shadowRadius: 16, shadowOffset: CGSize(width: 0, height: 4))
-            
-        case .emojiFloating:    return ShadowDescription(cornerRadius: 54/2,
-                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.2),
-                                                         shadowRadius: 8, shadowOffset: CGSize(width: 0, height: 0))
-            
-        case .goalEdit:         return ShadowDescription(cornerRadius: 0,
-                                                         shadowColor: UIColor(red: 0.427, green: 0.553, blue: 0.678, alpha: 0.15),
-                                                         shadowRadius: 30, shadowOffset: CGSize(width: 0, height: 4))
-            
-        case .bottomBar:        return ShadowDescription(cornerRadius: 0,
-                                                         shadowColor: UIColor(red: 0.969, green: 0.969, blue: 0.98, alpha: 0.6),
-                                                         shadowRadius: 14, shadowOffset: CGSize(width: 0, height: -10))
-            
-        case .toggleOn:         return ShadowDescription(cornerRadius: 0,
-                                                         shadowColor: UIColor(red: 1, green: 0.431, blue: 0.4, alpha: 0.8),
-                                                         shadowRadius: 3, shadowOffset: CGSize(width: 0, height: 1))
-            
-        case .toggleOff:        return ShadowDescription(cornerRadius: 0, shadowColor: Color.grey5,
-                                                         shadowRadius: 3, shadowOffset: CGSize(width: 0, height: 1))
+        case .tabBar:           return ShadowDescription(cornerRadius: 0,
+                                                         shadowColor: UIColor(red: 247/255, green: 247/255, blue: 250/255, alpha: 0.6),
+                                                         shadowRadius: 14,
+                                                         shadowOffset: CGSize(width: 0, height: -10))
         }
     }
 }
