@@ -44,6 +44,7 @@ class FriendTableViewCell: BaseTableViewCell {
 //        mainView.timeLabel.text = ""
 //        mainView.priceLabel.text = ""
 //        mainView.memoLabel.text = ""
+        mainView.othersReactionCountLabel.text = ""
         
         mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
     }

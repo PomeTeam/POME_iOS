@@ -47,11 +47,11 @@ class ReactionTypeCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func setSelectState(at row: Int){
+    func setSelectState(row: Int){
         self.reactionImage.image = row == 0 ? Image.categoryActive : Reaction(rawValue: row - 1)?.selectImage
     }
     
-    func setUnselectState(at row: Int){
+    func setUnselectState(row: Int){
         self.reactionImage.image = row == 0 ? Image.categoryInactive : Reaction(rawValue: row - 1)?.unselectImage
     }
 }

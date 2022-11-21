@@ -21,7 +21,7 @@ class FriendViewController: BaseTabViewController {
         }
     }
     
-    var friendCardList = [Reaction?](repeating: nil, count: 10){
+    var friendCardList = [Reaction?](repeating: nil, count: 13){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -206,7 +206,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
-        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad) 
+        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
+        
+        cell.mainView.setOthersReaction(count: indexPath.row)
 
         cell.delegate = self
                 
