@@ -19,8 +19,9 @@ class RegisterView: BaseView {
     let profileImage = UIImageView().then{
         $0.image = Image.photoDefault
         $0.isUserInteractionEnabled = true
-        $0.layer.masksToBounds = true
         $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 75
     }
     let profileButton = UIButton().then{
         $0.setImage(Image.plus, for: .normal)
@@ -82,13 +83,13 @@ class RegisterView: BaseView {
         }
         profileImage.snp.makeConstraints { make in
             make.top.equalTo(registerTitleLabel.snp.bottom).offset(44)
-            make.width.height.equalTo(160)
+            make.width.height.equalTo(150)
             make.centerX.equalToSuperview()
         }
         profileButton.snp.makeConstraints { make in
             make.width.height.equalTo(24)
-            make.trailing.equalTo(profileImage)
-            make.bottom.equalTo(profileImage).offset(-7)
+            make.trailing.equalTo(profileImage).offset(-8)
+            make.bottom.equalTo(profileImage).offset(-9)
         }
         
         nameTextField.snp.makeConstraints { make in
