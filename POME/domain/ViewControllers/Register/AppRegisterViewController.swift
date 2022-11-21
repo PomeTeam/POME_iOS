@@ -57,7 +57,7 @@ class AppRegisterViewController: BaseViewController {
         // 동의하고 시작하기 버튼
         appRegisterView.nextButton.rx.tap
             .bind {
-                self.navigationController?.pushViewController(AppRegisterViewController(), animated: true)
+                self.navigationController?.pushViewController(TermsViewController(), animated: true)
             }
             .disposed(by: disposeBag)
     }

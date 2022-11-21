@@ -22,6 +22,8 @@
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
 		2380877E291B502E00072763 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877D291B502E00072763 /* RegisterView.swift */; };
 		23808782291B53AF00072763 /* BaseLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808781291B53AF00072763 /* BaseLabel.swift */; };
+		23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E59292B6E4100707572 /* TermsViewController.swift */; };
+		23858E5C292B6E6B00707572 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E5B292B6E6B00707572 /* TermsView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
@@ -129,6 +131,8 @@
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		2380877D291B502E00072763 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		23808781291B53AF00072763 /* BaseLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLabel.swift; sourceTree = "<group>"; };
+		23858E59292B6E4100707572 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		23858E5B292B6E6B00707572 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -280,6 +284,7 @@
 				23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */,
 				23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */,
 				2306123F292B51A600662007 /* AppRegisterViewController.swift */,
+				23858E59292B6E4100707572 /* TermsViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -290,6 +295,7 @@
 				23F364D5291B7BA9009232B4 /* AddFriend */,
 				2380877D291B502E00072763 /* RegisterView.swift */,
 				23061241292B51C800662007 /* AppRegisterView.swift */,
+				23858E5B292B6E6B00707572 /* TermsView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -992,8 +998,10 @@
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
 				2306123C292B4CB500662007 /* OnboardingViewController.swift in Sources */,
+				23858E5C292B6E6B00707572 /* TermsView.swift in Sources */,
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
+				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
