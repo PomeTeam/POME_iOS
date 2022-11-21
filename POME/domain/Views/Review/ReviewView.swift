@@ -21,12 +21,18 @@ class ReviewView: BaseView {
         $0.register(GoalCategoryCollectionViewCell.self, forCellWithReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier)
     }
     
-    let goalBannerView = UIView()
-    let goalTagStackView = UIStackView()
+    let goalBannerView = UIView().then{
+        $0.setShadowStyle(type: .goalCard)
+    }
     
-    let goalIsPublicLabel = UILabel()
+    let goalTagStackView = UIStackView().then{
+        $0.spacing = 4
+        $0.axis = .horizontal
+    }
+    
+    let goalIsPublicLabel = LockTagLabel.generateOpenTag()
 
-    let goalRemainDateLabel = UILabel()
+    let goalRemainDateLabel = DayTagLabel.generateDateEndTag()
     
     let goalTitleLabel = UILabel()
     
@@ -99,9 +105,7 @@ class ReviewView: BaseView {
         
         reloadingView.addSubview(reloadingLabel)
         reloadingView.addSubview(reloadingImage)
-        
-        titleUnderStackView.backgroundColor = .red
-        reloadingView.backgroundColor = .blue
+
     }
     
     override func layout() {
@@ -116,6 +120,18 @@ class ReviewView: BaseView {
             $0.top.equalTo(goalTagCollectionView.snp.bottom).offset(18)
             $0.height.equalTo(83)
             $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-16)
+        }
+        
+        goalTagStackView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(14)
+            $0.leading.equalToSuperview().offset(16)
+        }
+        
+        goalTitleLabel.snp.makeConstraints{
+            $0.top.equalTo(goalTagStackView.snp.bottom).offset(8)
+            $0.leading.equalToSuperview().offset(16)
+            $0.bottom.equalToSuperview().offset(-14)
             $0.trailing.equalToSuperview().offset(-16)
         }
         
