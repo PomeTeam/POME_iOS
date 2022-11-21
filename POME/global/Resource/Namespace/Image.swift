@@ -143,6 +143,13 @@ enum Image{
     
     public static let trashCan = UIImage(named: "trashCan")!
     
+    // MARK: - Review
+    public static let sheetCancel = UIImage(named: "cancel_sheet")!
+    
+    public static let reloading = UIImage(named: "reloading")!
+    
+    public static let tagArrowDown = UIImage(named: "filter_arrow_down")!
+    
     //MARK: - Tag
     
     public static let tagArrow = UIImage(named: "tag_arrow")

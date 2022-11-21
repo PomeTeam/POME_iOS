@@ -70,6 +70,14 @@
 		57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */; };
 		57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77E29290212007E22D1 /* FriendReactionCollectionViewCell.swift */; };
 		57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */; };
+		57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA784292B0A37007E22D1 /* ReviewEmptyView.swift */; };
+		57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA786292B0A4B007E22D1 /* ReviewView.swift */; };
+		57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA788292B0A61007E22D1 /* ReviewDetailView.swift */; };
+		57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */; };
+		57CCA78D292B0AB4007E22D1 /* GoalCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78C292B0AB4007E22D1 /* GoalCategoryCollectionViewCell.swift */; };
+		57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78E292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift */; };
+		57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */; };
+		57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */; };
 		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
 		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
 		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
@@ -169,6 +177,14 @@
 		57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetView.swift; sourceTree = "<group>"; };
 		57CCA77E29290212007E22D1 /* FriendReactionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		57CCA784292B0A37007E22D1 /* ReviewEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEmptyView.swift; sourceTree = "<group>"; };
+		57CCA786292B0A4B007E22D1 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		57CCA788292B0A61007E22D1 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
+		57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
+		57CCA78C292B0AB4007E22D1 /* GoalCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		57CCA78E292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetCollectionViewCell.swift; sourceTree = "<group>"; };
+		57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetViewController.swift; sourceTree = "<group>"; };
+		57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetView.swift; sourceTree = "<group>"; };
 		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
@@ -370,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				2380877C291B502100072763 /* Register */,
+				57CCA783292B09FF007E22D1 /* Review */,
 				5724EC672918CEBA00DC529B /* Friend */,
 			);
 			path = Views;
@@ -397,6 +414,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA782292B09F5007E22D1 /* Review */,
 				23F364D8291B82AC009232B4 /* AddFriend */,
 				5724EC6A2918CED200DC529B /* Friend */,
 			);
@@ -471,6 +489,8 @@
 			isa = PBXGroup;
 			children = (
 				5724EC5A2917735300DC529B /* ReviewViewController.swift */,
+				57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */,
+				57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -589,6 +609,26 @@
 				57CCA78029290263007E22D1 /* ReactionTypeCollectionViewCell.swift */,
 			);
 			path = Sheet;
+			sourceTree = "<group>";
+		};
+		57CCA782292B09F5007E22D1 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA78C292B0AB4007E22D1 /* GoalCategoryCollectionViewCell.swift */,
+				57CCA78E292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		57CCA783292B09FF007E22D1 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA786292B0A4B007E22D1 /* ReviewView.swift */,
+				57CCA784292B0A37007E22D1 /* ReviewEmptyView.swift */,
+				57CCA788292B0A61007E22D1 /* ReviewDetailView.swift */,
+				57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */,
+			);
+			path = Review;
 			sourceTree = "<group>";
 		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
@@ -865,8 +905,10 @@
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
+				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
+				57CCA78D292B0AB4007E22D1 /* GoalCategoryCollectionViewCell.swift in Sources */,
 				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */,
@@ -879,6 +921,7 @@
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
+				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
@@ -888,10 +931,12 @@
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
+				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
+				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23808782291B53AF00072763 /* BaseLabel.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
@@ -902,9 +947,12 @@
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
+				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
+				57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */,
+				57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */,
 				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
