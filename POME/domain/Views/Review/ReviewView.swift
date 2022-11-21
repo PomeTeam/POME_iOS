@@ -22,7 +22,10 @@ class ReviewView: BaseView {
     }
     
     let goalBannerView = UIView().then{
-        $0.setShadowStyle(type: .goalCard)
+        $0.layer.borderColor = Color.grey2.cgColor
+        $0.layer.borderWidth = 1
+        $0.backgroundColor = .white
+        $0.setShadowStyle(type: .card)
     }
     
     let goalTagStackView = UIStackView().then{
