@@ -8,17 +8,19 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
-    var onboardingView: OnboardingView!
+    var onboardingView: LoginView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("load")
         layout()
         initialize()
     }
 
     func layout() {
-        onboardingView = OnboardingView()
+        print("layout")
+        onboardingView = LoginView()
         self.view.addSubview(onboardingView)
         onboardingView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
@@ -26,6 +28,7 @@ class OnboardingViewController: UIViewController {
         }
     }
     func initialize() {
+        
         onboardingView.startButton.addTarget(self, action: #selector(startButtonDidTap), for: .touchUpInside)
     }
     

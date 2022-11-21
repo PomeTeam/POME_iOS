@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class OnboardingView: BaseView {
+class LoginView: BaseView {
     let logoImage = UIImageView().then{
         $0.image = Image.splashImage
     }
