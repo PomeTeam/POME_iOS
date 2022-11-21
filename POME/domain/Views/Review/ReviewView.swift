@@ -23,8 +23,11 @@ class ReviewView: BaseView {
     
     let goalBannerView = UIView()
     let goalTagStackView = UIStackView()
+    
     let goalIsPublicLabel = UILabel()
+
     let goalRemainDateLabel = UILabel()
+    
     let goalTitleLabel = UILabel()
     
     let reviewTitleLabel = UILabel().then{
@@ -46,10 +49,11 @@ class ReviewView: BaseView {
     let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
     let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
-    let reloadingStackView = UIStackView()
+    let reloadingView = UIView()
     let reloadingLabel = UILabel().then{
         $0.text = "초기화"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
+        $0.textColor = Color.grey5
     }
     let reloadingImage = UIImageView().then{
         $0.image = Image.reloading
@@ -78,7 +82,7 @@ class ReviewView: BaseView {
         self.addSubview(reviewTitleLabel)
         self.addSubview(titleUnderStackView)
         self.addSubview(filterStackView)
-        self.addSubview(reloadingStackView)
+        self.addSubview(reloadingView)
         self.addSubview(consumeTableView)
         
         goalBannerView.addSubview(goalTagStackView)
@@ -88,10 +92,16 @@ class ReviewView: BaseView {
         goalTagStackView.addArrangedSubview(goalRemainDateLabel)
         
         titleUnderStackView.addArrangedSubview(filterStackView)
-        titleUnderStackView.addArrangedSubview(reloadingStackView)
+        titleUnderStackView.addArrangedSubview(reloadingView)
         
         filterStackView.addArrangedSubview(firstEmotionFilter)
         filterStackView.addArrangedSubview(secondEmotionFilter)
+        
+        reloadingView.addSubview(reloadingLabel)
+        reloadingView.addSubview(reloadingImage)
+        
+        titleUnderStackView.backgroundColor = .red
+        reloadingView.backgroundColor = .blue
     }
     
     override func layout() {
@@ -123,7 +133,7 @@ class ReviewView: BaseView {
         
 //        filterStackView.snp.makeConstraints{
 //        }
-        
+
         consumeTableView.snp.makeConstraints{
             $0.top.equalTo(filterStackView.snp.bottom).offset(10 + 12 - 7)
             $0.leading.trailing.bottom.equalToSuperview()
