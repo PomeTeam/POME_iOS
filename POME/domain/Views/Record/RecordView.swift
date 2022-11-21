@@ -19,7 +19,11 @@ class RecordView: BaseView {
     var recordTableView: UITableView!
     
     let writeButton = UIButton().then{
-        $0.setImage(Image.writingBtn, for: .normal)
+        var config = UIButton.Configuration.plain()
+        config.image = Image.writingBtn
+        config.background.backgroundColor = .red
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        $0.configuration = config
     }
     
     //MARK: - LifeCycle
