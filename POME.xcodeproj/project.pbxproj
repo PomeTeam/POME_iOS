@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2306122C292B466800662007 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2306122B292B466800662007 /* AppKey.xcconfig */; };
+		2306122F292B48C800662007 /* GoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306122E292B48C800662007 /* GoalCollectionViewCell.swift */; };
+		23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */; };
+		23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */; };
+		23061236292B4B5E00662007 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061235292B4B5E00662007 /* RecordView.swift */; };
+		2306123C292B4CB500662007 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306123B292B4CB500662007 /* OnboardingViewController.swift */; };
+		2306123E292B4EC500662007 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306123D292B4EC500662007 /* LoginView.swift */; };
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
@@ -18,6 +25,7 @@
 		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
 		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
+		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
 		5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBEA29100C8500DC529B /* BaseViewController.swift */; };
@@ -51,7 +59,6 @@
 		5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */; };
 		5724EC762919224700DC529B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC752919224700DC529B /* PaddingLabel.swift */; };
 		5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC77291A009F00DC529B /* ShadowStyle.swift */; };
-		5724EC80291B23DF00DC529B /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC7F291B23DF00DC529B /* AppKey.xcconfig */; };
 		5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC81291B246800DC529B /* EmojiFloatingView.swift */; };
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
@@ -79,9 +86,8 @@
 		57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */; };
 		57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */; };
 		57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA794292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift */; };
-		6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 978BC02AB513562A64B4000D /* Pods_POMETests.framework */; };
-		79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527F5B372FC038FE4BE038C8 /* Pods_POME.framework */; };
-		96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */; };
+		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
+		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +108,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
-		182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
+		09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BECD1D55C3C8936CEEFA40E /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
+		188B7CC711D87CACB40AC32B /* Pods-POME-POMEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.debug.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2306122B292B466800662007 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
+		2306122E292B48C800662007 /* GoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCollectionViewCell.swift; sourceTree = "<group>"; };
+		23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGoalTableViewCell.swift; sourceTree = "<group>"; };
+		23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoEmotionBannerTableViewCell.swift; sourceTree = "<group>"; };
+		23061235292B4B5E00662007 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
+		2306123B292B4CB500662007 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		2306123D292B4EC500662007 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
@@ -116,10 +130,8 @@
 		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
-		34A2D712048AB778F72BF007 /* Pods-POME-POMEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.debug.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		371D134E9CB0BA0D56720052 /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
-		527F5B372FC038FE4BE038C8 /* Pods_POME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
+		47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5724EBE329100C8500DC529B /* POME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5724EBE629100C8500DC529B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5724EBE829100C8500DC529B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,7 +169,6 @@
 		5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC752919224700DC529B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5724EC77291A009F00DC529B /* ShadowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowStyle.swift; sourceTree = "<group>"; };
-		5724EC7F291B23DF00DC529B /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 		5724EC81291B246800DC529B /* EmojiFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingView.swift; sourceTree = "<group>"; };
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
@@ -187,9 +198,10 @@
 		57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetViewController.swift; sourceTree = "<group>"; };
 		57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetView.swift; sourceTree = "<group>"; };
 		57CCA794292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumeReviewTableViewCell.swift; sourceTree = "<group>"; };
-		978BC02AB513562A64B4000D /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
+		75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
+		78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
+		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
+		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,7 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79015ED1CB57776E29EB0A39 /* Pods_POME.framework in Frameworks */,
+				30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +217,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AADF87496DEE5F4C1F510A1 /* Pods_POMETests.framework in Frameworks */,
+				96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,13 +225,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96C268946AB65683931B967C /* Pods_POME_POMEUITests.framework in Frameworks */,
+				A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2306122D292B48B700662007 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				2306122E292B48C800662007 /* GoalCollectionViewCell.swift */,
+				23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */,
+				23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		23061234292B4B5500662007 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				23061235292B4B5E00662007 /* RecordView.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		23061237292B4C7600662007 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2306123D292B4EC500662007 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		2306123A292B4CA300662007 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				2306123B292B4CB500662007 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		23808773291B3ABE00072763 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,7 +318,7 @@
 				5724EC0629100C8800DC529B /* POMEUITests */,
 				5724EBE429100C8500DC529B /* Products */,
 				9985C6C62AA2A9B10BEA041F /* Pods */,
-				C9B6EF0B985CEDC01CFDE346 /* Frameworks */,
+				624F1339817CBA845EC82A7A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -387,6 +433,8 @@
 		5724EC1D2910131B00DC529B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				23061237292B4C7600662007 /* Login */,
+				23061234292B4B5500662007 /* Record */,
 				2380877C291B502100072763 /* Register */,
 				57CCA783292B09FF007E22D1 /* Review */,
 				5724EC672918CEBA00DC529B /* Friend */,
@@ -397,6 +445,7 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				2306123A292B4CA300662007 /* Onboarding */,
 				23808773291B3ABE00072763 /* Register */,
 				5724EC54291772DF00DC529B /* Record */,
 				5724EC55291772EA00DC529B /* Review */,
@@ -416,6 +465,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				2306122D292B48B700662007 /* Record */,
 				57CCA782292B09F5007E22D1 /* Review */,
 				23F364D8291B82AC009232B4 /* AddFriend */,
 				5724EC6A2918CED200DC529B /* Friend */,
@@ -427,7 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EBF429100C8700DC529B /* Info.plist */,
-				5724EC7F291B23DF00DC529B /* AppKey.xcconfig */,
+				2306122B292B466800662007 /* AppKey.xcconfig */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -634,27 +684,27 @@
 			path = Review;
 			sourceTree = "<group>";
 		};
+		624F1339817CBA845EC82A7A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */,
+				47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */,
+				BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9985C6C62AA2A9B10BEA041F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				25465C4CE8F709E05B692630 /* Pods-POME.debug.xcconfig */,
-				B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */,
-				34A2D712048AB778F72BF007 /* Pods-POME-POMEUITests.debug.xcconfig */,
-				371D134E9CB0BA0D56720052 /* Pods-POME-POMEUITests.release.xcconfig */,
-				118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */,
-				182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */,
+				75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */,
+				0BECD1D55C3C8936CEEFA40E /* Pods-POME.release.xcconfig */,
+				188B7CC711D87CACB40AC32B /* Pods-POME-POMEUITests.debug.xcconfig */,
+				78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */,
+				99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */,
+				2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		C9B6EF0B985CEDC01CFDE346 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				527F5B372FC038FE4BE038C8 /* Pods_POME.framework */,
-				A7EF3D174AC747AFDBBBDFD0 /* Pods_POME_POMEUITests.framework */,
-				978BC02AB513562A64B4000D /* Pods_POMETests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -664,11 +714,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5724EC0D29100C8800DC529B /* Build configuration list for PBXNativeTarget "POME" */;
 			buildPhases = (
-				836BEEEC35C862B388CBA16F /* [CP] Check Pods Manifest.lock */,
+				D3686A7F6CDDA66CFECFE34B /* [CP] Check Pods Manifest.lock */,
 				5724EBDF29100C8500DC529B /* Sources */,
 				5724EBE029100C8500DC529B /* Frameworks */,
 				5724EBE129100C8500DC529B /* Resources */,
-				B19DCAA82EC7A31DA21B5821 /* [CP] Embed Pods Frameworks */,
+				73F2698F7C13DAA071A1329B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -683,7 +733,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5724EC1029100C8800DC529B /* Build configuration list for PBXNativeTarget "POMETests" */;
 			buildPhases = (
-				7883E4E44823B08954EDA4FF /* [CP] Check Pods Manifest.lock */,
+				79D9BA7287B0DE6944CC9468 /* [CP] Check Pods Manifest.lock */,
 				5724EBF529100C8800DC529B /* Sources */,
 				5724EBF629100C8800DC529B /* Frameworks */,
 				5724EBF729100C8800DC529B /* Resources */,
@@ -702,11 +752,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5724EC1329100C8800DC529B /* Build configuration list for PBXNativeTarget "POMEUITests" */;
 			buildPhases = (
-				6D46D302C34F3B94CFD7AE95 /* [CP] Check Pods Manifest.lock */,
+				84F581B8FBE9221F66D3C2CD /* [CP] Check Pods Manifest.lock */,
 				5724EBFF29100C8800DC529B /* Sources */,
 				5724EC0029100C8800DC529B /* Frameworks */,
 				5724EC0129100C8800DC529B /* Resources */,
-				EBD6AE3770A46EE0A79346E0 /* [CP] Embed Pods Frameworks */,
+				3D38A9EC4E24FCBE62B20026 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -773,7 +823,7 @@
 				5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */,
 				5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */,
 				5724EBF029100C8700DC529B /* Assets.xcassets in Resources */,
-				5724EC80291B23DF00DC529B /* AppKey.xcconfig in Resources */,
+				2306122C292B466800662007 /* AppKey.xcconfig in Resources */,
 				5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */,
 				5724EBEE29100C8500DC529B /* Main.storyboard in Resources */,
 				23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */,
@@ -798,29 +848,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6D46D302C34F3B94CFD7AE95 /* [CP] Check Pods Manifest.lock */ = {
+		3D38A9EC4E24FCBE62B20026 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-POME-POMEUITests-checkManifestLockResult.txt",
+				"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7883E4E44823B08954EDA4FF /* [CP] Check Pods Manifest.lock */ = {
+		73F2698F7C13DAA071A1329B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		79D9BA7287B0DE6944CC9468 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -842,7 +904,29 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		836BEEEC35C862B388CBA16F /* [CP] Check Pods Manifest.lock */ = {
+		84F581B8FBE9221F66D3C2CD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-POME-POMEUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3686A7F6CDDA66CFECFE34B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -862,40 +946,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B19DCAA82EC7A31DA21B5821 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-POME/Pods-POME-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EBD6AE3770A46EE0A79346E0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -924,6 +974,7 @@
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
+				2306122F292B48C800662007 /* GoalCollectionViewCell.swift in Sources */,
 				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
@@ -931,6 +982,7 @@
 				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */,
+				2306123C292B4CB500662007 /* OnboardingViewController.swift in Sources */,
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
@@ -940,8 +992,10 @@
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
+				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23808782291B53AF00072763 /* BaseLabel.swift in Sources */,
+				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */,
@@ -949,6 +1003,7 @@
 				23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */,
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
@@ -962,6 +1017,7 @@
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1149,7 +1205,7 @@
 		};
 		5724EC0E29100C8800DC529B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5724EC7F291B23DF00DC529B /* AppKey.xcconfig */;
+			baseConfigurationReference = 75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1178,7 +1234,7 @@
 		};
 		5724EC0F29100C8800DC529B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9DF27644DD42E3868B10216 /* Pods-POME.release.xcconfig */;
+			baseConfigurationReference = 0BECD1D55C3C8936CEEFA40E /* Pods-POME.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1207,7 +1263,7 @@
 		};
 		5724EC1129100C8800DC529B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 118486978700A872B80224E3 /* Pods-POMETests.debug.xcconfig */;
+			baseConfigurationReference = 99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1228,7 +1284,7 @@
 		};
 		5724EC1229100C8800DC529B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 182BCA7B7BABFF16CC15C1EF /* Pods-POMETests.release.xcconfig */;
+			baseConfigurationReference = 2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1249,7 +1305,7 @@
 		};
 		5724EC1429100C8800DC529B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34A2D712048AB778F72BF007 /* Pods-POME-POMEUITests.debug.xcconfig */;
+			baseConfigurationReference = 188B7CC711D87CACB40AC32B /* Pods-POME-POMEUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1268,7 +1324,7 @@
 		};
 		5724EC1529100C8800DC529B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 371D134E9CB0BA0D56720052 /* Pods-POME-POMEUITests.release.xcconfig */;
+			baseConfigurationReference = 78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

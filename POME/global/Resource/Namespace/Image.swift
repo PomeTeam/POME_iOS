@@ -122,25 +122,29 @@ enum Image{
     
     // MARK: - Record
     public static let alarm = UIImage(named: "alarm")!
-    
+
+    public static let writingBtn = UIImage(named: "btn_writing")!
+
+    public static let emptyGoal = UIImage(named: "empty_goal")!
+
     public static let emojiBackground = UIImage(named: "emoji_background")!
-    
+
     public static let emojiPlus = UIImage(named: "emoji_plus")!
-    
+
     public static let goalPlus = UIImage(named: "goal_plus")!
-    
+
     public static let heartMint = UIImage(named: "heart_mint")!
-    
+
     public static let lock = UIImage(named: "lock")!
-    
+
     public static let noting = UIImage(named: "noting")!
-    
+
     public static let penMint = UIImage(named: "pen_mint")!
-    
+
     public static let penPink = UIImage(named: "pen_pink")!
-    
+
     public static let ten = UIImage(named: "ten")!
-    
+
     public static let trashCan = UIImage(named: "trashCan")!
     
     // MARK: - Review
@@ -157,4 +161,19 @@ enum Image{
     public static let tagUnselect = UIImage(named: "tag_unselect")
     
     public static let toast = UIImage(named: "toast")
+    
+    //MARK: - Onboarding
+    public static let splashImage = UIImage(named: "splash_image")
+
+    public static let apple = UIImage(named: "apple")
+
+    public static let kakao = UIImage(named: "kakao")
+
+    public static let checkGreen = UIImage(named: "check_green")
+
+    public static let checkGrey = UIImage(named: "check_grey")
+
+    public static let logoMint = UIImage(named: "logo_mint")
+
+    public static let sloganMint = UIImage(named: "slogan_mint")
 }
