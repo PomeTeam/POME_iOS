@@ -23,7 +23,7 @@ class FriendReactionCollectionViewCell: BaseCollectionViewCell {
     
     let nicknameLabel = UILabel().then{
         $0.text = " "
-        $0.setTypoStyle(typoStyle: .subtitle3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textColor = Color.body
         $0.numberOfLines = 1
         $0.textAlignment = .center

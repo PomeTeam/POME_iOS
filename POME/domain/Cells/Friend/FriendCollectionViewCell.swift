@@ -23,7 +23,7 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
         $0.text = " "
         $0.textColor = Color.grey5
         $0.numberOfLines = 1
-        $0.setTypoStyle(typoStyle: .subtitle3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textAlignment = .center
     }
     

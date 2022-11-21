@@ -9,10 +9,7 @@ import UIKit
 
 class ReviewViewController: BaseTabViewController {
     
-    let mainView = ReviewView().then{
-        $0.backgroundColor = .red
-        $0.goalTagCollectionView.backgroundColor = .blue
-    }
+    let mainView = ReviewView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +41,7 @@ class ReviewViewController: BaseTabViewController {
     }
 }
 
-extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         10
@@ -54,13 +51,24 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath) as? GoalCategoryCollectionViewCell else { return UICollectionViewCell() }
         
-        cell.setUnselectState()
+        cell.goalCategoryLabel.text = "카테고리"
+        cell.setSelectState()
         
         return cell
-                
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let testLabel = UILabel().then{
+            $0.text = "카테고리"
+            $0.setTypoStyleWithMultiLine(typoStyle: .title4)
+            $0.font = UIFont.autoPretendard(type: .sb_14)
+        }
+        
+        let width = testLabel.intrinsicContentSize.width + 12 * 2
+        
+        return CGSize(width: width, height: 30)
+    }
 }
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{

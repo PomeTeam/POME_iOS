@@ -28,19 +28,19 @@ class FriendDetailView: BaseView {
     let nameLabel = UILabel().then{
         $0.text = "규렌버"
         $0.textColor = Color.body
-        $0.setTypoStyle(typoStyle: .subtitle3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
     }
     
     let tagLabel = PaddingLabel().then{
         $0.text = "· 커피 대신 물을 마시자"
         $0.textColor = Color.grey5
-        $0.setTypoStyle(typoStyle: .body3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
     
     let timeLabel = UILabel().then{
         $0.text = "· 44분 전   "
         $0.textColor = Color.grey5
-        $0.setTypoStyle(typoStyle: .body3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
 
     //
@@ -63,12 +63,12 @@ class FriendDetailView: BaseView {
     let priceLabel = UILabel().then{
         $0.text = "320,800원"
         $0.textColor = Color.title
-        $0.setTypoStyle(typoStyle: .title3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .title3)
     }
     let memoLabel = UILabel().then{
         $0.text = "아휴 힘빠져 이젠 진짜 포기다 포기 도대체 뭐가 문제일까 현실을 되돌아볼 필요를 느낀다ㅠ 이정도 노력했으면 된거 아닌가 진짜 개 힘빠지네 그래서 오늘은 물 대신 라떼 한잔을 마셨습니다 ㅋ 라뗴 존맛탱~~ 다들 나흐바 시그니쳐 커피를 마셔주세요 설탕 솔솔 뿌려서 개맛있음"
         $0.textColor = Color.title
-        $0.setTypoStyle(typoStyle: .body2)
+        $0.setTypoStyleWithMultiLine(typoStyle: .body2)
         $0.numberOfLines = 0
     }
     
@@ -86,7 +86,7 @@ class FriendDetailView: BaseView {
     
     lazy var othersReactionCountLabel = UILabel().then{
         $0.text = " "
-        $0.setTypoStyle(typoStyle: .subtitle3)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textColor = .white
         $0.isUserInteractionEnabled = false
     }
