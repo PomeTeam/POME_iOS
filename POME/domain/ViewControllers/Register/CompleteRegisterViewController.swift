@@ -11,16 +11,16 @@ import RxCocoa
 
 class CompleteRegisterViewController: UIViewController {
     // MARK: - Views
-    let titleLabel = BaseLabel().then{
+    let titleLabel = UILabel().then{
         $0.text = "회원가입 완료!\n친구를 추가해볼까요?"
         $0.numberOfLines = 0
-        $0.font = UIFont.autoPretendard(type: .b_24)
+        $0.setTypoStyleWithMultiLine(typoStyle: .header1)
         $0.textColor = Color.title
     }
-    let subTitleLabel = BaseLabel().then{
+    let subTitleLabel = UILabel().then{
         $0.text = "친구의 소비 기록을 확인하고\n서로 응원할 수 있어요"
         $0.numberOfLines = 0
-        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
     }
     let image = UIImageView().then{

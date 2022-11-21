@@ -10,4 +10,5 @@ import Foundation
 enum SheetType: CGFloat{
     case friendReaction = 348 //314 + 34
     case emotionFilter = 252 //218+34
+    case recordHome = 285
 }

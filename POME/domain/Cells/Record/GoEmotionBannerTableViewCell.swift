@@ -9,23 +9,31 @@ import UIKit
 
 class GoEmotionBannerTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
-        $0.backgroundColor = Color.mint10
+        $0.backgroundColor = Color.mint20
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 6
+    }
+    let titleLabel = UILabel().then{
+        $0.text = "일주일 씀씀이"
+        $0.setTypoStyleWithSingleLine(typoStyle: .title2)
+        $0.textColor = Color.title
     }
     let heartImage = UIImageView().then{
         $0.image = Image.heartMint
     }
-    let titleLabel = BaseLabel().then{
+    let bannerTitleLabel = UILabel().then{
         $0.text = "감정을 남겨주세요"
-        $0.font = UIFont.autoPretendard(type: .sb_16)
+        $0.setTypoStyleWithSingleLine(typoStyle: .title3)
         $0.numberOfLines = 0
     }
-    let subTitleLabel = BaseLabel().then{
+    let subTitleLabel = UILabel().then{
         $0.text = "다시 돌아볼 씀씀이가 0건 있어요"
-        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.numberOfLines = 0
         $0.textColor = Color.grey6
+    }
+    let arrowImage = UIImageView().then{
+        $0.image = Image.rightArrowGreen
     }
 
     //MARK: - LifeCycle
@@ -46,31 +54,44 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
     override func hierarchy() {
         super.hierarchy()
         
+        self.contentView.addSubview(titleLabel)
         self.contentView.addSubview(backView)
+        
         backView.addSubview(heartImage)
-        backView.addSubview(titleLabel)
+        backView.addSubview(bannerTitleLabel)
         backView.addSubview(subTitleLabel)
+        backView.addSubview(arrowImage)
     }
     override func layout() {
         super.layout()
         
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(12)
+        }
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.bottom.equalToSuperview()
-            make.height.equalTo(76)
+            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.bottom.equalToSuperview().offset(-12)
+            make.height.equalTo(74)
         }
         heartImage.snp.makeConstraints { make in
             make.width.height.equalTo(44)
             make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
         }
-        titleLabel.snp.makeConstraints { make in
+        bannerTitleLabel.snp.makeConstraints { make in
             make.leading.equalTo(heartImage.snp.trailing).offset(10)
             make.top.equalTo(heartImage)
         }
         subTitleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel)
-            make.top.equalTo(titleLabel.snp.bottom).offset(4)
+            make.leading.equalTo(bannerTitleLabel)
+            make.top.equalTo(bannerTitleLabel.snp.bottom).offset(4)
+        }
+        arrowImage.snp.makeConstraints { make in
+            make.width.height.equalTo(20)
+            make.top.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-14)
         }
     }
 }

@@ -16,9 +16,9 @@ enum Image{
     
     public static let photoDefault = UIImage(named: "photo_default")!
     
-    public static let more = UIImage(named: "more")!
+    public static let moreHorizontal = UIImage(named: "more_horizontal")!
     
-    
+    public static let moreVertical = UIImage(named: "more_vertical")!
     //MARK: - NavigationImage
     
     public static let backArrow = UIImage(named: "back_arrow")!
@@ -147,16 +147,12 @@ enum Image{
 
     public static let trashCan = UIImage(named: "trashCan")!
     
-    public static let rightArrow = UIImage(named: "arrow_right")!
-    
     public static let mintMarshmallow = UIImage(named: "marshmallow_mint")!
     
     // MARK: - Review
     public static let sheetCancel = UIImage(named: "cancel_sheet")!
     
     public static let reloading = UIImage(named: "reloading")!
-    
-    public static let tagArrowDown = UIImage(named: "filter_arrow_down")!
     
     //MARK: - Tag
     
@@ -180,4 +176,12 @@ enum Image{
     public static let logoMint = UIImage(named: "logo_mint")
 
     public static let sloganMint = UIImage(named: "slogan_mint")
+    
+    // MARK: - Arrows
+    
+    public static let tagArrowDown = UIImage(named: "arrow_down_gray")!
+    
+    public static let rightArrowGreen = UIImage(named: "arrow_right_green")!
+    
+    public static let rightArrowGray = UIImage(named: "arrow_right_gray")!
 }

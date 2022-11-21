@@ -12,17 +12,17 @@ class EmptyGoalTableViewCell: BaseTableViewCell {
         $0.setShadowStyle(type: .card)
     }
     let emptyGoalImage = UIImageView().then{
-        $0.image = Image.emptyGoal
+        $0.image = Image.mintMarshmallow
     }
-    let titleLabel = BaseLabel().then{
-        $0.text = "목표가 있어야\n씀씀이를 기록할 수 있어요"
-        $0.font = UIFont.autoPretendard(type: .sb_16)
+    let titleLabel = UILabel().then{
+        $0.text = "목표를 세워 친구와\n마시멜로를 모아보세요!"
+        $0.setTypoStyleWithSingleLine(typoStyle: .title3)
         $0.numberOfLines = 0
     }
     let makeGoalButton = UIButton().then{
         $0.setTitle("목표 만들기 >", for: .normal)
         $0.setTitleColor(Color.mint100, for: .normal)
-        $0.titleLabel?.font = UIFont.autoPretendard(type: .m_14)
+        $0.titleLabel?.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
@@ -54,16 +54,16 @@ class EmptyGoalTableViewCell: BaseTableViewCell {
         
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.bottom.equalToSuperview().offset(13)
+            make.top.bottom.equalToSuperview().inset(12)
             make.height.equalTo(157)
         }
         emptyGoalImage.snp.makeConstraints { make in
             make.width.height.equalTo(98)
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(emptyGoalImage.snp.trailing).offset(10)
+            make.leading.equalTo(emptyGoalImage.snp.trailing).offset(30)
             make.top.equalToSuperview().offset(44)
         }
         makeGoalButton.snp.makeConstraints { make in

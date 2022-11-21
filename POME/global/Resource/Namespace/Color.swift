@@ -55,4 +55,6 @@ enum Color{
     static let blue = UIColor(red: 16/255, green: 130/255, blue: 255/255, alpha: 1)
     
     static let transparent = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0)
+    
+    static let popUpBackground = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.6)
 }
