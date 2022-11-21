@@ -18,8 +18,6 @@ class RecordViewController: BaseTabViewController {
     override func style() {
         super.style()
         
-        recordView.goalCollectionView.delegate = self
-        recordView.goalCollectionView.dataSource = self
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
     }
@@ -71,20 +69,17 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let tag = indexPath.row
         switch tag {
         case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCollectionViewTableViewCell", for: indexPath) as? GoalCollectionViewTableViewCell else { return UITableViewCell() }
+            
+            cell.selectionStyle = .none
+            cell.goalCollectionView.delegate = self
+            cell.goalCollectionView.dataSource = self
+            
+            return cell
+        case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
             
             cell.selectionStyle = .none
-            return cell
-        case 1:
-            let cell = UITableViewCell()
-            cell.textLabel?.text = "일주일 씀씀이"
-            cell.textLabel?.font = UIFont.autoPretendard(type: .b_18)
-            cell.textLabel?.textColor = Color.title
-            cell.textLabel?.textAlignment = .center
-            cell.textLabel!.snp.makeConstraints { make in
-                make.leading.equalToSuperview().offset(16)
-                make.top.bottom.equalToSuperview().inset(20)
-            }
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoEmotionBannerTableViewCell", for: indexPath) as? GoEmotionBannerTableViewCell else { return UITableViewCell() }

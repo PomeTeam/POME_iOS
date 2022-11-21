@@ -105,8 +105,8 @@ extension FriendSearchView {
         let warningImage = UIImageView().then{
             $0.image = Image.warning
         }
-        let messageLabel = BaseLabel(.center).then{
-            $0.font = UIFont.autoPretendard(type: .m_14)
+        let messageLabel = UILabel().then{
+            $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
             $0.textColor = Color.grey5
             $0.textAlignment = .center
             $0.text = "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?"

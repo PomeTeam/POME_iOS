@@ -10,10 +10,10 @@ import UIKit
 
 class RegisterView: BaseView {
     // MARK: - Views
-    let registerTitleLabel = BaseLabel(.left).then{
+    let registerTitleLabel = UILabel().then{
         $0.text = "나만의 프로필을\n만들어볼까요?"
         $0.textColor = Color.title
-        $0.font = UIFont.autoPretendard(type: .b_24)
+        $0.setTypoStyleWithMultiLine(typoStyle: .header1)
         $0.numberOfLines = 0
     }
     let profileImage = UIImageView().then{
@@ -40,9 +40,10 @@ class RegisterView: BaseView {
         $0.font = UIFont.autoPretendard(type: .m_14)
         $0.textColor = Color.mint100
     }
-    let guideLabel = BaseLabel(.center).then{
+    let guideLabel = UILabel().then{
         $0.text = "입력한 정보는 회원을 식별하고 친구간 커뮤니케이션을 위한\n동의 목적으로만 사용되며 포미 이용기간 동안 보관돼요"
-        $0.font = UIFont.autoPretendard(type: .m_12)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
+        $0.textAlignment = .center
         $0.textColor = Color.grey5
         $0.numberOfLines = 0
     }
