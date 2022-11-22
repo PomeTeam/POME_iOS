@@ -195,7 +195,6 @@ extension ReviewView{
         
         lazy var filterButton = UIButton().then{
             $0.layer.cornerRadius = 30 / 2
-            $0.backgroundColor = Color.grey1
         }
         
         let titleLabel = UILabel().then{
@@ -241,7 +240,8 @@ extension ReviewView{
             self.arrowImage.tintColor = Color.grey5
         }
         
-        func setFilterSelectState(){
+        func setFilterSelectState(emotion: EmotionTag){
+            self.titleLabel.text = emotion.message
             self.titleLabel.textColor = Color.pink100
             self.filterButton.backgroundColor = Color.pink10
             self.arrowImage.tintColor = Color.pink100

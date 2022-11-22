@@ -10,6 +10,7 @@ import UIKit
 class EmotionFilterSheetViewController: BaseSheetViewController {
     
     var filterTime: EmotionTime!
+    var filterHandler: ((Int) -> ())!
     
     let mainView = EmotionFilterSheetView()
 
@@ -84,6 +85,11 @@ extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollecti
         
         cell.emotionLabel.text = EmotionTag(rawValue: indexPath.row)?.message
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        filterHandler(indexPath.row)
+        self.dismiss(animated: true, completion: nil)
     }
     
     

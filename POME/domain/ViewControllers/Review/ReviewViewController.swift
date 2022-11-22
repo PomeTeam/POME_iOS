@@ -58,6 +58,11 @@ class ReviewViewController: BaseTabViewController {
             sheet = EmotionFilterSheetViewController.generateSecondEmotionFilterSheet()
         }
         
+        sheet.filterHandler = { emotion in
+            guard let filterView = sender.superview as? ReviewView.EmotionFilterView, let emotion = EmotionTag(rawValue: emotion) else { return }
+            filterView.setFilterSelectState(emotion: emotion)
+        }
+        
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
