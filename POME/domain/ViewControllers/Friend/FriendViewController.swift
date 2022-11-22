@@ -72,7 +72,7 @@ class FriendViewController: BaseTabViewController {
     }
     
     override func topBtnDidClicked() {
-        print("top btn did clicked")
+        self.navigationController?.pushViewController(FriendSearchViewController(), animated: true)
     }
     
     //MARK: - Method

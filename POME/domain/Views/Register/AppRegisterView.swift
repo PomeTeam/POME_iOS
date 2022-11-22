@@ -20,7 +20,7 @@ class AppRegisterView: BaseView {
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         $0.textColor = Color.body
     }
-    let phoneTextField = DefaultTextField(placeholderStr: "- 없이 숫자만 입력해주세요", rightPadding: 87).then{
+    let phoneTextField = DefaultTextField("- 없이 숫자만 입력해주세요", 16, 87).then{
         $0.keyboardType = .phonePad
     }
     var codeSendButton = DefaultButton(titleStr: "인증요청", typo: .title4, backgroundColor: Color.mint100, titleColor: .white, subTitleStr: "재요청")
