@@ -45,7 +45,7 @@ class RecordEmotionTableViewCell: BaseTableViewCell {
         $0.setTypoStyleWithSingleLine(typoStyle: .title2)
     }
     let recordCountLabel = UILabel().then{
-        $0.text = "전체 0건"
+        $0.text = "전체 2건"
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
     }
