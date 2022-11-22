@@ -7,8 +7,7 @@
 
 import Foundation
 
-//TODO: emotion으로 이름 변경
-enum EmotionTag{
+enum EmotionTag: Int{
     case sad
     case what
     case happy
@@ -17,6 +16,13 @@ enum EmotionTag{
 enum EmotionTime{
     case first
     case second
+    
+    var title: String{
+        switch self{
+        case .first:        return "처음 감정"
+        case .second:       return "돌아본 감정"
+        }
+    }
 }
 
 private struct EmotionTagIcon{
@@ -45,11 +51,11 @@ extension EmotionTag{
         }
     }
     
-    var firstEmotion: UIImage{
+    var firstEmotionImage: UIImage{
         return self.iconDescription.firstEmotion
     }
     
-    var secondEmotion: UIImage{
+    var secondEmotionImage: UIImage{
         return self.iconDescription.secondEmotion
     }
 }

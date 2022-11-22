@@ -7,6 +7,19 @@
 
 import UIKit
 
+//enum FilterType{
+//
+//    case first
+//    case second
+//
+//    var title: String{
+//        switch self{
+//        case .first:        return "처음 감정"
+//        case .second:       return "돌아본 감정"
+//        }
+//    }
+//}
+
 class ReviewViewController: BaseTabViewController {
     
     
@@ -14,20 +27,42 @@ class ReviewViewController: BaseTabViewController {
     /* goalCategoryList test 데이터
      1. [String]()
      2. ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
-     
      */
     
     var selectedGoalCategory: Int = 0
     
     var goalCategoryList: [String] = ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
     
-    let mainView = ReviewView()
+    let mainView = ReviewView().then{
+        $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+        $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+    }
 
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    //MARK: - Method
+    
+    @objc func filterButtonDidClicked(_ sender: UIButton){
+        
+        let sheet: EmotionFilterSheetViewController!
+        
+        if(sender == mainView.firstEmotionFilter.filterButton){
+            print("first click")
+            sheet = EmotionFilterSheetViewController.generateFirstEmotionFilterSheet()
+        }else{
+            print("second click")
+            sheet = EmotionFilterSheetViewController.generateSecondEmotionFilterSheet()
+        }
+        
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
+    //MARK: - Override
     
     override func style(){
         

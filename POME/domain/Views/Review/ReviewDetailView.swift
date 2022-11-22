@@ -77,7 +77,7 @@ class ReviewDetailView: BaseView {
     }
     
     lazy var moreButton = UIButton().then{
-        $0.setImage(Image.more, for: .normal)
+        $0.setImage(Image.moreHorizontal, for: .normal)
     }
     
     //MARK: - LifeCycle

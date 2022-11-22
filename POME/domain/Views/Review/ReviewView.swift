@@ -189,23 +189,9 @@ extension ReviewView{
     
     class EmotionFilterView: BaseView{
         
-        enum FilterType{
-            
-            case first
-            case second
-            
-            var title: String{
-                switch self{
-                case .first:        return "처음 감정"
-                case .second:       return "돌아본 감정"
-                    
-                }
-            }
-        }
-        
         //MARK: - Propertes
         
-        var filterType: FilterType!
+        var filterTime: EmotionTime!
         
         lazy var filterButton = UIButton().then{
             $0.layer.cornerRadius = 30 / 2
@@ -215,16 +201,18 @@ extension ReviewView{
         let titleLabel = UILabel().then{
             $0.text = " "
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+            $0.isUserInteractionEnabled = false
         }
         
         let arrowImage = UIImageView().then{
             $0.image = Image.tagArrowDown
+            $0.isUserInteractionEnabled = false
         }
         
         //MARK: - LifeCycle
         
-        init(type: FilterType){
-            self.filterType = type
+        init(time: EmotionTime){
+            self.filterTime = time
             super.init(frame: .zero)
         }
         
@@ -238,16 +226,16 @@ extension ReviewView{
         
         //static factory method
         static func generateFirstEmotionFilter() -> EmotionFilterView{
-            return EmotionFilterView(type: .first)
+            return EmotionFilterView(time: .first)
         }
         
         static func generateSecondEmotionFilter() -> EmotionFilterView{
-            return EmotionFilterView(type: .second)
+            return EmotionFilterView(time: .second)
         }
         
         //MARK: - Method
         func setFilterDefaultState(){
-            self.titleLabel.text = filterType.title
+            self.titleLabel.text = filterTime.title
             self.titleLabel.textColor = Color.grey5
             self.filterButton.backgroundColor = Color.grey1
             self.arrowImage.tintColor = Color.grey5
