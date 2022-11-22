@@ -10,16 +10,7 @@ import UIKit
 
 class FriendSearchView: BaseView {
     // MARK: - Views
-    let searchTextField = UITextField().then{
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 8
-        $0.placeholder = "친구의 닉네임을 검색해보세요"
-        $0.font = UIFont.autoPretendard(type: .m_16)
-        $0.textColor = Color.title
-        $0.backgroundColor = Color.grey0
-        $0.clearButtonMode = .never
-        $0.addLeftPadding(16)
-    }
+    let searchTextField = DefaultTextField("친구의 닉네임을 검색해보세요", 50, 16)
     let searchButton = UIButton().then{
         $0.setImage(Image.search, for: .normal)
     }
@@ -60,8 +51,8 @@ class FriendSearchView: BaseView {
             make.top.equalToSuperview().offset(12)
         }
         searchButton.snp.makeConstraints { make in
-            make.width.height.equalTo(20)
-            make.trailing.equalTo(searchTextField.snp.trailing).offset(-17)
+            make.width.height.equalTo(24)
+            make.leading.equalTo(searchTextField.snp.leading).offset(16)
             make.centerY.equalTo(searchTextField)
         }
         completeButton.snp.makeConstraints { make in

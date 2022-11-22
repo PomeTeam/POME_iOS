@@ -10,12 +10,6 @@ import RxSwift
 import RxCocoa
 
 class FriendSearchViewController: BaseViewController {
-    let navigationTitle = UILabel().then{
-        $0.text = "친구 추가"
-        $0.font = UIFont.autoPretendard(type: .sb_14)
-        $0.textColor = Color.title
-    }
-    
     var friendSearchView: FriendSearchView!
     var name = BehaviorRelay(value: "")
 
@@ -24,11 +18,13 @@ class FriendSearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
     override func style() {
         super.style()
+        super.titleLabel.text = "친구 추가"
         
         friendSearchView = FriendSearchView()
         friendSearchView.setTableView(dataSourceDelegate: self)
@@ -38,11 +34,6 @@ class FriendSearchViewController: BaseViewController {
     }
     override func layout() {
         super.layout()
-        
-        super.navigationView.addSubview(navigationTitle)
-        navigationTitle.snp.makeConstraints { make in
-            make.centerY.centerX.equalToSuperview()
-        }
         
         self.view.addSubview(friendSearchView)
         friendSearchView.snp.makeConstraints { make in
