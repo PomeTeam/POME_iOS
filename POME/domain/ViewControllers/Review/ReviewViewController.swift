@@ -7,19 +7,6 @@
 
 import UIKit
 
-//enum FilterType{
-//
-//    case first
-//    case second
-//
-//    var title: String{
-//        switch self{
-//        case .first:        return "처음 감정"
-//        case .second:       return "돌아본 감정"
-//        }
-//    }
-//}
-
 class ReviewViewController: BaseTabViewController {
     
     
@@ -36,6 +23,7 @@ class ReviewViewController: BaseTabViewController {
     let mainView = ReviewView().then{
         $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
         $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+        $0.reloadingButton.addTarget(self, action: #selector(reloadingButtonDidClicked), for: .touchUpInside)
     }
 
     //MARK: - LifeCycle
@@ -51,10 +39,8 @@ class ReviewViewController: BaseTabViewController {
         let sheet: EmotionFilterSheetViewController!
         
         if(sender == mainView.firstEmotionFilter.filterButton){
-            print("first click")
             sheet = EmotionFilterSheetViewController.generateFirstEmotionFilterSheet()
         }else{
-            print("second click")
             sheet = EmotionFilterSheetViewController.generateSecondEmotionFilterSheet()
         }
         
@@ -65,6 +51,11 @@ class ReviewViewController: BaseTabViewController {
         
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
+    }
+    
+    @objc func reloadingButtonDidClicked(){
+        mainView.firstEmotionFilter.setFilterDefaultState()
+        mainView.secondEmotionFilter.setFilterDefaultState()
     }
     
     //MARK: - Override
@@ -106,8 +97,6 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath) as? GoalCategoryCollectionViewCell else { return UICollectionViewCell() }
 
-        //TODO: CollectionView 첫 번째 셀로 기본 값 세팅
-        
         cell.goalCategoryLabel.text = goalCategoryList.isEmpty ? "···" : goalCategoryList[indexPath.row]
         
         if(selectedGoalCategory == indexPath.row){

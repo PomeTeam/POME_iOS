@@ -51,9 +51,7 @@ class ReviewView: BaseView {
         $0.textColor = Color.title
     }
     
-    let titleUnderStackView = UIStackView().then{
-        $0.spacing = 86
-    }
+    let titleUnderView = UIView()
     
     let filterStackView = UIStackView().then{
         $0.spacing = 8
@@ -63,16 +61,18 @@ class ReviewView: BaseView {
     let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
     let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
-    let reloadingView = UIView()
+    lazy var reloadingButton = UIButton()
     
     let reloadingLabel = UILabel().then{
         $0.text = "초기화"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
         $0.textAlignment = .right
+        $0.isUserInteractionEnabled = false
     }
     let reloadingImage = UIImageView().then{
         $0.image = Image.reloading
+        $0.isUserInteractionEnabled = false
     }
     
     let consumeTableView = UITableView().then{
@@ -96,9 +96,9 @@ class ReviewView: BaseView {
         self.addSubview(goalTagCollectionView)
         self.addSubview(goalBannerView)
         self.addSubview(reviewTitleLabel)
-        self.addSubview(titleUnderStackView)
+        self.addSubview(titleUnderView)
         self.addSubview(filterStackView)
-        self.addSubview(reloadingView)
+        self.addSubview(reloadingButton)
         self.addSubview(consumeTableView)
         
         goalBannerView.addSubview(goalTagStackView)
@@ -107,14 +107,14 @@ class ReviewView: BaseView {
         goalTagStackView.addArrangedSubview(goalIsPublicLabel)
         goalTagStackView.addArrangedSubview(goalRemainDateLabel)
         
-        titleUnderStackView.addArrangedSubview(filterStackView)
-        titleUnderStackView.addArrangedSubview(reloadingView)
+        titleUnderView.addSubview(filterStackView)
+        titleUnderView.addSubview(reloadingButton)
         
         filterStackView.addArrangedSubview(firstEmotionFilter)
         filterStackView.addArrangedSubview(secondEmotionFilter)
         
-        reloadingView.addSubview(reloadingLabel)
-        reloadingView.addSubview(reloadingImage)
+        reloadingButton.addSubview(reloadingLabel)
+        reloadingButton.addSubview(reloadingImage)
 
     }
     
@@ -150,7 +150,7 @@ class ReviewView: BaseView {
             $0.leading.equalToSuperview().offset(16)
         }
         
-        titleUnderStackView.snp.makeConstraints{
+        titleUnderView.snp.makeConstraints{
             $0.top.equalTo(reviewTitleLabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(16)
             $0.trailing.equalToSuperview().offset(-16)
@@ -161,7 +161,7 @@ class ReviewView: BaseView {
             $0.top.leading.bottom.equalToSuperview()
         }
         
-        reloadingView.snp.makeConstraints{
+        reloadingButton.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().offset(-6)
         }
