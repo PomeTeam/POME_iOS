@@ -10,6 +10,8 @@ import UIKit
 class RecordCardTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
         $0.backgroundColor = .white
+        $0.layer.borderColor = Color.grey2.cgColor
+        $0.layer.borderWidth = 1
         $0.setShadowStyle(type: .card)
     }
     let firstEmotion = ImageTagLabel(Image.emojiSad, "후회해요", .activate)

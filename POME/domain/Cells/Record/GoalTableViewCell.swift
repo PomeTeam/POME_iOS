@@ -10,6 +10,8 @@ import UIKit
 class GoalTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
         $0.backgroundColor = .white
+        $0.layer.borderColor = Color.grey2.cgColor
+        $0.layer.borderWidth = 1
         $0.setShadowStyle(type: .card)
     }
     let goalIsPublicLabel = LockTagLabel.generateUnopenTag()
@@ -119,5 +121,8 @@ class GoalTableViewCell: BaseTableViewCell {
             $0.bottom.equalToSuperview().offset(-14)
             $0.height.equalTo(22)
         }
+    }
+    func overGoal() {
+        self.progressBarView.overProgressView()
     }
 }

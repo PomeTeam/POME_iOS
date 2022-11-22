@@ -65,11 +65,11 @@ class CompletedGoalsViewController: BaseViewController {
 // MARK: - TableView delegate
 extension CompletedGoalsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 2
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
-        
+        if indexPath.row == 1 {cell.overGoal()} // 임시
         cell.selectionStyle = .none
         return cell
         

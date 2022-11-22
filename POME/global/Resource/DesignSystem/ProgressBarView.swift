@@ -70,4 +70,13 @@ final class ProgressBarView: UIView {
     required init?(coder: NSCoder) {
         fatalError()
     }
+    // MARK: - Methods
+    func overProgressView() {
+        self.progressBarView.backgroundColor = Color.red
+        self.ratio = 0.95
+        self.numLabel.then{
+            $0.backgroundColor = Color.red
+            $0.text = "초과"
+        }
+    }
 }
