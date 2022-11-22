@@ -163,6 +163,8 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ConsumeReviewTableViewCell.cellIdentifier, for: indexPath) as? ConsumeReviewTableViewCell else { return UITableViewCell() }
+        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
+        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
         return cell
     }
     

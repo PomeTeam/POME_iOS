@@ -12,7 +12,9 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     var filterTime: EmotionTime!
     var filterHandler: ((Int) -> ())!
     
-    let mainView = EmotionFilterSheetView()
+    let mainView = EmotionFilterSheetView().then{
+        $0.cancelButton.addTarget(self, action: #selector(cancelButtonDidClicked), for: .touchUpInside)
+    }
 
     //MARK: - LifeCycle
     
@@ -31,6 +33,12 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Method
+    
+    @objc func cancelButtonDidClicked(){
+        self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Override
