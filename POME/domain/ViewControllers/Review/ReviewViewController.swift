@@ -133,7 +133,6 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(selectedGoalCategory == 0 && indexPath.row != 0){
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalCategoryCollectionViewCell else { return }
             cell.setUnselectState()
-            return
         }
         cell.setSelectState()
     }
