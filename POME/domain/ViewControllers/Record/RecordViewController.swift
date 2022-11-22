@@ -152,9 +152,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row > 2 {
+        let tag = indexPath.row
+        if tag == 2 {
+            self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
+        } else if tag > 2 {
             cannotAddEmotionDidTap()
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

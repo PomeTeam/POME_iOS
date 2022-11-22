@@ -27,6 +27,9 @@
 		2380877E291B502E00072763 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877D291B502E00072763 /* RegisterView.swift */; };
 		23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E59292B6E4100707572 /* TermsViewController.swift */; };
 		23858E5C292B6E6B00707572 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E5B292B6E6B00707572 /* TermsView.swift */; };
+		2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */; };
+		2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CC292C5274003A62EA /* RecordEmotionView.swift */; };
+		2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
@@ -143,6 +146,9 @@
 		2380877D291B502E00072763 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		23858E59292B6E4100707572 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		23858E5B292B6E6B00707572 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
+		2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionViewController.swift; sourceTree = "<group>"; };
+		2385A8CC292C5274003A62EA /* RecordEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionView.swift; sourceTree = "<group>"; };
+		2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionTableViewCell.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +270,7 @@
 				23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */,
 				23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */,
 				2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */,
+				2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -272,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				23061235292B4B5E00662007 /* RecordView.swift */,
+				2385A8CC292C5274003A62EA /* RecordEmotionView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -585,6 +593,7 @@
 			children = (
 				23A17C55292BD3A300426825 /* BottomSheetViewControllers */,
 				5724EC582917734C00DC529B /* RecordViewController.swift */,
+				2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -1024,6 +1033,7 @@
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
+				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
@@ -1047,10 +1057,12 @@
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */,
+				2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				23061242292B51C800662007 /* AppRegisterView.swift in Sources */,
 				57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
+				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
