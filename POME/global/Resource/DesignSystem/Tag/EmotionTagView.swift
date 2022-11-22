@@ -70,7 +70,7 @@ class EmotionTagView: BaseView {
     
     func setTagInfo(when: EmotionTime, state: EmotionTag){
         
-        emotionImage.image = when == .first ? state.firstEmotion : state.secondEmotion
+        emotionImage.image = when == .first ? state.firstEmotionImage : state.secondEmotionImage
         
         emotionLabel.text = state.message
     }
