@@ -14,8 +14,7 @@ class RecordView: BaseView {
     let writeButton = UIButton().then{
         var config = UIButton.Configuration.plain()
         config.image = Image.writingBtn
-        config.background.backgroundColor = .red
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: -20, trailing: 0)
         $0.configuration = config
     }
     

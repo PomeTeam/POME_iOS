@@ -145,7 +145,7 @@ enum Image{
 
     public static let ten = UIImage(named: "ten")!
 
-    public static let trashCan = UIImage(named: "trashCan")!
+    public static let trashGreen = UIImage(named: "trash_green")!
     
     public static let mintMarshmallow = UIImage(named: "marshmallow_mint")!
     
@@ -184,4 +184,39 @@ enum Image{
     public static let rightArrowGreen = UIImage(named: "arrow_right_green")!
     
     public static let rightArrowGray = UIImage(named: "arrow_right_gray")!
+    
+    public static let rightArrowGray5 = UIImage(named: "arrow_right_gray5")!
+    
+    public static let rightArrowPink = UIImage(named: "arrow_right_pink")!
+    
+    // MARK: - Level
+    
+    public static let level1 = UIImage(named: "level_1")!
+    
+    public static let level4 = UIImage(named: "level_4")!
+    
+    // MARK: - Marshmallow
+    
+    public static let marshmallowLock = UIImage(named: "marshmallow_lock")!
+    
+    public static let marshmallowMint = UIImage(named: "marshmallow_mint")!
+    
+    public static let marshmallowPink = UIImage(named: "marshmallow_pink")!
+    
+    public static let marshmallowYellow = UIImage(named: "marshmallow_yellow")!
+    
+    // MARK: - Mypage
+    
+    public static let circlePink = UIImage(named: "circle_pink")!
+    
+    public static let minusRed = UIImage(named: "minus_red")!
+    
+    public static let trashPink = UIImage(named: "trash_pink")!
+    
+    // MARK: - Noti
+    
+    public static let completeCircle = UIImage(named: "complete_circle")!
+    
+    public static let heartPink = UIImage(named: "heart_pink")!
+
 }
