@@ -18,6 +18,8 @@
 		23061244292B51F200662007 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061243292B51F200662007 /* DefaultTextField.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
+		232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */; };
+		232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
 		2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* PopUpViewController.swift */; };
@@ -46,6 +48,8 @@
 		23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */; };
 		23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */; };
 		23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */; };
+		23F57834292D5460002DD28E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F57833292D5460002DD28E /* SettingViewController.swift */; };
+		23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
@@ -145,6 +149,8 @@
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
+		232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWithSeparatorTableViewCell.swift; sourceTree = "<group>"; };
+		232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC5B292BECB8006ED970 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +179,8 @@
 		23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMarshmallowTableViewCell.swift; sourceTree = "<group>"; };
 		23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowCollectionViewCell.swift; sourceTree = "<group>"; };
 		23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGoalsViewController.swift; sourceTree = "<group>"; };
+		23F57833292D5460002DD28E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileTableViewCell.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
@@ -376,6 +384,7 @@
 		23ADE495292D3EF7003002D9 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				23F57835292D5592002DD28E /* Setting */,
 				23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */,
 				23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */,
 				23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */,
@@ -406,6 +415,16 @@
 				238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */,
 			);
 			path = AddFriend;
+			sourceTree = "<group>";
+		};
+		23F57835292D5592002DD28E /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */,
+				232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */,
+				232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		5724EBDA29100C8500DC529B = {
@@ -670,6 +689,7 @@
 			children = (
 				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
 				23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */,
+				23F57833292D5460002DD28E /* SettingViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1089,6 +1109,7 @@
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
 				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
+				23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
@@ -1119,6 +1140,7 @@
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
+				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
@@ -1131,6 +1153,7 @@
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
+				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
@@ -1147,6 +1170,7 @@
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */,
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,

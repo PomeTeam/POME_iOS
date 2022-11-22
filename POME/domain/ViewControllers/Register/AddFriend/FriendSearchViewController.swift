@@ -24,7 +24,7 @@ class FriendSearchViewController: BaseViewController {
     }
     override func style() {
         super.style()
-        super.titleLabel.text = "친구 추가"
+        super.setNavigationTitleLabel(title: "친구 추가")
         
         friendSearchView = FriendSearchView()
         friendSearchView.setTableView(dataSourceDelegate: self)

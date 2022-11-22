@@ -18,7 +18,7 @@ class NotificationViewController: BaseViewController {
     
     override func style() {
         super.style()
-        super.titleLabel.text = "알림"
+        super.setNavigationTitleLabel(title: "알림")
         
         setTableView()
         notiTableView.delegate = self

@@ -32,6 +32,9 @@ class MyPageViewController: BaseTabViewController {
             make.top.equalTo(super.navigationView.snp.bottom)
         }
     }
+    override func topBtnDidClicked() {
+        self.navigationController?.pushViewController(SettingViewController(), animated: true)
+    }
     func setTableView() {
         mypageTableView = UITableView().then{
             // 프로필
