@@ -20,11 +20,19 @@ class ReviewViewController: BaseTabViewController {
     
     var goalCategoryList: [String] = ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
     
+    var consumeList = [String?](repeating: nil, count: 10){
+        didSet{
+            mainView.consumeTableView.reloadData()
+        }
+    }
+    
     let mainView = ReviewView().then{
         $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
         $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
         $0.reloadingButton.addTarget(self, action: #selector(reloadingButtonDidClicked), for: .touchUpInside)
     }
+    
+    var emptyView: ReviewEmptyView!
 
     //MARK: - LifeCycle
     
@@ -61,7 +69,6 @@ class ReviewViewController: BaseTabViewController {
     //MARK: - Override
     
     override func style(){
-        
         super.style()
     }
     
@@ -126,6 +133,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(selectedGoalCategory == 0 && indexPath.row != 0){
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalCategoryCollectionViewCell else { return }
             cell.setUnselectState()
+            return
         }
         cell.setSelectState()
     }
@@ -139,7 +147,18 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        if(consumeList.count == 0){
+            emptyView = ReviewEmptyView()
+            self.view.addSubview(emptyView)
+            emptyView.snp.makeConstraints{
+                $0.top.leading.trailing.bottom.equalTo(mainView.consumeTableView)
+            }
+        }else if(emptyView != nil){
+            emptyView.removeFromSuperview()
+            emptyView = nil
+        }
+        
+        return consumeList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
