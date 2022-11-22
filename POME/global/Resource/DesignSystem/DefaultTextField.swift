@@ -24,8 +24,8 @@ class DefaultTextField: UITextField {
         self.layer.cornerRadius = 6
         self.addLeftPadding(16)
     }
-    // 오른쪽 padding 있는 textfield
-    init(placeholderStr: String, rightPadding: CGFloat) {
+    // padding 있는 textfield
+    init(_ placeholderStr: String, _ leftPadding: CGFloat, _ rightPadding: CGFloat) {
         super.init(frame: CGRect.zero)
         
         self.placeholder = placeholderStr
@@ -36,7 +36,7 @@ class DefaultTextField: UITextField {
 //        self.clearButtonMode = .always
         
         self.layer.cornerRadius = 6
-        self.addLeftPadding(16)
+        self.addLeftPadding(leftPadding)
         self.addRightPadding(rightPadding)
     }
     

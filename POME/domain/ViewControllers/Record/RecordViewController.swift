@@ -20,7 +20,7 @@ class RecordViewController: BaseTabViewController {
         
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
-        showEmptyView()
+        EmptyView(recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
     }
     override func layout() {
         super.layout()
@@ -152,53 +152,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row > 2 {
+        let tag = indexPath.row
+        if tag == 2 {
+            self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
+        } else if tag > 2 {
             cannotAddEmotionDidTap()
         }
+        
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-// MARK: - Empty View
-extension RecordViewController {
-    func showEmptyView() {
-        let stack = UIView().then{
-            $0.backgroundColor = .clear
-        }
-        let icon = UIImageView().then{
-            $0.image = Image.noting
-        }
-        let messageLabel = UILabel().then{
-            $0.textColor = Color.grey5
-            $0.textAlignment = .center
-            $0.text = "기록한 씀씀이가 없어요"
-            $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
-            $0.numberOfLines = 0
-            $0.sizeToFit()
-        }
-        let backgroudView = UIView(frame: CGRect(x: 0, y: 0, width: recordView.recordTableView.bounds.width, height: recordView.recordTableView.bounds.height))
-        
-        stack.addSubview(icon)
-        stack.addSubview(messageLabel)
-        backgroudView.addSubview(stack)
-        
-        stack.snp.makeConstraints { make in
-            make.width.equalTo(180)
-            make.height.equalTo(70)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-200)
-        }
-        icon.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerX.top.equalToSuperview()
-        }
-        messageLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(icon.snp.bottom).offset(12)
-        }
-        
-        recordView.recordTableView.backgroundView = backgroudView
-    }
-    func hideEmptyView() {
-        recordView.recordTableView.backgroundView?.isHidden = true
     }
 }
