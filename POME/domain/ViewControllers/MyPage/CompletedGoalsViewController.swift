@@ -46,6 +46,7 @@ class CompletedGoalsViewController: BaseViewController {
             make.top.equalTo(completeGoalLabel.snp.bottom).offset(6)
         }
     }
+    // MARK: - Methods
     func setTableView() {
         completeGoalTableView = UITableView().then{
             // 프로필
@@ -61,6 +62,20 @@ class CompletedGoalsViewController: BaseViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
+    @objc func menuButtonDidTap() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
+            let dialog = PopUpViewController(Image.trashGreen, "종료된 목표를 삭제할까요?", "지금까지 작성된 기록들은 모두 사라져요", "삭제할게요", "아니요")
+            dialog.modalPresentationStyle = .overFullScreen
+            self.present(dialog, animated: false, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        self.present(alert, animated: true)
+    }
 }
 // MARK: - TableView delegate
 extension CompletedGoalsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -70,6 +85,8 @@ extension CompletedGoalsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
         if indexPath.row == 1 {cell.overGoal()} // 임시
+        
+        cell.menuButton.addTarget(self, action: #selector(menuButtonDidTap), for: .touchUpInside)
         cell.selectionStyle = .none
         return cell
         
