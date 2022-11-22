@@ -45,6 +45,7 @@
 		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
 		23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */; };
 		23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */; };
+		23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
@@ -171,6 +172,7 @@
 		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
 		23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMarshmallowTableViewCell.swift; sourceTree = "<group>"; };
 		23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowCollectionViewCell.swift; sourceTree = "<group>"; };
+		23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGoalsViewController.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
@@ -667,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
+				23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
+				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,

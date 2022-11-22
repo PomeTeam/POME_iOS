@@ -83,6 +83,10 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
        return tableView.rowHeight
    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tag = indexPath.row
+        if tag == 1 {
+            self.navigationController?.pushViewController(CompletedGoalsViewController(), animated: true)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
