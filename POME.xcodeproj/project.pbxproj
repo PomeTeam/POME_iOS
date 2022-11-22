@@ -36,11 +36,15 @@
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
 		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
 		23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE492292D3428003002D9 /* NotiTableViewCell.swift */; };
+		23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */; };
+		23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
 		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
 		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
+		23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */; };
+		23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
@@ -158,11 +162,15 @@
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		23ADE492292D3428003002D9 /* NotiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiTableViewCell.swift; sourceTree = "<group>"; };
+		23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageProfileTableViewCell.swift; sourceTree = "<group>"; };
+		23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
 		23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
+		23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMarshmallowTableViewCell.swift; sourceTree = "<group>"; };
+		23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowCollectionViewCell.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
@@ -363,6 +371,17 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		23ADE495292D3EF7003002D9 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */,
+				23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */,
+				23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */,
+				23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		23F364D2291B7AA2009232B4 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
@@ -544,6 +563,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				23ADE495292D3EF7003002D9 /* MyPage */,
 				23ADE491292D341D003002D9 /* Notification */,
 				2306122D292B48B700662007 /* Record */,
 				57CCA782292B09F5007E22D1 /* Review */,
@@ -1067,6 +1087,7 @@
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
 				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
+				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
@@ -1102,6 +1123,7 @@
 				57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */,
 				57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */,
 				23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */,
+				23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */,
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
@@ -1109,6 +1131,7 @@
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
+				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
@@ -1120,6 +1143,7 @@
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
