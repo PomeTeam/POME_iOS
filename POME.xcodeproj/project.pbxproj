@@ -18,9 +18,14 @@
 		23061244292B51F200662007 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061243292B51F200662007 /* DefaultTextField.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
+		232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */; };
+		232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */; };
+		232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */; };
+		232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */; };
+		235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235B3972292D6288003ACA01 /* TextPopUpViewController.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
-		2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* PopUpViewController.swift */; };
+		2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */; };
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
@@ -34,11 +39,20 @@
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
+		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
+		23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE492292D3428003002D9 /* NotiTableViewCell.swift */; };
+		23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */; };
+		23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
 		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
 		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
+		23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */; };
+		23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */; };
+		23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */; };
+		23F57834292D5460002DD28E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F57833292D5460002DD28E /* SettingViewController.swift */; };
+		23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
@@ -138,9 +152,14 @@
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
+		232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWithSeparatorTableViewCell.swift; sourceTree = "<group>"; };
+		232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingViewController.swift; sourceTree = "<group>"; };
+		232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
+		235B3972292D6288003ACA01 /* TextPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPopUpViewController.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
-		2367FC5B292BECB8006ED970 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
@@ -154,11 +173,20 @@
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
+		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		23ADE492292D3428003002D9 /* NotiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiTableViewCell.swift; sourceTree = "<group>"; };
+		23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageProfileTableViewCell.swift; sourceTree = "<group>"; };
+		23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
 		23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
+		23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMarshmallowTableViewCell.swift; sourceTree = "<group>"; };
+		23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowCollectionViewCell.swift; sourceTree = "<group>"; };
+		23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedGoalsViewController.swift; sourceTree = "<group>"; };
+		23F57833292D5460002DD28E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileTableViewCell.swift; sourceTree = "<group>"; };
 		23F8C504291AA3F700BC755E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
@@ -302,10 +330,19 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		232F3FD7292D5E36009F2EE5 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		2367FC5A292BEC53006ED970 /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
-				2367FC5B292BECB8006ED970 /* PopUpViewController.swift */,
+				2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */,
+				235B3972292D6288003ACA01 /* TextPopUpViewController.swift */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -343,6 +380,34 @@
 			path = BottomSheetViewControllers;
 			sourceTree = "<group>";
 		};
+		23ADE48D292D33B3003002D9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				23ADE48E292D33C1003002D9 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		23ADE491292D341D003002D9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				23ADE492292D3428003002D9 /* NotiTableViewCell.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		23ADE495292D3EF7003002D9 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				23F57835292D5592002DD28E /* Setting */,
+				23ADE496292D3F0A003002D9 /* MypageProfileTableViewCell.swift */,
+				23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */,
+				23F5782B292D4329002DD28E /* MypageMarshmallowTableViewCell.swift */,
+				23F5782D292D44A3002DD28E /* MarshmallowCollectionViewCell.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
 		23F364D2291B7AA2009232B4 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +430,16 @@
 				238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */,
 			);
 			path = AddFriend;
+			sourceTree = "<group>";
+		};
+		23F57835292D5592002DD28E /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */,
+				232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */,
+				232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		5724EBDA29100C8500DC529B = {
@@ -491,6 +566,7 @@
 		5724EC1D2910131B00DC529B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				232F3FD7292D5E36009F2EE5 /* Setting */,
 				23061237292B4C7600662007 /* Login */,
 				23061234292B4B5500662007 /* Record */,
 				2380877C291B502100072763 /* Register */,
@@ -503,6 +579,7 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				23ADE48D292D33B3003002D9 /* Notification */,
 				2306123A292B4CA300662007 /* Onboarding */,
 				23808773291B3ABE00072763 /* Register */,
 				5724EC54291772DF00DC529B /* Record */,
@@ -523,6 +600,8 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				23ADE495292D3EF7003002D9 /* MyPage */,
+				23ADE491292D341D003002D9 /* Notification */,
 				2306122D292B48B700662007 /* Record */,
 				57CCA782292B09F5007E22D1 /* Review */,
 				23F364D8291B82AC009232B4 /* AddFriend */,
@@ -625,6 +704,9 @@
 			isa = PBXGroup;
 			children = (
 				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
+				23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */,
+				23F57833292D5460002DD28E /* SettingViewController.swift */,
+				232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1038,12 +1120,15 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
+				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
 				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
+				23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
+				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
@@ -1069,8 +1154,10 @@
 				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
+				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
+				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
@@ -1078,13 +1165,19 @@
 				57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */,
 				57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */,
 				23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */,
+				23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */,
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
+				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
+				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
+				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
+				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
+				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
@@ -1094,10 +1187,13 @@
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
-				2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */,
+				2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */,
+				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
+				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
