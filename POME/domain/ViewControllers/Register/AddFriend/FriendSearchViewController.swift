@@ -56,7 +56,7 @@ class FriendSearchViewController: BaseViewController {
         friendSearchView.searchTextField.rx.controlEvent([.editingChanged])
             .asObservable()
             .subscribe(onNext: { _ in
-                self.friendSearchView.showEmptyView()
+                EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
                 print("editingChanged : \(self.friendSearchView.searchTextField.text ?? "")")
             }).disposed(by: disposeBag)
         

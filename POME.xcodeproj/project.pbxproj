@@ -30,6 +30,7 @@
 		2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */; };
 		2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CC292C5274003A62EA /* RecordEmotionView.swift */; };
 		2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */; };
+		2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8D0292C58F9003A62EA /* EmptyView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
@@ -149,6 +150,7 @@
 		2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionViewController.swift; sourceTree = "<group>"; };
 		2385A8CC292C5274003A62EA /* RecordEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionView.swift; sourceTree = "<group>"; };
 		2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionTableViewCell.swift; sourceTree = "<group>"; };
+		2385A8D0292C58F9003A62EA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
@@ -584,6 +586,7 @@
 				57CCA7662926592A007E22D1 /* Reaction */,
 				23061243292B51F200662007 /* DefaultTextField.swift */,
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
+				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -1052,6 +1055,7 @@
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
+				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,

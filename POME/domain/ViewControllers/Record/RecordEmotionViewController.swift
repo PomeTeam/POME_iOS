@@ -21,7 +21,7 @@ class RecordEmotionViewController: BaseViewController {
         
         recordEmotionView.recordEmotionTableView.delegate = self
         recordEmotionView.recordEmotionTableView.dataSource = self
-        showEmptyView()
+        EmptyView(recordEmotionView.recordEmotionTableView).showEmptyView(Image.noting, "돌아볼 씀씀이가 없어요")
     }
     override func layout() {
         super.layout()
@@ -80,49 +80,5 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-// MARK: - Empty View
-extension RecordEmotionViewController {
-    func showEmptyView() {
-        let stack = UIView().then{
-            $0.backgroundColor = .clear
-        }
-        let icon = UIImageView().then{
-            $0.image = Image.noting
-        }
-        let messageLabel = UILabel().then{
-            $0.textColor = Color.grey5
-            $0.textAlignment = .center
-            $0.text = "돌아볼 씀씀이가 없어요"
-            $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
-            $0.numberOfLines = 0
-            $0.sizeToFit()
-        }
-        let backgroudView = UIView(frame: CGRect(x: 0, y: 0, width: recordEmotionView.recordEmotionTableView.bounds.width, height: recordEmotionView.recordEmotionTableView.bounds.height))
-        
-        stack.addSubview(icon)
-        stack.addSubview(messageLabel)
-        backgroudView.addSubview(stack)
-        
-        stack.snp.makeConstraints { make in
-            make.width.equalTo(180)
-            make.height.equalTo(70)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-200)
-        }
-        icon.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerX.top.equalToSuperview()
-        }
-        messageLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(icon.snp.bottom).offset(12)
-        }
-        
-        recordEmotionView.recordEmotionTableView.backgroundView = backgroudView
-    }
-    func hideEmptyView() {
-        recordEmotionView.recordEmotionTableView.backgroundView?.isHidden = true
     }
 }
