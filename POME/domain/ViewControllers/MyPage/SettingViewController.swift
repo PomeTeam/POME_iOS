@@ -107,7 +107,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        let tag = indexPath.row
+        switch tag {
+        case 3:
+            self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
+        default:
+            print("")
+        }
     }
 }

@@ -20,6 +20,8 @@
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */; };
 		232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */; };
+		232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */; };
+		232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
 		2367FC5C292BECB8006ED970 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* PopUpViewController.swift */; };
@@ -151,6 +153,8 @@
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
 		232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWithSeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		232F3FD3292D5B2F009F2EE5 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingViewController.swift; sourceTree = "<group>"; };
+		232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC5B292BECB8006ED970 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +326,14 @@
 				2306123B292B4CB500662007 /* OnboardingViewController.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		232F3FD7292D5E36009F2EE5 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		2367FC5A292BEC53006ED970 /* PopUp */ = {
@@ -551,6 +563,7 @@
 		5724EC1D2910131B00DC529B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				232F3FD7292D5E36009F2EE5 /* Setting */,
 				23061237292B4C7600662007 /* Login */,
 				23061234292B4B5500662007 /* Record */,
 				2380877C291B502100072763 /* Register */,
@@ -690,6 +703,7 @@
 				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
 				23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */,
 				23F57833292D5460002DD28E /* SettingViewController.swift */,
+				232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1155,6 +1169,7 @@
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
+				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
@@ -1174,6 +1189,7 @@
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
+				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
