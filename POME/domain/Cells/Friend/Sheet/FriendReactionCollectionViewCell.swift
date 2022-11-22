@@ -58,6 +58,7 @@ class FriendReactionCollectionViewCell: BaseCollectionViewCell {
             $0.top.equalToSuperview()
             $0.centerX.equalToSuperview()
             $0.leading.equalTo(13.5)
+            $0.height.equalTo(reactionImage.snp.width)
         }
         
         nicknameLabel.snp.makeConstraints{
