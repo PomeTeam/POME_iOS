@@ -37,6 +37,9 @@ class RecordViewController: BaseTabViewController {
         recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
     }
     // MARK: - Actions
+    override func topBtnDidClicked() {
+        self.navigationController?.pushViewController(NotificationViewController(), animated: true)
+    }
     @objc func writeButtonDidTap() {
         let sheet = RecordBottomSheetViewController(Image.emptyGoal, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
         sheet.loadViewIfNeeded()

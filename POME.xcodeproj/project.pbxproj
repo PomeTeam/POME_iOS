@@ -34,6 +34,8 @@
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
+		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
+		23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE492292D3428003002D9 /* NotiTableViewCell.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
@@ -154,6 +156,8 @@
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
+		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		23ADE492292D3428003002D9 /* NotiTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotiTableViewCell.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -343,6 +347,22 @@
 			path = BottomSheetViewControllers;
 			sourceTree = "<group>";
 		};
+		23ADE48D292D33B3003002D9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				23ADE48E292D33C1003002D9 /* NotificationViewController.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		23ADE491292D341D003002D9 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				23ADE492292D3428003002D9 /* NotiTableViewCell.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		23F364D2291B7AA2009232B4 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,6 +523,7 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				23ADE48D292D33B3003002D9 /* Notification */,
 				2306123A292B4CA300662007 /* Onboarding */,
 				23808773291B3ABE00072763 /* Register */,
 				5724EC54291772DF00DC529B /* Record */,
@@ -523,6 +544,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				23ADE491292D341D003002D9 /* Notification */,
 				2306122D292B48B700662007 /* Record */,
 				57CCA782292B09F5007E22D1 /* Review */,
 				23F364D8291B82AC009232B4 /* AddFriend */,
@@ -1038,6 +1060,7 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
+				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
@@ -1069,6 +1092,7 @@
 				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
+				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
