@@ -8,7 +8,7 @@
 import UIKit
 
 // Default 팝업창
-class PopUpViewController: UIViewController {
+class ImagePopUpViewController: UIViewController {
     // MARK: - Properties
     private var imageValue: UIImage?
     private var titleText: String?
@@ -19,7 +19,7 @@ class PopUpViewController: UIViewController {
     let popupView = UIView().then{
         $0.backgroundColor = .white
         $0.clipsToBounds = true
-        $0.layer.cornerRadius = 16
+        $0.layer.cornerRadius = 8
         
         $0.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
     }

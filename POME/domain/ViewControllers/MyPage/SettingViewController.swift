@@ -57,6 +57,11 @@ class SettingViewController: BaseViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
+    func showLogoutDialog() {
+        let dialog = TextPopUpViewController("로그아웃 하시겠어요?", "네", "아니요")
+        dialog.modalPresentationStyle = .overFullScreen
+        self.present(dialog, animated: false, completion: nil)
+    }
 }
 // MARK: - TableView delegate
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -111,6 +116,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         switch tag {
         case 3:
             self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
+        case 8:
+            showLogoutDialog()
         default:
             print("")
         }

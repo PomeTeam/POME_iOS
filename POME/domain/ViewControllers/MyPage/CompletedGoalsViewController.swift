@@ -65,7 +65,7 @@ class CompletedGoalsViewController: BaseViewController {
     @objc func menuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = PopUpViewController(Image.trashGreen, "종료된 목표를 삭제할까요?", "지금까지 작성된 기록들은 모두 사라져요", "삭제할게요", "아니요")
+            let dialog = ImagePopUpViewController(Image.trashGreen, "종료된 목표를 삭제할까요?", "지금까지 작성된 기록들은 모두 사라져요", "삭제할게요", "아니요")
             dialog.modalPresentationStyle = .overFullScreen
             self.present(dialog, animated: false, completion: nil)
         }
