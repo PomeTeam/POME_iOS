@@ -149,6 +149,10 @@ enum Image{
     
     public static let mintMarshmallow = UIImage(named: "marshmallow_mint")!
     
+    //MARK: - Goal
+    public static let goalRegisterSuccess = UIImage(named: "goal_register_success")!
+    public static let calendar = UIImage(named: "calendar")!
+    
     // MARK: - Review
     public static let sheetCancel = UIImage(named: "cancel_sheet")!
     
