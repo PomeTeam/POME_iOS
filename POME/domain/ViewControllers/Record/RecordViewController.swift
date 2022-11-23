@@ -88,6 +88,11 @@ class RecordViewController: BaseTabViewController {
         
         self.present(alert, animated: true)
     }
+    func showGoalFinishWarning() {
+        let sheet = RecordBottomSheetViewController(Image.penPink, "아직 돌아보지 않은 기록이 있어요!", "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
+    }
 }
 //MARK: - CollectionView Delegate
 extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -110,6 +115,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         self.categorySelectedIdx = indexPath.row
+        if self.categorySelectedIdx == 4 {self.showGoalFinishWarning()}
         self.recordView.recordTableView.reloadData()
         return true
     }

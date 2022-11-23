@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class SubmitViewController: UIViewController {
 
@@ -28,6 +30,7 @@ class SubmitViewController: UIViewController {
     let completeButton = DefaultButton(titleStr: "확인했어요")
 
     // MARK: - Life Cycle
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,7 @@ class SubmitViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
         
+        initButton()
     }
     func layout() {
         self.view.addSubview(titleLabel)
@@ -65,5 +69,14 @@ class SubmitViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(16)
             make.bottom.equalToSuperview().offset(-35)
         }
+    }
+    func initButton() {
+        completeButton.rx.tap
+            .bind {
+                // 첫화면으로 전환
+                guard let tabBarController = UIStoryboard(name: "gomin", bundle: nil).instantiateViewController(identifier: "TabBarController") as? UITabBarController else {return}
+                self.navigationController?.pushViewController(tabBarController, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
