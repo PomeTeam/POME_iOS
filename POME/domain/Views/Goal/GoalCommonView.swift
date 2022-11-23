@@ -62,12 +62,18 @@ class GoalCommonTextFieldView: BaseView{
     
     let infoTextField = DefaultTextField()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(title: String, placeholder: String){
+        super.init(frame: .zero)
+        self.fieldTitleLabel.text = title
+        self.infoTextField.placeholder = placeholder
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func style() {
+        self.infoTextField.addRightPadding(16)
     }
     
     override func hierarchy() {

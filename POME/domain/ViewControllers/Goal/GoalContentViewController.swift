@@ -7,23 +7,52 @@
 
 import UIKit
 
-class GoalContentViewController: UIViewController {
+class GoalContentViewController: BaseViewController {
+    
+    let mainView = GoalContentView().then{
+        $0.goalMakePublicSwitch.addTarget(self, action: #selector(goalMakePublicSwitchValueDidChanged(_:)), for: .valueChanged)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func style(){
+        
+        super.style()
+        
+        self.setEtcButton(title: "닫기")
+        self.switchIsOn()
     }
-    */
+    
+    override func layout(){
+        
+        super.layout()
+        
+        self.view.addSubview(mainView)
+    }
+    
+    override func initialize(){
+        
+        super.initialize()
+        
+        mainView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+    
+    @objc func goalMakePublicSwitchValueDidChanged(_ sender: UISwitch){
+        sender.isOn ? switchIsOn() : switchIsOff()
+    }
+    
+    private func switchIsOn(){
+        mainView.goalMakePublicView.backgroundColor = Color.pink10
+    }
+    
+    private func switchIsOff(){
+        mainView.goalMakePublicView.backgroundColor = Color.grey1
+    }
 
 }

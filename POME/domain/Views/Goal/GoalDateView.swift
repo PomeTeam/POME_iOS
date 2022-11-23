@@ -11,7 +11,6 @@ class GoalDateView: BaseView {
     
     let titleView = GoalCommomnTitleView(title: "시작이 반이에요!\n오늘부터 언제까지 해볼까요?",
                                          subtitle: "최대 한달까지 목표를 세울 수 있어요")
-    
     let startDateField = GoalDateTextFieldView(title: "목표 시작 날짜",
                                                placeholder: "목표 시작 날짜를 선택해주세요")
     
@@ -20,6 +19,14 @@ class GoalDateView: BaseView {
     
     lazy var completButton = DefaultButton(titleStr: "선택했어요").then{
         $0.isActivate(true)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func hierarchy() {
@@ -63,12 +70,10 @@ extension GoalDateView{
             $0.setImage(Image.calendar, for: .normal)
         }
         
-        init(title: String, placeholder: String){
-            super.init(frame: .zero)
-            self.fieldTitleLabel.text = title
-            self.infoTextField.placeholder = placeholder
+        override init(title: String, placeholder: String){
+            super.init(title: title, placeholder: placeholder)
         }
-    
+        
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
