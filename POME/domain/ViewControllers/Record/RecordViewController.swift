@@ -8,7 +8,7 @@ import UIKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
-    var categoryTitles = ["목표1", "목표2", "목표3목표3목표3목표3", "목표4", "목표5", ]
+    var categoryTitles = ["목표1", "목표2", "목표3목표3목표3목표3", "목표4", "완료한 목표", ]
     var categorySelectedIdx = 0
 
     override func viewDidLoad() {
@@ -172,6 +172,10 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
         } else if tag > 2 {
             cannotAddEmotionDidTap()
+        } else if tag == 1 {
+            if self.categorySelectedIdx == 4 {
+                self.navigationController?.pushViewController(AllRecordsViewController(), animated: true)
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

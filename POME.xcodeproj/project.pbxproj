@@ -22,6 +22,9 @@
 		232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */; };
 		232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */; };
 		2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */; };
+		2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */; };
+		2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649E292EC9F7000F6BAC /* AllRecordsView.swift */; };
+		233964A1292ECC06000F6BAC /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233964A0292ECC06000F6BAC /* GoalView.swift */; };
 		235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235B3972292D6288003ACA01 /* TextPopUpViewController.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
@@ -164,6 +167,9 @@
 		232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingViewController.swift; sourceTree = "<group>"; };
 		232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGoalTableViewCell.swift; sourceTree = "<group>"; };
+		2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsViewController.swift; sourceTree = "<group>"; };
+		2339649E292EC9F7000F6BAC /* AllRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsView.swift; sourceTree = "<group>"; };
+		233964A0292ECC06000F6BAC /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		235B3972292D6288003ACA01 /* TextPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPopUpViewController.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
@@ -327,6 +333,7 @@
 			children = (
 				23061235292B4B5E00662007 /* RecordView.swift */,
 				2385A8CC292C5274003A62EA /* RecordEmotionView.swift */,
+				2339649E292EC9F7000F6BAC /* AllRecordsView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -685,6 +692,7 @@
 				23061243292B51F200662007 /* DefaultTextField.swift */,
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
 				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
+				233964A0292ECC06000F6BAC /* GoalView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -695,6 +703,7 @@
 				23A17C55292BD3A300426825 /* BottomSheetViewControllers */,
 				5724EC582917734C00DC529B /* RecordViewController.swift */,
 				2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */,
+				2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -1146,6 +1155,7 @@
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
+				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
@@ -1222,9 +1232,11 @@
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
+				233964A1292ECC06000F6BAC /* GoalView.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
+				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
