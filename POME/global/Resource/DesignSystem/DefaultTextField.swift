@@ -10,6 +10,19 @@ import UIKit
 
 class DefaultTextField: UITextField {
     
+    init() {
+        super.init(frame: CGRect.zero)
+        
+        self.font = UIFont.autoPretendard(type: .r_14)
+        self.textColor = Color.title
+        
+        self.backgroundColor = Color.grey0
+        self.clearButtonMode = .always
+        
+        self.layer.cornerRadius = 6
+        self.addLeftPadding(16)
+    }
+    
     // 디폴트 textfield
     init(placeholderStr: String) {
         super.init(frame: CGRect.zero)
