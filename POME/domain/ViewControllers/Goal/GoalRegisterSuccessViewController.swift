@@ -8,22 +8,33 @@
 import UIKit
 
 class GoalRegisterSuccessViewController: UIViewController {
+    
+    let mainView = GoalRegisterSuccessView().then{
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClickec), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+        
+        layout()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func layout(){
+        
+        self.view.addSubview(mainView)
+        
+        mainView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
     }
-    */
-
+    
+    @objc func completeButtonDidClickec(){
+        self.navigationController?.popToRootViewController(animated: true)
+    }
 }

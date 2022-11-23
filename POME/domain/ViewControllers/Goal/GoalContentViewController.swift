@@ -11,6 +11,7 @@ class GoalContentViewController: BaseViewController {
     
     let mainView = GoalContentView().then{
         $0.goalMakePublicSwitch.addTarget(self, action: #selector(goalMakePublicSwitchValueDidChanged(_:)), for: .valueChanged)
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
 
     override func viewDidLoad() {
@@ -45,6 +46,11 @@ class GoalContentViewController: BaseViewController {
     
     @objc func goalMakePublicSwitchValueDidChanged(_ sender: UISwitch){
         sender.isOn ? switchIsOn() : switchIsOff()
+    }
+    
+    @objc func completeButtonDidClicked(){
+        let vc = GoalRegisterSuccessViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func switchIsOn(){
