@@ -1,5 +1,5 @@
 //
-//  GoalRegisterSuccessView.swift
+//  GoalCommonView.swift
 //  POME
 //
 //  Created by 박지윤 on 2022/11/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalRegisterSuccessView: BaseView {
+class GoalCommonView: UIView {
 
     /*
     // Only override draw() if you perform custom drawing.

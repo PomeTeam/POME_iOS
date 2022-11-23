@@ -7,14 +7,16 @@
 
 import UIKit
 
-class GoalDateView: UIView {
+class GoalDateView: BaseView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    override func style() {}
+    
+    override func hierarchy() {}
+    
+    override func layout() {}
+    
+}
 
+extension GoalDateView{
+    
 }

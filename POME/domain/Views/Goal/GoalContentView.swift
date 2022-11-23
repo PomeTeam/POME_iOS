@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalContentView: UIView {
+class GoalContentView: BaseView {
 
     /*
     // Only override draw() if you perform custom drawing.

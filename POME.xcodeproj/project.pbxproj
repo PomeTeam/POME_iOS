@@ -122,6 +122,7 @@
 		57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */; };
 		57CCA7B5292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift */; };
 		57CCA7B9292DE927007E22D1 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */; };
+		57CCA7BB292DEADA007E22D1 /* GoalCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */; };
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 /* End PBXBuildFile section */
@@ -270,6 +271,7 @@
 		57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentViewController.swift; sourceTree = "<group>"; };
 		57CCA7B4292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterSuccessViewController.swift; sourceTree = "<group>"; };
 		57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
+		57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCommonView.swift; sourceTree = "<group>"; };
 		75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
 		78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 		57CCA7A8292DE810007E22D1 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */,
 				57CCA7A9292DE833007E22D1 /* GoalDateView.swift */,
 				57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */,
 				57CCA7AD292DE84A007E22D1 /* GoalRegisterSuccessView.swift */,
@@ -1154,6 +1157,7 @@
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
+				57CCA7BB292DEADA007E22D1 /* GoalCommonView.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
