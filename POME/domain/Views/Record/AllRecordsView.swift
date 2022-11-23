@@ -20,7 +20,7 @@ class AllRecordsView: BaseView {
         $0.textColor = Color.grey5
     }
     
-    let goalView = GoalView(true, "end", "커피 대신 물을 마시자", "100,000원", "0원", 0)
+    let goalView = GoalWithProgressBarView(true, "end", "커피 대신 물을 마시자", "100,000원", "0원", 0)
     
     let countLabel = UILabel().then{
         $0.text = "전체 4건"

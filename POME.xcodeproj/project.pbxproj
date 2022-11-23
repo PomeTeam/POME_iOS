@@ -24,7 +24,8 @@
 		2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */; };
 		2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */; };
 		2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649E292EC9F7000F6BAC /* AllRecordsView.swift */; };
-		233964A1292ECC06000F6BAC /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233964A0292ECC06000F6BAC /* GoalView.swift */; };
+		233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233964A0292ECC06000F6BAC /* GoalWithProgressBarView.swift */; };
+		233964A4292ED5CF000F6BAC /* LittleGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233964A3292ED5CF000F6BAC /* LittleGoalView.swift */; };
 		235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235B3972292D6288003ACA01 /* TextPopUpViewController.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
@@ -33,6 +34,8 @@
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
 		2380877E291B502E00072763 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877D291B502E00072763 /* RegisterView.swift */; };
+		23816881292ED63800579DD4 /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23816880292ED63800579DD4 /* CommentViewController.swift */; };
+		23816883292ED65C00579DD4 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23816882292ED65C00579DD4 /* CommentView.swift */; };
 		23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E59292B6E4100707572 /* TermsViewController.swift */; };
 		23858E5C292B6E6B00707572 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E5B292B6E6B00707572 /* TermsView.swift */; };
 		2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */; };
@@ -169,7 +172,8 @@
 		2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGoalTableViewCell.swift; sourceTree = "<group>"; };
 		2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsViewController.swift; sourceTree = "<group>"; };
 		2339649E292EC9F7000F6BAC /* AllRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsView.swift; sourceTree = "<group>"; };
-		233964A0292ECC06000F6BAC /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		233964A0292ECC06000F6BAC /* GoalWithProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalWithProgressBarView.swift; sourceTree = "<group>"; };
+		233964A3292ED5CF000F6BAC /* LittleGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleGoalView.swift; sourceTree = "<group>"; };
 		235B3972292D6288003ACA01 /* TextPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPopUpViewController.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
 		2380877D291B502E00072763 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		23816880292ED63800579DD4 /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		23816882292ED65C00579DD4 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		23858E59292B6E4100707572 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		23858E5B292B6E6B00707572 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +340,7 @@
 				23061235292B4B5E00662007 /* RecordView.swift */,
 				2385A8CC292C5274003A62EA /* RecordEmotionView.swift */,
 				2339649E292EC9F7000F6BAC /* AllRecordsView.swift */,
+				23816882292ED65C00579DD4 /* CommentView.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -360,6 +367,15 @@
 				232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		233964A2292ED5BB000F6BAC /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				233964A0292ECC06000F6BAC /* GoalWithProgressBarView.swift */,
+				233964A3292ED5CF000F6BAC /* LittleGoalView.swift */,
+			);
+			path = Goal;
 			sourceTree = "<group>";
 		};
 		2367FC5A292BEC53006ED970 /* PopUp */ = {
@@ -684,6 +700,7 @@
 		5724EC4B291650AD00DC529B /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				233964A2292ED5BB000F6BAC /* Goal */,
 				57B32C3C292466010018C0CB /* TypoStyle.swift */,
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
 				2380877A291B445100072763 /* DefaultButton.swift */,
@@ -692,7 +709,6 @@
 				23061243292B51F200662007 /* DefaultTextField.swift */,
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
 				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
-				233964A0292ECC06000F6BAC /* GoalView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -704,6 +720,7 @@
 				5724EC582917734C00DC529B /* RecordViewController.swift */,
 				2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */,
 				2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */,
+				23816880292ED63800579DD4 /* CommentViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -1232,7 +1249,7 @@
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
-				233964A1292ECC06000F6BAC /* GoalView.swift in Sources */,
+				233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
@@ -1240,6 +1257,7 @@
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
+				23816883292ED65C00579DD4 /* CommentView.swift in Sources */,
 				57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */,
 				57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */,
 				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
@@ -1248,11 +1266,13 @@
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				23816881292ED63800579DD4 /* CommentViewController.swift in Sources */,
 				232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */,
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
 				57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */,
+				233964A4292ED5CF000F6BAC /* LittleGoalView.swift in Sources */,
 				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 			);
