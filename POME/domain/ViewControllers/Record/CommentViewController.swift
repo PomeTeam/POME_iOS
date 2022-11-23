@@ -39,8 +39,19 @@ class CommentViewController: BaseViewController {
     override func initialize() {
         super.initialize()
         
+        commentView.notSubmitButton.addTarget(self, action: #selector(notSubmitButtonDidTap), for: .touchUpInside)
+        commentView.submitButton.addTarget(self, action: #selector(submitButtonDidTap), for: .touchUpInside)
     }
 
+    // MARK: - Actions
+    @objc func submitButtonDidTap() {
+        
+    }
+    @objc func notSubmitButtonDidTap() {
+        let dialog = ImagePopUpViewController(Image.trashGreen, "종료된 목표를 삭제할까요?", "지금까지 작성된 기록들은 모두 사라져요", "삭제할게요", "아니요")
+        dialog.modalPresentationStyle = .overFullScreen
+        self.present(dialog, animated: false, completion: nil)
+    }
 }
 // MARK: - TextView delegate
 extension CommentViewController : UITextViewDelegate {
