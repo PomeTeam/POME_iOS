@@ -23,11 +23,11 @@ class AllRecordsView: BaseView {
     let goalView = GoalView(true, "end", "커피 대신 물을 마시자", "100,000원", "0원", 0)
     
     let countLabel = UILabel().then{
-        $0.text = "전체 0건"
+        $0.text = "전체 4건"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
     }
-    
+    let nextButton = DefaultButton(titleStr: "남겼어요")
     var allRecordsTableView: UITableView!
     
     //MARK: - LifeCycle
@@ -54,6 +54,7 @@ class AllRecordsView: BaseView {
         addSubview(goalView)
         addSubview(countLabel)
         
+        addSubview(nextButton)
         addSubview(allRecordsTableView)
     }
     
@@ -77,9 +78,15 @@ class AllRecordsView: BaseView {
             make.top.equalTo(goalView.snp.bottom).offset(20)
             make.leading.equalTo(goalView)
         }
+        nextButton.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(52)
+            make.bottom.equalToSuperview().offset(-34)
+        }
         allRecordsTableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.top.equalTo(countLabel.snp.bottom).offset(9)
+            make.bottom.equalTo(nextButton.snp.top)
         }
     }
     func setTableView() {
