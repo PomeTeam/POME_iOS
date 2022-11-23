@@ -79,4 +79,8 @@ final class ProgressBarView: UIView {
             $0.text = "초과"
         }
     }
+    func zeroProgressView() {
+        self.ratio = 0.05
+        self.numLabel.text = "0%"
+    }
 }

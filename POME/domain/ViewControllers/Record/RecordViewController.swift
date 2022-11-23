@@ -8,7 +8,8 @@ import UIKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
-    var categoryTitles = ["목표1", "목표2", "목표3목표3목표3목표3", "목표4", "목표5", ]
+    var categoryTitles = ["목표1", "목표2", "목표3목표3목표3목표3", "목표4", "완료한 목표", ]
+    var categorySelectedIdx = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +42,7 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
-        let sheet = RecordBottomSheetViewController(Image.emptyGoal, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
+        let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
@@ -98,16 +99,19 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath)
                 as? GoalCategoryCollectionViewCell else { fatalError() }
+        
         cell.goalCategoryLabel.text = categoryTitles[indexPath.row]
-        if indexPath.row == 0 {cell.setSelectState()}
+        if indexPath.row == self.categorySelectedIdx {cell.setSelectState()}
         else if indexPath.row == 4 {cell.setInactivateState()}  //임시
         else {cell.setUnselectState()}
+        
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalCategoryCollectionViewCell else { fatalError() }
-        cell.isSelected = true
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        self.categorySelectedIdx = indexPath.row
+        self.recordView.recordTableView.reloadData()
+        return true
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -129,6 +133,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             cell.goalCollectionView.delegate = self
             cell.goalCollectionView.dataSource = self
+            cell.goalCollectionView.reloadData()
             
             // Add Goal
             cell.goalPlusButton.addTarget(self, action: #selector(cannotAddGoalButtonDidTap), for: .touchUpInside)
@@ -139,6 +144,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
+            
+            // 목표 종료 셀 (임시)
+            if self.categorySelectedIdx == 4 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                return cell
+            }
+            
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoEmotionBannerTableViewCell", for: indexPath) as? GoEmotionBannerTableViewCell else { return UITableViewCell() }
@@ -160,6 +172,10 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
         } else if tag > 2 {
             cannotAddEmotionDidTap()
+        } else if tag == 1 {
+            if self.categorySelectedIdx == 4 {
+                self.navigationController?.pushViewController(AllRecordsViewController(), animated: true)
+            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
