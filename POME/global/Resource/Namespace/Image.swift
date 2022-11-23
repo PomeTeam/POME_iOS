@@ -125,7 +125,9 @@ enum Image{
 
     public static let writingBtn = UIImage(named: "btn_writing")!
 
-    public static let emptyGoal = UIImage(named: "empty_goal")!
+    public static let flagMint = UIImage(named: "flag_mint")!
+    
+    public static let flagPink = UIImage(named: "flag_pink")!
 
     public static let emojiBackground = UIImage(named: "emoji_background")!
 
@@ -148,6 +150,8 @@ enum Image{
     public static let trashGreen = UIImage(named: "trash_green")!
     
     public static let mintMarshmallow = UIImage(named: "marshmallow_mint")!
+    
+    public static let paperMint = UIImage(named: "paper_mint")!
     
     //MARK: - Goal
     public static let goalRegisterSuccess = UIImage(named: "goal_register_success")!

@@ -11,7 +11,7 @@ class RecordBottomSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     let illuImage = UIImageView().then{
-        $0.image = Image.emptyGoal
+        $0.image = Image.flagMint
     }
     let titleLabel = UILabel().then{
         $0.setTypoStyleWithSingleLine(typoStyle: .title2)
