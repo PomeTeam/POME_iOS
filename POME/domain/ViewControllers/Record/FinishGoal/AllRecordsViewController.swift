@@ -16,6 +16,9 @@ class AllRecordsViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
     override func style() {
         super.style()
         
@@ -37,8 +40,12 @@ class AllRecordsViewController: BaseViewController {
         super.initialize()
         
         allRecordsView.goalView.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
+        allRecordsView.nextButton.addTarget(self, action: #selector(nextButtonDidTap), for: .touchUpInside)
     }
     // MARK: - Actions
+    @objc func nextButtonDidTap() {
+        self.navigationController?.pushViewController(CommentViewController(), animated: true)
+    }
     @objc func alertRecordMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
@@ -76,7 +83,7 @@ class AllRecordsViewController: BaseViewController {
 // MARK: - TableView delegate
 extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 4
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }

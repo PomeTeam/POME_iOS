@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GoalView: UIView {
+class GoalWithProgressBarView: UIView {
     var goalIsPublicLabel = LockTagLabel.generateUnopenTag()
     var goalRemainDateLabel = DayTagLabel.generateDateEndTag()
     var menuButton = UIButton().then{

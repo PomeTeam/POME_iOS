@@ -45,7 +45,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="1p3-PS-KFO">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Kp0-wS-3Tt" customClass="TabBarController" customModule="POME" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Kp0-wS-3Tt" customClass="TabBarController" customModule="POME" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="X78-bJ-7ke">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
