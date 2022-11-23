@@ -35,6 +35,16 @@ class GoalDateViewController: BaseViewController {
         
     }
     
+    override func backBtnDidClicked() {
+        let dialog = ImagePopUpViewController(Image.penMint,
+                                              "작성을 그만 두시겠어요?",
+                                              "지금까지 작성한 내용은 모두 사라져요",
+                                              "이어서 쓸래요",
+                                              "그만 둘래요")
+        dialog.modalPresentationStyle = .overFullScreen
+        self.present(dialog, animated: false, completion: nil)
+    }
+    
     @objc func calendarButtonDidClicked(_ sender: UIButton){
         
     }
@@ -43,4 +53,5 @@ class GoalDateViewController: BaseViewController {
         let vc = GoalContentViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+
 }
