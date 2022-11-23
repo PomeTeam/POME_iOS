@@ -26,30 +26,36 @@ class GoalCategoryCollectionViewCell: BaseCollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setUnselectState()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    override var isSelected: Bool {
+//        didSet {
+//            if isSelected {self.setSelectState()}
+//            else {self.setUnselectState()}
+//        }
+//    }
+    
     //MARK: - Method
     
     func setSelectState(){
         goalCategoryView.backgroundColor = Color.mint100
         goalCategoryLabel.textColor = .white
-        self.isUserInteractionEnabled = true
     }
     
     func setUnselectState(){
         goalCategoryView.backgroundColor = .white
         goalCategoryLabel.textColor = Color.grey5
-        self.isUserInteractionEnabled = true
     }
     
     func setInactivateState(){
         goalCategoryView.backgroundColor = .white
         goalCategoryLabel.textColor = Color.grey3
-        self.isUserInteractionEnabled = false
     }
     
     //MARK: - Override

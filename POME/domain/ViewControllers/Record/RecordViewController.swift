@@ -9,6 +9,7 @@ import UIKit
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
     var categoryTitles = ["목표1", "목표2", "목표3목표3목표3목표3", "목표4", "목표5", ]
+    var categorySelectedIdx = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,16 +99,19 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath)
                 as? GoalCategoryCollectionViewCell else { fatalError() }
+        
         cell.goalCategoryLabel.text = categoryTitles[indexPath.row]
-        if indexPath.row == 0 {cell.setSelectState()}
+        if indexPath.row == self.categorySelectedIdx {cell.setSelectState()}
         else if indexPath.row == 4 {cell.setInactivateState()}  //임시
         else {cell.setUnselectState()}
+        
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalCategoryCollectionViewCell else { fatalError() }
-        cell.isSelected = true
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        self.categorySelectedIdx = indexPath.row
+        self.recordView.recordTableView.reloadData()
+        return true
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -129,6 +133,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             cell.goalCollectionView.delegate = self
             cell.goalCollectionView.dataSource = self
+            cell.goalCollectionView.reloadData()
             
             // Add Goal
             cell.goalPlusButton.addTarget(self, action: #selector(cannotAddGoalButtonDidTap), for: .touchUpInside)

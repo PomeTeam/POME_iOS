@@ -47,7 +47,7 @@ class GoalCategoryTableViewCell: BaseTableViewCell {
         }
         goalCollectionView.snp.makeConstraints { make in
             make.leading.equalTo(goalPlusButton.snp.trailing).offset(8)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
             make.height.equalTo(goalPlusButton)
         }
