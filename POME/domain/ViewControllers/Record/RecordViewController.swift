@@ -144,6 +144,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
+            
+            // 목표 종료 셀 (임시)
+            if self.categorySelectedIdx == 4 {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                return cell
+            }
+            
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoEmotionBannerTableViewCell", for: indexPath) as? GoEmotionBannerTableViewCell else { return UITableViewCell() }

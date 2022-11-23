@@ -1,29 +1,31 @@
 //
-//  GoalTableViewCell.swift
+//  FinishGoalTableViewCell.swift
 //  POME
 //
-//  Created by gomin on 2022/11/11.
+//  Created by gomin on 2022/11/24.
 //
+
 import UIKit
 
-class EmptyGoalTableViewCell: BaseTableViewCell {
+class FinishGoalTableViewCell: BaseTableViewCell {
+
     let backView = UIView().then{
         $0.backgroundColor = .white
         $0.layer.borderColor = Color.grey2.cgColor
         $0.layer.borderWidth = 1
         $0.setShadowStyle(type: .card)
     }
-    let emptyGoalImage = UIImageView().then{
-        $0.image = Image.mintMarshmallow
+    let iconImage = UIImageView().then{
+        $0.image = Image.flagPink
     }
     let titleLabel = UILabel().then{
-        $0.text = "목표를 세워 친구와\n마시멜로를 모아보세요!"
+        $0.text = "목표가 종료되었어요!\n지난 기록들을 확인해보세요"
         $0.setTypoStyleWithMultiLine(typoStyle: .title3)
         $0.numberOfLines = 0
     }
-    let makeGoalButton = UIButton().then{
-        $0.setTitle("목표 만들기 >", for: .normal)
-        $0.setTitleColor(Color.mint100, for: .normal)
+    let finishGoalButton = UIButton().then{
+        $0.setTitle("목표 종료하기 >", for: .normal)
+        $0.setTitleColor(Color.pink100, for: .normal)
         $0.titleLabel?.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
@@ -47,9 +49,9 @@ class EmptyGoalTableViewCell: BaseTableViewCell {
         super.hierarchy()
         
         self.contentView.addSubview(backView)
-        backView.addSubview(emptyGoalImage)
+        backView.addSubview(iconImage)
         backView.addSubview(titleLabel)
-        backView.addSubview(makeGoalButton)
+        backView.addSubview(finishGoalButton)
     }
     override func layout() {
         super.layout()
@@ -59,16 +61,16 @@ class EmptyGoalTableViewCell: BaseTableViewCell {
             make.top.bottom.equalToSuperview().inset(12)
             make.height.equalTo(157)
         }
-        emptyGoalImage.snp.makeConstraints { make in
+        iconImage.snp.makeConstraints { make in
             make.width.height.equalTo(98)
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()
         }
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(emptyGoalImage.snp.trailing).offset(30)
+            make.leading.equalTo(iconImage.snp.trailing).offset(30)
             make.top.equalToSuperview().offset(44)
         }
-        makeGoalButton.snp.makeConstraints { make in
+        finishGoalButton.snp.makeConstraints { make in
             make.leading.equalTo(titleLabel)
             make.top.equalTo(titleLabel.snp.bottom).offset(9)
         }
