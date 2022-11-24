@@ -153,6 +153,8 @@ enum Image{
     
     public static let paperMint = UIImage(named: "paper_mint")!
     
+    public static let recordRegisterSuccess = UIImage(named: "record_register_success")!
+    
     //MARK: - Goal
     public static let goalRegisterSuccess = UIImage(named: "goal_register_success")!
     public static let calendar = UIImage(named: "calendar")!

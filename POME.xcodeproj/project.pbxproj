@@ -125,12 +125,18 @@
 		57CCA797292B7A1E007E22D1 /* TagStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA796292B7A1E007E22D1 /* TagStyle.swift */; };
 		57CCA7AA292DE833007E22D1 /* GoalDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7A9292DE833007E22D1 /* GoalDateView.swift */; };
 		57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */; };
-		57CCA7AE292DE84A007E22D1 /* GoalRegisterSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7AD292DE84A007E22D1 /* GoalRegisterSuccessView.swift */; };
+		57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */; };
 		57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */; };
 		57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */; };
-		57CCA7B5292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift */; };
+		57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */; };
 		57CCA7B9292DE927007E22D1 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */; };
 		57CCA7BB292DEADA007E22D1 /* GoalCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */; };
+		57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */; };
+		57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */; };
+		57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */; };
+		57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */; };
+		57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */; };
+		57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */; };
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 /* End PBXBuildFile section */
@@ -282,12 +288,18 @@
 		57CCA796292B7A1E007E22D1 /* TagStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagStyle.swift; sourceTree = "<group>"; };
 		57CCA7A9292DE833007E22D1 /* GoalDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateView.swift; sourceTree = "<group>"; };
 		57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentView.swift; sourceTree = "<group>"; };
-		57CCA7AD292DE84A007E22D1 /* GoalRegisterSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterSuccessView.swift; sourceTree = "<group>"; };
+		57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessView.swift; sourceTree = "<group>"; };
 		57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateViewController.swift; sourceTree = "<group>"; };
 		57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentViewController.swift; sourceTree = "<group>"; };
-		57CCA7B4292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterSuccessViewController.swift; sourceTree = "<group>"; };
+		57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewController.swift; sourceTree = "<group>"; };
 		57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 		57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCommonView.swift; sourceTree = "<group>"; };
+		57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentViewController.swift; sourceTree = "<group>"; };
+		57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectViewController.swift; sourceTree = "<group>"; };
+		57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentView.swift; sourceTree = "<group>"; };
+		57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectView.swift; sourceTree = "<group>"; };
+		57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetView.swift; sourceTree = "<group>"; };
+		57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetViewController.swift; sourceTree = "<group>"; };
 		75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
 		78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -337,6 +349,7 @@
 		23061234292B4B5500662007 /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA7C1292EEB20007E22D1 /* Register */,
 				23061235292B4B5E00662007 /* RecordView.swift */,
 				2385A8CC292C5274003A62EA /* RecordEmotionView.swift */,
 				2339649E292EC9F7000F6BAC /* AllRecordsView.swift */,
@@ -592,6 +605,7 @@
 				5724EC732919220800DC529B /* Base */,
 				5724EC6029177BD600DC529B /* TabBar */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
+				57CCA7CA292EF937007E22D1 /* RegisterSuccess */,
 				5724EC87291B7AFF00DC529B /* Protocol */,
 				5724EC752919224700DC529B /* PaddingLabel.swift */,
 				5724EC85291B4C9200DC529B /* Const.swift */,
@@ -736,6 +750,7 @@
 		5724EC54291772DF00DC529B /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA7BC292EE9CF007E22D1 /* Register */,
 				23816886292EDE6800579DD4 /* FinishGoal */,
 				23A17C55292BD3A300426825 /* BottomSheetViewControllers */,
 				5724EC582917734C00DC529B /* RecordViewController.swift */,
@@ -900,7 +915,6 @@
 				57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */,
 				57CCA7A9292DE833007E22D1 /* GoalDateView.swift */,
 				57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */,
-				57CCA7AD292DE84A007E22D1 /* GoalRegisterSuccessView.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -910,9 +924,37 @@
 			children = (
 				57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */,
 				57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */,
-				57CCA7B4292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift */,
 			);
 			path = Goal;
+			sourceTree = "<group>";
+		};
+		57CCA7BC292EE9CF007E22D1 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */,
+				57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */,
+				57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		57CCA7C1292EEB20007E22D1 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */,
+				57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */,
+				57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		57CCA7CA292EF937007E22D1 /* RegisterSuccess */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */,
+				57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */,
+			);
+			path = RegisterSuccess;
 			sourceTree = "<group>";
 		};
 		624F1339817CBA845EC82A7A /* Frameworks */ = {
@@ -1186,6 +1228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */,
 				57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
@@ -1193,6 +1236,7 @@
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
+				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
 				57CCA797292B7A1E007E22D1 /* TagStyle.swift in Sources */,
@@ -1200,6 +1244,7 @@
 				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */,
+				57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */,
 				57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
@@ -1219,9 +1264,10 @@
 				2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
+				57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
-				57CCA7AE292DE84A007E22D1 /* GoalRegisterSuccessView.swift in Sources */,
+				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				23816885292EDE5100579DD4 /* SubmitViewController.swift in Sources */,
 				23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */,
@@ -1232,6 +1278,7 @@
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
+				57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
@@ -1260,7 +1307,7 @@
 				23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */,
 				23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */,
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
-				57CCA7B5292DE8A3007E22D1 /* GoalRegisterSuccessViewController.swift in Sources */,
+				57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */,
 				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
@@ -1282,6 +1329,7 @@
 				57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */,
 				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
+				57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */,
 				5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */,
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */,
