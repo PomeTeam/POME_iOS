@@ -7,9 +7,9 @@
 
 import UIKit
 
-class GoalRegisterSuccessViewController: UIViewController {
+class RegisterSuccessViewController: UIViewController {
     
-    let mainView = GoalRegisterSuccessView().then{
+    let mainView = RegisterSuccessView().then{
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClickec), for: .touchUpInside)
     }
 
