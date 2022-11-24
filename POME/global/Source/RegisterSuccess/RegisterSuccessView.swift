@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalRegisterSuccessView: BaseView {
+class RegisterSuccessView: BaseView {
     
     let titleView = GoalCommomnTitleView(title: "새로운 씀씀이 기록이\n추가되었어요!",
                                          subtitle: "잊지 않고 기록해주셨네요! 정말 대단해요")
