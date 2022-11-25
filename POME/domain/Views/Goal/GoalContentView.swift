@@ -9,14 +9,14 @@ import UIKit
 
 class GoalContentView: BaseView {
     
-    let titleView = GoalCommomnTitleView(title: "행복한 소비를 위한\n목표를 만들어보세요!",
+    let titleView = RegisterCommonTitleView(title: "행복한 소비를 위한\n목표를 만들어보세요!",
                                          subtitle: "행복한 소비는 늘리고 후회되는 소비는 줄여봐요")
     
-    let categoryField = GoalCommonTextFieldView(title: "목표 카테고리",
+    let categoryField = RegisterCommonTextFieldView(title: "목표 카테고리",
                                                 placeholder: "택시/건강 (8자)")
-    let promiseField = GoalCommonTextFieldView(title: "한 줄 다짐",
+    let promiseField = RegisterCommonTextFieldView(title: "한 줄 다짐",
                                                placeholder: "걸어다니기/건강 관리에는 넉넉히 쓰자 (18자)")
-    let priceField = GoalCommonTextFieldView(title: "목표 금액",
+    let priceField = RegisterCommonTextFieldView(title: "목표 금액",
                                              placeholder: "50,000")
     
     let goalMakePublicView = UIView().then{

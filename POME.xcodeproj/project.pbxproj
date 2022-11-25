@@ -130,7 +130,7 @@
 		57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */; };
 		57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */; };
 		57CCA7B9292DE927007E22D1 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */; };
-		57CCA7BB292DEADA007E22D1 /* GoalCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */; };
+		57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */; };
 		57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */; };
 		57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */; };
 		57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */; };
@@ -293,7 +293,7 @@
 		57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentViewController.swift; sourceTree = "<group>"; };
 		57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewController.swift; sourceTree = "<group>"; };
 		57CCA7B8292DE927007E22D1 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
-		57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCommonView.swift; sourceTree = "<group>"; };
+		57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCommonView.swift; sourceTree = "<group>"; };
 		57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentViewController.swift; sourceTree = "<group>"; };
 		57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectViewController.swift; sourceTree = "<group>"; };
 		57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentView.swift; sourceTree = "<group>"; };
@@ -605,7 +605,7 @@
 				5724EC732919220800DC529B /* Base */,
 				5724EC6029177BD600DC529B /* TabBar */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
-				57CCA7CA292EF937007E22D1 /* RegisterSuccess */,
+				57CCA7CA292EF937007E22D1 /* Register */,
 				5724EC87291B7AFF00DC529B /* Protocol */,
 				5724EC752919224700DC529B /* PaddingLabel.swift */,
 				5724EC85291B4C9200DC529B /* Const.swift */,
@@ -912,7 +912,6 @@
 		57CCA7A8292DE810007E22D1 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA7BA292DEADA007E22D1 /* GoalCommonView.swift */,
 				57CCA7A9292DE833007E22D1 /* GoalDateView.swift */,
 				57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */,
 			);
@@ -948,13 +947,14 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
-		57CCA7CA292EF937007E22D1 /* RegisterSuccess */ = {
+		57CCA7CA292EF937007E22D1 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */,
 				57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */,
 				57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */,
 			);
-			path = RegisterSuccess;
+			path = Register;
 			sourceTree = "<group>";
 		};
 		624F1339817CBA845EC82A7A /* Frameworks */ = {
@@ -1251,7 +1251,7 @@
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
-				57CCA7BB292DEADA007E22D1 /* GoalCommonView.swift in Sources */,
+				57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
