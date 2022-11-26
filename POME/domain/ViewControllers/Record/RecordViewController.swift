@@ -177,7 +177,9 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         if tag == 2 {
             self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
         } else if tag > 2 {
-            cannotAddEmotionDidTap()
+            // 감정을 남길 수 없을 때
+            // cannotAddEmotionDidTap()
+            self.navigationController?.pushViewController(SecondEmotionViewController(), animated: true)
         } else if tag == 1 {
             if self.categorySelectedIdx == 4 {
                 self.navigationController?.pushViewController(AllRecordsViewController(), animated: true)
