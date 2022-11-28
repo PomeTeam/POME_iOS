@@ -125,7 +125,6 @@ class ImagePopUpViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(titleLabel.snp.bottom).offset(4)
             make.centerX.equalToSuperview()
-//            make.bottom.equalTo(horizontalSeperator.snp.top).offset(-32)
         }
         cancelBtn.snp.makeConstraints { make in
             make.width.equalTo(142.5)

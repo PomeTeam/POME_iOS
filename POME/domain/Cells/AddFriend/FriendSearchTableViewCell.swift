@@ -13,12 +13,12 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         $0.setImage(Image.addComplete, for: .selected)
     }
     let profileImg = UIImageView().then{
-//        $0.image = Image.photoDefault
-        $0.backgroundColor = .systemPurple
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 22
+        $0.backgroundColor = Color.pink30
     }
-    let maskImageView = UIImageView()
     let profileName = UILabel().then{
-        $0.text = "profileName"
+        $0.text = "고민"
         $0.font = UIFont.autoPretendard(type: .m_16)
         $0.textColor = Color.title
     }
@@ -32,19 +32,11 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        maskImageView.frame = profileImg.bounds
-    }
     // MARK: - Methods
     override func setting() {
         super.setting()
         
-        maskImageView.image = Image.photoDefault
-        profileImg.mask = maskImageView
-        maskImageView.frame = profileImg.bounds
-        
-        rightButton.addTarget(self, action: #selector(rightButtonDidTap), for: .touchUpInside)
+//        rightButton.addTarget(self, action: #selector(rightButtonDidTap), for: .touchUpInside)
     }
     override func hierarchy() {
         super.hierarchy()
@@ -68,11 +60,6 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         rightButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-32)
             make.centerY.equalToSuperview()
-        }
-    }
-    @objc func rightButtonDidTap() {
-        if !(rightButton.isSelected) {
-            rightButton.isSelected = true
         }
     }
 }

@@ -83,5 +83,10 @@ class CompleteRegisterViewController: UIViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        nextTimeButton.rx.tap
+            .bind {
+                self.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
