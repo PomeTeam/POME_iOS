@@ -30,14 +30,14 @@ class RegisterView: BaseView {
         $0.backgroundColor = Color.grey0
         $0.placeholder = "영어, 한국어 최대 10자 이내 입력"
         $0.clearButtonMode = .always
-        $0.font = UIFont.autoPretendard(type: .m_16)
+        $0.font = UIFont.autoPretendard(type: .r_14)
         $0.textColor = Color.title
         $0.layer.cornerRadius = 6
         $0.addLeftPadding(16)
     }
     let messageLabel = UILabel().then{
         $0.text = "멋진 닉네임이네요!"
-        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.mint100
     }
     let guideLabel = UILabel().then{
@@ -94,7 +94,7 @@ class RegisterView: BaseView {
         }
         
         nameTextField.snp.makeConstraints { make in
-            make.height.equalTo(50)
+            make.height.equalTo(46)
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(profileImage.snp.bottom).offset(40)
         }

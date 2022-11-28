@@ -13,13 +13,20 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("load")
+        style()
         layout()
         initialize()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func style() {
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+    }
     func layout() {
-        print("layout")
         onboardingView = LoginView()
         self.view.addSubview(onboardingView)
         onboardingView.snp.makeConstraints { make in

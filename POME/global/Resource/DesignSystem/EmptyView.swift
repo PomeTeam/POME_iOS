@@ -31,9 +31,9 @@ class EmptyView {
         }
         let messageLabel = UILabel().then{
             $0.textColor = Color.grey5
-            $0.textAlignment = .center
             $0.text = message
             $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
+            $0.textAlignment = .center
             $0.numberOfLines = 0
             $0.sizeToFit()
         }
@@ -64,6 +64,7 @@ class EmptyView {
             make.centerX.equalToSuperview()
             make.top.equalTo(icon.snp.bottom).offset(12)
         }
+        messageLabel.textAlignment = .center
 
         if let tableView = self.tableView {
             tableView.backgroundView = backgroundView

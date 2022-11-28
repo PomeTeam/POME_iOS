@@ -47,7 +47,7 @@ class FriendSearchView: BaseView {
     override func layout() {
         searchTextField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.height.equalTo(54)
+            make.height.equalTo(46)
             make.top.equalToSuperview().offset(12)
         }
         searchButton.snp.makeConstraints { make in

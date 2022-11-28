@@ -29,8 +29,6 @@ class FriendSearchViewController: BaseViewController {
         friendSearchView = FriendSearchView()
         friendSearchView.setTableView(dataSourceDelegate: self)
         friendSearchView.searchTableView.keyboardDismissMode = .onDrag
-        
-        initNameTextField()
     }
     override func layout() {
         super.layout()
@@ -41,6 +39,12 @@ class FriendSearchViewController: BaseViewController {
             make.top.equalTo(super.navigationView.snp.bottom)
         }
         
+    }
+    override func initialize() {
+        super.initialize()
+        
+        initNameTextField()
+        initButton()
     }
     func initNameTextField() {
         // editingChanged 이벤트가 발생 했을 때
@@ -66,6 +70,13 @@ class FriendSearchViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
     }
+    func initButton() {
+        friendSearchView.completeButton.rx.tap
+            .bind {
+                self.navigationController?.pushViewController(TabBarController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
     func setValidName(_ nameStr: String) -> String {
         var currName = nameStr
         if nameStr.count <= 10 {
@@ -77,6 +88,12 @@ class FriendSearchViewController: BaseViewController {
         self.friendSearchView.searchTextField.text = currName
         return currName
     }
+    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
+        let btn = sender
+        if !(btn.isSelected) {
+            btn.isSelected = true
+        }
+    }
 }
 // MARK: - TableView delegate
 extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -86,6 +103,7 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
         
+        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
         cell.selectionStyle = .none
         return cell
     }

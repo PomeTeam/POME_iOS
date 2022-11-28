@@ -61,6 +61,12 @@ class SettingViewController: BaseViewController {
         let dialog = TextPopUpViewController("로그아웃 하시겠어요?", "네", "아니요")
         dialog.modalPresentationStyle = .overFullScreen
         self.present(dialog, animated: false, completion: nil)
+        
+        dialog.okBtn.addTarget(self, action: #selector(logoutButtonDidTap), for: .touchUpInside)
+    }
+    @objc func logoutButtonDidTap() {
+        self.navigationController?.pushViewController(OnboardingViewController(), animated: true)
+        self.dismiss(animated: false)
     }
 }
 // MARK: - TableView delegate
@@ -87,6 +93,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         default:
             let cell = UITableViewCell()
+            cell.contentView.backgroundColor = .white
             cell.textLabel?.then{
                 $0.text = "서비스"
                 $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)
@@ -114,6 +121,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
         switch tag {
+        case 1:
+            self.navigationController?.pushViewController(MypageFriendViewController(), animated: true)
         case 3:
             self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
         case 8:

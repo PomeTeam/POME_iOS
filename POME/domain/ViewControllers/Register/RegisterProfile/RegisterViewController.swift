@@ -68,10 +68,10 @@ class RegisterViewController: UIViewController {
         let albumTapGesture = UITapGestureRecognizer()
         registerView.profileImage.addGestureRecognizer(albumTapGesture)
         albumTapGesture.rx.event.bind(onNext: { recognizer in
-            self.albumButtonnDidTap()
+            self.albumButtonDidTap()
         }).disposed(by: disposeBag)
         registerView.profileButton.rx.tap
-            .bind {self.albumButtonnDidTap()}
+            .bind {self.albumButtonDidTap()}
             .disposed(by: disposeBag)
         registerView.completeButton.rx.tap
             .bind {self.completeButtonDidTap()}
@@ -126,7 +126,7 @@ class RegisterViewController: UIViewController {
         let vc = CompleteRegisterViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    @objc func albumButtonnDidTap() {
+    @objc func albumButtonDidTap() {
         self.imagePickerController.sourceType = .photoLibrary
         self.present(imagePickerController, animated: true, completion: nil)
     }
