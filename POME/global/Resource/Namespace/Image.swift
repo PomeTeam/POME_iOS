@@ -207,13 +207,33 @@ enum Image{
     
     // MARK: - Marshmallow
     
+    // MARK: Lock
     public static let marshmallowLock = UIImage(named: "marshmallow_lock")!
+    // MARK: Level 1
+    public static let marshmallowLevel1Blue = UIImage(named: "marshmallow_level_1_blue")!
+    public static let marshmallowLevel1Mint = UIImage(named: "marshmallow_level_1_mint")!
+    public static let marshmallowLevel1Pink = UIImage(named: "marshmallow_level_1_pink")!
+    public static let marshmallowLevel1Yellow = UIImage(named: "marshmallow_level_1_yellow")!
     
-    public static let marshmallowMint = UIImage(named: "marshmallow_mint")!
+    // MARK: Level 2
+    public static let marshmallowLevel2Blue = UIImage(named: "marshmallow_level_2_blue")!
+    public static let marshmallowLevel2Mint = UIImage(named: "marshmallow_level_2_mint")!
+    public static let marshmallowLevel2Pink = UIImage(named: "marshmallow_level_2_pink")!
+    public static let marshmallowLevel2Yellow = UIImage(named: "marshmallow_level_2_yellow")!
     
-    public static let marshmallowPink = UIImage(named: "marshmallow_pink")!
+    // MARK: Level 3
+    public static let marshmallowLevel3Blue = UIImage(named: "marshmallow_level_3_blue")!
+    public static let marshmallowLevel3Mint = UIImage(named: "marshmallow_level_3_mint")!
+    public static let marshmallowLevel3Pink = UIImage(named: "marshmallow_level_3_pink")!
+    public static let marshmallowLevel3Yellow = UIImage(named: "marshmallow_level_3_yellow")!
     
-    public static let marshmallowYellow = UIImage(named: "marshmallow_yellow")!
+    
+    // MARK: Level 4
+    public static let marshmallowLevel4Blue = UIImage(named: "marshmallow_level_4_blue")!
+    public static let marshmallowLevel4Mint = UIImage(named: "marshmallow_level_4_mint")!
+    public static let marshmallowLevel4Pink = UIImage(named: "marshmallow_level_4_pink")!
+    public static let marshmallowLevel4Yellow = UIImage(named: "marshmallow_level_4_yellow")!
+    
     
     // MARK: - Mypage
     

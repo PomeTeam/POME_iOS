@@ -30,7 +30,7 @@ class MarshmallowCollectionViewCell: BaseCollectionViewCell {
         $0.backgroundColor = Color.pink30
     }
     let marshmallowImg = UIImageView().then{
-        $0.image = Image.marshmallowPink
+        $0.image = Image.marshmallowLevel1Pink
     }
     
     //MARK: - LifeCycle

@@ -53,6 +53,7 @@
 		23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */; };
 		23B3B7DC29319411008CB960 /* SecondEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3B7DB29319411008CB960 /* SecondEmotionViewController.swift */; };
 		23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3B7DE29319425008CB960 /* SecondEmotionView.swift */; };
+		23B4FD4C293863620020AD40 /* AppRegisterFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B4FD4B293863620020AD40 /* AppRegisterFlowUITests.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
@@ -211,6 +212,7 @@
 		23ADE498292D405C003002D9 /* MypageGoalsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageGoalsTableViewCell.swift; sourceTree = "<group>"; };
 		23B3B7DB29319411008CB960 /* SecondEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondEmotionViewController.swift; sourceTree = "<group>"; };
 		23B3B7DE29319425008CB960 /* SecondEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondEmotionView.swift; sourceTree = "<group>"; };
+		23B4FD4B293863620020AD40 /* AppRegisterFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterFlowUITests.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 			children = (
 				5724EC0729100C8800DC529B /* POMEUITests.swift */,
 				5724EC0929100C8800DC529B /* POMEUITestsLaunchTests.swift */,
+				23B4FD4B293863620020AD40 /* AppRegisterFlowUITests.swift */,
 			);
 			path = POMEUITests;
 			sourceTree = "<group>";
@@ -1403,6 +1406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5724EC0829100C8800DC529B /* POMEUITests.swift in Sources */,
+				23B4FD4C293863620020AD40 /* AppRegisterFlowUITests.swift in Sources */,
 				5724EC0A29100C8800DC529B /* POMEUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

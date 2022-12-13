@@ -9,7 +9,7 @@ import UIKit
 
 class SettingViewController: BaseViewController {
 
-    let settingTitleArray = ["친구 관리", "문의 하기", "알림 설정", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃"]
+    let settingTitleArray = ["친구 관리", "문의 하기", "알림 설정", "신고하기", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃"]
     var settingTableView: UITableView!
 
     // MARK: - Life Cycles
@@ -72,7 +72,7 @@ class SettingViewController: BaseViewController {
 // MARK: - TableView delegate
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
@@ -81,12 +81,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingProfileTableViewCell", for: indexPath) as? SettingProfileTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
-        case 1, 2, 3:
+        case 1, 2, 3, 4:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingWithSeparatorTableViewCell", for: indexPath) as? SettingWithSeparatorTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setUpTitle(settingTitleArray[tag - 1])
             return cell
-        case 5, 6, 7, 8:
+        case 6, 7, 8, 9:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setUpTitle(settingTitleArray[tag - 1])
@@ -110,9 +110,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let tag = indexPath.row
         switch tag {
-        case 0, 1, 2, 3:
+        case 0, 1, 2, 3, 4:
             return 71
-        case 5, 6, 7, 8:
+        case 6, 7, 8, 9:
             return 59
         default:
             return 32
@@ -125,7 +125,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(MypageFriendViewController(), animated: true)
         case 3:
             self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
-        case 8:
+        case 9:
             showLogoutDialog()
         default:
             print("")
