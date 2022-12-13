@@ -107,13 +107,13 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let tag = indexPath.row
         switch tag {
         case 0:
-            cell.setUpMarshmallow(4, Image.marshmallowPink)
+            cell.setUpMarshmallow(4, Image.marshmallowLevel4Pink)
         case 1:
             cell.setUpMarshmallow(1, Image.marshmallowLock)
         case 2:
-            cell.setUpMarshmallow(4, Image.marshmallowYellow)
+            cell.setUpMarshmallow(4, Image.marshmallowLevel2Yellow)
         default:
-            cell.setUpMarshmallow(4, Image.marshmallowMint)
+            cell.setUpMarshmallow(4, Image.marshmallowLevel4Mint)
         }
         
         return cell
