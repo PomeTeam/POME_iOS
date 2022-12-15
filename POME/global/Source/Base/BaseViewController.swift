@@ -12,7 +12,7 @@ import Then
 class BaseViewController: UIViewController {
     
     let navigationView = UIView()
-    
+
     lazy var backBtn = UIButton().then{
         $0.setImage(Image.backArrow, for: .normal)
         $0.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)

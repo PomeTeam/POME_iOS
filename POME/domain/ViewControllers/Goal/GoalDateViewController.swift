@@ -10,8 +10,8 @@ import UIKit
 class GoalDateViewController: BaseViewController {
     
     let mainView = GoalDateView().then{
-        $0.startDateField.calendarButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
-        $0.endDateField.calendarButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
+        $0.startDateField.rightButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
+        $0.endDateField.rightButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
         $0.completButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
 
