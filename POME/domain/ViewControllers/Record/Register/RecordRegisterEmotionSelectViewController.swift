@@ -10,7 +10,9 @@ import SnapKit
 
 class RecordRegisterEmotionSelectViewController: BaseViewController {
     
-    let mainView = RecordRegisterEmotionSelectView()
+    let mainView = RecordRegisterEmotionSelectView().then{
+        $0.completeButton.addTarget(self, action: #selector(), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,5 +34,9 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    @objc func completeButtonDidClicked(){
+        
     }
 }

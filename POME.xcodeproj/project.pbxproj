@@ -103,6 +103,7 @@
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
+		5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
@@ -268,6 +269,7 @@
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
+		5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessType.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 			isa = PBXGroup;
 			children = (
 				57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */,
+				5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */,
 				57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */,
 				57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */,
 			);
@@ -1312,6 +1315,7 @@
 				57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
+				5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */,
 				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				23816885292EDE5100579DD4 /* SubmitViewController.swift in Sources */,

@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class RegisterSuccessView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "새로운 씀씀이 기록이\n추가되었어요!",
