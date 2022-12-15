@@ -11,11 +11,9 @@ class GoalDateView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "시작이 반이에요!\n오늘부터 언제까지 해볼까요?",
                                          subtitle: "최대 한달까지 목표를 세울 수 있어요")
-    let startDateField = CommonRightButtonTextFieldView(title: "목표 시작 날짜",
-                                               placeholder: "목표 시작 날짜를 선택해주세요")
+    let startDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 시작 날짜", placeholder: "목표 시작 날짜를 선택해주세요")
     
-    let endDateField = CommonRightButtonTextFieldView(title: "목표 종료 날짜",
-                                            placeholder: "목표 종료 날짜를 선택해주세요")
+    let endDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 종료 날짜", placeholder: "목표 종료 날짜를 선택해주세요")
     
     lazy var completButton = DefaultButton(titleStr: "선택했어요").then{
         $0.isActivate(true)

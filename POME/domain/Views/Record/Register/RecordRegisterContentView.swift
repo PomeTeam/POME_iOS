@@ -15,8 +15,7 @@ class RecordRegisterContentView: BaseView {
     let goalField = RegisterCommonTextFieldView(title: "목표",
                                             placeholder: "목표를 선택해주세요")
     
-    let dateField = RegisterCommonTextFieldView(title: "소비날짜",
-                                                  placeholder: "")
+    let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "")
     
     let amountField = RegisterCommonTextFieldView(title: "소비 금액",
                                                   placeholder: "10,000")

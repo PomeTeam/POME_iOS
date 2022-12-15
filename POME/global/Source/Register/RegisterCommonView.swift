@@ -103,12 +103,17 @@ class RegisterCommonTextFieldView: BaseView{
 //TODO: CommonRightButtonTextFieldView로 네이밍 변경
 class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     
-    lazy var calendarButton = UIButton().then{
-        $0.setImage(Image.calendar, for: .normal)
+    lazy var rightButton = UIButton()
+    
+    private override init(title: String, placeholder: String){
+        super.init(title: title, placeholder: placeholder)
     }
     
-    override init(title: String, placeholder: String){
-        super.init(title: title, placeholder: placeholder)
+    static func generateRightButtonView(image: UIImage, title: String, placeholder: String) -> CommonRightButtonTextFieldView{
+        let view = CommonRightButtonTextFieldView(title: title, placeholder: placeholder).then{
+            $0.rightButton.setImage(image, for: .normal)
+        }
+        return view
     }
     
     required init?(coder: NSCoder) {
@@ -123,17 +128,17 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
         
         super.hierarchy()
 
-        infoTextField.addSubview(calendarButton)
+        infoTextField.addSubview(rightButton)
     }
     
     override func layout() {
 
         super.layout()
         
-        calendarButton.snp.makeConstraints{
+        rightButton.snp.makeConstraints{
             $0.top.equalToSuperview().offset(11)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(calendarButton.snp.height)
+            $0.width.equalTo(rightButton.snp.height)
             $0.trailing.equalToSuperview().offset(-16)
         }
     }
