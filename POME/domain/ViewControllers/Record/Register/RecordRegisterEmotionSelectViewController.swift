@@ -11,7 +11,7 @@ import SnapKit
 class RecordRegisterEmotionSelectViewController: BaseViewController {
     
     let mainView = RecordRegisterEmotionSelectView().then{
-        $0.completeButton.addTarget(self, action: #selector(), for: .touchUpInside)
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
 
     override func viewDidLoad() {
@@ -37,6 +37,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
     }
     
     @objc func completeButtonDidClicked(){
-        
+        let vc = RegisterSuccessViewController(type: .consume)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

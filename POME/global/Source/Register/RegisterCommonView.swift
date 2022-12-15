@@ -24,8 +24,13 @@ class RegisterCommonTitleView: BaseView{
         $0.numberOfLines = 1
     }
     
+    init(){
+        super.init(frame: .zero)
+    }
+    
     init(title: String, subtitle: String){
         super.init(frame: .zero)
+        
         self.titleLabel.text = title
         self.subtitleLabel.text = subtitle
     }
