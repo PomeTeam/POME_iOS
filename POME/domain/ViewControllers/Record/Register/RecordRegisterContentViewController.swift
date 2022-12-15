@@ -9,7 +9,9 @@ import UIKit
 
 class RecordRegisterContentViewController: BaseViewController {
     
-    let mainView = RecordRegisterContentView()
+    let mainView = RecordRegisterContentView().then{
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,11 @@ class RecordRegisterContentViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    @objc func completeButtonDidClicked(){
+        let vc = RecordRegisterEmotionSelectViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
     }
 
 }

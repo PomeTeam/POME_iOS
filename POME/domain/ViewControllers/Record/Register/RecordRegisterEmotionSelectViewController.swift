@@ -6,24 +6,31 @@
 //
 
 import UIKit
+import SnapKit
 
-class RecordRegisterEmotionSelectViewController: UIViewController {
+class RecordRegisterEmotionSelectViewController: BaseViewController {
+    
+    let mainView = RecordRegisterEmotionSelectView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func style(){
+        super.style()
+        
+        setEtcButton(title: "닫기")
     }
-    */
-
+    
+    override func layout(){
+        super.layout()
+        
+        self.view.addSubview(mainView)
+        
+        mainView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
 }
