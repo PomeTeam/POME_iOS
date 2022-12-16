@@ -10,12 +10,9 @@ import UIKit
 
 class RegisterSuccessView: BaseView {
     
-    let titleView = RegisterCommonTitleView(title: "새로운 씀씀이 기록이\n추가되었어요!",
-                                         subtitle: "잊지 않고 기록해주셨네요! 정말 대단해요")
+    let titleView = RegisterCommonTitleView()
     
-    let iconImage = UIImageView().then{
-        $0.image = Image.goalRegisterSuccess
-    }
+    let iconImage = UIImageView()
     
     let completeButton = DefaultButton(titleStr: "확인했어요")
 

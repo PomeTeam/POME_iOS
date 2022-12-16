@@ -12,7 +12,18 @@ class RegisterSuccessViewController: UIViewController {
     let mainView = RegisterSuccessView().then{
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClickec), for: .touchUpInside)
     }
-
+    
+    init(type: RegisterSuccessType){
+        super.init(nibName: nil, bundle: nil)
+        mainView.titleView.titleLabel.text = type.title
+        mainView.titleView.subtitleLabel.text = type.subtitle
+        mainView.iconImage.image = type.image
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()

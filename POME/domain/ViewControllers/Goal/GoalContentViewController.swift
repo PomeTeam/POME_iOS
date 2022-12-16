@@ -61,7 +61,7 @@ class GoalContentViewController: BaseViewController {
     }
     
     @objc func completeButtonDidClicked(){
-        let vc = RegisterSuccessViewController()
+        let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

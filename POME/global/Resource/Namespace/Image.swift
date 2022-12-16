@@ -189,7 +189,9 @@ enum Image{
     
     // MARK: - Arrows
     
-    public static let tagArrowDown = UIImage(named: "arrow_down_gray")!
+    public static let arrowDown = UIImage(named: "arrow_down")!
+    
+    public static let tagArrowDown = UIImage(named: "tag_arrow_down_gray")!
     
     public static let rightArrowGreen = UIImage(named: "arrow_right_green")!
     
