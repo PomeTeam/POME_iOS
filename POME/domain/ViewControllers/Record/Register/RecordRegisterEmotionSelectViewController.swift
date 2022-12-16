@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RecordRegisterEmotionSelectViewController: BaseViewController {
+class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     let mainView = RecordRegisterEmotionSelectView().then{
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
@@ -19,12 +19,14 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
     }
     
     override func style(){
+        
         super.style()
         
         setEtcButton(title: "닫기")
     }
     
     override func layout(){
+        
         super.layout()
         
         self.view.addSubview(mainView)
@@ -38,6 +40,10 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
     
     override func initialize(){
         etcButton.addTarget(self, action: #selector(closeButtonDidClicked), for: .touchUpInside)
+        
+        mainView.happyEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
+        mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
+        mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
     }
     
     @objc func completeButtonDidClicked(){
@@ -53,5 +59,23 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
                                               "그만 둘래요")
         dialog.modalPresentationStyle = .overFullScreen
         self.present(dialog, animated: false, completion: nil)
+    }
+    
+    @objc func emotionDidSelected(_ sender: UITapGestureRecognizer){
+        
+        guard let selectEmotion = sender.view as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
+        
+        if(selectEmotion.tag == 1){
+            return
+        }
+        
+        guard let willDeselectEmotion = mainView.viewWithTag(1) as? RecordRegisterEmotionSelectView.FirstEmotionView else {
+            selectEmotion.changeSelectState()
+            return
+        }
+        
+        willDeselectEmotion.changeDeselectSelect()
+        selectEmotion.changeSelectState()
+        
     }
 }

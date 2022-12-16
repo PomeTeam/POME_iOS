@@ -75,16 +75,25 @@ extension RecordRegisterEmotionSelectView{
         
         let imageBackView = UIView().then{
             $0.layer.cornerRadius = 110 / 2
-            $0.backgroundColor = Color.grey0
+//            $0.backgroundColor = Color.grey0
         }
+        
         let emotionImageView = UIImageView()
-        let titleView = UILabel()
+        
+        let titleLabel = UILabel().then{
+            $0.text = " "
+            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+//            $0.textColor = Color.body
+        }
         
         private init(emotion: EmotionTag) {
+            
             super.init(frame: .zero)
             
+            self.isUserInteractionEnabled = true
             emotionImageView.image = emotion.firstEmotionImage
-            titleView.text = emotion.message
+            titleLabel.text = emotion.message
+            changeDeselectSelect()
         }
         
         required init?(coder: NSCoder) {
@@ -98,7 +107,7 @@ extension RecordRegisterEmotionSelectView{
         override func hierarchy() {
             
             self.addSubview(imageBackView)
-            self.addSubview(titleView)
+            self.addSubview(titleLabel)
             
             imageBackView.addSubview(emotionImageView)
         }
@@ -114,10 +123,22 @@ extension RecordRegisterEmotionSelectView{
                 $0.centerY.centerX.equalToSuperview()
             }
             
-            titleView.snp.makeConstraints{
+            titleLabel.snp.makeConstraints{
                 $0.leading.equalTo(imageBackView.snp.trailing).offset(15)
-                $0.centerY.equalToSuperview()
+                $0.trailing.centerY.equalToSuperview()
             }
+        }
+        
+        func changeDeselectSelect(){
+            self.tag = 0
+            imageBackView.backgroundColor = Color.grey0
+            titleLabel.textColor = Color.body
+        }
+        
+        func changeSelectState(){
+            self.tag = 1
+            imageBackView.backgroundColor = Color.mint10
+            titleLabel.textColor = Color.mint100
         }
     }
 }
