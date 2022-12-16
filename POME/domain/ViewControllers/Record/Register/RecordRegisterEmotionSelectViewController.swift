@@ -36,8 +36,22 @@ class RecordRegisterEmotionSelectViewController: BaseViewController {
         }
     }
     
+    override func initialize(){
+        etcButton.addTarget(self, action: #selector(closeButtonDidClicked), for: .touchUpInside)
+    }
+    
     @objc func completeButtonDidClicked(){
         let vc = RegisterSuccessViewController(type: .consume)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func closeButtonDidClicked(){
+        let dialog = ImagePopUpViewController(Image.penMint,
+                                              "작성을 그만 두시겠어요?",
+                                              "지금까지 작성한 내용은 모두 사라져요",
+                                              "이어서 쓸래요",
+                                              "그만 둘래요")
+        dialog.modalPresentationStyle = .overFullScreen
+        self.present(dialog, animated: false, completion: nil)
     }
 }
