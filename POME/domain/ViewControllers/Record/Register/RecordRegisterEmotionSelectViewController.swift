@@ -39,14 +39,22 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
     }
     
     override func initialize(){
+        
         etcButton.addTarget(self, action: #selector(closeButtonDidClicked), for: .touchUpInside)
         
-        mainView.happyEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
-        mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
-        mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionDidSelected(_:))))
+        mainView.happyEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
+        mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
+        mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
     }
     
     @objc func completeButtonDidClicked(){
+        
+        /* 선택한 emotion 정보 추출
+         
+        let view = mainView.viewWithTag(1) as! RecordRegisterEmotionSelectView.FirstEmotionView
+        print(view.emotion)
+         */
+        
         let vc = RegisterSuccessViewController(type: .consume)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -61,11 +69,11 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func emotionDidSelected(_ sender: UITapGestureRecognizer){
+    @objc func emotionViewDidClicked(_ sender: UITapGestureRecognizer){
         
         guard let selectEmotion = sender.view as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
         
-        if(selectEmotion.tag == 1){
+        if(selectEmotion.tag == 1){ //tag -> 0: deselect, 1: select
             return
         }
         
@@ -74,7 +82,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
             return
         }
         
-        willDeselectEmotion.changeDeselectSelect()
+        willDeselectEmotion.changeDeselectState()
         selectEmotion.changeSelectState()
         
     }

@@ -73,17 +73,17 @@ extension RecordRegisterEmotionSelectView{
     
     class FirstEmotionView: BaseView{
         
-        let imageBackView = UIView().then{
+        var emotion: EmotionTag!
+        
+        private let imageBackView = UIView().then{
             $0.layer.cornerRadius = 110 / 2
-//            $0.backgroundColor = Color.grey0
         }
         
-        let emotionImageView = UIImageView()
+        private let emotionImageView = UIImageView()
         
-        let titleLabel = UILabel().then{
+        private let titleLabel = UILabel().then{
             $0.text = " "
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-//            $0.textColor = Color.body
         }
         
         private init(emotion: EmotionTag) {
@@ -91,9 +91,11 @@ extension RecordRegisterEmotionSelectView{
             super.init(frame: .zero)
             
             self.isUserInteractionEnabled = true
+            self.emotion = emotion
+            
             emotionImageView.image = emotion.firstEmotionImage
             titleLabel.text = emotion.message
-            changeDeselectSelect()
+            changeDeselectState()
         }
         
         required init?(coder: NSCoder) {
@@ -129,7 +131,7 @@ extension RecordRegisterEmotionSelectView{
             }
         }
         
-        func changeDeselectSelect(){
+        func changeDeselectState(){
             self.tag = 0
             imageBackView.backgroundColor = Color.grey0
             titleLabel.textColor = Color.body
