@@ -12,7 +12,9 @@ class RecordRegisterContentView: BaseView {
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
                                          subtitle: "소비에 대한 간단한 기록을 남겨보세요")
     
-    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요")
+    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요").then{
+        $0.infoTextField.isUserInteractionEnabled = false
+    }
     
     let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "")
     

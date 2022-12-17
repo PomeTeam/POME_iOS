@@ -142,6 +142,7 @@
 		57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */; };
 		57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */; };
 		57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */; };
+		57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */; };
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 /* End PBXBuildFile section */
@@ -310,6 +311,7 @@
 		57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectView.swift; sourceTree = "<group>"; };
 		57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetView.swift; sourceTree = "<group>"; };
 		57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetViewController.swift; sourceTree = "<group>"; };
+		57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
 		78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 		2306122D292B48B700662007 /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				57E4D969294DC731004F7297 /* Register */,
 				23816887292EDE9600579DD4 /* Goal */,
 				23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */,
 				23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */,
@@ -1004,6 +1007,14 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
+		57E4D969294DC731004F7297 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		624F1339817CBA845EC82A7A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1375,6 +1386,7 @@
 				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
+				57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */,
 				23816883292ED65C00579DD4 /* CommentView.swift in Sources */,
 				57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */,
 				57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */,

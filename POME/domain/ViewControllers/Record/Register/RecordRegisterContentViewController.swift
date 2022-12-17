@@ -13,6 +13,8 @@ class RecordRegisterContentViewController: BaseViewController {
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
 
+    //MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -28,6 +30,23 @@ class RecordRegisterContentViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    override func initialize() {
+        
+        mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cateogorySheetWillShow)))
+    }
+    
+    //MARK: - Action
+    
+    @objc func cateogorySheetWillShow(){
+        let sheet = CategorySelectSheetViewController()
+        sheet.categorySelectHandler = { title in
+            self.mainView.goalField.infoTextField.text = title
+        }
+        
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true)
     }
     
     @objc func completeButtonDidClicked(){
