@@ -103,6 +103,7 @@
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
+		572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B20AD294F1D4000980835 /* DefaultTextView.swift */; };
 		5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
@@ -270,6 +271,7 @@
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
+		572B20AD294F1D4000980835 /* DefaultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextView.swift; sourceTree = "<group>"; };
 		5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessType.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
@@ -662,9 +664,11 @@
 		5724EC1A291012E000DC529B /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				572B20AC294F1CB800980835 /* Default */,
+				572B20AB294F1C4400980835 /* Domain */,
 				5724EC4B291650AD00DC529B /* DesignSystem */,
 				5724EC632917879300DC529B /* Namespace */,
-				5724EC2B291629B900DC529B /* extension */,
+				5724EC2B291629B900DC529B /* Extension */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -758,14 +762,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		5724EC2B291629B900DC529B /* extension */ = {
+		5724EC2B291629B900DC529B /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				5724EC2C29162B3500DC529B /* UIFont.swift */,
 				23808776291B404A00072763 /* UITextField.swift */,
 				232B2BDE292B80EB00FFDF8B /* UILabel.swift */,
 			);
-			path = extension;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		5724EC2E29162DAA00DC529B /* Font */ = {
@@ -782,15 +786,10 @@
 		5724EC4B291650AD00DC529B /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
-				233964A2292ED5BB000F6BAC /* Goal */,
 				57B32C3C292466010018C0CB /* TypoStyle.swift */,
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
-				2380877A291B445100072763 /* DefaultButton.swift */,
 				57CCA76729286761007E22D1 /* Tag */,
 				57CCA7662926592A007E22D1 /* Reaction */,
-				23061243292B51F200662007 /* DefaultTextField.swift */,
-				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
-				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -898,6 +897,26 @@
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		572B20AB294F1C4400980835 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				233964A2292ED5BB000F6BAC /* Goal */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		572B20AC294F1CB800980835 /* Default */ = {
+			isa = PBXGroup;
+			children = (
+				2380877A291B445100072763 /* DefaultButton.swift */,
+				23061243292B51F200662007 /* DefaultTextField.swift */,
+				572B20AD294F1D4000980835 /* DefaultTextView.swift */,
+				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
+				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
+			);
+			path = Default;
 			sourceTree = "<group>";
 		};
 		57CCA7662926592A007E22D1 /* Reaction */ = {
@@ -1345,6 +1364,7 @@
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
+				572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */,
 				2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */,
 				2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
