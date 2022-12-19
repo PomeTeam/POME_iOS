@@ -17,7 +17,6 @@ class GoalCategoryCollectionViewCell: BaseCollectionViewCell {
     }
     
     let goalCategoryLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         $0.textAlignment = .center
     }

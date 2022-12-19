@@ -29,14 +29,8 @@ class RecordRegisterContentView: BaseView {
         $0.textColor = Color.body
     }
     
-    let contentTextView = UITextView()
-    
-    let contentNumberOfCharactersLabel = UILabel().then{
-        $0.text = "00/150"
-        $0.textColor = Color.grey2
-        $0.setTypoStyleWithSingleLine(typoStyle: .body2)
-    }
-    
+    let contentTextView = CharactersCountTextView()
+
     lazy var completeButton = DefaultButton(titleStr: "작성했어요")
     
     override init(frame: CGRect){
@@ -47,19 +41,15 @@ class RecordRegisterContentView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func style() {}
-    
     override func hierarchy() {
+        
         self.addSubview(titleView)
         self.addSubview(goalField)
         self.addSubview(dateField)
         self.addSubview(amountField)
-        self.addSubview(contentView)
+        self.addSubview(contentTitle)
+        self.addSubview(contentTextView)
         self.addSubview(completeButton)
-        
-        contentView.addSubview(contentTitle)
-        contentView.addSubview(contentTextView)
-        contentTextView.addSubview(contentNumberOfCharactersLabel)
     }
     
     override func layout() {
@@ -84,13 +74,8 @@ class RecordRegisterContentView: BaseView {
             $0.leading.trailing.equalToSuperview()
         }
         
-        contentView.snp.makeConstraints{
-            $0.top.equalTo(amountField.snp.bottom)
-            $0.leading.trailing.equalToSuperview()
-        }
-        
         contentTitle.snp.makeConstraints{
-            $0.top.equalToSuperview()
+            $0.top.equalTo(amountField.snp.bottom)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -99,11 +84,6 @@ class RecordRegisterContentView: BaseView {
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-21)
-        }
-        
-        contentNumberOfCharactersLabel.snp.makeConstraints{
-            $0.trailing.equalToSuperview().offset(-16)
-            $0.bottom.equalToSuperview().offset(-12)
         }
         
         completeButton.snp.makeConstraints{

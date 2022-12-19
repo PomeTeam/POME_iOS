@@ -7,18 +7,15 @@
 
 import UIKit
 
-//TODO: RegisterCommonTitleView로 네이밍 변경
 class RegisterCommonTitleView: BaseView{
     
     let titleLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithMultiLine(typoStyle: .title1)
         $0.textColor = Color.title
         $0.numberOfLines = 2
     }
     
     let subtitleLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
         $0.numberOfLines = 1
@@ -59,7 +56,6 @@ class RegisterCommonTitleView: BaseView{
     }
 }
 
-//TODO: RegisterCommonTextFieldView로 네이밍 변경
 class RegisterCommonTextFieldView: BaseView{
     
     let fieldTitleLabel = UILabel().then{
@@ -105,7 +101,6 @@ class RegisterCommonTextFieldView: BaseView{
     }
 }
 
-//TODO: CommonRightButtonTextFieldView로 네이밍 변경
 class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     
     lazy var rightButton = UIButton()

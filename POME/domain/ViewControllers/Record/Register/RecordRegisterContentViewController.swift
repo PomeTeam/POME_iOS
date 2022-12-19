@@ -34,13 +34,22 @@ class RecordRegisterContentViewController: BaseViewController {
     
     override func initialize() {
         
+        mainView.contentTextView.recordTextView.delegate = self
         mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cateogorySheetWillShow)))
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
     }
     
     //MARK: - Action
     
+    @objc func viewDidTapped(){
+        self.view.endEditing(true)
+    }
+    
     @objc func cateogorySheetWillShow(){
+        
         let sheet = CategorySelectSheetViewController()
+        
         sheet.categorySelectHandler = { title in
             self.mainView.goalField.infoTextField.text = title
         }
@@ -50,6 +59,11 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     @objc func completeButtonDidClicked(){
+        
+        /* 아래 코드 사용해서 text 데이터 추출하기 for 마지막 공백 제거
+         mainView.contentTextView.recordTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+         */
+        
         let vc = RecordRegisterEmotionSelectViewController()
             self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -65,3 +79,45 @@ class RecordRegisterContentViewController: BaseViewController {
     }
 
 }
+
+extension RecordRegisterContentViewController: UITextViewDelegate{
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        guard let contentView = textView.superview as? CharactersCountTextView else { return }
+        
+        if textView.text == CharactersCountTextView.placeholder {
+            contentView.setTextViewTextEditingMode()
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        guard let contentView = textView.superview as? CharactersCountTextView else { return }
+        
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            contentView.setTextViewTextEmptyMode()
+        }
+    }
+    
+    func textViewDidChange(_ textView: UITextView){
+
+        guard let contentView = textView.superview as? CharactersCountTextView else { return }
+
+        contentView.updateCharactersCount(count: textView.text.count)
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
+        if(textView.text.count < 150){
+            return true
+        }
+        
+        guard let oldString = textView.text, let changedRange = Range(range, in: oldString) else { return false }
+
+        let newString = oldString.replacingCharacters(in: changedRange, with: text)
+
+        return newString.count <= 150
+    }
+}
+

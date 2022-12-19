@@ -12,7 +12,6 @@ class RecordCategoryTableViewCell: BaseTableViewCell {
     static let cellIdentifier = "RecordCategoryTableViewCell"
     
     let nameLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle1)
         $0.textColor = Color.body
     }

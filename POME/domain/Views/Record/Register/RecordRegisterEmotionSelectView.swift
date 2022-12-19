@@ -82,7 +82,6 @@ extension RecordRegisterEmotionSelectView{
         private let emotionImageView = UIImageView()
         
         private let titleLabel = UILabel().then{
-            $0.text = " "
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         }
         
