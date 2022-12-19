@@ -19,7 +19,6 @@ class EmotionTagView: BaseView {
     let emotionImage = UIImageView()
     
     let emotionLabel = UILabel().then{
-        $0.text = " "
         $0.textColor = Color.body
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.numberOfLines = 1

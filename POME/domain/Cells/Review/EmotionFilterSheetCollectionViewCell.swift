@@ -22,7 +22,6 @@ class EmotionFilterSheetCollectionViewCell: BaseCollectionViewCell {
     }
     
     let emotionLabel = UILabel().then{
-        $0.text = " "
         $0.textAlignment = .center
         $0.textColor = Color.title
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)

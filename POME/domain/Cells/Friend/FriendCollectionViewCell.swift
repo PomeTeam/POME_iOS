@@ -20,7 +20,6 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     }
     
     let nameLabel = UILabel().then{
-        $0.text = " "
         $0.textColor = Color.grey5
         $0.numberOfLines = 1
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)

@@ -21,7 +21,6 @@ class ReactionToastView: BaseView {
     }
     
     let messageLabel = UILabel().then{
-        $0.text = " "
         $0.font = UIFont.autoPretendard(type: .sb_16)
         $0.textColor = .white
     }

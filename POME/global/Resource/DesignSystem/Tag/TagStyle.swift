@@ -35,7 +35,6 @@ class TagLabel: BaseView{
     var tagStyle: TagStyle!
     
     let tagLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .title6)
     }
     
@@ -149,7 +148,6 @@ class ImageTagLabel: BaseView {
     
     private let iconImage = UIImageView()
     let tagLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithSingleLine(typoStyle: .title6)
     }
     

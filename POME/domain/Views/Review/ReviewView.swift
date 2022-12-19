@@ -198,7 +198,6 @@ extension ReviewView{
         }
         
         let titleLabel = UILabel().then{
-            $0.text = " "
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
             $0.isUserInteractionEnabled = false
         }

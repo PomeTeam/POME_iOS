@@ -70,7 +70,6 @@ class ReviewDetailView: BaseView {
     lazy var othersReactionButton = UIButton()
     
     lazy var othersReactionCountLabel = UILabel().then{
-        $0.text = " "
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textColor = .white
         $0.isUserInteractionEnabled = false
