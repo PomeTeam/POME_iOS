@@ -125,6 +125,8 @@ extension UILabel {
     
     func setTypoStyleWithSingleLine(typoStyle: TypoStyle) {
         
+        self.text = " "
+        
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
 
@@ -142,6 +144,38 @@ extension UILabel {
     }
     
     func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
+        
+        self.text = " "
+        
+        let font = typoStyle.font
+        let kernValue = typoStyle.labelDescription.kern
+        let lineSpacing = typoStyle.labelDescription.lineHeight
+
+        if let labelText = text, labelText.count > 0, let attributedText = self.attributedText {
+
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.maximumLineHeight = lineSpacing
+            paragraphStyle.minimumLineHeight = lineSpacing
+            
+             let attributedString = NSMutableAttributedString(attributedString: attributedText)
+            
+            attributedString.addAttributes([.font:font,
+                                            .kern:kernValue,
+                                            .paragraphStyle: paragraphStyle,
+                                            .baselineOffset: (lineSpacing - font.lineHeight) / 4
+            ], range: NSRange(location: 0,
+                              length: attributedString.length))
+            
+            self.attributedText = attributedString
+        }
+    }
+}
+
+extension UITextView{
+    
+    func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
+        
+        self.text = " "
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
