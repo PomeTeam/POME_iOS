@@ -649,14 +649,13 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				5724EC85291B4C9200DC529B /* Const.swift */,
 				2367FC5A292BEC53006ED970 /* PopUp */,
 				5724EC732919220800DC529B /* Base */,
 				5724EC6029177BD600DC529B /* TabBar */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
 				57CCA7CA292EF937007E22D1 /* Register */,
 				5724EC87291B7AFF00DC529B /* Protocol */,
-				5724EC752919224700DC529B /* PaddingLabel.swift */,
-				5724EC85291B4C9200DC529B /* Const.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -915,6 +914,7 @@
 				572B20AD294F1D4000980835 /* DefaultTextView.swift */,
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
 				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
+				5724EC752919224700DC529B /* PaddingLabel.swift */,
 			);
 			path = Default;
 			sourceTree = "<group>";
