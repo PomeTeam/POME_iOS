@@ -7,6 +7,18 @@
 
 import UIKit
 
+struct PomeDateFormatter{
+    
+    static func getTodayDate() -> String{
+        
+        let formatter = DateFormatter().then{
+            $0.dateFormat = "yyyy.MM.dd"
+        }
+        
+        return formatter.string(from: Date())
+    }
+}
+
 class RecordRegisterContentView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
@@ -16,7 +28,10 @@ class RecordRegisterContentView: BaseView {
         $0.infoTextField.isUserInteractionEnabled = false
     }
     
-    let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "")
+    let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "").then{
+        $0.infoTextField.text = PomeDateFormatter.getTodayDate()
+        $0.infoTextField.isUserInteractionEnabled = false
+    }
     
     let amountField = RegisterCommonTextFieldView(title: "소비 금액",
                                                   placeholder: "10,000")
