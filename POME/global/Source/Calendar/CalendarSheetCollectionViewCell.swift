@@ -9,6 +9,12 @@ import UIKit
 
 class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     
+    enum CalendarCellState{
+        case normal
+        case selected
+        case disabled
+    }
+    
     static let cellIdentifier = "CalendarSheetCollectionViewCell"
     
     static let cellSize: CGFloat = (Const.Device.WIDTH - 40 - 9.17*6) / 7
@@ -26,7 +32,18 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func style() {
+    override func prepareForReuse() {
+        
+        infoLabel.text = nil
+        
+        setDefaultState()
+    }
+    
+    override func style(){
+        
+        setDefaultState()
+        
+        baseView.layer.cornerRadius = CalendarSheetCollectionViewCell.cellSize / 2
     }
     
     override func hierarchy(){
@@ -43,15 +60,14 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         infoLabel.snp.makeConstraints{
             $0.top.leading.equalToSuperview().offset(10)
             $0.centerX.centerY.equalToSuperview()
-            
         }
     }
     
     //MARK: - Helper
     
-    func setDayOfWeekText(index: Int){
+    func setDayOfTheWeekText(index: Int){
         
-        self.infoLabel.text =  {
+        self.infoLabel.text = {
             switch index{
             case 0:     return "일"
             case 1:     return "월"
@@ -65,15 +81,47 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         }()
     }
     
-    func setDisabledState(){
-        
-    }
-    
     func setDefaultState(){
-        
+        setCellAttributeByState(state: .normal)
     }
     
     func setSelectedState(){
-        
+        setCellAttributeByState(state: .selected)
+    }
+    
+    func setDisabledState(){
+        setCellAttributeByState(state: .disabled)
+    }
+    
+    private func setCellAttributeByState(state: CalendarCellState){
+        baseView.backgroundColor = state.backgroundColor
+        infoLabel.textColor = state.textColor
+    }
+}
+
+extension CalendarSheetCollectionViewCell.CalendarCellState{
+    
+    struct CellAttribute{
+        let backgroundColor: UIColor
+        let textColor: UIColor
+    }
+    
+    private var attributes: CellAttribute{
+        switch self{
+        case .normal:   return CellAttribute(backgroundColor: .white,
+                                             textColor: Color.title)
+        case .selected:   return CellAttribute(backgroundColor: Color.pink100,
+                                               textColor: .white)
+        case .disabled:   return CellAttribute(backgroundColor: .white,
+                                               textColor: Color.grey5)
+        }
+    }
+    
+    var backgroundColor: UIColor{
+        self.attributes.backgroundColor
+    }
+    
+    var textColor: UIColor{
+        self.attributes.textColor
     }
 }

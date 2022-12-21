@@ -18,8 +18,8 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         super.viewDidLoad()
         
         style()
-        initialize()
         layout()
+        initialize()
     }
 
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
