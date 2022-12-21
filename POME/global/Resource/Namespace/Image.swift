@@ -201,6 +201,10 @@ enum Image{
     
     public static let rightArrowPink = UIImage(named: "arrow_right_pink")!
     
+    public static let calendarArrowRight = UIImage(named: "calendar_arrow_right")!
+    
+    public static let calendarArrowLeft = UIImage(named: "calendar_arrow_left")!
+    
     // MARK: - Level
     
     public static let level1 = UIImage(named: "level_1")!

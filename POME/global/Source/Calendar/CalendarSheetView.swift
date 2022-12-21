@@ -7,23 +7,101 @@
 
 import UIKit
 
-class CalendarSheetView: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+class CalendarSheetView: BaseView {
+    
+    //MARK: - Properties
+    
+    let yearMonthStackView = UIStackView().then{
+        $0.spacing = 10
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    let yearMonthLabel = UILabel().then{
+        $0.setTypoStyleWithSingleLine(typoStyle: .title3)
+        $0.textColor = Color.title
     }
-    */
-
+    
+    //TODO: Arrow icon calendar 용으로 asset 추가 후, 프로퍼티 변경하기
+    let preMonthButton = UIButton().then{
+        $0.setImage(Image.backArrow.withTintColor(Color.grey5), for: .normal)
+    }
+    
+    let nextMonthButton = UIButton().then{
+        $0.setImage(Image.rightArrowGray.withTintColor(Color.body), for: .normal)
+    }
+    
+    let calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+        
+        let flowLayout = UICollectionViewFlowLayout().then{
+            $0.itemSize = CGSize(width: CalendarSheetCollectionViewCell.cellSize, height: CalendarSheetCollectionViewCell.cellSize)
+            $0.minimumLineSpacing = 4
+            $0.minimumInteritemSpacing = 9.17
+        }
+        
+        $0.collectionViewLayout = flowLayout
+        $0.showsVerticalScrollIndicator = false
+        $0.isScrollEnabled = false
+        $0.register(CalendarSheetCollectionViewCell.self, forCellWithReuseIdentifier: CalendarSheetCollectionViewCell.cellIdentifier)
+        
+    }
+    
+    let completeButton = DefaultButton(titleStr: "선택했어요")
+    
+    //MARK: - LifeCycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func style(){
+        
+    }
+    
+    override func hierarchy(){
+        self.addSubview(yearMonthStackView)
+        self.addSubview(calendarCollectionView)
+        self.addSubview(completeButton)
+        
+        yearMonthStackView.addArrangedSubview(preMonthButton)
+        yearMonthStackView.addArrangedSubview(yearMonthLabel)
+        yearMonthStackView.addArrangedSubview(nextMonthButton)
+    }
+    
+    override func layout(){
+        
+        yearMonthStackView.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(20)
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(24)
+        }
+        
+        preMonthButton.snp.makeConstraints{
+            $0.leading.top.bottom.equalToSuperview()
+            $0.width.height.equalTo(24)
+        }
+        
+        yearMonthLabel.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+        }
+        
+        nextMonthButton.snp.makeConstraints{
+            $0.trailing.top.bottom.equalToSuperview()
+            $0.width.height.equalTo(24)
+        }
+        
+        calendarCollectionView.snp.makeConstraints{
+            $0.top.equalTo(yearMonthStackView.snp.bottom).offset(16)
+            $0.leading.trailing.equalTo(yearMonthStackView)
+            $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-20)
+        }
+        
+        completeButton.snp.makeConstraints{
+            $0.bottom.centerX.equalToSuperview()
+            $0.leading.equalToSuperview().offset(20)
+            $0.height.equalTo(52)
+        }
+    }
 }
