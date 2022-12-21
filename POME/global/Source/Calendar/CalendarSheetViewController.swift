@@ -12,6 +12,10 @@ class CalendarSheetViewController: BaseSheetViewController {
     struct CalendarInfo{
         var startDayOfTheWeek: Int
         var endDate: Int
+        
+        var collectionViewCellCount: Int{
+            startDayOfTheWeek + endDate + 7
+        }
     }
     
     //MARK: - Properties
@@ -19,15 +23,26 @@ class CalendarSheetViewController: BaseSheetViewController {
     var dateHandler: (() -> ())!
     
     private var calendar = Calendar.current
-    private var calendarDate: Date!
-    private var calendarInfo: CalendarInfo!
+    
+    private var calendarDate: Date!{
+        didSet{
+            updateCalendarInfo()
+        }
+    }
+    
+    private var calendarInfo: CalendarInfo!{
+        didSet{
+            updateCalendarTitleAndCollectionView()
+        }
+    }
+    
     private var calendarDateFormatter = DateFormatter().then{
         $0.dateFormat = "yyyy년 M월"
     }
     
     let mainView = CalendarSheetView().then{
-        $0.preMonthButton.addTarget(CalendarSheetViewController.self, action: #selector(preMonthButtonDidClicked), for: .touchUpInside)
-        $0.nextMonthButton.addTarget(CalendarSheetViewController.self, action: #selector(nextMonthButtonDidClicked), for: .touchUpInside)
+        $0.preMonthButton.addTarget(self, action: #selector(calendarChangeToLastMonth), for: .touchUpInside)
+        $0.nextMonthButton.addTarget(self, action: #selector(calendarChangeToNextMonth), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
@@ -63,17 +78,16 @@ class CalendarSheetViewController: BaseSheetViewController {
         mainView.calendarCollectionView.delegate = self
         
         configureCalendar()
-        updateCalendar()
     }
     
     //MARK: - Action
     
-    @objc func preMonthButtonDidClicked(){
-        
+    @objc func calendarChangeToLastMonth(){
+        calendarDate = calendar.date(byAdding: .month, value: -1, to: calendarDate)
     }
     
-    @objc func nextMonthButtonDidClicked(){
-        
+    @objc func calendarChangeToNextMonth(){
+        calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
     //MARK: - Helper
@@ -85,43 +99,29 @@ class CalendarSheetViewController: BaseSheetViewController {
         calendarDate = calendar.date(from: components) ?? Date()
     }
     
-    private func startDayOfTheWeek() -> Int{
+    private func getStartDayOfTheWeek() -> Int{
         calendar.component(.weekday, from: calendarDate) - 1
     }
     
-    private func endDate() -> Int{
+    private func getEndDateOfTheMonth() -> Int{
         calendar.range(of: .day, in: .month, for: calendarDate)?.count ?? 0
     }
     
-    private func updateTitle(){
-        mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
-    }
-    
     private func updateCalendarInfo(){
-        
-        calendarInfo = CalendarInfo(startDayOfTheWeek: startDayOfTheWeek(),
-                                    endDate: endDate())
+        calendarInfo = CalendarInfo(startDayOfTheWeek: getStartDayOfTheWeek(),
+                                    endDate: getEndDateOfTheMonth())
     }
     
-    func updateCalendar(){
-        updateTitle()
-        updateCalendarInfo()
+    func updateCalendarTitleAndCollectionView(){
+        mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
         mainView.calendarCollectionView.reloadData()
-    }
-    
-    func minusMonth(){
-        
-    }
-    
-    func plusMonth(){
-        
     }
 }
 
 extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        7 + calendarInfo.endDate + calendarInfo.startDayOfTheWeek
+        calendarInfo.collectionViewCellCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -132,7 +132,7 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
         
         if(index < 7){
             cell.setDayOfTheWeekText(index: index)
-        }else if(index < 7 + calendarInfo.startDayOfTheWeek){
+        }else if(index < 7 + calendarInfo.startDayOfTheWeek){ //EmptyCell인 경우
             cell.infoLabel.text = nil
         }else{
             cell.infoLabel.text = "\(index - (calendarInfo.startDayOfTheWeek + 7) + 1)"
