@@ -8,8 +8,9 @@
 import Foundation
 
 enum SheetType: CGFloat{
-    case friendReaction = 314 //314 + 34
-    case emotionFilter = 218 //218+34
+    case friendReaction = 314
+    case emotionFilter = 218
     case recordHome = 285
-    case category = 344 //top offset이 378임..
+    case category = 378 //top offset이 378임..
+    case calendar = 160 //cell 이외 offset 값 합 (24 + 24 + 16 + 20 + 52 + 4 * 6)
 }
