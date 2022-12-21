@@ -10,11 +10,15 @@ import UIKit
 class CalendarSheetViewController: BaseSheetViewController {
     
     struct CalendarInfo{
+        
         var startDayOfTheWeek: Int
         var endDate: Int
         
         var collectionViewCellCount: Int{
             startDayOfTheWeek + endDate + 7
+        }
+        var collectionViewStartDateIndex: Int{
+            startDayOfTheWeek + 7
         }
     }
     
@@ -40,8 +44,8 @@ class CalendarSheetViewController: BaseSheetViewController {
         $0.dateFormat = "yyyy년 M월"
     }
     
-    let mainView = CalendarSheetView().then{
-        $0.preMonthButton.addTarget(self, action: #selector(calendarChangeToLastMonth), for: .touchUpInside)
+    private let mainView = CalendarSheetView().then{
+        $0.lastMonthButton.addTarget(self, action: #selector(calendarChangeToLastMonth), for: .touchUpInside)
         $0.nextMonthButton.addTarget(self, action: #selector(calendarChangeToNextMonth), for: .touchUpInside)
     }
     
@@ -82,11 +86,11 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Action
     
-    @objc func calendarChangeToLastMonth(){
+    @objc private func calendarChangeToLastMonth(){
         calendarDate = calendar.date(byAdding: .month, value: -1, to: calendarDate)
     }
     
-    @objc func calendarChangeToNextMonth(){
+    @objc private func calendarChangeToNextMonth(){
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
@@ -112,7 +116,7 @@ class CalendarSheetViewController: BaseSheetViewController {
                                     endDate: getEndDateOfTheMonth())
     }
     
-    func updateCalendarTitleAndCollectionView(){
+    private func updateCalendarTitleAndCollectionView(){
         mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
         mainView.calendarCollectionView.reloadData()
     }
@@ -132,12 +136,24 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
         
         if(index < 7){
             cell.setDayOfTheWeekText(index: index)
-        }else if(index < 7 + calendarInfo.startDayOfTheWeek){ //EmptyCell인 경우
-            cell.infoLabel.text = nil
-        }else{
-            cell.infoLabel.text = "\(index - (calendarInfo.startDayOfTheWeek + 7) + 1)"
+        }else if(index >= calendarInfo.collectionViewStartDateIndex){
+            cell.infoLabel.text = "\(index - calendarInfo.collectionViewStartDateIndex + 1)"
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return indexPath.row < calendarInfo.collectionViewStartDateIndex ? false : true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
+        cell.setSelectedState()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
+        cell.setDefaultState()
     }
 }

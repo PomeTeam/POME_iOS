@@ -25,8 +25,8 @@ class CalendarSheetView: BaseView {
      disabled: Color.grey5
      normal: Color.body
      */
-    let preMonthButton = UIButton().then{
-        $0.setImage(Image.calendarArrowLeft.withTintColor(Color.grey5), for: .normal)
+    let lastMonthButton = UIButton().then{
+        $0.setImage(Image.calendarArrowLeft.withTintColor(Color.body), for: .normal)
     }
     
     let nextMonthButton = UIButton().then{
@@ -62,16 +62,13 @@ class CalendarSheetView: BaseView {
     
     //MARK: - Override
     
-    override func style(){
-    }
-    
     override func hierarchy(){
         
         self.addSubview(yearMonthStackView)
         self.addSubview(calendarCollectionView)
         self.addSubview(completeButton)
         
-        yearMonthStackView.addArrangedSubview(preMonthButton)
+        yearMonthStackView.addArrangedSubview(lastMonthButton)
         yearMonthStackView.addArrangedSubview(yearMonthLabel)
         yearMonthStackView.addArrangedSubview(nextMonthButton)
     }
@@ -84,7 +81,7 @@ class CalendarSheetView: BaseView {
             $0.top.equalToSuperview().offset(24)
         }
         
-        preMonthButton.snp.makeConstraints{
+        lastMonthButton.snp.makeConstraints{
             $0.leading.top.bottom.equalToSuperview()
             $0.width.height.equalTo(24)
         }
