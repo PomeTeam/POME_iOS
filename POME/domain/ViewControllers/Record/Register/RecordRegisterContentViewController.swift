@@ -35,7 +35,9 @@ class RecordRegisterContentViewController: BaseViewController {
     override func initialize() {
         
         mainView.contentTextView.recordTextView.delegate = self
-        mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(cateogorySheetWillShow)))
+        
+        mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
+        mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
     }
@@ -46,7 +48,20 @@ class RecordRegisterContentViewController: BaseViewController {
         self.view.endEditing(true)
     }
     
-    @objc func cateogorySheetWillShow(){
+    @objc func calendarSheetWillShow(){
+        
+        let sheet = CalendarSheetViewController()
+        
+        sheet.dateHandler = {
+//            title in
+//            self.mainView.goalField.infoTextField.text = title
+        }
+        
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true)
+    }
+    
+    @objc func categorySheetWillShow(){
         
         let sheet = CategorySelectSheetViewController()
         

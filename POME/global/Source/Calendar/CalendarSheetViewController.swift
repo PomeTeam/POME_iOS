@@ -7,23 +7,63 @@
 
 import UIKit
 
-class CalendarSheetViewController: UIViewController {
+class CalendarSheetViewController: BaseSheetViewController {
+    
+    var dateHandler: (() -> ())!
+    
+    let mainView = CalendarSheetView()
+    
+    //MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
+    //MARK: - Override
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func style() {
+        
+        super.style()
+        
+        setBottomSheetStyle(type: .calendar)
     }
-    */
 
+    override func layout() {
+        
+        self.view.addSubview(mainView)
+        
+        mainView.snp.makeConstraints{
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+    }
+    
+    override func initialize() {
+        
+        super.initialize()
+        
+        mainView.calendarCollectionView.dataSource = self
+        mainView.calendarCollectionView.delegate = self
+    }
+}
+
+extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        7 * 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarSheetCollectionViewCell.cellIdentifier, for: indexPath) as? CalendarSheetCollectionViewCell else { return UICollectionViewCell() }
+        
+        cell.infoLabel.text = "1"
+        
+        if(indexPath.row < 7){
+            cell.setDayOfWeekText(index: indexPath.row)
+        }
+        
+        return cell
+    }
+    
 }
