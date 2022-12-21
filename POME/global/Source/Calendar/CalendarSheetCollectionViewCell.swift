@@ -49,7 +49,7 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Helper
     
-    func setDayOfWeekText(index: Int){
+    func setDayOfTheWeekText(index: Int){
         
         self.infoLabel.text =  {
             switch index{

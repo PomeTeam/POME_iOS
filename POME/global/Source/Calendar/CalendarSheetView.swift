@@ -16,17 +16,21 @@ class CalendarSheetView: BaseView {
     }
     
     let yearMonthLabel = UILabel().then{
+        $0.textAlignment = .center
         $0.setTypoStyleWithSingleLine(typoStyle: .title3)
         $0.textColor = Color.title
     }
     
-    //TODO: Arrow icon calendar 용으로 asset 추가 후, 프로퍼티 변경하기
+    /*
+     disabled: Color.grey5
+     normal: Color.body
+     */
     let preMonthButton = UIButton().then{
-        $0.setImage(Image.backArrow.withTintColor(Color.grey5), for: .normal)
+        $0.setImage(Image.calendarArrowLeft.withTintColor(Color.grey5), for: .normal)
     }
     
     let nextMonthButton = UIButton().then{
-        $0.setImage(Image.rightArrowGray.withTintColor(Color.body), for: .normal)
+        $0.setImage(Image.calendarArrowRight.withTintColor(Color.body), for: .normal)
     }
     
     let calendarCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
@@ -56,11 +60,13 @@ class CalendarSheetView: BaseView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Override
+    
     override func style(){
-        
     }
     
     override func hierarchy(){
+        
         self.addSubview(yearMonthStackView)
         self.addSubview(calendarCollectionView)
         self.addSubview(completeButton)
