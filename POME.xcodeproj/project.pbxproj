@@ -108,11 +108,11 @@
 		57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */; };
 		57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B792951BF3700A409E3 /* CalendarSheetView.swift */; };
 		57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */; };
+		57B16853295941E000639A15 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessageView.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
-		57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */; };
 		57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionStyle.swift */; };
 		57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */; };
 		57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmotionTagView.swift */; };
@@ -279,11 +279,11 @@
 		57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetViewController.swift; sourceTree = "<group>"; };
 		57543B792951BF3700A409E3 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
 		57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetCollectionViewCell.swift; sourceTree = "<group>"; };
+		57B16852295941E000639A15 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
-		57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionToastView.swift; sourceTree = "<group>"; };
 		57CCA76429265924007E22D1 /* ReactionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionStyle.swift; sourceTree = "<group>"; };
 		57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagInfo.swift; sourceTree = "<group>"; };
 		57CCA76A292867D6007E22D1 /* EmotionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagView.swift; sourceTree = "<group>"; };
@@ -663,6 +663,7 @@
 				5724EC87291B7AFF00DC529B /* Protocol */,
 				57CCA7CA292EF937007E22D1 /* Register */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
+				57B16851295941BD00639A15 /* Toast */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -796,7 +797,6 @@
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
 				57CCA76429265924007E22D1 /* ReactionStyle.swift */,
 				57CCA76729286761007E22D1 /* Tag */,
-				57CCA7662926592A007E22D1 /* Reaction */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -937,12 +937,12 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
-		57CCA7662926592A007E22D1 /* Reaction */ = {
+		57B16851295941BD00639A15 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */,
+				57B16852295941E000639A15 /* ToastMessageView.swift */,
 			);
-			path = Reaction;
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		57CCA76729286761007E22D1 /* Tag */ = {
@@ -1396,6 +1396,7 @@
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
+				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
@@ -1423,7 +1424,6 @@
 				23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
-				57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
 				57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */,

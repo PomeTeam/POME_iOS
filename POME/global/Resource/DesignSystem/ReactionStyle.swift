@@ -18,6 +18,7 @@ enum Reaction: Int, CaseIterable{
 }
 
 struct ReactionIcon{
+    let toastMessageIcon: UIImage = Image.toast
     let defaultIcon: UIImage
     let blurIcon: UIImage
     let selectIcon: UIImage
@@ -69,6 +70,10 @@ extension Reaction{
                                             selectIcon: Image.emojiSadSelect,
                                             unselectIcon: Image.emojiSadUnSelect)
         }
+    }
+    
+    var toastMessageImage: UIImage{
+        self.imageDescription.toastMessageIcon
     }
     
     var defaultImage: UIImage{

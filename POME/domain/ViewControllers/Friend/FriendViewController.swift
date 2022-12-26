@@ -166,7 +166,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             self.emoijiFloatingView?.dismiss()
             
-            ReactionToastView(type: reaction).show(in: self)
+            ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
         }
     }
     
@@ -260,6 +260,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         
         let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
+            ToastMessageView.generateHideToastView().show(in: self)
         }
 
         let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
