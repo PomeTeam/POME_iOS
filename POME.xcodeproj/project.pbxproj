@@ -113,7 +113,7 @@
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
 		57CCA7632925AF8B007E22D1 /* ReactionToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */; };
-		57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionInfo.swift */; };
+		57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionStyle.swift */; };
 		57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */; };
 		57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmotionTagView.swift */; };
 		57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */; };
@@ -284,7 +284,7 @@
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionToastView.swift; sourceTree = "<group>"; };
-		57CCA76429265924007E22D1 /* ReactionInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionInfo.swift; sourceTree = "<group>"; };
+		57CCA76429265924007E22D1 /* ReactionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionStyle.swift; sourceTree = "<group>"; };
 		57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagInfo.swift; sourceTree = "<group>"; };
 		57CCA76A292867D6007E22D1 /* EmotionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagView.swift; sourceTree = "<group>"; };
 		57CCA76E29286AD5007E22D1 /* UISheetPresentationControllerDetent+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISheetPresentationControllerDetent+Private.h"; sourceTree = "<group>"; };
@@ -794,6 +794,7 @@
 			children = (
 				57B32C3C292466010018C0CB /* TypoStyle.swift */,
 				5724EC77291A009F00DC529B /* ShadowStyle.swift */,
+				57CCA76429265924007E22D1 /* ReactionStyle.swift */,
 				57CCA76729286761007E22D1 /* Tag */,
 				57CCA7662926592A007E22D1 /* Reaction */,
 			);
@@ -939,7 +940,6 @@
 		57CCA7662926592A007E22D1 /* Reaction */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA76429265924007E22D1 /* ReactionInfo.swift */,
 				57CCA7622925AF8B007E22D1 /* ReactionToastView.swift */,
 			);
 			path = Reaction;
@@ -1361,7 +1361,7 @@
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
-				57CCA76529265924007E22D1 /* ReactionInfo.swift in Sources */,
+				57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */,
 				5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */,
 				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
