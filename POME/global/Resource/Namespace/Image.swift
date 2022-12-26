@@ -172,6 +172,8 @@ enum Image{
     
     public static let toast = UIImage(named: "toast")
     
+    public static let hide = UIImage(named: "hide")
+    
     //MARK: - Onboarding
     public static let splashImage = UIImage(named: "splash_image")
 
