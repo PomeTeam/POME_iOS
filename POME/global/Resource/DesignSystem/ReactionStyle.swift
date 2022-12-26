@@ -1,5 +1,5 @@
 //
-//  ReactionInfo.swift
+//  ReactionStyle.swift
 //  POME
 //
 //  Created by 박지윤 on 2022/11/17.
@@ -18,6 +18,7 @@ enum Reaction: Int, CaseIterable{
 }
 
 struct ReactionIcon{
+    let toastMessageIcon: UIImage = Image.toast
     let defaultIcon: UIImage
     let blurIcon: UIImage
     let selectIcon: UIImage
@@ -69,6 +70,10 @@ extension Reaction{
                                             selectIcon: Image.emojiSadSelect,
                                             unselectIcon: Image.emojiSadUnSelect)
         }
+    }
+    
+    var toastMessageImage: UIImage{
+        self.imageDescription.toastMessageIcon
     }
     
     var defaultImage: UIImage{

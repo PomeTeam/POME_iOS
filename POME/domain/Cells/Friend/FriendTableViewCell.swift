@@ -18,6 +18,7 @@ class FriendTableViewCell: BaseTableViewCell {
     let mainView = FriendDetailView().then{
         $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
         $0.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
+        $0.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
         
         $0.memoLabel.numberOfLines = 2
     }
@@ -63,6 +64,13 @@ class FriendTableViewCell: BaseTableViewCell {
         guard let index = getCellIndex() else { return }
 
         delegate?.presentReactionSheet(indexPath: index)
+    }
+    
+    @objc func moreButtonDidClicked(){
+        
+        guard let index = getCellIndex() else { return }
+        
+        delegate?.presentEtcActionSheet(indexPath: index)
     }
     
     //MARK: - Override

@@ -45,8 +45,8 @@ class CalendarSheetViewController: BaseSheetViewController {
     }
     
     private let mainView = CalendarSheetView().then{
-        $0.lastMonthButton.addTarget(self, action: #selector(calendarChangeToLastMonth), for: .touchUpInside)
-        $0.nextMonthButton.addTarget(self, action: #selector(calendarChangeToNextMonth), for: .touchUpInside)
+        $0.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
+        $0.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
@@ -86,11 +86,11 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Action
     
-    @objc private func calendarChangeToLastMonth(){
+    @objc private func calendarWillChangeToLastMonth(){
         calendarDate = calendar.date(byAdding: .month, value: -1, to: calendarDate)
     }
     
-    @objc private func calendarChangeToNextMonth(){
+    @objc private func calendarWillChangeToNextMonth(){
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
@@ -103,17 +103,17 @@ class CalendarSheetViewController: BaseSheetViewController {
         calendarDate = calendar.date(from: components) ?? Date()
     }
     
-    private func getStartDayOfTheWeek() -> Int{
+    private func getStartDayOfMonth() -> Int{
         calendar.component(.weekday, from: calendarDate) - 1
     }
     
-    private func getEndDateOfTheMonth() -> Int{
+    private func getEndDateOfMonth() -> Int{
         calendar.range(of: .day, in: .month, for: calendarDate)?.count ?? 0
     }
     
     private func updateCalendarInfo(){
-        calendarInfo = CalendarInfo(startDayOfTheWeek: getStartDayOfTheWeek(),
-                                    endDate: getEndDateOfTheMonth())
+        calendarInfo = CalendarInfo(startDayOfTheWeek: getStartDayOfMonth(),
+                                    endDate: getEndDateOfMonth())
     }
     
     private func updateCalendarTitleAndCollectionView(){
@@ -144,7 +144,7 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return indexPath.row < calendarInfo.collectionViewStartDateIndex ? false : true
+        indexPath.row < calendarInfo.collectionViewStartDateIndex ? false : true
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

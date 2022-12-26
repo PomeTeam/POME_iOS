@@ -166,11 +166,13 @@ enum Image{
     
     //MARK: - Tag
     
-    public static let tagArrow = UIImage(named: "tag_arrow")
+    public static let tagArrow = UIImage(named: "tag_arrow")!
     
-    public static let tagUnselect = UIImage(named: "tag_unselect")
+    public static let tagUnselect = UIImage(named: "tag_unselect")!
     
-    public static let toast = UIImage(named: "toast")
+    public static let toast = UIImage(named: "toast")!
+    
+    public static let hide = UIImage(named: "hide")!
     
     //MARK: - Onboarding
     public static let splashImage = UIImage(named: "splash_image")

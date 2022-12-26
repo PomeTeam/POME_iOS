@@ -14,4 +14,5 @@ protocol CellDelegate{ //TableViewCell, CollectionViewCell 등에서 사용하�
 protocol FriendCellDelegate{
     func presentEmojiFloatingView(indexPath: IndexPath)
     func presentReactionSheet(indexPath: IndexPath)
+    func presentEtcActionSheet(indexPath: IndexPath)
 }

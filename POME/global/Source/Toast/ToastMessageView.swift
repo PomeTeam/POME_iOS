@@ -1,13 +1,13 @@
 //
-//  EmojiToastView.swift
+//  BaseToastMessageView.swift
 //  POME
 //
-//  Created by 박지윤 on 2022/11/17.
+//  Created by 박지윤 on 2022/12/26.
 //
 
 import UIKit
 
-class ReactionToastView: BaseView {
+class ToastMessageView: BaseView {
     
     //MARK: - Properties
     
@@ -16,23 +16,28 @@ class ReactionToastView: BaseView {
         $0.axis = .horizontal
     }
     
-    let mashmallowImage = UIImageView().then{
-        $0.image = Image.toast
-    }
+    let toastImage = UIImageView()
     
     let messageLabel = UILabel().then{
-        $0.font = UIFont.autoPretendard(type: .sb_16)
+        $0.setTypoStyleWithSingleLine(typoStyle: .title3)
         $0.textColor = .white
     }
     
     
     //MARK: - LifeCycle
     
-    init(type reaction: Reaction){
-        
+    private init(image: UIImage, message: String){
         super.init(frame: .zero)
-        
-        self.messageLabel.text = reaction.toastMessage
+        self.toastImage.image = image
+        self.messageLabel.text = message
+    }
+    
+    static func generateHideToastView() -> ToastMessageView{
+        return ToastMessageView(image: Image.hide, message: "해당 게시글을 숨겼어요")
+    }
+    
+    static func generateReactionToastView(type: Reaction) -> ToastMessageView{
+        return ToastMessageView(image: Image.toast, message: type.toastMessage)
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +61,7 @@ class ReactionToastView: BaseView {
         
         self.addSubview(stackView)
         
-        stackView.addArrangedSubview(mashmallowImage)
+        stackView.addArrangedSubview(toastImage)
         stackView.addArrangedSubview(messageLabel)
     }
     
@@ -72,7 +77,7 @@ class ReactionToastView: BaseView {
             $0.centerY.centerX.equalToSuperview()
         }
         
-        mashmallowImage.snp.makeConstraints{
+        toastImage.snp.makeConstraints{
             $0.width.height.equalTo(20)
         }
         

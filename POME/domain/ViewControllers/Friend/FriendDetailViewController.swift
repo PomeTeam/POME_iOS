@@ -91,7 +91,7 @@ extension FriendDetailViewController: UICollectionViewDelegate, UICollectionView
         
         self.emoijiFloatingView?.dismiss()
         
-        ReactionToastView(type: reaction).show(in: self)
+        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
