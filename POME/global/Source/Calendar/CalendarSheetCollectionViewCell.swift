@@ -101,19 +101,19 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
 
 extension CalendarSheetCollectionViewCell.CalendarCellState{
     
-    struct CellAttribute{
+    struct CellStateAttribute{
         let backgroundColor: UIColor
         let textColor: UIColor
     }
     
-    private var attributes: CellAttribute{
+    private var attributes: CellStateAttribute{
         switch self{
-        case .normal:   return CellAttribute(backgroundColor: .white,
-                                             textColor: Color.title)
-        case .selected:   return CellAttribute(backgroundColor: Color.pink100,
-                                               textColor: .white)
-        case .disabled:   return CellAttribute(backgroundColor: .white,
-                                               textColor: Color.grey5)
+        case .normal:       return CellStateAttribute(backgroundColor: .white,
+                                                 textColor: Color.title)
+        case .selected:     return CellStateAttribute(backgroundColor: Color.pink100,
+                                                 textColor: .white)
+        case .disabled:     return CellStateAttribute(backgroundColor: .white,
+                                                 textColor: Color.grey5)
         }
     }
     

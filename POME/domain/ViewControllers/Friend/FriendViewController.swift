@@ -252,5 +252,28 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         self.present(sheet, animated: true, completion: nil)
     }
     
+    func presentEtcActionSheet(indexPath: IndexPath) {
+        
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
+            alert.dismiss(animated: true)
+        }
+
+        let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(hideAction)
+        alert.addAction(declarationAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
+    }
+    
     
 }
