@@ -48,7 +48,7 @@ class CalendarSheetView: BaseView {
         
     }
     
-    let completeButton = DefaultButton(titleStr: "선택했어요")
+    lazy var completeButton = DefaultButton(titleStr: "선택했어요")
     
     //MARK: - LifeCycle
     

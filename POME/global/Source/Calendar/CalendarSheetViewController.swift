@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct CalendarSelectDate{
+    var year: Int
+    var month: Int
+    var date: Int
+}
+
 class CalendarSheetViewController: BaseSheetViewController {
     
     struct CalendarInfo{
@@ -24,7 +30,8 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var dateHandler: (() -> ())!
+    var selectDate: CalendarSelectDate!
+    var dateHandler: ((CalendarSelectDate) -> ())!
     
     private var calendar = Calendar.current
     
@@ -47,6 +54,7 @@ class CalendarSheetViewController: BaseSheetViewController {
     private let mainView = CalendarSheetView().then{
         $0.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
         $0.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
@@ -94,6 +102,11 @@ class CalendarSheetViewController: BaseSheetViewController {
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
+    @objc private func completeButtonDidClicked(){
+        dateHandler(selectDate)
+        self.dismiss(animated: true)
+    }
+    
     //MARK: - Helper
     
     private func configureCalendar(){
@@ -119,6 +132,24 @@ class CalendarSheetViewController: BaseSheetViewController {
     private func updateCalendarTitleAndCollectionView(){
         mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
         mainView.calendarCollectionView.reloadData()
+    }
+    
+    private func storageSelectDate(_ date: Int){
+        
+        let year = calendar.component(.year, from: calendarDate)
+        let month = calendar.component(.month, from: calendarDate)
+        
+        if(selectDate == nil){
+            selectDate = CalendarSelectDate(year: year,
+                                            month: month,
+                                            date: date)
+            return
+        }
+        
+        selectDate.year = year
+        selectDate.year = month
+        selectDate.year = date
+        
     }
 }
 
@@ -148,8 +179,11 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell,
+              let text = cell.infoLabel.text, let date = Int(text) else { return }
+        
         cell.setSelectedState()
+        storageSelectDate(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

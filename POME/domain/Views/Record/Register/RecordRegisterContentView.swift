@@ -17,6 +17,14 @@ struct PomeDateFormatter{
         
         return formatter.string(from: Date())
     }
+    
+    static func getDateString(_ date: CalendarSelectDate) -> String{
+        "\(date.year)." + convertIntToFormatterString(date.month) + "." + convertIntToFormatterString(date.date)
+    }
+    
+    static private func convertIntToFormatterString(_ int: Int) -> String{
+        int < 10 ? "0\(int)" : String(int)
+    }
 }
 
 class RecordRegisterContentView: BaseView {

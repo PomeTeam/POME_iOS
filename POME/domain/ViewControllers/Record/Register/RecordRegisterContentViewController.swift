@@ -52,9 +52,8 @@ class RecordRegisterContentViewController: BaseViewController {
         
         let sheet = CalendarSheetViewController()
         
-        sheet.dateHandler = {
-//            title in
-//            self.mainView.goalField.infoTextField.text = title
+        sheet.dateHandler = { date in
+            self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
         }
         
         sheet.loadViewIfNeeded()
