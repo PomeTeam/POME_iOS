@@ -125,7 +125,9 @@ extension UILabel {
     
     func setTypoStyleWithSingleLine(typoStyle: TypoStyle) {
         
-        self.text = " "
+        if(self.text == nil){
+            self.text = " "
+        }
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
@@ -145,7 +147,9 @@ extension UILabel {
     
     func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
         
-        self.text = " "
+        if(self.text == nil){
+            self.text = " "
+        }
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
@@ -175,7 +179,9 @@ extension UITextView{
     
     func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
         
-        self.text = " "
+        if(self.text == nil){
+            self.text = " "
+        }
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
