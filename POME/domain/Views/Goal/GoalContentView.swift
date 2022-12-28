@@ -40,7 +40,7 @@ class GoalContentView: BaseView {
     }
     
     lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
-        $0.isActivate(true)
+        $0.isActivate(false)
     }
 
     override init(frame: CGRect) {

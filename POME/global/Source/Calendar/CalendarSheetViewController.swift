@@ -135,12 +135,13 @@ class CalendarSheetViewController: BaseSheetViewController {
         mainView.calendarCollectionView.reloadData()
     }
     
-    private func storageSelectDate(_ date: Int){
+    private func storageSelectDateAndActivateCompleButton(_ date: Int){
         
         let year = calendar.component(.year, from: calendarDate)
         let month = calendar.component(.month, from: calendarDate)
         
         guard var selectDate = selectDate else {
+            mainView.completeButton.isActivate(true)
             selectDate = CalendarSelectDate(year: year,
                                             month: month,
                                             date: date)
@@ -184,7 +185,7 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
               let text = cell.infoLabel.text, let date = Int(text) else { return }
         
         cell.changeViewAttributesByState(.selected)
-        storageSelectDate(date)
+        storageSelectDateAndActivateCompleButton(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

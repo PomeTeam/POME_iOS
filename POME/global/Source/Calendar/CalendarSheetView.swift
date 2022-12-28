@@ -48,7 +48,9 @@ class CalendarSheetView: BaseView {
         
     }
     
-    lazy var completeButton = DefaultButton(titleStr: "선택했어요")
+    lazy var completeButton = DefaultButton(titleStr: "선택했어요").then{
+        $0.isActivate(false)
+    }
     
     //MARK: - LifeCycle
     
