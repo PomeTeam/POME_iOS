@@ -21,6 +21,7 @@ class GoalContentView: BaseView {
     
     let goalMakePublicView = UIView().then{
         $0.layer.cornerRadius = 8
+        $0.backgroundColor = Color.pink10
     }
     
     let goalMakePublicTitle = UILabel().then{
@@ -42,7 +43,6 @@ class GoalContentView: BaseView {
         $0.isActivate(true)
     }
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

@@ -9,10 +9,7 @@ import UIKit
 
 class GoalContentViewController: BaseViewController {
     
-    let mainView = GoalContentView().then{
-        $0.goalMakePublicSwitch.addTarget(self, action: #selector(goalMakePublicSwitchValueDidChanged(_:)), for: .valueChanged)
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-    }
+    let mainView = GoalContentView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +20,6 @@ class GoalContentViewController: BaseViewController {
         super.style()
         
         self.setEtcButton(title: "닫기")
-        self.switchIsOn()
     }
     
     override func layout(){
@@ -31,19 +27,22 @@ class GoalContentViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-    }
-    
-    override func initialize(){
-        
-        super.initialize()
         
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    override func initialize(){
+        
+        super.initialize()
         
         self.etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
+        
+        mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
+        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
     
     override func backBtnDidClicked() {
@@ -56,21 +55,12 @@ class GoalContentViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func goalMakePublicSwitchValueDidChanged(_ sender: UISwitch){
-        sender.isOn ? switchIsOn() : switchIsOff()
+    @objc func publicSwitchBackgroundColorWillChange(_ sender: UISwitch){
+        mainView.goalMakePublicView.backgroundColor = sender.isOn ? Color.pink10 : Color.grey1
     }
     
     @objc func completeButtonDidClicked(){
         let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    private func switchIsOn(){
-        mainView.goalMakePublicView.backgroundColor = Color.pink10
-    }
-    
-    private func switchIsOff(){
-        mainView.goalMakePublicView.backgroundColor = Color.grey1
-    }
-
 }
