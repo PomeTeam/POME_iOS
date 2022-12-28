@@ -30,7 +30,7 @@ struct PomeDateFormatter{
 class RecordRegisterContentView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
-                                         subtitle: "소비에 대한 간단한 기록을 남겨보세요")
+                                            subtitle: "소비에 대한 간단한 기록을 남겨보세요")
     
     let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요")
     

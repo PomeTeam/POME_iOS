@@ -9,6 +9,8 @@ import UIKit
 
 class GoalContentViewController: BaseViewController {
     
+    //TODO: 유효성 검사 후 버튼 활성화
+    
     let mainView = GoalContentView()
 
     override func viewDidLoad() {
@@ -39,10 +41,14 @@ class GoalContentViewController: BaseViewController {
         
         super.initialize()
         
-        self.etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardWillDisappear)))
         
+        etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
         mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
         mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+        
+        mainView.categoryField.infoTextField.delegate = self
+        mainView.promiseField.infoTextField.delegate = self
     }
     
     override func backBtnDidClicked() {
@@ -63,4 +69,29 @@ class GoalContentViewController: BaseViewController {
         let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func keyboardWillDisappear(){
+        self.view.endEditing(true)
+    }
 }
+
+extension GoalContentViewController: UITextFieldDelegate{
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+        
+        guard let oldString = textField.text else { return true }
+        
+        guard let textField = textField as? DefaultTextField, let textCountLimit = textField.countLimit else { return false }
+        
+        if(oldString.count < textCountLimit){
+            return true
+        }
+        
+        guard let changedRange = Range(range, in: oldString) else { return false}
+        let newString = oldString.replacingCharacters(in: changedRange, with: string)
+        
+        return newString.count <= textCountLimit
+    }
+    
+}
+

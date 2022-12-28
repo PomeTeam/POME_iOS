@@ -10,14 +10,20 @@ import UIKit
 class GoalContentView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "행복한 소비를 위한\n목표를 만들어보세요!",
-                                         subtitle: "행복한 소비는 늘리고 후회되는 소비는 줄여봐요")
+                                            subtitle: "행복한 소비는 늘리고 후회되는 소비는 줄여봐요")
     
     let categoryField = RegisterCommonTextFieldView(title: "목표 카테고리",
-                                                placeholder: "택시/건강 (8자)")
+                                                    placeholder: "택시/건강 (8자)").then{
+        $0.infoTextField.countLimit = 8
+    }
     let promiseField = RegisterCommonTextFieldView(title: "한 줄 다짐",
-                                               placeholder: "걸어다니기/건강 관리에는 넉넉히 쓰자 (18자)")
+                                                   placeholder: "걸어다니기/건강 관리에는 넉넉히 쓰자 (18자)").then{
+        $0.infoTextField.countLimit = 18
+    }
     let priceField = RegisterCommonTextFieldView(title: "목표 금액",
-                                             placeholder: "50,000")
+                                                 placeholder: "50,000").then{
+        $0.infoTextField.keyboardType = .numberPad
+    }
     
     let goalMakePublicView = UIView().then{
         $0.layer.cornerRadius = 8
@@ -29,11 +35,13 @@ class GoalContentView: BaseView {
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         $0.textColor = Color.title
     }
+    
     let goalMakePublicSubTitle = UILabel().then{
         $0.text = "친구들에게 이 목표를 공개할까요?"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey6
     }
+    
     let goalMakePublicSwitch = UISwitch().then{
         $0.onTintColor = Color.pink100
         $0.setOn(true, animated: false)
