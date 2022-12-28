@@ -11,6 +11,16 @@ class GoalContentViewController: BaseViewController {
     
     //TODO: 유효성 검사 후 버튼 활성화
     
+    var categoryInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
+    }
+    var promiseInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
+    }
+    var priceInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
+    }
+    
     let mainView = GoalContentView()
 
     override func viewDidLoad() {
@@ -49,6 +59,7 @@ class GoalContentViewController: BaseViewController {
         
         mainView.categoryField.infoTextField.delegate = self
         mainView.promiseField.infoTextField.delegate = self
+        mainView.priceField.infoTextField.delegate = self
     }
     
     override func backBtnDidClicked() {
@@ -79,9 +90,9 @@ extension GoalContentViewController: UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         
-        guard let oldString = textField.text else { return true }
+        guard let textField = textField as? DefaultTextField else { return false }
         
-        guard let textField = textField as? DefaultTextField, let textCountLimit = textField.countLimit else { return false }
+        guard let oldString = textField.text, let textCountLimit = textField.countLimit else { return true }
         
         if(oldString.count < textCountLimit){
             return true
@@ -91,6 +102,40 @@ extension GoalContentViewController: UITextFieldDelegate{
         let newString = oldString.replacingCharacters(in: changedRange, with: string)
         
         return newString.count <= textCountLimit
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField){
+        
+        let text = textField.text
+        
+        switch textField{
+        case mainView.categoryField.infoTextField:
+            categoryInput = text
+            return
+        case mainView.promiseField.infoTextField:
+            promiseInput = text
+            return
+        case mainView.priceField.infoTextField:
+            priceInput = text
+            return
+        default:
+            return
+        }
+    }
+    
+    func checkValidationAndChangeCompleteButtonState(){
+        
+        guard let categoryInput = categoryInput, let promiseInput = promiseInput, let priceInput = priceInput else {
+            mainView.completeButton.isActivate(false)
+            return
+        }
+        
+        if(categoryInput.isEmpty || promiseInput.isEmpty || priceInput.isEmpty){
+            mainView.completeButton.isActivate(false)
+            return
+        }
+
+        mainView.completeButton.isActivate(true)
     }
     
 }
