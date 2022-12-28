@@ -16,7 +16,7 @@ class GoalDateView: BaseView {
     let endDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 종료 날짜", placeholder: "목표 종료 날짜를 선택해주세요")
     
     lazy var completButton = DefaultButton(titleStr: "선택했어요").then{
-        $0.isActivate(true)
+        $0.isActivate(false)
     }
     
     override init(frame: CGRect) {

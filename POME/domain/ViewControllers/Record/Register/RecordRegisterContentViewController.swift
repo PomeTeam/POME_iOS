@@ -9,6 +9,10 @@ import UIKit
 
 class RecordRegisterContentViewController: BaseViewController {
     
+    //TODO: TextField 키보드 등장여부에 따른 view 높이 조절
+    //TODO: 작성 완료한 경우 버튼 활성화
+    
+    
     let mainView = RecordRegisterContentView().then{
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
@@ -17,6 +21,14 @@ class RecordRegisterContentViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyboardNotifications()
     }
 
     override func layout(){
@@ -34,12 +46,28 @@ class RecordRegisterContentViewController: BaseViewController {
     
     override func initialize() {
         
+        mainView.amountField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
         
         mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
         mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
+    }
+    
+    //MARK: - Helper
+    
+    func addKeyboardNotifications() {
+   
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillDisappear(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    func removeKeyboardNotifications() {
+
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+   
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     //MARK: - Action
@@ -52,7 +80,7 @@ class RecordRegisterContentViewController: BaseViewController {
         
         let sheet = CalendarSheetViewController()
         
-        sheet.dateHandler = { date in
+        sheet.completion = { date in
             self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
         }
         
@@ -91,7 +119,47 @@ class RecordRegisterContentViewController: BaseViewController {
         dialog.modalPresentationStyle = .overFullScreen
         self.present(dialog, animated: false, completion: nil)
     }
+    
+    @objc func keyboardWillAppear(noti: NSNotification) {
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height + 10
+            let viewHeight = Const.Device.HEIGHT -  self.mainView.contentTextView.frame.maxY
+            print(keyboardHeight, viewHeight)
+            if viewHeight < keyboardHeight {
+                let dif = keyboardHeight - viewHeight
+                self.view.frame.origin.y -= (dif + 20)
+            }
+        }
+        print("keyboard Will appear Execute")
+    }
 
+    @objc func keyboardWillDisappear(noti: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+                let keyboardRectangle = keyboardFrame.cgRectValue
+                let keyboardHeight = keyboardRectangle.height
+                self.view.frame.origin.y += keyboardHeight
+            }
+            print("keyboard Will Disappear Execute")
+        }
+    }
+
+}
+
+extension RecordRegisterContentViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textFieldShouldReturn Execute")
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing Execute")
+        self.view.frame.origin.y = 0
+        return true
+    }
 }
 
 extension RecordRegisterContentViewController: UITextViewDelegate{
