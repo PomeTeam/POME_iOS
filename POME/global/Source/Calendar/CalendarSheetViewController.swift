@@ -23,6 +23,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         var collectionViewCellCount: Int{
             startDayOfTheWeek + endDate + 7
         }
+        
         var collectionViewStartDateIndex: Int{
             startDayOfTheWeek + 7
         }
@@ -31,7 +32,7 @@ class CalendarSheetViewController: BaseSheetViewController {
     //MARK: - Properties
     
     var selectDate: CalendarSelectDate!
-    var dateHandler: ((CalendarSelectDate) -> ())!
+    var completion: ((CalendarSelectDate) -> ())!
     
     private var calendar = Calendar.current
     
@@ -89,7 +90,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         mainView.calendarCollectionView.dataSource = self
         mainView.calendarCollectionView.delegate = self
         
-        configureCalendar()
+        initializeCalendarDate()
     }
     
     //MARK: - Action
@@ -103,13 +104,13 @@ class CalendarSheetViewController: BaseSheetViewController {
     }
     
     @objc private func completeButtonDidClicked(){
-        dateHandler(selectDate)
+        completion(selectDate)
         self.dismiss(animated: true)
     }
     
     //MARK: - Helper
     
-    private func configureCalendar(){
+    private func initializeCalendarDate(){
         
         let components = calendar.dateComponents([.year, .month], from: Date())
         
@@ -139,7 +140,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         let year = calendar.component(.year, from: calendarDate)
         let month = calendar.component(.month, from: calendarDate)
         
-        if(selectDate == nil){
+        guard var selectDate = selectDate else {
             selectDate = CalendarSelectDate(year: year,
                                             month: month,
                                             date: date)
@@ -147,8 +148,8 @@ class CalendarSheetViewController: BaseSheetViewController {
         }
         
         selectDate.year = year
-        selectDate.year = month
-        selectDate.year = date
+        selectDate.month = month
+        selectDate.date = date
         
     }
 }
@@ -182,12 +183,12 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell,
               let text = cell.infoLabel.text, let date = Int(text) else { return }
         
-        cell.setSelectedState()
+        cell.changeViewAttributesByState(.selected)
         storageSelectDate(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
-        cell.setDefaultState()
+        cell.changeViewAttributesByState(.normal)
     }
 }
