@@ -39,7 +39,7 @@ class RecordRegisterContentView: BaseView {
         $0.infoTextField.isUserInteractionEnabled = false
     }
     
-    let amountField = RegisterCommonTextFieldView(title: "소비 금액",
+    let priceField = RegisterCommonTextFieldView(title: "소비 금액",
                                                   placeholder: "10,000").then{
         $0.infoTextField.keyboardType = .numberPad
     }
@@ -71,7 +71,7 @@ class RecordRegisterContentView: BaseView {
         self.addSubview(titleView)
         self.addSubview(goalField)
         self.addSubview(dateField)
-        self.addSubview(amountField)
+        self.addSubview(priceField)
         self.addSubview(contentTitle)
         self.addSubview(contentTextView)
         self.addSubview(completeButton)
@@ -94,13 +94,13 @@ class RecordRegisterContentView: BaseView {
             $0.leading.trailing.equalToSuperview()
         }
         
-        amountField.snp.makeConstraints{
+        priceField.snp.makeConstraints{
             $0.top.equalTo(dateField.snp.bottom)
             $0.leading.trailing.equalToSuperview()
         }
         
         contentTitle.snp.makeConstraints{
-            $0.top.equalTo(amountField.snp.bottom)
+            $0.top.equalTo(priceField.snp.bottom)
             $0.leading.equalToSuperview().offset(20)
         }
         
