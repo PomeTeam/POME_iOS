@@ -9,16 +9,21 @@ import Foundation
 
 class CharactersCountTextView: BaseView{
     
-    static let placeholder = "소비에 대한 감상을 적어주세요 (150자)"
+    let countLimit: Int
+    let recordTextView: DefaultTextView
     
     let charactersCountLabel = UILabel().then{
         $0.setTypoStyleWithSingleLine(typoStyle: .body2)
     }
     
-    let recordTextView = DefaultTextView()
+    convenience init(type: TextViewType){
+        self.init(type: type, countLimit: 150)
+    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private init(type: TextViewType, countLimit: Int){
+        self.countLimit = countLimit
+        self.recordTextView = DefaultTextView(placeholder: type.placeholder)
+        super.init(frame: .zero)
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +56,7 @@ class CharactersCountTextView: BaseView{
     
     func updateCharactersCount(count: Int){
         
-        var countString = "\(count)/150"
+        var countString = "\(count)/\(countLimit)"
         
         if(count < 10){
             countString = "0" + countString
@@ -76,10 +81,11 @@ class CharactersCountTextView: BaseView{
 
 class DefaultTextView: UITextView{
     
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        
-        super.init(frame: frame, textContainer: textContainer)
-        
+    let placeholder: String
+    
+    init(placeholder: String){
+        self.placeholder = placeholder
+        super.init(frame: CGRect.zero, textContainer: nil)
         style()
     }
     
@@ -94,7 +100,7 @@ class DefaultTextView: UITextView{
     
     
     func setEmptyMode(){
-        self.text = CharactersCountTextView.placeholder
+        self.text = placeholder
         self.textColor = Color.grey5
     }
     

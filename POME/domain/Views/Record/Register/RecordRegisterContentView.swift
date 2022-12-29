@@ -52,7 +52,7 @@ class RecordRegisterContentView: BaseView {
         $0.textColor = Color.body
     }
     
-    let contentTextView = CharactersCountTextView()
+    let contentTextView = CharactersCountTextView(type: .consume)
 
     lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
         $0.isActivate(false)

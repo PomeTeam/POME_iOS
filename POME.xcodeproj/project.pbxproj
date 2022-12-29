@@ -110,6 +110,7 @@
 		57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */; };
 		57B16853295941E000639A15 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessageView.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
+		57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBA424295D712400068019 /* DefaultTextInfo.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
@@ -281,6 +282,7 @@
 		57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		57B16852295941E000639A15 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
+		57BBA424295D712400068019 /* DefaultTextInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextInfo.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
@@ -917,9 +919,8 @@
 		572B20AC294F1CB800980835 /* Default */ = {
 			isa = PBXGroup;
 			children = (
+				57BBA423295D70F800068019 /* Text */,
 				2380877A291B445100072763 /* DefaultButton.swift */,
-				23061243292B51F200662007 /* DefaultTextField.swift */,
-				572B20AD294F1D4000980835 /* DefaultTextView.swift */,
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
 				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
 				5724EC752919224700DC529B /* PaddingLabel.swift */,
@@ -943,6 +944,16 @@
 				57B16852295941E000639A15 /* ToastMessageView.swift */,
 			);
 			path = Toast;
+			sourceTree = "<group>";
+		};
+		57BBA423295D70F800068019 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				57BBA424295D712400068019 /* DefaultTextInfo.swift */,
+				23061243292B51F200662007 /* DefaultTextField.swift */,
+				572B20AD294F1D4000980835 /* DefaultTextView.swift */,
+			);
+			path = Text;
 			sourceTree = "<group>";
 		};
 		57CCA76729286761007E22D1 /* Tag */ = {
@@ -1411,6 +1422,7 @@
 				57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */,
 				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */,
