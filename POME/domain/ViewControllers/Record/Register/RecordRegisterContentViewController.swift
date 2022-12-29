@@ -182,7 +182,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
         
         guard let contentView = textView.superview as? CharactersCountTextView else { return }
         
-        if textView.text == CharactersCountTextView.placeholder {
+        if textView.text == contentView.recordTextView.placeholder {
             contentView.setTextViewTextEditingMode()
         }
     }
@@ -208,8 +208,10 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        guard let textSuperView = textView.superview as? CharactersCountTextView else { return false }
 
-        if(textView.text.count < 150){
+        if(textView.text.count < textSuperView.countLimit){
             return true
         }
         
@@ -217,7 +219,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
 
         let newString = oldString.replacingCharacters(in: changedRange, with: text)
 
-        return newString.count <= 150
+        return newString.count <= textSuperView.countLimit
     }
 }
 
