@@ -17,24 +17,32 @@ struct PomeDateFormatter{
         
         return formatter.string(from: Date())
     }
+    
+    static func getDateString(_ date: CalendarSelectDate) -> String{
+        "\(date.year)." + convertIntToFormatterString(date.month) + "." + convertIntToFormatterString(date.date)
+    }
+    
+    static private func convertIntToFormatterString(_ int: Int) -> String{
+        int < 10 ? "0\(int)" : String(int)
+    }
 }
 
 class RecordRegisterContentView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
-                                         subtitle: "소비에 대한 간단한 기록을 남겨보세요")
+                                            subtitle: "소비에 대한 간단한 기록을 남겨보세요")
     
-    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요").then{
-        $0.infoTextField.isUserInteractionEnabled = false
-    }
+    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요")
     
     let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "").then{
         $0.infoTextField.text = PomeDateFormatter.getTodayDate()
         $0.infoTextField.isUserInteractionEnabled = false
     }
     
-    let amountField = RegisterCommonTextFieldView(title: "소비 금액",
-                                                  placeholder: "10,000")
+    let priceField = RegisterCommonTextFieldView(title: "소비 금액",
+                                                  placeholder: "10,000").then{
+        $0.infoTextField.keyboardType = .numberPad
+    }
     
     let contentView = UIView()
     
@@ -46,7 +54,9 @@ class RecordRegisterContentView: BaseView {
     
     let contentTextView = CharactersCountTextView()
 
-    lazy var completeButton = DefaultButton(titleStr: "작성했어요")
+    lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
+        $0.isActivate(false)
+    }
     
     override init(frame: CGRect){
         super.init(frame: frame)
@@ -61,7 +71,7 @@ class RecordRegisterContentView: BaseView {
         self.addSubview(titleView)
         self.addSubview(goalField)
         self.addSubview(dateField)
-        self.addSubview(amountField)
+        self.addSubview(priceField)
         self.addSubview(contentTitle)
         self.addSubview(contentTextView)
         self.addSubview(completeButton)
@@ -84,13 +94,13 @@ class RecordRegisterContentView: BaseView {
             $0.leading.trailing.equalToSuperview()
         }
         
-        amountField.snp.makeConstraints{
+        priceField.snp.makeConstraints{
             $0.top.equalTo(dateField.snp.bottom)
             $0.leading.trailing.equalToSuperview()
         }
         
         contentTitle.snp.makeConstraints{
-            $0.top.equalTo(amountField.snp.bottom)
+            $0.top.equalTo(priceField.snp.bottom)
             $0.leading.equalToSuperview().offset(20)
         }
         

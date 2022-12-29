@@ -9,14 +9,33 @@ import UIKit
 
 class RecordRegisterContentViewController: BaseViewController {
     
-    let mainView = RecordRegisterContentView().then{
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+    private var consumeCategoryInput: String = ""{
+        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
     }
+    private var consumeDateInput: String = PomeDateFormatter.getTodayDate(){
+        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
+    }
+    private var consumePriceInput: String = ""{
+        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
+    }
+    private var consumeDetailInput: String = ""{
+        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
+    }
+    
+    private let mainView = RecordRegisterContentView()
 
     //MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        removeKeyboardNotifications()
     }
 
     override func layout(){
@@ -34,38 +53,64 @@ class RecordRegisterContentViewController: BaseViewController {
     
     override func initialize() {
         
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
+        
+        mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
+        
+        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
         mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
         mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
+    }
+    
+    //MARK: - Helper
+    
+    private func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillDisappear(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification , object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    private func checkCompleteButtoShouldActivatenAndChangeState(){
         
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
+        if(consumeCategoryInput.isEmpty || consumePriceInput.isEmpty || consumeDetailInput.isEmpty){
+            mainView.completeButton.isActivate(false)
+            return
+        }
+        
+        mainView.completeButton.isActivate(true)
     }
     
     //MARK: - Action
     
-    @objc func viewDidTapped(){
+    @objc private func viewDidTapped(){
         self.view.endEditing(true)
     }
     
-    @objc func calendarSheetWillShow(){
+    @objc private func calendarSheetWillShow(){
         
         let sheet = CalendarSheetViewController()
         
-        sheet.dateHandler = {
-//            title in
-//            self.mainView.goalField.infoTextField.text = title
+        sheet.completion = { date in
+            self.consumeDateInput = PomeDateFormatter.getDateString(date)
+            self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
         }
         
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true)
     }
     
-    @objc func categorySheetWillShow(){
+    @objc private func categorySheetWillShow(){
         
         let sheet = CategorySelectSheetViewController()
         
         sheet.categorySelectHandler = { title in
+            self.consumeCategoryInput = title
             self.mainView.goalField.infoTextField.text = title
         }
         
@@ -73,7 +118,7 @@ class RecordRegisterContentViewController: BaseViewController {
         self.present(sheet, animated: true)
     }
     
-    @objc func completeButtonDidClicked(){
+    @objc private func completeButtonDidClicked(){
         
         /* 아래 코드 사용해서 text 데이터 추출하기 for 마지막 공백 제거
          mainView.contentTextView.recordTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -92,7 +137,43 @@ class RecordRegisterContentViewController: BaseViewController {
         dialog.modalPresentationStyle = .overFullScreen
         self.present(dialog, animated: false, completion: nil)
     }
+    
+    @objc private func keyboardWillAppear(noti: NSNotification) {
+        
+        if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let moveHeight = keyboardRectangle.height - (52 + 10)
+            UIView.animate(
+                withDuration: 0.3
+                , animations: {
+                    self.view.transform = CGAffineTransform(translationX: 0, y: -moveHeight)
+                }
+            )
+        }
+    }
 
+    @objc private func keyboardWillDisappear(noti: NSNotification) {
+        self.view.transform = .identity
+    }
+
+}
+
+extension RecordRegisterContentViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print("textFieldShouldReturn Execute")
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else { return }
+        
+        if(textField == mainView.priceField.infoTextField){
+            consumePriceInput = text
+        }
+    }
 }
 
 extension RecordRegisterContentViewController: UITextViewDelegate{
@@ -110,9 +191,13 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
         
         guard let contentView = textView.superview as? CharactersCountTextView else { return }
         
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+        let text = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if text.isEmpty {
             contentView.setTextViewTextEmptyMode()
         }
+        
+        consumeDetailInput = text
     }
     
     func textViewDidChange(_ textView: UITextView){

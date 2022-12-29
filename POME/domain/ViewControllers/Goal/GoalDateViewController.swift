@@ -9,17 +9,18 @@ import UIKit
 
 class GoalDateViewController: BaseViewController {
     
-    let mainView = GoalDateView().then{
-        $0.startDateField.rightButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
-        $0.endDateField.rightButton.addTarget(self, action: #selector(calendarButtonDidClicked), for: .touchUpInside)
-        $0.completButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-    }
+    let mainView = GoalDateView()
+    
+    //MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    //MARK: - Override
+    
     override func layout() {
+        
         super.layout()
         
         self.view.addSubview(mainView)
@@ -33,7 +34,13 @@ class GoalDateViewController: BaseViewController {
     
     override func initialize(){
         
+        mainView.completButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+        
+        mainView.startDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
+        mainView.endDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
     }
+    
+    //MARK: - Action
     
     override func backBtnDidClicked() {
         let dialog = ImagePopUpViewController(Image.penMint,
@@ -45,13 +52,35 @@ class GoalDateViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func calendarButtonDidClicked(_ sender: UIButton){
+    @objc func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
         
+        guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
+        
+        let sheet = CalendarSheetViewController()
+        
+        sheet.completion = { date in
+            dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
+            self.checkCompleteButtonIsValidAndChangeState()
+        }
+        
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true)
+    }
+    
+    private func checkCompleteButtonIsValidAndChangeState(){
+        
+        guard let isStartDateEmpty = mainView.startDateField.infoTextField.text?.isEmpty,
+                let isEndDateEmpty = mainView.endDateField.infoTextField.text?.isEmpty else { return }
+        
+        if(isStartDateEmpty || isEndDateEmpty){
+            return
+        }
+
+        mainView.completButton.isActivate(true)
     }
     
     @objc func completeButtonDidClicked(){
         let vc = GoalContentViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
 }

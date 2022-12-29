@@ -103,16 +103,18 @@ class RegisterCommonTextFieldView: BaseView{
 
 class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     
-    lazy var rightButton = UIButton()
+    lazy var rightImage = UIImageView()
     
     private override init(title: String, placeholder: String){
         super.init(title: title, placeholder: placeholder)
     }
     
     static func generateRightButtonView(image: UIImage, title: String, placeholder: String) -> CommonRightButtonTextFieldView{
+        
         let view = CommonRightButtonTextFieldView(title: title, placeholder: placeholder).then{
-            $0.rightButton.setImage(image, for: .normal)
+            $0.rightImage.image = image
         }
+        
         return view
     }
     
@@ -121,24 +123,26 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     }
     
     override func style() {
-        self.infoTextField.addRightPadding(50)
+        
+        infoTextField.addRightPadding(50)
+        infoTextField.isUserInteractionEnabled = false
     }
     
     override func hierarchy() {
         
         super.hierarchy()
 
-        infoTextField.addSubview(rightButton)
+        infoTextField.addSubview(rightImage)
     }
     
     override func layout() {
 
         super.layout()
         
-        rightButton.snp.makeConstraints{
+        rightImage.snp.makeConstraints{
             $0.top.equalToSuperview().offset(11)
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(rightButton.snp.height)
+            $0.width.equalTo(rightImage.snp.height)
             $0.trailing.equalToSuperview().offset(-16)
         }
     }

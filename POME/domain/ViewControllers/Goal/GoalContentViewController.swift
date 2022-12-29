@@ -9,10 +9,19 @@ import UIKit
 
 class GoalContentViewController: BaseViewController {
     
-    let mainView = GoalContentView().then{
-        $0.goalMakePublicSwitch.addTarget(self, action: #selector(goalMakePublicSwitchValueDidChanged(_:)), for: .valueChanged)
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+    //TODO: 유효성 검사 후 버튼 활성화
+    
+    var categoryInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
     }
+    var promiseInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
+    }
+    var priceInput: String!{
+        didSet { checkValidationAndChangeCompleteButtonState() }
+    }
+    
+    let mainView = GoalContentView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +32,6 @@ class GoalContentViewController: BaseViewController {
         super.style()
         
         self.setEtcButton(title: "닫기")
-        self.switchIsOn()
     }
     
     override func layout(){
@@ -31,19 +39,27 @@ class GoalContentViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-    }
-    
-    override func initialize(){
-        
-        super.initialize()
         
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+    }
+    
+    override func initialize(){
         
-        self.etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
+        super.initialize()
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardWillDisappear)))
+        
+        etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
+        mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
+        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+        
+        mainView.categoryField.infoTextField.delegate = self
+        mainView.promiseField.infoTextField.delegate = self
+        mainView.priceField.infoTextField.delegate = self
     }
     
     override func backBtnDidClicked() {
@@ -56,8 +72,8 @@ class GoalContentViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func goalMakePublicSwitchValueDidChanged(_ sender: UISwitch){
-        sender.isOn ? switchIsOn() : switchIsOff()
+    @objc func publicSwitchBackgroundColorWillChange(_ sender: UISwitch){
+        mainView.goalMakePublicView.backgroundColor = sender.isOn ? Color.pink10 : Color.grey1
     }
     
     @objc func completeButtonDidClicked(){
@@ -65,12 +81,62 @@ class GoalContentViewController: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func switchIsOn(){
-        mainView.goalMakePublicView.backgroundColor = Color.pink10
+    @objc func keyboardWillDisappear(){
+        self.view.endEditing(true)
+    }
+}
+
+extension GoalContentViewController: UITextFieldDelegate{
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+        
+        guard let textField = textField as? DefaultTextField else { return false }
+        
+        guard let oldString = textField.text, let textCountLimit = textField.countLimit else { return true }
+        
+        if(oldString.count < textCountLimit){
+            return true
+        }
+        
+        guard let changedRange = Range(range, in: oldString) else { return false}
+        let newString = oldString.replacingCharacters(in: changedRange, with: string)
+        
+        return newString.count <= textCountLimit
     }
     
-    private func switchIsOff(){
-        mainView.goalMakePublicView.backgroundColor = Color.grey1
+    func textFieldDidEndEditing(_ textField: UITextField){
+        
+        let text = textField.text
+        
+        switch textField{
+        case mainView.categoryField.infoTextField:
+            categoryInput = text
+            return
+        case mainView.promiseField.infoTextField:
+            promiseInput = text
+            return
+        case mainView.priceField.infoTextField:
+            priceInput = text
+            return
+        default:
+            return
+        }
     }
+    
+    func checkValidationAndChangeCompleteButtonState(){
+        
+        guard let categoryInput = categoryInput, let promiseInput = promiseInput, let priceInput = priceInput else {
+            mainView.completeButton.isActivate(false)
+            return
+        }
+        
+        if(categoryInput.isEmpty || promiseInput.isEmpty || priceInput.isEmpty){
+            mainView.completeButton.isActivate(false)
+            return
+        }
 
+        mainView.completeButton.isActivate(true)
+    }
+    
 }
+

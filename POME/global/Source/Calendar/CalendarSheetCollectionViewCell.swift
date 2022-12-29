@@ -33,16 +33,12 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func prepareForReuse() {
-        
         infoLabel.text = nil
-        
-        setDefaultState()
+        changeViewAttributesByState(.normal)
     }
     
     override func style(){
-        
-        setDefaultState()
-        
+        changeViewAttributesByState(.normal)
         baseView.layer.cornerRadius = CalendarSheetCollectionViewCell.cellSize / 2
     }
     
@@ -81,19 +77,7 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         }()
     }
     
-    func setDefaultState(){
-        setCellAttributeByState(state: .normal)
-    }
-    
-    func setSelectedState(){
-        setCellAttributeByState(state: .selected)
-    }
-    
-    func setDisabledState(){
-        setCellAttributeByState(state: .disabled)
-    }
-    
-    private func setCellAttributeByState(state: CalendarCellState){
+    func changeViewAttributesByState(_ state: CalendarCellState){
         baseView.backgroundColor = state.backgroundColor
         infoLabel.textColor = state.textColor
     }
@@ -109,11 +93,11 @@ extension CalendarSheetCollectionViewCell.CalendarCellState{
     private var attributes: CellStateAttribute{
         switch self{
         case .normal:       return CellStateAttribute(backgroundColor: .white,
-                                                 textColor: Color.title)
+                                                      textColor: Color.title)
         case .selected:     return CellStateAttribute(backgroundColor: Color.pink100,
-                                                 textColor: .white)
+                                                      textColor: .white)
         case .disabled:     return CellStateAttribute(backgroundColor: .white,
-                                                 textColor: Color.grey5)
+                                                      textColor: Color.grey5)
         }
     }
     

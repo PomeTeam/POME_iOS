@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct CalendarSelectDate{
+    var year: Int
+    var month: Int
+    var date: Int
+}
+
 class CalendarSheetViewController: BaseSheetViewController {
     
     struct CalendarInfo{
@@ -17,6 +23,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         var collectionViewCellCount: Int{
             startDayOfTheWeek + endDate + 7
         }
+        
         var collectionViewStartDateIndex: Int{
             startDayOfTheWeek + 7
         }
@@ -24,7 +31,8 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var dateHandler: (() -> ())!
+    var selectDate: CalendarSelectDate!
+    var completion: ((CalendarSelectDate) -> ())!
     
     private var calendar = Calendar.current
     
@@ -47,6 +55,7 @@ class CalendarSheetViewController: BaseSheetViewController {
     private let mainView = CalendarSheetView().then{
         $0.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
         $0.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
+        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
@@ -81,7 +90,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         mainView.calendarCollectionView.dataSource = self
         mainView.calendarCollectionView.delegate = self
         
-        configureCalendar()
+        initializeCalendarDate()
     }
     
     //MARK: - Action
@@ -94,9 +103,14 @@ class CalendarSheetViewController: BaseSheetViewController {
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
+    @objc private func completeButtonDidClicked(){
+        completion(selectDate)
+        self.dismiss(animated: true)
+    }
+    
     //MARK: - Helper
     
-    private func configureCalendar(){
+    private func initializeCalendarDate(){
         
         let components = calendar.dateComponents([.year, .month], from: Date())
         
@@ -119,6 +133,25 @@ class CalendarSheetViewController: BaseSheetViewController {
     private func updateCalendarTitleAndCollectionView(){
         mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
         mainView.calendarCollectionView.reloadData()
+    }
+    
+    private func storageSelectDateAndActivateCompleButton(_ date: Int){
+        
+        let year = calendar.component(.year, from: calendarDate)
+        let month = calendar.component(.month, from: calendarDate)
+        
+        guard var selectDate = selectDate else {
+            mainView.completeButton.isActivate(true)
+            selectDate = CalendarSelectDate(year: year,
+                                            month: month,
+                                            date: date)
+            return
+        }
+        
+        selectDate.year = year
+        selectDate.month = month
+        selectDate.date = date
+        
     }
 }
 
@@ -148,12 +181,15 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
-        cell.setSelectedState()
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell,
+              let text = cell.infoLabel.text, let date = Int(text) else { return }
+        
+        cell.changeViewAttributesByState(.selected)
+        storageSelectDateAndActivateCompleButton(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
-        cell.setDefaultState()
+        cell.changeViewAttributesByState(.normal)
     }
 }
