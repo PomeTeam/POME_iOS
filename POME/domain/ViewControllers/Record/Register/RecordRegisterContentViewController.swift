@@ -8,8 +8,6 @@
 import UIKit
 
 class RecordRegisterContentViewController: BaseViewController {
-    
-    //TODO: TextField 키보드 등장여부에 따른 view 높이 조절
     //TODO: 작성 완료한 경우 버튼 활성화
     
     
@@ -121,28 +119,21 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     @objc func keyboardWillAppear(noti: NSNotification) {
+        
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height + 10
-            let viewHeight = Const.Device.HEIGHT -  self.mainView.contentTextView.frame.maxY
-            print(keyboardHeight, viewHeight)
-            if viewHeight < keyboardHeight {
-                let dif = keyboardHeight - viewHeight
-                self.view.frame.origin.y -= (dif + 20)
-            }
+            let moveHeight = keyboardRectangle.height - (52 + 10)
+            UIView.animate(
+                withDuration: 0.3
+                , animations: {
+                    self.view.transform = CGAffineTransform(translationX: 0, y: -moveHeight)
+                }
+            )
         }
-        print("keyboard Will appear Execute")
     }
 
     @objc func keyboardWillDisappear(noti: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                let keyboardRectangle = keyboardFrame.cgRectValue
-                let keyboardHeight = keyboardRectangle.height
-                self.view.frame.origin.y += keyboardHeight
-            }
-            print("keyboard Will Disappear Execute")
-        }
+        self.view.transform = .identity
     }
 
 }
@@ -157,7 +148,7 @@ extension RecordRegisterContentViewController: UITextFieldDelegate{
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         print("textFieldShouldEndEditing Execute")
-        self.view.frame.origin.y = 0
+//        self.view.frame.origin.y = 0
         return true
     }
 }
