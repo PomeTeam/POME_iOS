@@ -7,9 +7,10 @@
 
 import UIKit
 
-class FriendReactionSheetViewController: BaseSheetViewController {
+class FriendReactionSheetViewController: BaseSheetViewController, ControlCollectionViewLoad {
     
     //MARK: - Properties
+    var isCollectionViewFirstLoad: Bool = true
     
     let mainView = FriendReactionSheetView()
     
@@ -58,18 +59,14 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier,
                                                                 for: indexPath) as? ReactionTypeCollectionViewCell else { return UICollectionViewCell() }
             
-            if(indexPath.row == 0 && cell.tag == 0){ //0번 인덱스('전체')로 기본값 세팅 위한 코드
-                /*
-                 cell.tag
-                 0: CollectionView 초기 select 값으로 세팅X 상태,
-                 1: CollectionView 초기 select 값으로 세팅 완료한 상태
-                 */
+            if(isCollectionViewFirstLoad && indexPath.row == 0){ //0번 인덱스('전체')로 기본값 세팅 위한 코드
                 cell.setSelectState(row: indexPath.row)
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
-                cell.tag = 1
-            }else{
-                cell.setUnselectState(row: indexPath.row)
+                isCollectionViewFirstLoad = false
+                return cell
             }
+                
+            cell.setUnselectState(row: indexPath.row)
             
             return cell
         }else{
@@ -100,6 +97,4 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
             cell.setUnselectState(row: indexPath.row)
         }
     }
-    
-    
 }

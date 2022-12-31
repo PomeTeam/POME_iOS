@@ -19,9 +19,7 @@ class RecordRegisterEmotionSelectView: BaseView {
     }
     
     let happyEmotionView = FirstEmotionView.generateWithInfo(emotion: .happy)
-    
     let whatEmotionView = FirstEmotionView.generateWithInfo(emotion: .what)
-    
     let sadEmotionView = FirstEmotionView.generateWithInfo(emotion: .sad)
     
     lazy var completeButton = DefaultButton(titleStr: "남겼어요")
