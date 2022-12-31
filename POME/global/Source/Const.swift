@@ -8,14 +8,17 @@
 import Foundation
 import UIKit
 
-struct Const{
-    
-    struct Device{
-        static let WIDTH: CGFloat = UIScreen.main.bounds.size.width
-        static let HEIGHT: CGFloat = UIScreen.main.bounds.size.height
-    }
-    
-    struct Offset{
-        static let VIEW_CONTROLLER_TOP: CGFloat = 92
-    }
+
+struct Device{
+    static let WIDTH: CGFloat = UIScreen.main.bounds.size.width
+    static let HEIGHT: CGFloat = UIScreen.main.bounds.size.height
+}
+
+struct Offset{
+    static let VIEW_CONTROLLER_TOP: CGFloat = 92
+}
+
+struct ViewTag{
+    static let select = 1
+    static let deselect = 0
 }
