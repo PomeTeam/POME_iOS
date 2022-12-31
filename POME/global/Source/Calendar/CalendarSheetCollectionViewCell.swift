@@ -17,7 +17,7 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     
     static let cellIdentifier = "CalendarSheetCollectionViewCell"
     
-    static let cellSize: CGFloat = (Const.Device.WIDTH - 40 - 9.17*6) / 7
+    static let cellSize: CGFloat = (Device.WIDTH - 40 - 9.17*6) / 7
     
     let infoLabel = UILabel().then{
         $0.textAlignment = .center

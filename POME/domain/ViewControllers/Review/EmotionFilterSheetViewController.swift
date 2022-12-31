@@ -20,7 +20,7 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     
     private init(time: EmotionTime){
         self.filterTime = time
-        super.init(nibName: nil, bundle: nil)
+        super.init(type: .emotionFilter)
     }
     
     static func generateFirstEmotionFilterSheet() -> EmotionFilterSheetViewController{
@@ -43,15 +43,9 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     
     //MARK: - Override
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func style() {
         
         super.style()
-        
-        self.setBottomSheetStyle(type: .emotionFilter)
         
         self.mainView.titleLabel.text = filterTime.title
     }

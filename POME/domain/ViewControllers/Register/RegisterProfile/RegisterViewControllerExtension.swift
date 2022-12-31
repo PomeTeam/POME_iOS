@@ -26,7 +26,7 @@ extension RegisterViewController: UITextFieldDelegate {
         if let keyboardFrame: NSValue = noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height + 10
-            let viewHeight = Const.Device.HEIGHT - self.registerView.messageLabel.frame.origin.y
+            let viewHeight = Device.HEIGHT - self.registerView.messageLabel.frame.origin.y
             print(keyboardHeight, viewHeight)
             if viewHeight < keyboardHeight {
                 let dif = keyboardHeight - viewHeight

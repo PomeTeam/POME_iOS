@@ -131,13 +131,13 @@ extension RecordRegisterEmotionSelectView{
         }
         
         func changeDeselectState(){
-            self.tag = 0
+            self.tag = ViewTag.deselect
             imageBackView.backgroundColor = Color.grey0
             titleLabel.textColor = Color.body
         }
         
         func changeSelectState(){
-            self.tag = 1
+            self.tag = ViewTag.select
             imageBackView.backgroundColor = Color.mint10
             titleLabel.textColor = Color.mint100
         }

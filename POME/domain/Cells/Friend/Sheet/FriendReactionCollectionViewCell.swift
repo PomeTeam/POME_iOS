@@ -15,7 +15,7 @@ class FriendReactionCollectionViewCell: BaseCollectionViewCell {
      left, right padding = 20
      spacing = 16
      */
-    static let cellWidth: CGFloat = (Const.Device.WIDTH - (40 + 16 * 2)) / 3
+    static let cellWidth: CGFloat = (Device.WIDTH - (40 + 16 * 2)) / 3
     
     let reactionImage = UIImageView().then{
         $0.contentMode = .scaleAspectFit

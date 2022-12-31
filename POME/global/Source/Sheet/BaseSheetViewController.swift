@@ -11,8 +11,17 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     
     //MARK: - Properties
     
-    var type: SheetType!
-
+    private final let type: SheetType!
+    
+    init(type: SheetType){
+        self.type = type
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -49,16 +58,12 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     
     func layout() {}
     
-    func setBottomSheetStyle(type: SheetType){
-        self.type = type
-    }
-    
     private func getDetentSize() -> CGFloat{
         switch type{
         case .calendar:
             return type.rawValue + CalendarSheetCollectionViewCell.cellSize * 7
         case .category:
-            return Const.Device.HEIGHT - type.rawValue
+            return Device.HEIGHT - type.rawValue
         default:
             return type.rawValue
         }

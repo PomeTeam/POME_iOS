@@ -32,7 +32,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         self.view.addSubview(mainView)
         
         mainView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP)
+            $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
@@ -73,11 +73,11 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         
         guard let selectEmotion = sender.view as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
         
-        if(selectEmotion.tag == 1){ //tag -> 0: deselect, 1: select
+        if(selectEmotion.tag == ViewTag.select){
             return
         }
         
-        guard let willDeselectEmotion = mainView.viewWithTag(1) as? RecordRegisterEmotionSelectView.FirstEmotionView else {
+        guard let willDeselectEmotion = mainView.viewWithTag(ViewTag.select) as? RecordRegisterEmotionSelectView.FirstEmotionView else {
             selectEmotion.changeSelectState()
             return
         }

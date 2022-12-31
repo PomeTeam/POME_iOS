@@ -39,7 +39,7 @@ class FriendDetailViewController: BaseViewController {
         self.view.addSubview(mainView)
         
         mainView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP + 24)
+            $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP + 24)
             $0.leading.equalToSuperview().offset(24)
             $0.centerX.equalToSuperview()
         }

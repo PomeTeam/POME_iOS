@@ -60,18 +60,15 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - LifeCycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    init(){
+        super.init(type: .calendar)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Override
-
-    override func style() {
-        
-        super.style()
-        
-        setBottomSheetStyle(type: .calendar)
-    }
 
     override func layout() {
         

@@ -10,19 +10,17 @@ import UIKit
 class FriendReactionSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
+    
     let mainView = FriendReactionSheetView()
     
     //MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    init(){
+        super.init(type: .friendReaction)
     }
     
-    override func style(){
-        
-        super.style()
-        
-        self.setBottomSheetStyle(type: .friendReaction)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func initialize() {
@@ -57,7 +55,8 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(collectionView == mainView.emotionCollectionView){
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier, for: indexPath) as? ReactionTypeCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier,
+                                                                for: indexPath) as? ReactionTypeCollectionViewCell else { return UICollectionViewCell() }
             
             if(indexPath.row == 0 && cell.tag == 0){ //0번 인덱스('전체')로 기본값 세팅 위한 코드
                 /*
