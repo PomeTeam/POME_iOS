@@ -17,7 +17,7 @@ class EmojiFloatingCollectionViewCell: BaseCollectionViewCell {
      collectionView left/rightPadding = 16
      spacing = 14
      */
-    static let cellWidth = (Const.Device.WIDTH - (45 + 16 * 2 + 14 * 5)) / 6
+    static let cellWidth = (Device.WIDTH - (45 + 16 * 2 + 14 * 5)) / 6
     
     let emojiImage = UIImageView()
     

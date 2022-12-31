@@ -22,7 +22,7 @@ class ReviewDetailViewController: BaseViewController {
         self.view.addSubview(mainView)
         
         mainView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Const.Offset.VIEW_CONTROLLER_TOP + 16)
+            $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP + 16)
             $0.leading.equalToSuperview().offset(24)
             $0.trailing.equalToSuperview().offset(-24)
             $0.bottom.lessThanOrEqualToSuperview()

@@ -15,7 +15,7 @@ class EmotionFilterSheetCollectionViewCell: BaseCollectionViewCell {
      left, right padding = 26
      spacing = 10
      */
-    static let cellWidth: CGFloat = (Const.Device.WIDTH - (26 * 2 + 10 * 2))/3
+    static let cellWidth: CGFloat = (Device.WIDTH - (26 * 2 + 10 * 2))/3
     
     let emotionImage = UIImageView().then{
         $0.image = Image.emojiSad

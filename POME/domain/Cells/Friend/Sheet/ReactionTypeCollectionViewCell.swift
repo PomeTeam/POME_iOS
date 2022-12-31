@@ -17,7 +17,7 @@ class ReactionTypeCollectionViewCell: BaseCollectionViewCell {
      spacing = 14 -> 14 * 6 = 84
      */
     
-    static let cellWidth: CGFloat = (Const.Device.WIDTH - (20 + 33 + 84)) / 7
+    static let cellWidth: CGFloat = (Device.WIDTH - (20 + 33 + 84)) / 7
     
     let reactionImage = UIImageView()
     
