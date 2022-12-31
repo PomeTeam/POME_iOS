@@ -20,16 +20,13 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     }
     
     //MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    init(){
+        super.init(type: .category)
     }
-
-    override func style(){
-        
-        super.style()
-        
-        setBottomSheetStyle(type: .category)
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func initialize(){

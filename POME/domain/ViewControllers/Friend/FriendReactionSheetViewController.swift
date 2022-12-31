@@ -13,16 +13,13 @@ class FriendReactionSheetViewController: BaseSheetViewController {
     let mainView = FriendReactionSheetView()
     
     //MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    init(){
+        super.init(type: .friendReaction)
     }
     
-    override func style(){
-        
-        super.style()
-        
-        self.setBottomSheetStyle(type: .friendReaction)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func initialize() {
