@@ -108,6 +108,7 @@
 		57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */; };
 		57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B792951BF3700A409E3 /* CalendarSheetView.swift */; };
 		57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */; };
+		57556A952960380800B67369 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57556A942960380800B67369 /* Protocol.swift */; };
 		57B16853295941E000639A15 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessageView.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBA424295D712400068019 /* DefaultTextInfo.swift */; };
@@ -280,6 +281,7 @@
 		57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetViewController.swift; sourceTree = "<group>"; };
 		57543B792951BF3700A409E3 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
 		57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetCollectionViewCell.swift; sourceTree = "<group>"; };
+		57556A942960380800B67369 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		57B16852295941E000639A15 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57BBA424295D712400068019 /* DefaultTextInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextInfo.swift; sourceTree = "<group>"; };
@@ -904,6 +906,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
+				57556A942960380800B67369 /* Protocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1392,6 +1395,7 @@
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
+				57556A952960380800B67369 /* Protocol.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */,
 				2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */,
