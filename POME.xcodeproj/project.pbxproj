@@ -75,7 +75,6 @@
 		5724EBFE29100C8800DC529B /* POMETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBFD29100C8800DC529B /* POMETests.swift */; };
 		5724EC0829100C8800DC529B /* POMEUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC0729100C8800DC529B /* POMEUITests.swift */; };
 		5724EC0A29100C8800DC529B /* POMEUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC0929100C8800DC529B /* POMEUITestsLaunchTests.swift */; };
-		5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC2229160D7100DC529B /* SSOOYA.storyboard */; };
 		5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC2429160D7A00DC529B /* gomin.storyboard */; };
 		5724EC2D29162B3500DC529B /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC2C29162B3500DC529B /* UIFont.swift */; };
 		5724EC4129162F2300DC529B /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5724EC3D29162F2200DC529B /* Pretendard-Medium.otf */; };
@@ -112,6 +111,7 @@
 		57B16853295941E000639A15 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessageView.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57BBA424295D712400068019 /* DefaultTextInfo.swift */; };
+		57C4818A2967111B008731D9 /* SSOOYA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C481892967111B008731D9 /* SSOOYA.storyboard */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
@@ -248,7 +248,6 @@
 		5724EC0329100C8800DC529B /* POMEUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = POMEUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5724EC0729100C8800DC529B /* POMEUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMEUITests.swift; sourceTree = "<group>"; };
 		5724EC0929100C8800DC529B /* POMEUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POMEUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		5724EC2229160D7100DC529B /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
 		5724EC2429160D7A00DC529B /* gomin.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = gomin.storyboard; sourceTree = "<group>"; };
 		5724EC2C29162B3500DC529B /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		5724EC3D29162F2200DC529B /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -285,6 +284,8 @@
 		57B16852295941E000639A15 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57BBA424295D712400068019 /* DefaultTextInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextInfo.swift; sourceTree = "<group>"; };
+		57C4818629671010008731D9 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "POME-Bridging-Header.h"; sourceTree = "<group>"; };
+		57C481892967111B008731D9 /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
@@ -292,7 +293,6 @@
 		57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagInfo.swift; sourceTree = "<group>"; };
 		57CCA76A292867D6007E22D1 /* EmotionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagView.swift; sourceTree = "<group>"; };
 		57CCA76E29286AD5007E22D1 /* UISheetPresentationControllerDetent+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UISheetPresentationControllerDetent+Private.h"; sourceTree = "<group>"; };
-		57CCA76F29286AFC007E22D1 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "POME-Bridging-Header.h"; path = "POME/Resource/POME-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		57CCA77029286C85007E22D1 /* BaseSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSheetViewController.swift; sourceTree = "<group>"; };
 		57CCA77329286EC2007E22D1 /* SheetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetInfo.swift; sourceTree = "<group>"; };
 		57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewController.swift; sourceTree = "<group>"; };
@@ -598,8 +598,10 @@
 			isa = PBXGroup;
 			children = (
 				5724EC162910122700DC529B /* AppDelegate */,
-				5724EC17291012BB00DC529B /* global */,
-				5724EC18291012C100DC529B /* domain */,
+				5724EC17291012BB00DC529B /* Global */,
+				57F68BD02967099F00DB1471 /* Data */,
+				57F68BCF2967098A00DB1471 /* Presentation */,
+				5724EC18291012C100DC529B /* Domain */,
 				5724EC272916159600DC529B /* Resource */,
 				5724EC262916158500DC529B /* Support */,
 			);
@@ -634,26 +636,23 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
-		5724EC17291012BB00DC529B /* global */ = {
+		5724EC17291012BB00DC529B /* Global */ = {
 			isa = PBXGroup;
 			children = (
 				5724EC19291012DA00DC529B /* Source */,
 				5724EC1A291012E000DC529B /* Resource */,
 			);
-			path = global;
+			path = Global;
 			sourceTree = "<group>";
 		};
-		5724EC18291012C100DC529B /* domain */ = {
+		5724EC18291012C100DC529B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				5724EC1B2910131000DC529B /* Models */,
-				5724EC1D2910131B00DC529B /* Views */,
-				5724EC1C2910131500DC529B /* ViewModels */,
-				5724EC1E2910132800DC529B /* ViewControllers */,
-				5724EC1F2910133400DC529B /* Services */,
-				5724EC212910134600DC529B /* Cells */,
+				57C4818229670DA0008731D9 /* Entitiy */,
+				57C4818129670D7F008731D9 /* UseCases */,
+				57C4818029670D7C008731D9 /* Repositories */,
 			);
-			path = domain;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		5724EC19291012DA00DC529B /* Source */ = {
@@ -684,18 +683,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		5724EC1B2910131000DC529B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		5724EC1C2910131500DC529B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = ViewModels;
+			name = ViewModels;
+			path = ../Domain/ViewModels;
 			sourceTree = "<group>";
 		};
 		5724EC1D2910131B00DC529B /* Views */ = {
@@ -729,13 +722,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		5724EC1F2910133400DC529B /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,12 +748,10 @@
 			isa = PBXGroup;
 			children = (
 				5724EC2E29162DAA00DC529B /* Font */,
-				57CCA76E29286AD5007E22D1 /* UISheetPresentationControllerDetent+Private.h */,
-				57CCA76F29286AFC007E22D1 /* POME-Bridging-Header.h */,
+				57F68BD1296709B100DB1471 /* Sheet */,
+				57F68BD2296709EE00DB1471 /* Storyboard */,
 				5724EBF129100C8700DC529B /* LaunchScreen.storyboard */,
 				5724EBEC29100C8500DC529B /* Main.storyboard */,
-				5724EC2229160D7100DC529B /* SSOOYA.storyboard */,
-				5724EC2429160D7A00DC529B /* gomin.storyboard */,
 				5724EBEF29100C8700DC529B /* Assets.xcassets */,
 			);
 			path = Resource;
@@ -959,6 +943,74 @@
 			path = Text;
 			sourceTree = "<group>";
 		};
+		57C4817C29670CFF008731D9 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				57C4817F29670D08008731D9 /* Repositories */,
+				57C4817E29670D06008731D9 /* Models */,
+				57C4818529670ED4008731D9 /* Routers */,
+				57C4818429670ED2008731D9 /* Services */,
+				57C4818329670ED0008731D9 /* Foundation */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		57C4817E29670D06008731D9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		57C4817F29670D08008731D9 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		57C4818029670D7C008731D9 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		57C4818129670D7F008731D9 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		57C4818229670DA0008731D9 /* Entitiy */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entitiy;
+			sourceTree = "<group>";
+		};
+		57C4818329670ED0008731D9 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		57C4818429670ED2008731D9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		57C4818529670ED4008731D9 /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
 		57CCA76729286761007E22D1 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
@@ -1063,6 +1115,43 @@
 				57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */,
 			);
 			path = Register;
+			sourceTree = "<group>";
+		};
+		57F68BCF2967098A00DB1471 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				5724EC1D2910131B00DC529B /* Views */,
+				5724EC1C2910131500DC529B /* ViewModels */,
+				5724EC1E2910132800DC529B /* ViewControllers */,
+				5724EC212910134600DC529B /* Cells */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		57F68BD02967099F00DB1471 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				57C4817C29670CFF008731D9 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		57F68BD1296709B100DB1471 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				57CCA76E29286AD5007E22D1 /* UISheetPresentationControllerDetent+Private.h */,
+				57C4818629671010008731D9 /* POME-Bridging-Header.h */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
+		57F68BD2296709EE00DB1471 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				57C481892967111B008731D9 /* SSOOYA.storyboard */,
+				5724EC2429160D7A00DC529B /* gomin.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		624F1339817CBA845EC82A7A /* Frameworks */ = {
@@ -1202,10 +1291,10 @@
 				5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */,
 				5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */,
 				5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */,
+				57C4818A2967111B008731D9 /* SSOOYA.storyboard in Resources */,
 				5724EC4429162F2300DC529B /* Pretendard-Regular.otf in Resources */,
 				5724EBF029100C8700DC529B /* Assets.xcassets in Resources */,
 				57CCA7B9292DE927007E22D1 /* AppKey.xcconfig in Resources */,
-				5724EC2329160D7100DC529B /* SSOOYA.storyboard in Resources */,
 				5724EBEE29100C8500DC529B /* Main.storyboard in Resources */,
 				23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */,
 				5724EC4129162F2300DC529B /* Pretendard-Medium.otf in Resources */,
@@ -1671,6 +1760,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ssooya.POME;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1700,6 +1790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ssooya.POME;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

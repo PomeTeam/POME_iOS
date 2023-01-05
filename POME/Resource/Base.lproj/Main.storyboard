@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,7 +31,7 @@
                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="sTB-2x-l3G" kind="show" id="faP-1E-pam"/>
+                                            <segue destination="Wfj-6s-n43" kind="show" id="tZb-G7-reL"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-B0-2rB">
@@ -63,14 +64,14 @@
             <point key="canvasLocation" x="35" y="98"/>
         </scene>
         <!--SSOOYA-->
-        <scene sceneID="f6t-jj-1aR">
+        <scene sceneID="A3Y-FV-nOy">
             <objects>
-                <viewControllerPlaceholder storyboardName="SSOOYA" id="sTB-2x-l3G" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="pFJ-8Z-fjg"/>
+                <viewControllerPlaceholder storyboardName="SSOOYA" id="Wfj-6s-n43" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="n73-DM-ped"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BOe-jl-KIt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1hf-G7-waL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="591" y="66"/>
+            <point key="canvasLocation" x="697" y="0.0"/>
         </scene>
         <!--gomin-->
         <scene sceneID="cIJ-dZ-R5S">
