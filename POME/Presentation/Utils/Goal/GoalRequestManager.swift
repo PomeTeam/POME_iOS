@@ -12,5 +12,8 @@ class GoalRequestManager{
     
     static let shared = GoalRequestManager()
     
+    var startDate: String = ""
+    var endDate: String = ""
+    
     private init() { }
 }
