@@ -13,10 +13,10 @@ protocol CreateGoalUseCase{
 
 class DefaultCreateGoalUseCase: CreateGoalUseCase{
     
-    private let goalRepository: DefaultGoalRepository
+    private let repository: DefaultGoalRepository
     
-    init(goalRepository: DefaultGoalRepository){
-        self.goalRepository = goalRepository
+    init(repository: DefaultGoalRepository){
+        self.repository = repository
     }
     
     func createGoal() {

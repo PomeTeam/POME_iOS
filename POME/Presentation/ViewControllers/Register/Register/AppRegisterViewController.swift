@@ -18,8 +18,6 @@ class AppRegisterViewController: BaseViewController {
     var isValidName = false
     var isValidPhone = false
     var isValidCode = false
-    
-    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

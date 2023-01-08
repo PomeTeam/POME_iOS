@@ -12,8 +12,6 @@ import RxCocoa
 class FriendSearchViewController: BaseViewController {
     var friendSearchView: FriendSearchView!
     var name = BehaviorRelay(value: "")
-
-    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
