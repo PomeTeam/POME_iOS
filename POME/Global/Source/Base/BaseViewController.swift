@@ -8,10 +8,12 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class BaseViewController: UIViewController {
     
     let navigationView = UIView()
+    let disposeBag = DisposeBag()
 
     lazy var backBtn = UIButton().then{
         $0.setImage(Image.backArrow, for: .normal)
@@ -35,6 +37,7 @@ class BaseViewController: UIViewController {
         style()
         layout()
         initialize()
+        bind()
     }
     
     /* BaseViewController method
@@ -69,6 +72,8 @@ class BaseViewController: UIViewController {
     }
     
     func initialize() {}
+    
+    func bind() { }
     
     @objc func backBtnDidClicked(){
         self.navigationController?.popViewController(animated: true)
