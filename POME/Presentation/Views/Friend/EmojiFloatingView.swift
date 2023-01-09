@@ -11,9 +11,11 @@ class EmojiFloatingView: BaseView {
     
     var dismissHandler: (() -> ())!
     
-    let shadowView = UIView().then{
+    let containerView = UIView().then{
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .card)
+        $0.clipsToBounds = false
+        $0.layer.cornerRadius = 54/2
     }
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
@@ -55,14 +57,13 @@ class EmojiFloatingView: BaseView {
     }
     
     override func hierarchy() {
-        self.addSubview(shadowView)
-        
-        shadowView.addSubview(collectionView)
+        self.addSubview(containerView)
+        containerView.addSubview(collectionView)
     }
     
     override func layout() {
 
-        shadowView.snp.makeConstraints{
+        containerView.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(23)
             $0.trailing.equalToSuperview().offset(-22)
             $0.height.equalTo(54)
@@ -72,6 +73,13 @@ class EmojiFloatingView: BaseView {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
+    
+    final func initialize(){
+        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
+        dismissGesture.delegate = self
+        
+        self.addGestureRecognizer(dismissGesture)
+    }
 
 }
 
@@ -79,7 +87,7 @@ extension EmojiFloatingView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
-        guard touch.view?.isDescendant(of: self.shadowView) == false else { return false }
+        guard touch.view?.isDescendant(of: self.containerView) == false else { return false }
         
         return true
     }

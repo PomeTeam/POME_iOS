@@ -10,6 +10,12 @@ import UIKit
 
 class DefaultButton: UIButton {
     
+    var isActivate = false{
+        didSet{
+            isActivate ? activateButton() : inactivateButton()
+        }
+    }
+    
     // MARK: - Life Cycle
     
     // 디폴트 초록 배경 버튼

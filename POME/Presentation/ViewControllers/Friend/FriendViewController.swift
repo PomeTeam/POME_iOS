@@ -240,7 +240,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        emoijiFloatingView.shadowView.snp.makeConstraints{
+        emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }
         

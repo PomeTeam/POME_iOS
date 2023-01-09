@@ -26,7 +26,7 @@ extension ShadowStyle{
     private var shadowDescription: ShadowDescription{
         switch self{
         case .card:             return ShadowDescription(cornerRadius: 6,
-                                                         shadowColor: UIColor(red: 127/255, green: 137/255, blue: 157/255, alpha: 0.12),
+                                                         shadowColor: UIColor(red: 127/255, green: 137/255, blue: 157/255, alpha: 0.15),
                                                          shadowRadius: 30,
                                                          shadowOffset: CGSize(width: 0, height: 10))
             

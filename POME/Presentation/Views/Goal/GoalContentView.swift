@@ -15,6 +15,7 @@ class GoalContentView: BaseView {
     let categoryField = RegisterCommonTextFieldView(title: "목표 카테고리",
                                                     placeholder: "택시/건강 (8자)").then{
         $0.infoTextField.countLimit = 8
+        $0.infoTextField.isUserInteractionEnabled = false
     }
     let promiseField = RegisterCommonTextFieldView(title: "한 줄 다짐",
                                                    placeholder: "걸어다니기/건강 관리에는 넉넉히 쓰자 (18자)").then{

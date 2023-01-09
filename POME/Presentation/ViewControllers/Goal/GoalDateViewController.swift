@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class GoalDateViewController: BaseViewController {
     
@@ -26,7 +27,6 @@ class GoalDateViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
@@ -37,7 +37,7 @@ class GoalDateViewController: BaseViewController {
     override func initialize(){
         
         mainView.completButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-        
+
         mainView.startDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
         mainView.endDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
     }
@@ -52,9 +52,7 @@ class GoalDateViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.canMoveNext
-            .drive(onNext: { result in
-                self.mainView.completButton.isActivate(result)
-            })
+            .drive(mainView.completButton.rx.isActivate)
             .disposed(by: disposeBag)
     }
     
@@ -74,29 +72,12 @@ class GoalDateViewController: BaseViewController {
         
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
-        let sheet = CalendarSheetViewController()
-        
+        let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
             dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
             dateField.infoTextField.sendActions(for: .valueChanged)
-//            self.checkCompleteButtonIsValidAndChangeState()
         }
-        
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true)
     }
-    
-//    private func checkCompleteButtonIsValidAndChangeState(){
-//
-//        guard let isStartDateEmpty = mainView.startDateField.infoTextField.text?.isEmpty,
-//                let isEndDateEmpty = mainView.endDateField.infoTextField.text?.isEmpty else { return }
-//
-//        if(isStartDateEmpty || isEndDateEmpty){
-//            return
-//        }
-//
-//        mainView.completButton.isActivate(true)
-//    }
     
     @objc func completeButtonDidClicked(){
         let vc = GoalContentViewController()

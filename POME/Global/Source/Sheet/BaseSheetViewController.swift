@@ -58,7 +58,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     
     func layout() {}
     
-    private func getDetentSize() -> CGFloat{
+    final private func getDetentSize() -> CGFloat{
         switch type{
         case .calendar:
             return type.rawValue + CalendarSheetCollectionViewCell.cellSize * 7
@@ -67,6 +67,12 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         default:
             return type.rawValue
         }
+    }
+    
+    func loadAndShowBottomSheet(in viewController: UIViewController) -> Self{
+        self.loadViewIfNeeded()
+        viewController.present(self, animated: true)
+        return self
     }
 
 }

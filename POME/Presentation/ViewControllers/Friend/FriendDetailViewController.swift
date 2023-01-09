@@ -61,7 +61,7 @@ class FriendDetailViewController: BaseViewController {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        emoijiFloatingView.shadowView.snp.makeConstraints{
+        emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(mainView.snp.bottom).offset(20 - 4)
         }
     }
