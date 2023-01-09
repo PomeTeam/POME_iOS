@@ -72,8 +72,7 @@ class GoalDateViewController: BaseViewController {
         
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
-        let sheet = CalendarSheetViewController()
-        
+        let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
             dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
             dateField.infoTextField.sendActions(for: .valueChanged)

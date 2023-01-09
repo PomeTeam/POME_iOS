@@ -71,6 +71,16 @@ class GoalContentViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
+    //MARK: - Action
+    
+    @objc func categoryBottomSheetWillShow(){
+        let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
+        sheet.categorySelectHandler = { category in
+            self.mainView.categoryField.infoTextField.text = category
+            self.mainView.categoryField.infoTextField.sendActions(for: .valueChanged)
+        }
+    }
+    
     @objc func publicSwitchBackgroundColorWillChange(_ sender: UISwitch){
         mainView.goalMakePublicView.backgroundColor = sender.isOn ? Color.pink10 : Color.grey1
     }
