@@ -227,7 +227,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         emoijiFloatingView = EmojiFloatingView()
         
         guard let emoijiFloatingView = emoijiFloatingView,
-                let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
+              let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         emoijiFloatingView.dismissHandler = {
             self.selectCardCellIndex = nil
@@ -235,7 +235,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         self.view.addSubview(emoijiFloatingView)
-
+        
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
@@ -244,6 +244,16 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
             $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }
         
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                emoijiFloatingView.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
+            } completion: { finished in
+                UIView.animate(withDuration: 0.5, delay: 0) {
+                    emoijiFloatingView.containerView.transform = .identity
+                }
+            }
+            
+        }
     }
     
     func presentReactionSheet(indexPath: IndexPath) {

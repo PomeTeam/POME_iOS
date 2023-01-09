@@ -52,8 +52,17 @@ class EmojiFloatingView: BaseView {
     }
     
     @objc func dismiss(){
+        
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.transform = CGAffineTransform(translationX: 0, y: 10)
+                self.layer.opacity = 0.0
+            }, completion:{ finished in
+                self.removeFromSuperview()
+            })
+        }
+        
         self.dismissHandler()
-        self.removeFromSuperview()
     }
     
     override func hierarchy() {
