@@ -6,31 +6,17 @@
 //
 
 import UIKit
+import RxSwift
 
 class GoalContentViewController: BaseViewController {
     
-    //TODO: 유효성 검사 후 버튼 활성화
-    
-    var categoryInput: String!{
-        didSet { checkValidationAndChangeCompleteButtonState() }
-    }
-    var promiseInput: String!{
-        didSet { checkValidationAndChangeCompleteButtonState() }
-    }
-    var priceInput: String!{
-        didSet { checkValidationAndChangeCompleteButtonState() }
-    }
-    
     let mainView = GoalContentView()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    let viewModel = GoalContentRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
+    
+    //MARK: - Override
     
     override func style(){
-        
         super.style()
-        
         self.setEtcButton(title: "닫기")
     }
     
@@ -52,14 +38,27 @@ class GoalContentViewController: BaseViewController {
         super.initialize()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardWillDisappear)))
+        mainView.categoryField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categoryBottomSheetWillShow)))
         
         etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
         mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
         mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
-        mainView.categoryField.infoTextField.delegate = self
         mainView.promiseField.infoTextField.delegate = self
         mainView.priceField.infoTextField.delegate = self
+    }
+    
+    override func bind(){
+        
+        let input = GoalContentRegisterViewModel.Input(categoryTextField: mainView.categoryField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                       promiseTextField: mainView.promiseField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                       priceTextField: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable())
+        
+        let output = viewModel.transform(input: input)
+        
+        output.canMoveNext
+            .drive(mainView.completeButton.rx.isActivate)
+            .disposed(by: disposeBag)
     }
     
     override func backBtnDidClicked() {
@@ -103,40 +102,5 @@ extension GoalContentViewController: UITextFieldDelegate{
         
         return newString.count <= textCountLimit
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField){
-        
-        let text = textField.text
-        
-        switch textField{
-        case mainView.categoryField.infoTextField:
-            categoryInput = text
-            return
-        case mainView.promiseField.infoTextField:
-            promiseInput = text
-            return
-        case mainView.priceField.infoTextField:
-            priceInput = text
-            return
-        default:
-            return
-        }
-    }
-    
-    func checkValidationAndChangeCompleteButtonState(){
-        
-        guard let categoryInput = categoryInput, let promiseInput = promiseInput, let priceInput = priceInput else {
-            mainView.completeButton.isActivate(false)
-            return
-        }
-        
-        if(categoryInput.isEmpty || promiseInput.isEmpty || priceInput.isEmpty){
-            mainView.completeButton.isActivate(false)
-            return
-        }
-
-        mainView.completeButton.isActivate(true)
-    }
-    
 }
 
