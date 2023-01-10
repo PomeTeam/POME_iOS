@@ -11,11 +11,9 @@ import RxCocoa
 
 class AppRegisterViewController: BaseViewController {
     var appRegisterView: AppRegisterView!
-    var name = BehaviorRelay(value: "")
     var phone = BehaviorRelay(value: "")
     var code = BehaviorRelay(value: "")
     
-    var isValidName = false
     var isValidPhone = false
     var isValidCode = false
 
@@ -39,7 +37,6 @@ class AppRegisterViewController: BaseViewController {
     }
     override func initialize() {
         // TextField
-        appRegisterView.nameTextField.delegate = self
         appRegisterView.phoneTextField.delegate = self
         appRegisterView.codeTextField.delegate = self
         
@@ -60,10 +57,6 @@ class AppRegisterViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     func initTextField() {
-        self.appRegisterView.nameTextField.rx.text.orEmpty
-                    .distinctUntilChanged()
-                    .bind(to: self.name)
-                    .disposed(by: disposeBag)
         
         self.appRegisterView.phoneTextField.rx.text.orEmpty
                     .distinctUntilChanged()
@@ -78,12 +71,6 @@ class AppRegisterViewController: BaseViewController {
         initProperties()
     }
     func initProperties() {
-        self.name.skip(1).distinctUntilChanged()
-            .subscribe( onNext: { newValue in
-                self.isValidName = self.isValidName(newValue)
-                self.isValidContent()
-            })
-            .disposed(by: disposeBag)
         
         self.phone.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
@@ -99,17 +86,20 @@ class AppRegisterViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
     }
-    func isValidName(_ name: String) -> Bool {
-        return name.count > 0 ? true : false
-    }
     func isValidPhone(_ phone: String) -> Bool {
-        return phone.count > 0 ? true : false
+        let pattern = "^01([0-9])([0-9]{3,4})([0-9]{4})$"
+        let regex = try? NSRegularExpression(pattern: pattern)
+        if let _ = regex?.firstMatch(in: phone, options: [], range: NSRange(location: 0, length: phone.count)) {
+            return true
+        } else {
+            return false
+        }
     }
     func isValidCode(_ code: String) -> Bool {
         return code.count > 0 ? true : false
     }
     func isValidContent() {
-        let isValidContent = self.isValidName && self.isValidPhone && self.isValidCode ? true : false
+        let isValidContent = self.isValidPhone && self.isValidCode ? true : false
         appRegisterView.nextButton.isActivate(isValidContent)
     }
     
