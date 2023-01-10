@@ -47,6 +47,8 @@ class TermsViewController: UIViewController {
     func isValidCheck() {
         let isValid = termsView.useTermCheck.isSelected && termsView.privacyTermCheck.isSelected
         termsView.agreeButton.isActivate(isValid)
+        
+        termsView.allAgreeCheck.isSelected = termsView.useTermCheck.isSelected && termsView.privacyTermCheck.isSelected && termsView.marketingTermCheck.isSelected ? true : false
     }
     
     // MARK: - Actions
@@ -54,7 +56,6 @@ class TermsViewController: UIViewController {
         self.navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
     @objc func termDetailButtonDidTap(sender: UITapGestureRecognizer) {
-//        print("ckick")
         self.navigationController?.pushViewController(TermDetailViewController(), animated: true)
     }
     @objc func allAgreeButtonDidTap() {
