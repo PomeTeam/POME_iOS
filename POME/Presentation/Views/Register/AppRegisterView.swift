@@ -9,12 +9,6 @@ import Foundation
 import UIKit
 
 class AppRegisterView: BaseView {
-    let nameLabel = UILabel().then{
-        $0.text = "이름"
-        $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-        $0.textColor = Color.body
-    }
-    let nameTextField = DefaultTextField(placeholderStr: "이름을 입력해주세요")
     let phoneLabel = UILabel().then{
         $0.text = "휴대전화 번호"
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
@@ -57,9 +51,6 @@ class AppRegisterView: BaseView {
     override func hierarchy() {
         super.hierarchy()
         
-        addSubview(nameLabel)
-        addSubview(nameTextField)
-        
         addSubview(phoneLabel)
         addSubview(phoneTextField)
         addSubview(codeSendButton)
@@ -74,18 +65,9 @@ class AppRegisterView: BaseView {
     override func layout() {
         super.layout()
         
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview().offset(12)
-        }
-        nameTextField.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(nameLabel.snp.bottom).offset(12)
-            make.height.equalTo(46)
-        }
         phoneLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
-            make.top.equalTo(nameTextField.snp.bottom).offset(24)
+            make.top.equalToSuperview().offset(12)
         }
         phoneTextField.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
