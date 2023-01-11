@@ -8,9 +8,9 @@
 import Foundation
 
 //ViewController 전환시 데이터 전달 목적
-class GoalRequestManager{
+class GoalRegisterRequestManager{
     
-    static let shared = GoalRequestManager()
+    static let shared = GoalRegisterRequestManager()
     
     var startDate: String = ""
     var endDate: String = ""

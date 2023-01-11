@@ -103,6 +103,10 @@
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
 		572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B20AD294F1D4000980835 /* DefaultTextView.swift */; };
+		57397FB7296E77920088B5F4 /* RecordRegisterContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FB6296E77920088B5F4 /* RecordRegisterContentViewModel.swift */; };
+		57397FB9296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FB8296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift */; };
+		57397FBC296E77DE0088B5F4 /* CreateRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FBB296E77DE0088B5F4 /* CreateRecordUseCase.swift */; };
+		57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */; };
 		5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */; };
 		57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */; };
 		57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B792951BF3700A409E3 /* CalendarSheetView.swift */; };
@@ -117,7 +121,7 @@
 		57C481DD296ABCDB008731D9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481DC296ABCDB008731D9 /* Goal.swift */; };
 		57C481E1296ABD1B008731D9 /* GoalDateRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E0296ABD1B008731D9 /* GoalDateRegisterViewModel.swift */; };
 		57C481E3296ABD27008731D9 /* GoalContentRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E2296ABD27008731D9 /* GoalContentRegisterViewModel.swift */; };
-		57C481E7296ABE7C008731D9 /* GoalRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E6296ABE7C008731D9 /* GoalRequestManager.swift */; };
+		57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
@@ -282,6 +286,10 @@
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		572B20AD294F1D4000980835 /* DefaultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextView.swift; sourceTree = "<group>"; };
+		57397FB6296E77920088B5F4 /* RecordRegisterContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentViewModel.swift; sourceTree = "<group>"; };
+		57397FB8296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectViewModel.swift; sourceTree = "<group>"; };
+		57397FBB296E77DE0088B5F4 /* CreateRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordUseCase.swift; sourceTree = "<group>"; };
+		57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestManager.swift; sourceTree = "<group>"; };
 		5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessType.swift; sourceTree = "<group>"; };
 		57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetViewController.swift; sourceTree = "<group>"; };
 		57543B792951BF3700A409E3 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
@@ -297,7 +305,7 @@
 		57C481DC296ABCDB008731D9 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		57C481E0296ABD1B008731D9 /* GoalDateRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateRegisterViewModel.swift; sourceTree = "<group>"; };
 		57C481E2296ABD27008731D9 /* GoalContentRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentRegisterViewModel.swift; sourceTree = "<group>"; };
-		57C481E6296ABE7C008731D9 /* GoalRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRequestManager.swift; sourceTree = "<group>"; };
+		57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterRequestManager.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
@@ -698,6 +706,7 @@
 		5724EC1C2910131500DC529B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				57397FB4296E77620088B5F4 /* Record */,
 				57C481DF296ABD03008731D9 /* Goal */,
 			);
 			name = ViewModels;
@@ -928,6 +937,39 @@
 			path = Default;
 			sourceTree = "<group>";
 		};
+		57397FB4296E77620088B5F4 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				57397FB5296E77710088B5F4 /* Register */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		57397FB5296E77710088B5F4 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				57397FB6296E77920088B5F4 /* RecordRegisterContentViewModel.swift */,
+				57397FB8296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		57397FBA296E77B60088B5F4 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				57397FBB296E77DE0088B5F4 /* CreateRecordUseCase.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		57397FBD296E780A0088B5F4 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
 		57543B762951BE8600A409E3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -993,6 +1035,7 @@
 		57C4818129670D7F008731D9 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				57397FBA296E77B60088B5F4 /* Record */,
 				57C481D8296ABCA2008731D9 /* Goal */,
 			);
 			path = UseCases;
@@ -1055,6 +1098,7 @@
 		57C481E4296ABE46008731D9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				57397FBD296E780A0088B5F4 /* Record */,
 				57C481E5296ABE55008731D9 /* Goal */,
 			);
 			path = Utils;
@@ -1063,7 +1107,7 @@
 		57C481E5296ABE55008731D9 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				57C481E6296ABE7C008731D9 /* GoalRequestManager.swift */,
+				57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1489,6 +1533,7 @@
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
+				57397FB9296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift in Sources */,
 				232FD9D2293436950072E9D5 /* MypageFriendViewController.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
@@ -1535,11 +1580,13 @@
 				23858E5C292B6E6B00707572 /* TermsView.swift in Sources */,
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
 				57C481DB296ABCD0008731D9 /* GoalRepository.swift in Sources */,
+				57397FB7296E77920088B5F4 /* RecordRegisterContentViewModel.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
 				57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */,
 				57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */,
+				57397FBC296E77DE0088B5F4 /* CreateRecordUseCase.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
@@ -1565,7 +1612,7 @@
 				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
-				57C481E7296ABE7C008731D9 /* GoalRequestManager.swift in Sources */,
+				57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
@@ -1593,6 +1640,7 @@
 				23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
+				57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
 				57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */,
