@@ -43,9 +43,6 @@ class RecordRegisterContentViewController: BaseViewController {
         
         mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
-        
-        mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
-        mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
     }
     
     override func bind(){
@@ -63,10 +60,23 @@ class RecordRegisterContentViewController: BaseViewController {
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
+        mainView.goalField.rx.tapGesture()
+            .when(.recognized)
+            .bind{ _ in
+                self.categorySheetWillShow()
+            }
+        
+        mainView.dateField.rx.tapGesture()
+            .when(.recognized)
+            .bind{ _ in
+                self.calendarSheetWillShow()
+            }
+        
         mainView.completeButton.rx.tap
             .bind{
                 self.completeButtonDidClicked()
             }.disposed(by: disposeBag)
+        
     }
     
     //MARK: - Helper
@@ -87,7 +97,7 @@ class RecordRegisterContentViewController: BaseViewController {
         self.view.endEditing(true)
     }
     
-    @objc private func calendarSheetWillShow(){
+    private func calendarSheetWillShow(){
         
         let sheet = CalendarSheetViewController()
         
@@ -102,18 +112,15 @@ class RecordRegisterContentViewController: BaseViewController {
         self.present(sheet, animated: true)
     }
     
-    @objc private func categorySheetWillShow(){
+    private func categorySheetWillShow(){
         
-        let sheet = CategorySelectSheetViewController()
+        let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
         
         sheet.categorySelectHandler = { title in
             self.recordInput.category = title
             self.mainView.goalField.infoTextField.text = title
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
-        
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true)
     }
     
     @objc private func completeButtonDidClicked(){

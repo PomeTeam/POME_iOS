@@ -10,18 +10,15 @@ import SnapKit
 
 class RecordRegisterEmotionSelectViewController: BaseViewController{
     
-    let mainView = RecordRegisterEmotionSelectView().then{
+    private let mainView = RecordRegisterEmotionSelectView().then{
         $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private let viewModel = RecordRegisterEmotionSelectViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    
+    //MARK: - Override
     
     override func style(){
-        
         super.style()
-        
         setEtcButton(title: "닫기")
     }
     
@@ -30,7 +27,6 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
@@ -46,6 +42,12 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
         mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
     }
+    
+    override func bind(){
+        let input = RecordRegisterEmotionSelectViewModel.Input()
+    }
+    
+    //MARK: - Helper
     
     @objc func completeButtonDidClicked(){
         
