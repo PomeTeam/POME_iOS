@@ -25,7 +25,6 @@ class GoalContentViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
@@ -38,10 +37,6 @@ class GoalContentViewController: BaseViewController {
         super.initialize()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardWillDisappear)))
-        
-        etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
-        mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
-        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
         mainView.categoryField.infoTextField.delegate = self
         mainView.promiseField.infoTextField.delegate = self
@@ -59,9 +54,28 @@ class GoalContentViewController: BaseViewController {
         output.canMoveNext
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
+        
+        mainView.completeButton.rx.tap
+            .bind{
+                self.completeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.goalMakePublicSwitch.rx.isOn
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { value in
+                self.mainView.changeGoalMakePublicViewStatus(with: value)
+            })
+            .disposed(by: disposeBag)
+        
+        etcButton.rx.tap
+            .bind{
+                self.closeButtonDidClicked()
+            }.disposed(by: disposeBag)
     }
     
-    override func backBtnDidClicked() {
+    //MARK: - Helper
+    
+    private func closeButtonDidClicked(){
         let dialog = ImagePopUpViewController(Image.penMint,
                                               "작성을 그만 두시겠어요?",
                                               "지금까지 작성한 내용은 모두 사라져요",
@@ -71,13 +85,7 @@ class GoalContentViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
-    //MARK: - Action
-    
-    @objc func publicSwitchBackgroundColorWillChange(_ sender: UISwitch){
-        mainView.goalMakePublicView.backgroundColor = sender.isOn ? Color.pink10 : Color.grey1
-    }
-    
-    @objc func completeButtonDidClicked(){
+    private func completeButtonDidClicked(){
         let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -86,6 +94,8 @@ class GoalContentViewController: BaseViewController {
         self.view.endEditing(true)
     }
 }
+
+//MARK: - UITextFieldDelegate
 
 extension GoalContentViewController: UITextFieldDelegate{
     

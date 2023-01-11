@@ -50,13 +50,9 @@ class GoalContentView: BaseView {
     lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
         $0.isActivate(false)
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func changeGoalMakePublicViewStatus(with: Bool){
+        goalMakePublicView.backgroundColor =  with ? Color.pink10 : Color.grey1
     }
     
     override func hierarchy() {
@@ -119,6 +115,5 @@ class GoalContentView: BaseView {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(52)
         }
-        
     }
 }
