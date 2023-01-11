@@ -38,12 +38,12 @@ class GoalContentViewController: BaseViewController {
         super.initialize()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(keyboardWillDisappear)))
-        mainView.categoryField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categoryBottomSheetWillShow)))
         
         etcButton.addTarget(self, action: #selector(backBtnDidClicked), for: .touchUpInside)
         mainView.goalMakePublicSwitch.addTarget(self, action: #selector(publicSwitchBackgroundColorWillChange), for: .valueChanged)
         mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
+        mainView.categoryField.infoTextField.delegate = self
         mainView.promiseField.infoTextField.delegate = self
         mainView.priceField.infoTextField.delegate = self
     }
@@ -72,14 +72,6 @@ class GoalContentViewController: BaseViewController {
     }
     
     //MARK: - Action
-    
-    @objc func categoryBottomSheetWillShow(){
-        let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
-        sheet.categorySelectHandler = { category in
-            self.mainView.categoryField.infoTextField.text = category
-            self.mainView.categoryField.infoTextField.sendActions(for: .valueChanged)
-        }
-    }
     
     @objc func publicSwitchBackgroundColorWillChange(_ sender: UISwitch){
         mainView.goalMakePublicView.backgroundColor = sender.isOn ? Color.pink10 : Color.grey1
