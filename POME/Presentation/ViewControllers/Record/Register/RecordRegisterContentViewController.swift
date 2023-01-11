@@ -6,29 +6,16 @@
 //
 
 import UIKit
+import RxSwift
 
 class RecordRegisterContentViewController: BaseViewController {
     
-    private var consumeCategoryInput: String = ""{
-        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
-    }
-    private var consumeDateInput: String = PomeDateFormatter.getTodayDate(){
-        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
-    }
-    private var consumePriceInput: String = ""{
-        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
-    }
-    private var consumeDetailInput: String = ""{
-        didSet { checkCompleteButtoShouldActivatenAndChangeState() }
-    }
+    private var recordInput = RecordRegisterRequestManager.shared
     
     private let mainView = RecordRegisterContentView()
+    private let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
 
-    //MARK: - LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    //MARK: - Override
     
     override func viewWillAppear(_ animated: Bool) {
         addKeyboardNotifications()
@@ -43,7 +30,6 @@ class RecordRegisterContentViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
@@ -58,10 +44,29 @@ class RecordRegisterContentViewController: BaseViewController {
         mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
         
-        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-        
         mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
         mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
+    }
+    
+    override func bind(){
+        
+        let input = RecordRegisterContentViewModel.Input(cateogrySelect: mainView.goalField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                         consumeDateSelect: mainView.dateField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                         priceTextField: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                         detailTextView: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable(),
+                                                         detailTextViewplaceholder: mainView.contentTextView.recordTextView.placeholder,
+                                                         nextButtonControlEvent: mainView.completeButton.rx.tap)
+        
+        let output = viewModel.transform(input: input)
+        
+        output.canMoveNext
+            .drive(mainView.completeButton.rx.isActivate)
+            .disposed(by: disposeBag)
+        
+        mainView.completeButton.rx.tap
+            .bind{
+                self.completeButtonDidClicked()
+            }.disposed(by: disposeBag)
     }
     
     //MARK: - Helper
@@ -76,16 +81,6 @@ class RecordRegisterContentViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func checkCompleteButtoShouldActivatenAndChangeState(){
-        
-        if(consumeCategoryInput.isEmpty || consumePriceInput.isEmpty || consumeDetailInput.isEmpty){
-            mainView.completeButton.isActivate(false)
-            return
-        }
-        
-        mainView.completeButton.isActivate(true)
-    }
-    
     //MARK: - Action
     
     @objc private func viewDidTapped(){
@@ -97,8 +92,10 @@ class RecordRegisterContentViewController: BaseViewController {
         let sheet = CalendarSheetViewController()
         
         sheet.completion = { date in
-            self.consumeDateInput = PomeDateFormatter.getDateString(date)
             self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
+            self.mainView.dateField.infoTextField.sendActions(for: .valueChanged)
+            
+            self.recordInput.consumeDate = PomeDateFormatter.getDateString(date)
         }
         
         sheet.loadViewIfNeeded()
@@ -110,8 +107,9 @@ class RecordRegisterContentViewController: BaseViewController {
         let sheet = CategorySelectSheetViewController()
         
         sheet.categorySelectHandler = { title in
-            self.consumeCategoryInput = title
+            self.recordInput.category = title
             self.mainView.goalField.infoTextField.text = title
+            self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
         
         sheet.loadViewIfNeeded()
@@ -167,11 +165,11 @@ extension RecordRegisterContentViewController: UITextFieldDelegate{
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+
         guard let text = textField.text else { return }
-        
+
         if(textField == mainView.priceField.infoTextField){
-            consumePriceInput = text
+            recordInput.price = text
         }
     }
 }
@@ -197,7 +195,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
             contentView.setTextViewTextEmptyMode()
         }
         
-        consumeDetailInput = text
+        recordInput.detail = text
     }
     
     func textViewDidChange(_ textView: UITextView){

@@ -11,10 +11,11 @@ target 'POME' do
 
   pod 'Then'
 
-  pod 'Alamofire'
+  pod 'Moya', '~> 15.0'
 
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod "RxGesture"
 
   pod 'KakaoSDKCommon'  # 필수 요소를 담은 공통 모듈
   pod 'KakaoSDKAuth'  # 사용자 인증
