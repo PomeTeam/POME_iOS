@@ -8,18 +8,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class GoalDateViewController: BaseViewController {
     
-    let mainView = GoalDateView()
+    private let mainView = GoalDateView()
     private let viewModel = GoalDateRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
-    
-    //MARK: - LifeCycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     //MARK: - Override
     
     override func layout() {
@@ -34,14 +29,6 @@ class GoalDateViewController: BaseViewController {
         }
     }
     
-    override func initialize(){
-        
-        mainView.completButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-
-        mainView.startDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
-        mainView.endDateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
-    }
-    
     override func bind(){
         let input = GoalDateRegisterViewModel.Input(startDateTextField:
                                                         mainView.startDateField.infoTextField.rx.text.orEmpty.asObservable(),
@@ -54,6 +41,24 @@ class GoalDateViewController: BaseViewController {
         output.canMoveNext
             .drive(mainView.completButton.rx.isActivate)
             .disposed(by: disposeBag)
+        
+        mainView.completButton.rx.tap
+            .bind{
+                self.completeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.startDateField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { sender in
+                self.calendarSheetWillShow(sender)
+            }).disposed(by: disposeBag)
+        
+        
+        mainView.endDateField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { sender in
+                self.calendarSheetWillShow(sender)
+            }).disposed(by: disposeBag)
     }
     
     //MARK: - Action
@@ -68,7 +73,7 @@ class GoalDateViewController: BaseViewController {
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
+    private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
         
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
@@ -79,7 +84,7 @@ class GoalDateViewController: BaseViewController {
         }
     }
     
-    @objc func completeButtonDidClicked(){
+    private func completeButtonDidClicked(){
         let vc = GoalContentViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
