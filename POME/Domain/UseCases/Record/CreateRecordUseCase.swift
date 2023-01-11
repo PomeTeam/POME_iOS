@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+protocol CreateRecordUseCase{
+    func createRecord()
+}
+
+class DefaultCreateRecordUseCase: CreateRecordUseCase{
+    
+//    private let repository: DefaultCreateRecordRepository
+    
+//    init(repository: DefaultGoalRepository){
+//        self.repository = repository
+//    }
+    
+    func createRecord() {
+        
+    }
+}
