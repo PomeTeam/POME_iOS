@@ -20,7 +20,7 @@ class ReviewViewController: BaseTabViewController {
     
     var goalCategoryList: [String] = ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
     
-    var consumeList = [String?](repeating: nil, count: 10){
+    var consumeList = [Reaction?](repeating: nil, count: 10){
         didSet{
             mainView.consumeTableView.reloadData()
         }
@@ -79,6 +79,11 @@ class ReviewViewController: BaseTabViewController {
         mainView.consumeTableView.separatorStyle = .none
         mainView.consumeTableView.delegate = self
         mainView.consumeTableView.dataSource = self
+    }
+    
+    override func topBtnDidClicked() {
+        let vc = NotificationViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -151,6 +156,13 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ConsumeReviewTableViewCell.cellIdentifier, for: indexPath) as? ConsumeReviewTableViewCell else { return UITableViewCell() }
         cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
         cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
+        
+        if let reaction = consumeList[indexPath.row] {
+            cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+        }
+        cell.mainView.setOthersReaction(count: indexPath.row)
+//        cell.delegate = self
+        
         return cell
     }
     
@@ -159,6 +171,4 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         let vc = ReviewDetailViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
 }
