@@ -33,7 +33,8 @@ class FriendSearchViewController: BaseViewController {
         
         self.view.addSubview(friendSearchView)
         friendSearchView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             make.top.equalTo(super.navigationView.snp.bottom)
         }
         

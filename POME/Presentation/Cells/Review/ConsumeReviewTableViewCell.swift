@@ -20,18 +20,9 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     let mainView = ReviewDetailView().then{
         $0.memoLabel.numberOfLines = 2
     }
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func setting(){
         super.setting()
-        
         self.selectedBackgroundView = UIView()
     }
     

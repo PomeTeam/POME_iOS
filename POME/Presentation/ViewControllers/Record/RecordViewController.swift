@@ -42,14 +42,25 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
+        //TODO: 소비 기록 등록/소비 등록 제한 코드 분리
+        let vc = RecordRegisterContentViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        /*
         let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
+         */
     }
     @objc func cannotAddGoalButtonDidTap() {
+        //TODO: 목표 등록/개수 제한 팝업 코드 분리
+        let vc = GoalDateViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+       
+        /*
         let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
+         */
     }
     func cannotAddEmotionDidTap() {
         let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!")
@@ -59,9 +70,11 @@ class RecordViewController: BaseTabViewController {
     @objc func alertGoalMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(Image.trashGreen, "목표를 삭제하시겠어요?", "해당 목표에서 작성한 기록도 모두 삭제돼요", "삭제할게요", "아니요")
-            dialog.modalPresentationStyle = .overFullScreen
-            self.present(dialog, animated: false, completion: nil)
+            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
+                                                  titleText: "목표를 삭제하시겠어요?",
+                                                  messageText: "해당 목표에서 작성한 기록도 모두 삭제돼요",
+                                                  greenBtnText: "삭제할게요",
+                                                  grayBtnText: "아니요").show(in: self)
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -76,9 +89,11 @@ class RecordViewController: BaseTabViewController {
             print("click modify")
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(Image.trashGreen, "기록을 삭제하시겠어요?", "삭제한 내용은 다시 되돌릴 수 없어요", "삭제할게요", "아니요")
-            dialog.modalPresentationStyle = .overFullScreen
-            self.present(dialog, animated: false, completion: nil)
+            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
+                                                  titleText: "기록을 삭제하시겠어요?",
+                                                  messageText: "삭제한 내용은 다시 되돌릴 수 없어요",
+                                                  greenBtnText: "삭제할게요",
+                                                  grayBtnText: "아니요").show(in: self)
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -89,7 +104,9 @@ class RecordViewController: BaseTabViewController {
         self.present(alert, animated: true)
     }
     func showGoalFinishWarning() {
-        let sheet = RecordBottomSheetViewController(Image.penPink, "아직 돌아보지 않은 기록이 있어요!", "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
+        let sheet = RecordBottomSheetViewController(Image.penPink,
+                                                    "아직 돌아보지 않은 기록이 있어요!",
+                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }

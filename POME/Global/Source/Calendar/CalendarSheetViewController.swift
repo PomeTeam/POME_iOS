@@ -31,10 +31,11 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
+    var possibleDateRange: (CalendarSelectDate, CalendarSelectDate)!
     var selectDate: CalendarSelectDate!
     var completion: ((CalendarSelectDate) -> ())!
     
-    private var calendar = Calendar.current
+    var calendar = Calendar.current
     
     private var calendarDate: Date!{
         didSet{
@@ -188,5 +189,26 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
         cell.changeViewAttributesByState(.normal)
+    }
+}
+
+class EndDateCalendarSheetViewController: CalendarSheetViewController{
+    
+    private let startDate: String!
+    private var possibleEndDate: CalendarSelectDate!
+    
+    init(with startDate: String?){
+        self.startDate = startDate
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func caculatePossibleDuration(){
+//        let calendar = Calendar
+        let start = PomeDateFormatter.getDateType(from: startDate)
+//        let endDate = calendar.date(byAdding: .date, value: 30, to: start)
     }
 }

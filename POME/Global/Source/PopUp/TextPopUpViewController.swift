@@ -27,9 +27,9 @@ class TextPopUpViewController: UIViewController {
     var cancelBtn: UIButton!
     var okBtn: UIButton!
     // MARK: - Life Cycles
-    convenience init(_ titleText: String? = nil,
-                     _ greenBtnText: String? = nil,
-                     _ grayBtnText: String? = nil) {
+    convenience init(titleText: String? = nil,
+                     greenBtnText: String? = nil,
+                     grayBtnText: String? = nil) {
         self.init()
 
         self.titleText = titleText

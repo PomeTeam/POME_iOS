@@ -10,6 +10,8 @@ import UIKit
 // Default 팝업창
 class ImagePopUpViewController: UIViewController {
     // MARK: - Properties
+    var completion: (() -> ())!
+    
     private var imageValue: UIImage?
     private var titleText: String?
     private var messageText: String?
@@ -37,11 +39,11 @@ class ImagePopUpViewController: UIViewController {
     var cancelBtn: UIButton!
     var okBtn: UIButton!
     // MARK: - Life Cycles
-    convenience init(_ imageValue: UIImage? = nil,
-                     _ titleText: String? = nil,
-                     _ messageText: String? = nil,
-                     _ greenBtnText: String? = nil,
-                     _ grayBtnText: String? = nil) {
+    convenience init(imageValue: UIImage? = nil,
+                     titleText: String? = nil,
+                     messageText: String? = nil,
+                     greenBtnText: String? = nil,
+                     grayBtnText: String? = nil) {
         self.init()
 
         self.imageValue = imageValue
@@ -49,16 +51,26 @@ class ImagePopUpViewController: UIViewController {
         self.messageText = messageText
         self.greenBtnText = greenBtnText
         self.grayBtnText = grayBtnText
+    }
+    
+    func show(in viewController: UIViewController) -> ImagePopUpViewController{
+        self.modalPresentationStyle = .overFullScreen
+        viewController.present(self, animated: false, completion: nil)
+        return self
+    }
+    
+    //MARK: - Override
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = Color.popUpBackground
         
         setUpContent()
         setUpView()
         setUpConstraint()
-    }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = Color.popUpBackground
-
+        
         cancelBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
+        okBtn.addTarget(self, action: #selector(completeButtonDidCicked), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,12 +91,16 @@ class ImagePopUpViewController: UIViewController {
             self?.popupView.isHidden = true
         }
     }
+    
     // MARK: - Actions
     @objc func goBack() {
         self.dismiss(animated: false)
     }
+    @objc func completeButtonDidCicked(){
+        self.dismiss(animated: false, completion: self.completion)
+    }
     // MARK: - Functions
-    func setUpContent() {
+    private func setUpContent() {
         popupImage.image = self.imageValue
         titleLabel.text = self.titleText
         titleLabel.setTypoStyleWithSingleLine(typoStyle: .title3)
@@ -97,7 +113,7 @@ class ImagePopUpViewController: UIViewController {
         cancelBtn = DefaultButton(titleStr: self.grayBtnText ?? "", typo: .title3, backgroundColor: Color.grey1, titleColor: Color.grey5)
         okBtn = DefaultButton(titleStr: self.greenBtnText ?? "")
     }
-    func setUpView() {
+    private func setUpView() {
         self.view.addSubview(popupView)
         
         popupView.addSubview(popupImage)
@@ -106,7 +122,7 @@ class ImagePopUpViewController: UIViewController {
         popupView.addSubview(cancelBtn)
         popupView.addSubview(okBtn)
     }
-    func setUpConstraint() {
+    private func setUpConstraint() {
         popupView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.greaterThanOrEqualTo(148)

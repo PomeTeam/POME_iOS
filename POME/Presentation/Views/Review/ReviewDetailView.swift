@@ -14,18 +14,14 @@ class ReviewDetailView: BaseView {
         $0.spacing = 2
         $0.axis = .horizontal
     }
-    
     var firstEmotionTag = EmotionTagView()
-    
     var secondEmotionTag = EmotionTagView()
     
     let tagArrowBackgroundView = UIView()
-    
     let tagArrowImage = UIImageView().then{
         $0.image = Image.tagArrow
     }
     
-    //
     let priceLabel = UILabel().then{
         $0.text = "320,800원"
         $0.textColor = Color.title
@@ -37,55 +33,37 @@ class ReviewDetailView: BaseView {
         $0.setTypoStyleWithMultiLine(typoStyle: .body2)
         $0.numberOfLines = 0
     }
-    
-    //
-    
+
     let etcStackView = UIStackView().then{
         $0.spacing = 2
         $0.axis = .horizontal
     }
-    
     let tagLabel = PaddingLabel().then{
         $0.text = "커피 대신 물을 마시자"
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
-    
     let timeLabel = UILabel().then{
         $0.text = "· 44분 전"
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
     
-    //
     let reactionStackView = UIStackView().then{
         $0.spacing = -6
         $0.axis = .horizontal
     }
-    
     lazy var myReactionBtn = UIButton().then{
         $0.setImage(Image.emojiAdd, for: .normal)
     }
-    
     lazy var othersReactionButton = UIButton()
-    
     lazy var othersReactionCountLabel = UILabel().then{
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textColor = .white
         $0.isUserInteractionEnabled = false
     }
-    
     lazy var moreButton = UIButton().then{
         $0.setImage(Image.moreHorizontal, for: .normal)
-    }
-    
-    //MARK: - LifeCycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func hierarchy() {
@@ -181,5 +159,36 @@ class ReviewDetailView: BaseView {
             $0.width.equalTo(23)
             $0.height.equalTo(22)
         }
+    }
+    
+    func setOthersReaction(count: Int){
+        
+        if(count == 0){
+            //TODO: 0개일 때 어떤 이모지 사용...?
+            othersReactionButton.setImage(Image.emojiAdd, for: .normal)
+            return
+        }else if(count == 1){
+            othersReactionButton.setImage(Image.emojiHappy, for: .normal)
+            return
+        }
+        
+        //count > 1인 경우 아래 코드 실행
+        self.othersReactionButton.addSubview(othersReactionCountLabel)
+
+        othersReactionCountLabel.snp.makeConstraints{
+            $0.leading.top.equalToSuperview().offset(6)
+            $0.centerX.centerY.equalToSuperview()
+        }
+        
+        let countString: String!
+        
+        if(count < 10){
+            countString = "+\(count)"
+        }else{
+            countString = "9+"
+        }
+        
+        othersReactionCountLabel.text = countString
+        othersReactionButton.setImage(Image.emojiBlurHappy, for: .normal)
     }
 }

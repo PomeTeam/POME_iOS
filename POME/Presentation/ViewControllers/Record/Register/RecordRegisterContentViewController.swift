@@ -38,14 +38,8 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     override func initialize() {
-        
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
-        
         mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
-        
-        mainView.goalField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(categorySheetWillShow)))
-        mainView.dateField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(calendarSheetWillShow)))
     }
     
     override func bind(){
@@ -63,10 +57,29 @@ class RecordRegisterContentViewController: BaseViewController {
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
+        self.view.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { _ in
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        mainView.goalField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { _ in
+                self.categorySheetWillShow()
+            }).disposed(by: disposeBag)
+        
+        mainView.dateField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { _ in
+                self.calendarSheetWillShow()
+            }).disposed(by: disposeBag)
+        
         mainView.completeButton.rx.tap
             .bind{
                 self.completeButtonDidClicked()
             }.disposed(by: disposeBag)
+        
     }
     
     //MARK: - Helper
@@ -83,13 +96,9 @@ class RecordRegisterContentViewController: BaseViewController {
     
     //MARK: - Action
     
-    @objc private func viewDidTapped(){
-        self.view.endEditing(true)
-    }
-    
-    @objc private func calendarSheetWillShow(){
+    private func calendarSheetWillShow(){
         
-        let sheet = CalendarSheetViewController()
+        let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
         
         sheet.completion = { date in
             self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
@@ -97,23 +106,17 @@ class RecordRegisterContentViewController: BaseViewController {
             
             self.recordInput.consumeDate = PomeDateFormatter.getDateString(date)
         }
-        
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true)
     }
     
-    @objc private func categorySheetWillShow(){
+    private func categorySheetWillShow(){
         
-        let sheet = CategorySelectSheetViewController()
+        let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
         
         sheet.categorySelectHandler = { title in
             self.recordInput.category = title
             self.mainView.goalField.infoTextField.text = title
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
-        
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true)
     }
     
     @objc private func completeButtonDidClicked(){
@@ -127,13 +130,14 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     override func backBtnDidClicked(){
-        let dialog = ImagePopUpViewController(Image.penMint,
-                                              "작성을 그만 두시겠어요?",
-                                              "지금까지 작성한 내용은 모두 사라져요",
-                                              "이어서 쓸래요",
-                                              "그만 둘래요")
-        dialog.modalPresentationStyle = .overFullScreen
-        self.present(dialog, animated: false, completion: nil)
+        let dialog = ImagePopUpViewController(imageValue: Image.penMint,
+                                              titleText: "작성을 그만 두시겠어요?",
+                                              messageText: "지금까지 작성한 내용은 모두 사라져요",
+                                              greenBtnText: "그만 둘래요",
+                                              grayBtnText: "이어서 쓸래요").show(in: self)
+        dialog.completion = {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     @objc private func keyboardWillAppear(noti: NSNotification) {

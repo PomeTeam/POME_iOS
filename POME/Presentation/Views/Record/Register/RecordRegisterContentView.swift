@@ -9,12 +9,11 @@ import UIKit
 
 struct PomeDateFormatter{
     
+    static let formatter = DateFormatter().then{
+        $0.dateFormat = "yyyy.MM.dd"
+    }
+    
     static func getTodayDate() -> String{
-        
-        let formatter = DateFormatter().then{
-            $0.dateFormat = "yyyy.MM.dd"
-        }
-        
         return formatter.string(from: Date())
     }
     
@@ -24,6 +23,10 @@ struct PomeDateFormatter{
     
     static private func convertIntToFormatterString(_ int: Int) -> String{
         int < 10 ? "0\(int)" : String(int)
+    }
+    
+    static func getDateType(from: String){
+        formatter.date(from: from)
     }
 }
 

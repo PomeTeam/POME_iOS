@@ -49,9 +49,11 @@ class MypageFriendViewController: BaseViewController {
         }
     }
     @objc func showDeleteFriendDialog() {
-        let dialog = ImagePopUpViewController(Image.trashPink, "친구를 삭제하시겠어요?", "친구의 씀씀이를 더 이상 볼 수 없어요", "삭제할게요", "아니요")
-        dialog.modalPresentationStyle = .overFullScreen
-        self.present(dialog, animated: false, completion: nil)
+        let dialog = ImagePopUpViewController(imageValue: Image.trashPink,
+                                              titleText: "친구를 삭제하시겠어요?",
+                                              messageText: "친구의 씀씀이를 더 이상 볼 수 없어요",
+                                              greenBtnText: "삭제할게요",
+                                              grayBtnText: "아니요").show(in: self)
     }
 }
 // MARK: - TableView delegate

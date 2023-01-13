@@ -58,7 +58,7 @@ class SettingViewController: BaseViewController {
         }
     }
     func showLogoutDialog() {
-        let dialog = TextPopUpViewController("로그아웃 하시겠어요?", "네", "아니요")
+        let dialog = TextPopUpViewController(titleText: "로그아웃 하시겠어요?", greenBtnText: "네", grayBtnText: "아니요")
         dialog.modalPresentationStyle = .overFullScreen
         self.present(dialog, animated: false, completion: nil)
         

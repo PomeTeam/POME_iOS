@@ -7,21 +7,18 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class RecordRegisterEmotionSelectViewController: BaseViewController{
     
-    let mainView = RecordRegisterEmotionSelectView().then{
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private let mainView = RecordRegisterEmotionSelectView()
+    private let viewModel = RecordRegisterEmotionSelectViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    
+    //MARK: - Override
     
     override func style(){
-        
         super.style()
-        
         setEtcButton(title: "닫기")
     }
     
@@ -30,7 +27,6 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.equalToSuperview()
@@ -38,14 +34,49 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         }
     }
     
-    override func initialize(){
+    override func bind(){
         
-        etcButton.addTarget(self, action: #selector(closeButtonDidClicked), for: .touchUpInside)
+        let input = RecordRegisterEmotionSelectViewModel.Input(happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
+                                                               whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
+                                                               sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
+                                                               completeButtonActiveStatus: mainView.completeButton.rx.tap)
         
-        mainView.happyEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
-        mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
-        mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
+//        let output = viewModel.transform(input: input)
+//
+//        output.canMoveNext
+//            .drive(mainView.completeButton.isActivate)
+//            .disposed(by: disposeBag)
+        
+        etcButton.rx.tap
+            .bind{
+                self.closeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.completeButton.rx.tap
+            .bind{
+                self.completeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.happyEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
+        
+        mainView.sadEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
+        
+        mainView.whatEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
     }
+    
+    //MARK: - Helper
     
     @objc func completeButtonDidClicked(){
         
@@ -59,17 +90,22 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func closeButtonDidClicked(){
-        let dialog = ImagePopUpViewController(Image.penMint,
-                                              "작성을 그만 두시겠어요?",
-                                              "지금까지 작성한 내용은 모두 사라져요",
-                                              "이어서 쓸래요",
-                                              "그만 둘래요")
-        dialog.modalPresentationStyle = .overFullScreen
-        self.present(dialog, animated: false, completion: nil)
+    func closeButtonDidClicked(){
+        let dialog = ImagePopUpViewController(imageValue: Image.penMint,
+                                              titleText: "작성을 그만 두시겠어요?",
+                                              messageText: "지금까지 작성한 내용은 모두 사라져요",
+                                              greenBtnText: "그만 둘래요",
+                                              grayBtnText: "이어서 쓸래요").show(in: self)
+        dialog.completion = {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
-    @objc func emotionViewDidClicked(_ sender: UITapGestureRecognizer){
+    private func emotionViewDidClicked(_ sender: UITapGestureRecognizer){
+        
+        if(!mainView.completeButton.isActivate){
+            mainView.completeButton.isActivate = true
+        }
         
         guard let selectEmotion = sender.view as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
         
