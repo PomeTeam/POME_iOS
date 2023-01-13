@@ -33,12 +33,6 @@ class ReviewViewController: BaseTabViewController {
     }
     
     var emptyView: ReviewEmptyView!
-
-    //MARK: - LifeCycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
     
     //MARK: - Method
     
@@ -57,8 +51,7 @@ class ReviewViewController: BaseTabViewController {
             filterView.setFilterSelectState(emotion: emotion)
         }
         
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
+        _ = sheet.loadAndShowBottomSheet(in: self)
     }
     
     @objc func reloadingButtonDidClicked(){
@@ -68,16 +61,11 @@ class ReviewViewController: BaseTabViewController {
     
     //MARK: - Override
     
-    override func style(){
-        super.style()
-    }
-    
     override func layout(){
         
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -118,7 +106,6 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let testLabel = UILabel().then{
-            
             $0.text = goalCategoryList.isEmpty ? "···" : goalCategoryList[indexPath.row]
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         }
@@ -133,7 +120,6 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if(selectedGoalCategory == 0 && indexPath.row != 0){
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalCategoryCollectionViewCell else { return }
             cell.setUnselectState()
-            return
         }
         cell.setSelectState()
     }
