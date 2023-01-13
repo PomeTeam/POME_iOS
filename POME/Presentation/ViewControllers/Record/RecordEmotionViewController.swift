@@ -42,7 +42,11 @@ class RecordEmotionViewController: BaseViewController {
             print("click modify")
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(Image.trashGreen, "기록을 삭제하시겠어요?", "삭제한 내용은 다시 되돌릴 수 없어요", "삭제할게요", "아니요")
+            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
+                                                  titleText: "기록을 삭제하시겠어요?",
+                                                  messageText: "삭제한 내용은 다시 되돌릴 수 없어요",
+                                                  greenBtnText: "삭제할게요",
+                                                  grayBtnText: "아니요")
             dialog.modalPresentationStyle = .overFullScreen
             self.present(dialog, animated: false, completion: nil)
         }

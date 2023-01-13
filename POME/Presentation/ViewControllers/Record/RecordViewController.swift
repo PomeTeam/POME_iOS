@@ -70,7 +70,11 @@ class RecordViewController: BaseTabViewController {
     @objc func alertGoalMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(Image.trashGreen, "목표를 삭제하시겠어요?", "해당 목표에서 작성한 기록도 모두 삭제돼요", "삭제할게요", "아니요")
+            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
+                                                  titleText: "목표를 삭제하시겠어요?",
+                                                  messageText: "해당 목표에서 작성한 기록도 모두 삭제돼요",
+                                                  greenBtnText: "삭제할게요",
+                                                  grayBtnText: "아니요")
             dialog.modalPresentationStyle = .overFullScreen
             self.present(dialog, animated: false, completion: nil)
         }
@@ -87,7 +91,11 @@ class RecordViewController: BaseTabViewController {
             print("click modify")
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(Image.trashGreen, "기록을 삭제하시겠어요?", "삭제한 내용은 다시 되돌릴 수 없어요", "삭제할게요", "아니요")
+            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
+                                                  titleText: "기록을 삭제하시겠어요?",
+                                                  messageText: "삭제한 내용은 다시 되돌릴 수 없어요",
+                                                  greenBtnText: "삭제할게요",
+                                                  grayBtnText: "아니요")
             dialog.modalPresentationStyle = .overFullScreen
             self.present(dialog, animated: false, completion: nil)
         }
@@ -100,7 +108,9 @@ class RecordViewController: BaseTabViewController {
         self.present(alert, animated: true)
     }
     func showGoalFinishWarning() {
-        let sheet = RecordBottomSheetViewController(Image.penPink, "아직 돌아보지 않은 기록이 있어요!", "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
+        let sheet = RecordBottomSheetViewController(Image.penPink,
+                                                    "아직 돌아보지 않은 기록이 있어요!",
+                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
