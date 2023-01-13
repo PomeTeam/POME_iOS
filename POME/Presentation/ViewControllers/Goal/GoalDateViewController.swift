@@ -12,6 +12,8 @@ import RxGesture
 
 class GoalDateViewController: BaseViewController {
     
+    private var startDate: String!
+    
     private let mainView = GoalDateView()
     private let viewModel = GoalDateRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
 
@@ -77,9 +79,19 @@ class GoalDateViewController: BaseViewController {
         
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
+        /*
         let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
+        */
+        
+        let sheet: CalendarSheetViewController = sender == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
+        
+        _ = sheet.loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
-            dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
+            let dateString = PomeDateFormatter.getDateString(date)
+            if(sheet == self.mainView.startDateField){
+                self.startDate = dateString
+            }
+            dateField.infoTextField.text = dateString
             dateField.infoTextField.sendActions(for: .valueChanged)
         }
     }
