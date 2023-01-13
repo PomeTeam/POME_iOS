@@ -42,14 +42,18 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
+        //TODO: 소비 기록 등록/소비 등록 제한 코드 분리
+        let vc = RecordRegisterContentViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        /*
         let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
+         */
     }
     @objc func cannotAddGoalButtonDidTap() {
-        //목표 추가 vc 이동
+        //TODO: 목표 등록/개수 제한 팝업 코드 분리
         let vc = GoalDateViewController()
-//        self.tabBarController?.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(vc, animated: true)
        
         /*
