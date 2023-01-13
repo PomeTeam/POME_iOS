@@ -184,10 +184,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
         }
     }
-    
-    
-    
-    
 }
 
 //MARK: - TableView Delegate

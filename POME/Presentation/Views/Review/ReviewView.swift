@@ -284,6 +284,5 @@ extension ReviewView{
                 $0.width.height.equalTo(14)
             }
         }
-        
     }
 }
