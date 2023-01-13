@@ -51,11 +51,16 @@ class ImagePopUpViewController: UIViewController {
         self.messageText = messageText
         self.greenBtnText = greenBtnText
         self.grayBtnText = grayBtnText
-        
-        setUpContent()
-        setUpView()
-        setUpConstraint()
     }
+    
+    func show(in viewController: UIViewController) -> ImagePopUpViewController{
+        self.modalPresentationStyle = .overFullScreen
+        viewController.present(self, animated: false, completion: nil)
+        return self
+    }
+    
+    //MARK: - Override
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Color.popUpBackground

@@ -53,9 +53,7 @@ class MypageFriendViewController: BaseViewController {
                                               titleText: "친구를 삭제하시겠어요?",
                                               messageText: "친구의 씀씀이를 더 이상 볼 수 없어요",
                                               greenBtnText: "삭제할게요",
-                                              grayBtnText: "아니요")
-        dialog.modalPresentationStyle = .overFullScreen
-        self.present(dialog, animated: false, completion: nil)
+                                              grayBtnText: "아니요").show(in: self)
     }
 }
 // MARK: - TableView delegate

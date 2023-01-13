@@ -69,9 +69,7 @@ class CompletedGoalsViewController: BaseViewController {
                                                   titleText: "종료된 목표를 삭제할까요?",
                                                   messageText: "지금까지 작성된 기록들은 모두 사라져요",
                                                   greenBtnText: "삭제할게요",
-                                                  grayBtnText: "아니요")
-            dialog.modalPresentationStyle = .overFullScreen
-            self.present(dialog, animated: false, completion: nil)
+                                                  grayBtnText: "아니요").show(in: self)
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         

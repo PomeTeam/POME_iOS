@@ -69,10 +69,11 @@ class GoalDateViewController: BaseViewController {
         let dialog = ImagePopUpViewController(imageValue: Image.penMint,
                                               titleText: "작성을 그만 두시겠어요?",
                                               messageText: "지금까지 작성한 내용은 모두 사라져요",
-                                              greenBtnText: "이어서 쓸래요",
-                                              grayBtnText: "그만 둘래요")
-        dialog.modalPresentationStyle = .overFullScreen
-        self.present(dialog, animated: false, completion: nil)
+                                              greenBtnText: "그만 둘래요",
+                                              grayBtnText: "이어서 쓸래요").show(in: self)
+        dialog.completion = {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
