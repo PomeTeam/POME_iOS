@@ -48,8 +48,9 @@ class BaseViewController: UIViewController {
     */
     
     func style() {
-        self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     func layout() {

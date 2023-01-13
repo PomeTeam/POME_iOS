@@ -22,7 +22,9 @@ class RecordRegisterEmotionSelectView: BaseView {
     let whatEmotionView = FirstEmotionView.generateWithInfo(emotion: .what)
     let sadEmotionView = FirstEmotionView.generateWithInfo(emotion: .sad)
     
-    lazy var completeButton = DefaultButton(titleStr: "남겼어요")
+    lazy var completeButton = DefaultButton(titleStr: "남겼어요").then{
+        $0.isActivate = false
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

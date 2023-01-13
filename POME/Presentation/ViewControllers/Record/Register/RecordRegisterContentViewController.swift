@@ -38,9 +38,6 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     override func initialize() {
-        
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(viewDidTapped)))
-        
         mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
     }
@@ -60,17 +57,23 @@ class RecordRegisterContentViewController: BaseViewController {
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
+        self.view.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { _ in
+                self.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
         mainView.goalField.rx.tapGesture()
             .when(.recognized)
-            .bind{ _ in
+            .bind(onNext: { _ in
                 self.categorySheetWillShow()
-            }
+            }).disposed(by: disposeBag)
         
         mainView.dateField.rx.tapGesture()
             .when(.recognized)
-            .bind{ _ in
+            .bind(onNext: { _ in
                 self.calendarSheetWillShow()
-            }
+            }).disposed(by: disposeBag)
         
         mainView.completeButton.rx.tap
             .bind{
@@ -93,13 +96,9 @@ class RecordRegisterContentViewController: BaseViewController {
     
     //MARK: - Action
     
-    @objc private func viewDidTapped(){
-        self.view.endEditing(true)
-    }
-    
     private func calendarSheetWillShow(){
         
-        let sheet = CalendarSheetViewController()
+        let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
         
         sheet.completion = { date in
             self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
@@ -107,9 +106,6 @@ class RecordRegisterContentViewController: BaseViewController {
             
             self.recordInput.consumeDate = PomeDateFormatter.getDateString(date)
         }
-        
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true)
     }
     
     private func categorySheetWillShow(){

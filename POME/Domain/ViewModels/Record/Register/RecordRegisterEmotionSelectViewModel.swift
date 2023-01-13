@@ -8,17 +8,21 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class RecordRegisterEmotionSelectViewModel{
     
     private let createRecorUseCase: CreateRecordUseCase
     
     struct Input{
-//        let emotionSelect: Observable<>
+        let happyEmotionSelect: TapObservable
+        let whatEmotionSelect: TapObservable
+        let sadEmotionSelect: TapObservable
+        let completeButtonActiveStatus: ControlEvent<Void>
     }
     
     struct Output{
-        let canMoveNext: ControlEvent<Void>
+        let canMoveNext: Driver<Bool>
     }
     
     init(createRecordUseCase: CreateRecordUseCase){
@@ -26,9 +30,12 @@ class RecordRegisterEmotionSelectViewModel{
     }
     
 //    func transform(input: Input) -> Output{
-        
-//        let canMoveNext
-        
+//
+//        //TODO: 이모지 하나 tap 했을 때, 버튼 활성화 시키기
+//        let canMoveNext = input.happyEmotionSelect
+//            .map{
+//
+//            }
 //        return Output(canMoveNext: canMoveNext)
 //    }
     

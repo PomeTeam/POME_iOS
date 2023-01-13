@@ -7,12 +7,12 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 class RecordRegisterEmotionSelectViewController: BaseViewController{
     
-    private let mainView = RecordRegisterEmotionSelectView().then{
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-    }
+    private let mainView = RecordRegisterEmotionSelectView()
     private let viewModel = RecordRegisterEmotionSelectViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
     
     //MARK: - Override
@@ -34,17 +34,46 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         }
     }
     
-    override func initialize(){
-        
-        etcButton.addTarget(self, action: #selector(closeButtonDidClicked), for: .touchUpInside)
-        
-        mainView.happyEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
-        mainView.whatEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
-        mainView.sadEmotionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(emotionViewDidClicked(_:))))
-    }
-    
     override func bind(){
-        let input = RecordRegisterEmotionSelectViewModel.Input()
+        
+        let input = RecordRegisterEmotionSelectViewModel.Input(happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
+                                                               whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
+                                                               sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
+                                                               completeButtonActiveStatus: mainView.completeButton.rx.tap)
+        
+//        let output = viewModel.transform(input: input)
+//
+//        output.canMoveNext
+//            .drive(mainView.completeButton.isActivate)
+//            .disposed(by: disposeBag)
+        
+        etcButton.rx.tap
+            .bind{
+                self.closeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.completeButton.rx.tap
+            .bind{
+                self.completeButtonDidClicked()
+            }.disposed(by: disposeBag)
+        
+        mainView.happyEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
+        
+        mainView.sadEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
+        
+        mainView.whatEmotionView.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: {
+                self.emotionViewDidClicked($0)
+            }).disposed(by: disposeBag)
     }
     
     //MARK: - Helper
@@ -61,7 +90,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func closeButtonDidClicked(){
+    func closeButtonDidClicked(){
         let dialog = ImagePopUpViewController(Image.penMint,
                                               "작성을 그만 두시겠어요?",
                                               "지금까지 작성한 내용은 모두 사라져요",
@@ -71,7 +100,11 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         self.present(dialog, animated: false, completion: nil)
     }
     
-    @objc func emotionViewDidClicked(_ sender: UITapGestureRecognizer){
+    private func emotionViewDidClicked(_ sender: UITapGestureRecognizer){
+        
+        if(!mainView.completeButton.isActivate){
+            mainView.completeButton.isActivate = true
+        }
         
         guard let selectEmotion = sender.view as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
         

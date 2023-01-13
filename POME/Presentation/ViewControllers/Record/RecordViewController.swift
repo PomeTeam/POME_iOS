@@ -47,9 +47,16 @@ class RecordViewController: BaseTabViewController {
         self.present(sheet, animated: true, completion: nil)
     }
     @objc func cannotAddGoalButtonDidTap() {
+        //목표 추가 vc 이동
+        let vc = GoalDateViewController()
+//        self.tabBarController?.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(vc, animated: true)
+       
+        /*
         let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
+         */
     }
     func cannotAddEmotionDidTap() {
         let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!")

@@ -41,3 +41,4 @@ class GoalContentRegisterViewModel{
         return Output(canMoveNext: canMoveNext)
     }
 }
+
