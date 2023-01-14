@@ -48,11 +48,7 @@ class CommentViewController: BaseViewController {
         self.navigationController?.pushViewController(SubmitViewController(), animated: true)
     }
     @objc func notSubmitButtonDidTap() {
-        let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
-                                              titleText: "종료된 목표를 삭제할까요?",
-                                              messageText: "지금까지 작성된 기록들은 모두 사라져요",
-                                              greenBtnText: "삭제할게요",
-                                              grayBtnText: "아니요").show(in: self)
+        let dialog = ImageAlert.deleteEndGoal.generateAndShow(in: self)
     }
 }
 // MARK: - TextView delegate

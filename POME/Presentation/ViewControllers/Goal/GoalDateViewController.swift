@@ -66,11 +66,7 @@ class GoalDateViewController: BaseViewController {
     //MARK: - Action
     
     override func backBtnDidClicked() {
-        let dialog = ImagePopUpViewController(imageValue: Image.penMint,
-                                              titleText: "작성을 그만 두시겠어요?",
-                                              messageText: "지금까지 작성한 내용은 모두 사라져요",
-                                              greenBtnText: "그만 둘래요",
-                                              grayBtnText: "이어서 쓸래요").show(in: self)
+        let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
             self.navigationController?.popToRootViewController(animated: true)
         }
