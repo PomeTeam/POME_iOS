@@ -49,11 +49,7 @@ class MypageFriendViewController: BaseViewController {
         }
     }
     @objc func showDeleteFriendDialog() {
-        let dialog = ImagePopUpViewController(imageValue: Image.trashPink,
-                                              titleText: "친구를 삭제하시겠어요?",
-                                              messageText: "친구의 씀씀이를 더 이상 볼 수 없어요",
-                                              greenBtnText: "삭제할게요",
-                                              grayBtnText: "아니요").show(in: self)
+        let dialog = ImageAlert.deleteFriend.generateAndShow(in: self)
     }
 }
 // MARK: - TableView delegate

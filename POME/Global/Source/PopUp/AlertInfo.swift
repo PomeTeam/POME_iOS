@@ -25,13 +25,18 @@ extension ImageAlert{
         let greyButtonTitle: String
     }
 
-    func generateAndShow(in: UIViewController) -> ImagePopUpViewController{
+    func generateAndShow(in viewController: UIViewController) -> ImagePopUpViewController{
         
-        return ImagePopUpViewController(imageValue: self.image,
-                                        titleText: self.title,
-                                        messageText: self.message,
-                                        greenBtnText: self.greenButtonTitle,
-                                        grayBtnText: self.greyButtonTitle)
+        let popup = ImagePopUpViewController(imageValue: self.image,
+                                             titleText: self.title,
+                                             messageText: self.message,
+                                             greenBtnText: self.greenButtonTitle,
+                                             grayBtnText: self.greyButtonTitle)
+        
+        popup.modalPresentationStyle = .overFullScreen
+        viewController.present(popup, animated: false)
+        
+        return popup
     }
     
     private var description: ImageAlertDescription{

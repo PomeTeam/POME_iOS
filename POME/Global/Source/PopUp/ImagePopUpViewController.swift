@@ -39,24 +39,35 @@ class ImagePopUpViewController: UIViewController {
     var cancelBtn: UIButton!
     var okBtn: UIButton!
     // MARK: - Life Cycles
-    convenience init(imageValue: UIImage? = nil,
-                     titleText: String? = nil,
-                     messageText: String? = nil,
-                     greenBtnText: String? = nil,
-                     grayBtnText: String? = nil) {
-        self.init()
-
+//    convenience init(imageValue: UIImage? = nil,
+//                     titleText: String? = nil,
+//                     messageText: String? = nil,
+//                     greenBtnText: String? = nil,
+//                     grayBtnText: String? = nil) {
+//        self.init()
+//
+//        self.imageValue = imageValue
+//        self.titleText = titleText
+//        self.messageText = messageText
+//        self.greenBtnText = greenBtnText
+//        self.grayBtnText = grayBtnText
+//    }
+    
+    init(imageValue: UIImage,
+         titleText: String,
+         messageText: String,
+         greenBtnText: String,
+         grayBtnText: String){
         self.imageValue = imageValue
         self.titleText = titleText
         self.messageText = messageText
         self.greenBtnText = greenBtnText
         self.grayBtnText = grayBtnText
+        super.init(nibName: nil, bundle: nil)
     }
     
-    func show(in viewController: UIViewController) -> ImagePopUpViewController{
-        self.modalPresentationStyle = .overFullScreen
-        viewController.present(self, animated: false, completion: nil)
-        return self
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Override

@@ -52,11 +52,7 @@ class AllRecordsViewController: BaseViewController {
             print("click modify")
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
-                                                  titleText: "기록을 삭제하시겠어요?",
-                                                  messageText: "삭제한 내용은 다시 되돌릴 수 없어요",
-                                                  greenBtnText: "삭제할게요",
-                                                  grayBtnText: "아니요").show(in: self)
+            let dialog = ImageAlert.deleteRecord.generateAndShow(in: self)
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -69,11 +65,7 @@ class AllRecordsViewController: BaseViewController {
     @objc func alertGoalMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImagePopUpViewController(imageValue: Image.trashGreen,
-                                                  titleText: "목표를 삭제하시겠어요?",
-                                                  messageText: "해당 목표에서 작성한 기록도 모두 삭제돼요",
-                                                  greenBtnText: "삭제할게요",
-                                                  grayBtnText: "아니요").show(in: self)
+            let dialog = ImageAlert.deleteInProgressGoal.generateAndShow(in: self)
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
