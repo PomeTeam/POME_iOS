@@ -177,10 +177,6 @@ enum Image{
     //MARK: - Onboarding
     public static let splashImage = UIImage(named: "splash_image")
 
-    public static let apple = UIImage(named: "apple")
-
-    public static let kakao = UIImage(named: "kakao")
-
     public static let checkGreen = UIImage(named: "check_green")
 
     public static let checkGrey = UIImage(named: "check_grey")
