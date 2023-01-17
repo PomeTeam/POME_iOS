@@ -30,7 +30,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         layout()
         initialize()
     }
-
+    
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         
         let controller: UISheetPresentationController = .init(presentedViewController: presented, presenting: presenting)
@@ -38,7 +38,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         let constant = getDetentSize()
         
         let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: constant)//type.rawValue * Const.Device.HEIGHT / 812
-    
+        
         controller.detents = [detent]
         controller.preferredCornerRadius = 16
         controller.prefersGrabberVisible = false
@@ -74,5 +74,5 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         viewController.present(self, animated: true)
         return self
     }
-
+    
 }
