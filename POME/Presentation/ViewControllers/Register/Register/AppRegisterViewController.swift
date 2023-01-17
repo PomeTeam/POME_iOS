@@ -11,6 +11,8 @@ import RxCocoa
 
 class AppRegisterViewController: BaseViewController {
     var appRegisterView: AppRegisterView!
+    private let viewModel = AppRegisterViewModel()
+    
     var phone = BehaviorRelay(value: "")
     var code = BehaviorRelay(value: "")
     
@@ -40,8 +42,17 @@ class AppRegisterViewController: BaseViewController {
         appRegisterView.phoneTextField.delegate = self
         appRegisterView.codeTextField.delegate = self
         
-        initTextField()
         initButton()
+    }
+    override func bind() {
+        let input = AppRegisterViewModel.Input(phoneTextField: appRegisterView.phoneTextField.rx.text.orEmpty.asObservable(),
+                                               codeTextField: appRegisterView.codeTextField.rx.text.orEmpty.asObservable(),
+                                               nextButtonControlEvent: appRegisterView.nextButton.rx.tap)
+        let output = viewModel.transform(input: input)
+        
+        output.canMoveNext
+            .drive(appRegisterView.nextButton.rx.isActivate)
+            .disposed(by: disposeBag)
     }
     // MARK: - Functions
     func initButton() {
@@ -55,52 +66,6 @@ class AppRegisterViewController: BaseViewController {
                 self.navigationController?.pushViewController(TermsViewController(), animated: true)
             }
             .disposed(by: disposeBag)
-    }
-    func initTextField() {
-        
-        self.appRegisterView.phoneTextField.rx.text.orEmpty
-                    .distinctUntilChanged()
-                    .bind(to: self.phone)
-                    .disposed(by: disposeBag)
-        
-        self.appRegisterView.codeTextField.rx.text.orEmpty
-                    .distinctUntilChanged()
-                    .bind(to: self.code)
-                    .disposed(by: disposeBag)
-        
-        initProperties()
-    }
-    func initProperties() {
-        
-        self.phone.skip(1).distinctUntilChanged()
-            .subscribe( onNext: { newValue in
-                self.isValidPhone = self.isValidPhone(newValue)
-                self.isValidContent()
-            })
-            .disposed(by: disposeBag)
-        
-        self.code.skip(1).distinctUntilChanged()
-            .subscribe( onNext: { newValue in
-                self.isValidCode = self.isValidCode(newValue)
-                self.isValidContent()
-            })
-            .disposed(by: disposeBag)
-    }
-    func isValidPhone(_ phone: String) -> Bool {
-        let pattern = "^01([0-9])([0-9]{3,4})([0-9]{4})$"
-        let regex = try? NSRegularExpression(pattern: pattern)
-        if let _ = regex?.firstMatch(in: phone, options: [], range: NSRange(location: 0, length: phone.count)) {
-            return true
-        } else {
-            return false
-        }
-    }
-    func isValidCode(_ code: String) -> Bool {
-        return code.count > 0 ? true : false
-    }
-    func isValidContent() {
-        let isValidContent = self.isValidPhone && self.isValidCode ? true : false
-        appRegisterView.nextButton.isActivate(isValidContent)
     }
     
     // MARK: - Actions
