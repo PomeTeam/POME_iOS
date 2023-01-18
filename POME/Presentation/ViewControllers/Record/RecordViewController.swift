@@ -111,8 +111,8 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier, for: indexPath)
-                as? GoalCategoryCollectionViewCell else { fatalError() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalTagCollectionViewCell.cellIdentifier, for: indexPath)
+                as? GoalTagCollectionViewCell else { fatalError() }
         
         cell.goalCategoryLabel.text = categoryTitles[indexPath.row]
         if indexPath.row == self.categorySelectedIdx {cell.setSelectState()}

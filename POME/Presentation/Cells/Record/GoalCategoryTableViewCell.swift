@@ -66,7 +66,7 @@ class GoalCategoryTableViewCell: BaseTableViewCell {
             
             $0.backgroundColor = Color.transparent
             
-            $0.register(GoalCategoryCollectionViewCell.self, forCellWithReuseIdentifier: GoalCategoryCollectionViewCell.cellIdentifier)
+            $0.register(GoalTagCollectionViewCell.self, forCellWithReuseIdentifier: GoalTagCollectionViewCell.cellIdentifier)
         }
     }
 }

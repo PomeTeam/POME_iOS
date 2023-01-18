@@ -6,3 +6,28 @@
 //
 
 import Foundation
+
+class ReviewViewModel{
+    
+//    private let reviewUseCase: GetReviewUseCase
+    
+    struct Input{
+        
+    }
+    
+    struct Output{
+        
+    }
+    
+    /*
+    init(reviewUseCase: GetReviewUseCase){
+
+    }
+     */
+    
+    func transform(input: Input) -> Output{
+        return Output()
+    }
+    
+    
+}
