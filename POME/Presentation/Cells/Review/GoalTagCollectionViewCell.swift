@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalCategoryCollectionViewCell: BaseCollectionViewCell {
+class GoalTagCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Properties
     static let cellIdentifier = "GoalCategoryCollectionViewCell"

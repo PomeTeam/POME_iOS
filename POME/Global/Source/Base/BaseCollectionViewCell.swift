@@ -23,7 +23,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func style() {} //UICollectionViewCell의 프로퍼티등을 변경할 때 사용하는 메서드입니다.
+    func style() {
+        self.backgroundColor = Color.transparent
+    } //UICollectionViewCell의 프로퍼티등을 변경할 때 사용하는 메서드입니다.
     
     func hierarchy(){ //addSubView등 cell 위에 view를 추가할 때 사용하는 메서드입니다.
         self.contentView.addSubview(baseView)
