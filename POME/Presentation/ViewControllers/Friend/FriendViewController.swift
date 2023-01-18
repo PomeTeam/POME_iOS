@@ -11,17 +11,15 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
-    var selectFriendCellIndex: Int = 0
-    
-    var selectCardCellIndex: Int? //감정 선택 진행 중인 tableView cell index 저장 변수
-    
-    var friendList = [String?](repeating: nil, count: 10){
+    var currentFriendIndex: Int = 0
+    var currentEmotionSelectCardIndex: Int?
+
+    var friends = [String?](repeating: nil, count: 10){
         didSet{
             isFriendListEmpty()
         }
     }
-    
-    var friendCardList = [Reaction?](repeating: nil, count: 13){
+    var friendCards = [Reaction?](repeating: nil, count: 13){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -30,20 +28,12 @@ class FriendViewController: BaseTabViewController {
     //MARK: - UI
     
     let friendView = FriendView()
-    
     var emptyFriendView: FriendTableEmptyView?
-    
     var emoijiFloatingView: EmojiFloatingView?{
         didSet{
             emoijiFloatingView?.collectionView.delegate = self
             emoijiFloatingView?.collectionView.dataSource = self
         }
-    }
-    
-    //MARK: - LifeCycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
     }
     
     //MARK: - Override
@@ -83,7 +73,7 @@ class FriendViewController: BaseTabViewController {
          친구 리스트 x -> 0
          */
         
-        if(friendList.isEmpty){
+        if(friends.isEmpty){
             emptyFriendView = FriendTableEmptyView()
             
             guard let emptyFriendView = emptyFriendView else {
@@ -112,10 +102,9 @@ class FriendViewController: BaseTabViewController {
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView == friendView.collectionView ? friendList.count + 1 : 6
+        return collectionView == friendView.collectionView ? friends.count + 1 : 6
     }
     
-    //TODO: - By 초기값 설정(select item은 X), 다른 셀 선택해도
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if(collectionView == friendView.collectionView){
@@ -129,7 +118,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 cell.nameLabel.text = "연지뉘"
             }
             
-            if(indexPath.row == selectFriendCellIndex){
+            if(indexPath.row == currentFriendIndex){
                 cell.setSelectState(row: indexPath.row)
             }
             
@@ -148,7 +137,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         if(collectionView == friendView.collectionView){
             
-            if(selectFriendCellIndex == 0 && indexPath.row != 0){
+            if(currentFriendIndex == 0 && indexPath.row != 0){
                 guard let cell = friendView.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
                 cell.setUnselectState(row: 0)
             }
@@ -157,12 +146,12 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             
             cell.setSelectState(row: indexPath.row)
             
-            self.selectFriendCellIndex = indexPath.row
+            self.currentFriendIndex = indexPath.row
         }else{
             
-            guard let cellIndex = self.selectCardCellIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
+            guard let cellIndex = self.currentEmotionSelectCardIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
             
-            friendCardList[cellIndex] = reaction
+            friendCards[cellIndex] = reaction
             
             self.emoijiFloatingView?.dismiss()
             
@@ -190,14 +179,14 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource, FriendCellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendCardList.count
+        friendCards.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
 
-        if let reaction = friendCardList[indexPath.row] {
+        if let reaction = friendCards[indexPath.row] {
             cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
         }
         
@@ -218,7 +207,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
         
-        self.selectCardCellIndex = indexPath.row
+        self.currentEmotionSelectCardIndex = indexPath.row
         
         emoijiFloatingView = EmojiFloatingView()
         
@@ -226,7 +215,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
               let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         emoijiFloatingView.dismissHandler = {
-            self.selectCardCellIndex = nil
+            self.currentEmotionSelectCardIndex = nil
             self.emoijiFloatingView = nil
         }
         
