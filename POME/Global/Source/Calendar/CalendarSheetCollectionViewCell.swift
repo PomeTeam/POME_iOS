@@ -15,21 +15,11 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         case disabled
     }
     
-    static let cellIdentifier = "CalendarSheetCollectionViewCell"
-    
     static let cellSize: CGFloat = (Device.WIDTH - 40 - 9.17*6) / 7
     
     let infoLabel = UILabel().then{
         $0.textAlignment = .center
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {
@@ -43,16 +33,12 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     }
     
     override func hierarchy(){
-        
         super.hierarchy()
-        
         self.baseView.addSubview(infoLabel)
     }
     
     override func layout(){
-        
         super.layout()
-        
         infoLabel.snp.makeConstraints{
             $0.top.leading.equalToSuperview().offset(10)
             $0.centerX.centerY.equalToSuperview()
@@ -85,7 +71,7 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
 
 extension CalendarSheetCollectionViewCell.CalendarCellState{
     
-    struct CellStateAttribute{
+    private struct CellStateAttribute{
         let backgroundColor: UIColor
         let textColor: UIColor
     }

@@ -67,6 +67,9 @@
 		23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F57836292D559F002DD28E /* SettingProfileTableViewCell.swift */; };
 		23F8C503291AA3F700BC755E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23F8C505291AA3F700BC755E /* InfoPlist.strings */; };
 		30BF6A63651FE45788387336 /* Pods_POME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */; };
+		570304C0297818ED00AAC56D /* CellReuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570304BF297818ED00AAC56D /* CellReuse.swift */; };
+		570304C22978192100AAC56D /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570304C12978192100AAC56D /* UICollectionView.swift */; };
+		570304C42978193E00AAC56D /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570304C32978193E00AAC56D /* UITableView.swift */; };
 		5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE629100C8500DC529B /* AppDelegate.swift */; };
 		5724EBE929100C8500DC529B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBE829100C8500DC529B /* SceneDelegate.swift */; };
 		5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EBEA29100C8500DC529B /* BaseViewController.swift */; };
@@ -253,6 +256,9 @@
 		23F8C506291AA42900BC755E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.release.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.release.xcconfig"; sourceTree = "<group>"; };
 		47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME_POMEUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		570304BF297818ED00AAC56D /* CellReuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReuse.swift; sourceTree = "<group>"; };
+		570304C12978192100AAC56D /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		570304C32978193E00AAC56D /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
 		5724EBE329100C8500DC529B /* POME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = POME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5724EBE629100C8500DC529B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5724EBE829100C8500DC529B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -811,6 +817,8 @@
 				5724EC2C29162B3500DC529B /* UIFont.swift */,
 				23808776291B404A00072763 /* UITextField.swift */,
 				232B2BDE292B80EB00FFDF8B /* UILabel.swift */,
+				570304C12978192100AAC56D /* UICollectionView.swift */,
+				570304C32978193E00AAC56D /* UITableView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -939,6 +947,7 @@
 			children = (
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
 				57556A942960380800B67369 /* Protocol.swift */,
+				570304BF297818ED00AAC56D /* CellReuse.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1645,6 +1654,7 @@
 				57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */,
 				5799DB762977D474001137EA /* GoalTagsTableViewCell.swift in Sources */,
 				57397FBC296E77DE0088B5F4 /* CreateRecordUseCase.swift in Sources */,
+				570304C22978192100AAC56D /* UICollectionView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
@@ -1690,11 +1700,13 @@
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */,
 				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
+				570304C0297818ED00AAC56D /* CellReuse.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
+				570304C42978193E00AAC56D /* UITableView.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */,
 				5799DB7A2977D487001137EA /* ReviewFilterTableViewCell.swift in Sources */,

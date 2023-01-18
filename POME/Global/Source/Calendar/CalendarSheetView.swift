@@ -45,6 +45,7 @@ class CalendarSheetView: BaseView {
         $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = false
         $0.register(CalendarSheetCollectionViewCell.self, forCellWithReuseIdentifier: CalendarSheetCollectionViewCell.cellIdentifier)
+        $0.register(cellType: CalendarSheetCollectionViewCell.self)
         
     }
     
