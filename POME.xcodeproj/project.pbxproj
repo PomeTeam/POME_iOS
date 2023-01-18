@@ -45,6 +45,7 @@
 		2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */; };
 		2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8D0292C58F9003A62EA /* EmptyView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
+		239E1F3F2976E3C400A69AF1 /* AppRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239E1F3E2976E3C400A69AF1 /* AppRegisterViewModel.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
 		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
@@ -225,6 +226,7 @@
 		2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionTableViewCell.swift; sourceTree = "<group>"; };
 		2385A8D0292C58F9003A62EA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
+		239E1F3E2976E3C400A69AF1 /* AppRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterViewModel.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +495,14 @@
 			path = Goal;
 			sourceTree = "<group>";
 		};
+		239E1F3D2976E39A00A69AF1 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				239E1F3E2976E3C400A69AF1 /* AppRegisterViewModel.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		23A17C55292BD3A300426825 /* BottomSheetViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -713,6 +723,7 @@
 		5724EC1C2910131500DC529B /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				239E1F3D2976E39A00A69AF1 /* Register */,
 				575DE96F2976CCA400E61B8F /* Review */,
 				57397FB4296E77620088B5F4 /* Record */,
 				57C481DF296ABD03008731D9 /* Goal */,
@@ -1611,6 +1622,7 @@
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
+				239E1F3F2976E3C400A69AF1 /* AppRegisterViewModel.swift in Sources */,
 				57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */,
 				57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */,
 				57397FBC296E77DE0088B5F4 /* CreateRecordUseCase.swift in Sources */,
@@ -1884,7 +1896,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DS2AD6Q7T4;
+				DEVELOPMENT_TEAM = B974XY47GZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
