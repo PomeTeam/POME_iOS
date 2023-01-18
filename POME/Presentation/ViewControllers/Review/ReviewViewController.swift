@@ -18,9 +18,8 @@ class ReviewViewController: BaseTabViewController {
     
     var selectedGoalCategory: Int = 0
     
-    var goalCategoryList: [String] = ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
-    
-    var consumeList = [Reaction?](repeating: nil, count: 10){
+    var goalTags: [String] = ["카테고리","카페", "운동","고양이", "탐앤탐스으"]
+    var consumeRecords = [Reaction?](repeating: nil, count: 10){
         didSet{
             mainView.tableView.reloadData()
         }
@@ -87,14 +86,14 @@ class ReviewViewController: BaseTabViewController {
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return goalCategoryList.count == 0 ? 1 : goalCategoryList.count
+        return goalTags.count == 0 ? 1 : goalTags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalTagCollectionViewCell.cellIdentifier, for: indexPath) as? GoalTagCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.goalCategoryLabel.text = goalCategoryList.isEmpty ? "···" : goalCategoryList[indexPath.row]
+        cell.goalCategoryLabel.text = goalTags.isEmpty ? "···" : goalTags[indexPath.row]
         
         if(selectedGoalCategory == indexPath.row){
             cell.setSelectState()
@@ -108,7 +107,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let testLabel = UILabel().then{
-            $0.text = goalCategoryList.isEmpty ? "···" : goalCategoryList[indexPath.row]
+            $0.text = goalTags.isEmpty ? "···" : goalTags[indexPath.row]
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         }
         
@@ -135,7 +134,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(consumeList.count == 0){
+        if(consumeRecords.count == 0){
             emptyView = ReviewEmptyView()
             self.view.addSubview(emptyView)
             emptyView.snp.makeConstraints{
@@ -146,7 +145,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             emptyView = nil
         }
         
-        return consumeList.count
+        return consumeRecords.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -172,7 +171,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
             cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
             
-            if let reaction = consumeList[indexPath.row] {
+            if let reaction = consumeRecords[indexPath.row] {
                 cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
             }
             cell.mainView.setOthersReaction(count: indexPath.row)
