@@ -123,7 +123,6 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     }
     
     override func style() {
-        
         infoTextField.addRightPadding(50)
         infoTextField.isUserInteractionEnabled = false
     }
