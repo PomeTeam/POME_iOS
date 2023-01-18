@@ -9,7 +9,6 @@ import UIKit
 
 class ReviewViewController: BaseTabViewController {
     
-    
     //MARK: - Properties
     /* goalCategoryList test 데이터
      1. [String]()
@@ -43,7 +42,8 @@ class ReviewViewController: BaseTabViewController {
         }
         
         sheet.filterHandler = { emotion in
-            guard let filterView = sender.superview as? ReviewFilterTableViewCell.EmotionFilterView, let emotion = EmotionTag(rawValue: emotion) else { return }
+            guard let filterView = sender.superview as? ReviewFilterTableViewCell.EmotionFilterView,
+                    let emotion = EmotionTag(rawValue: emotion) else { return }
             filterView.setFilterSelectState(emotion: emotion)
         }
         
@@ -51,9 +51,7 @@ class ReviewViewController: BaseTabViewController {
     }
     
     @objc func reloadingButtonDidClicked(){
-        
         guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
-        
         cell.firstEmotionFilter.setFilterDefaultState()
         cell.secondEmotionFilter.setFilterDefaultState()
     }
@@ -61,10 +59,10 @@ class ReviewViewController: BaseTabViewController {
     //MARK: - Override
     
     override func layout(){
-        
         super.layout()
         
         self.view.addSubview(mainView)
+        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -86,7 +84,7 @@ class ReviewViewController: BaseTabViewController {
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return goalTags.count == 0 ? 1 : goalTags.count
+        goalTags.count == 0 ? 1 : goalTags.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -112,7 +110,6 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         let width = testLabel.intrinsicContentSize.width + 12 * 2
-        
         return CGSize(width: width, height: 30)
     }
     
@@ -152,22 +149,25 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         
         switch indexPath.row{
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: GoalTagsTableViewCell.cellIdentifier, for: indexPath) as? GoalTagsTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GoalTagsTableViewCell.cellIdentifier,
+                                                           for: indexPath) as? GoalTagsTableViewCell else { return UITableViewCell() }
             cell.tagCollectionView.delegate = self
             cell.tagCollectionView.dataSource = self
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: GoalDetailTableViewCell.cellIdentifier, for: indexPath) as? GoalDetailTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: GoalDetailTableViewCell.cellIdentifier,
+                                                           for: indexPath) as? GoalDetailTableViewCell else { return UITableViewCell() }
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewFilterTableViewCell.cellIdentifier, for: indexPath) as? ReviewFilterTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ReviewFilterTableViewCell.cellIdentifier,
+                                                           for: indexPath) as? ReviewFilterTableViewCell else { return UITableViewCell() }
             cell.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
             cell.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
             cell.reloadingButton.addTarget(self, action: #selector(reloadingButtonDidClicked), for: .touchUpInside)
-            
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ConsumeReviewTableViewCell.cellIdentifier, for: indexPath) as? ConsumeReviewTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ConsumeReviewTableViewCell.cellIdentifier,
+                                                           for: indexPath) as? ConsumeReviewTableViewCell else { return UITableViewCell() }
             cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
             cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
             
@@ -181,7 +181,6 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let vc = ReviewDetailViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }

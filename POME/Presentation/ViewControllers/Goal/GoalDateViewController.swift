@@ -29,9 +29,12 @@ class GoalDateViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        print(mainView.endDateField.isUserInteractionEnabled)
     }
     
     override func bind(){
+        print(mainView.endDateField.isUserInteractionEnabled, "check")
         let input = GoalDateRegisterViewModel.Input(startDateTextField:
                                                         mainView.startDateField.infoTextField.rx.text.orEmpty.asObservable(),
                                                     endDateTextField:
@@ -39,10 +42,6 @@ class GoalDateViewController: BaseViewController {
                                                     completeButtonControlEvent: mainView.completButton.rx.tap)
         
         let output = viewModel.transform(input: input)
-        
-        output.canMoveNext
-            .drive(mainView.completButton.rx.isActivate)
-            .disposed(by: disposeBag)
         
         mainView.completButton.rx.tap
             .bind{
@@ -54,13 +53,20 @@ class GoalDateViewController: BaseViewController {
             .bind(onNext: { sender in
                 self.calendarSheetWillShow(sender)
             }).disposed(by: disposeBag)
-        
-        
+
         mainView.endDateField.rx.tapGesture()
             .when(.recognized)
             .bind(onNext: { sender in
                 self.calendarSheetWillShow(sender)
             }).disposed(by: disposeBag)
+        
+        output.canMoveNext
+            .drive(mainView.completButton.rx.isActivate)
+            .disposed(by: disposeBag)
+        
+        output.canSelectEndDate
+            .drive(mainView.endDateField.rx.isUserInteractionEnabled)
+            .disposed(by: disposeBag)
     }
     
     //MARK: - Action
@@ -73,12 +79,8 @@ class GoalDateViewController: BaseViewController {
     }
     
     private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
-        
+        print(mainView.endDateField.isUserInteractionEnabled)
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
-        
-        /*
-        let sheet = CalendarSheetViewController().loadAndShowBottomSheet(in: self)
-        */
         
         let sheet: CalendarSheetViewController = sender == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
         

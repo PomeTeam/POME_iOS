@@ -13,18 +13,12 @@ class GoalDateView: BaseView {
                                          subtitle: "최대 한달까지 목표를 세울 수 있어요")
     let startDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 시작 날짜", placeholder: "목표 시작 날짜를 선택해주세요")
     
-    let endDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 종료 날짜", placeholder: "목표 종료 날짜를 선택해주세요")
+    let endDateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "목표 종료 날짜", placeholder: "목표 종료 날짜를 선택해주세요").then{
+        $0.isUserInteractionEnabled = false
+    }
     
     lazy var completButton = DefaultButton(titleStr: "선택했어요").then{
         $0.isActivate(false)
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     override func hierarchy() {

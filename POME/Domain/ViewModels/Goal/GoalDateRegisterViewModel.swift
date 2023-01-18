@@ -20,6 +20,7 @@ class GoalDateRegisterViewModel{
     }
     
     struct Output{
+        let canSelectEndDate: Driver<Bool>
         let canMoveNext: Driver<Bool>
     }
     
@@ -31,11 +32,17 @@ class GoalDateRegisterViewModel{
         
         let requestObservable = Observable.combineLatest(input.startDateTextField, input.endDateTextField)
         
+        let canSelectEndDate = input.startDateTextField
+            .map { date in
+                return !date.isEmpty
+            }.asDriver(onErrorJustReturn: false)
+        
         let canMoveNext = requestObservable
             .map { startDate, endDate in
                 return !startDate.isEmpty && !endDate.isEmpty
             }.asDriver(onErrorJustReturn: false)
 
-        return Output(canMoveNext: canMoveNext)
+        return Output(canSelectEndDate: canSelectEndDate,
+                      canMoveNext: canMoveNext)
     }
 }
