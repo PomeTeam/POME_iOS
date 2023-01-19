@@ -113,6 +113,7 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
         
         let view = CommonRightButtonTextFieldView(title: title, placeholder: placeholder).then{
             $0.rightImage.image = image
+            $0.rightImage.highlightedImage = image.withTintColor(Color.mint100)
         }
         
         return view

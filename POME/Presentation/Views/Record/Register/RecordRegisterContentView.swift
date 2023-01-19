@@ -35,11 +35,14 @@ class RecordRegisterContentView: BaseView {
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
                                             subtitle: "소비에 대한 간단한 기록을 남겨보세요")
     
-    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown, title: "목표", placeholder: "목표를 선택해주세요")
+    let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown,
+                                                                           title: "목표",
+                                                                           placeholder: "목표를 선택해주세요")
     
-    let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar, title: "소비날짜", placeholder: "").then{
+    let dateField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.calendar,
+                                                                           title: "소비날짜",
+                                                                           placeholder: "").then{
         $0.infoTextField.text = PomeDateFormatter.getTodayDate()
-        $0.infoTextField.isUserInteractionEnabled = false
     }
     
     let priceField = RegisterCommonTextFieldView(title: "소비 금액",

@@ -29,12 +29,9 @@ class GoalDateViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
-        
-        print(mainView.endDateField.isUserInteractionEnabled)
     }
     
     override func bind(){
-        print(mainView.endDateField.isUserInteractionEnabled, "check")
         let input = GoalDateRegisterViewModel.Input(startDateTextField:
                                                         mainView.startDateField.infoTextField.rx.text.orEmpty.asObservable(),
                                                     endDateTextField:
@@ -66,6 +63,14 @@ class GoalDateViewController: BaseViewController {
         
         output.canSelectEndDate
             .drive(mainView.endDateField.rx.isUserInteractionEnabled)
+            .disposed(by: disposeBag)
+        
+        output.isHighlightStartDateIcon
+            .drive(mainView.startDateField.rightImage.rx.isHighlighted)
+            .disposed(by: disposeBag)
+        
+        output.isHighlightEndDateIcon
+            .drive(mainView.endDateField.rightImage.rx.isHighlighted)
             .disposed(by: disposeBag)
     }
     

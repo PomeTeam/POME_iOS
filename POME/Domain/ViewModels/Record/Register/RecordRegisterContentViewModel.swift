@@ -23,6 +23,7 @@ class RecordRegisterContentViewModel{
     }
     
     struct Output{
+        let highlightCalendarIcon: Driver<Bool>
         let canMoveNext: Driver<Bool>
     }
     
@@ -37,11 +38,16 @@ class RecordRegisterContentViewModel{
                                                          input.priceTextField,
                                                          input.detailTextView)
         
+        let highlightCalendarIcon = input.consumeDateSelect
+            .map{ !$0.isEmpty }
+            .asDriver(onErrorJustReturn: false)
+        
         let canMoveNext = requestObservable
             .map{ category, date, price, detail in
-                !category.isEmpty && !date.isEmpty && !price.isEmpty && detail != input.detailTextViewplaceholder && !detail.isEmpty
+                return !category.isEmpty && !date.isEmpty && !price.isEmpty && detail != input.detailTextViewplaceholder && !detail.isEmpty
             }.asDriver(onErrorJustReturn: false)
         
-        return Output(canMoveNext: canMoveNext)
+        return Output(highlightCalendarIcon: highlightCalendarIcon,
+                      canMoveNext: canMoveNext)
     }
 }

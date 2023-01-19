@@ -53,6 +53,10 @@ class RecordRegisterContentViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
+        output.highlightCalendarIcon
+            .drive(mainView.dateField.rightImage.rx.isHighlighted)
+            .disposed(by: disposeBag)
+        
         output.canMoveNext
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
