@@ -44,7 +44,10 @@ class RecordRegisterContentViewModel{
         
         let canMoveNext = requestObservable
             .map{ category, date, price, detail in
-                return !category.isEmpty && !date.isEmpty && !price.isEmpty && detail != input.detailTextViewplaceholder && !detail.isEmpty
+                return !category.isEmpty && !date.isEmpty
+                && !price.isEmpty
+                && detail != input.detailTextViewplaceholder
+                && !detail.isEmpty
             }.asDriver(onErrorJustReturn: false)
         
         return Output(highlightCalendarIcon: highlightCalendarIcon,

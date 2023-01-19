@@ -60,9 +60,7 @@ class ReviewViewController: BaseTabViewController {
     
     override func layout(){
         super.layout()
-        
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -92,13 +90,9 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalTagCollectionViewCell.cellIdentifier, for: indexPath) as? GoalTagCollectionViewCell else { return UICollectionViewCell() }
 
         cell.goalCategoryLabel.text = goalTags.isEmpty ? "···" : goalTags[indexPath.row]
+    
+        selectedGoalCategory == indexPath.row ? cell.setSelectState() : cell.setUnselectState()
         
-        if(selectedGoalCategory == indexPath.row){
-            cell.setSelectState()
-            return cell
-        }
-        
-        cell.setUnselectState()
         return cell
     }
     
