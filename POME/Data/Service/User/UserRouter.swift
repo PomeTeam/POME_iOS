@@ -12,6 +12,7 @@ enum UserRouter: BaseRouter{
     case signUp(nickname: String, phoneNum: String, imageKey: String)
     case signIn(phoneNum: String)
     case checkNickname(nickName: String)
+    case sendSMS(phoneNum: String)
 }
 
 extension UserRouter{
@@ -24,6 +25,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.signIn
         case .checkNickname(let nickName):
             return HTTPMethodURL.POST.nicknameDuplicate
+        case .sendSMS(let phoneNum):
+            return HTTPMethodURL.POST.sms
         }
     }
     
@@ -34,6 +37,8 @@ extension UserRouter{
         case .signIn:
             return .post
         case .checkNickname:
+            return .post
+        case .sendSMS:
             return .post
         }
     }
@@ -50,6 +55,8 @@ extension UserRouter{
                                       encoding: JSONEncoding.default)
         case .checkNickname(let nickName):
             return .requestParameters(parameters: ["nickName": nickName], encoding: URLEncoding.queryString)
+        case .sendSMS(let phoneNum):
+            return .requestParameters(parameters: ["phoneNum": phoneNum], encoding: URLEncoding.queryString)
         }
     }
 }

@@ -31,4 +31,10 @@ extension UserService{
             completion(response)
         }
     }
+    
+    func sendSMS(phoneNum: String, completion: @escaping (Result<Int, Error>) -> Void) {
+        requestNoResultAPI(UserRouter.sendSMS(phoneNum: phoneNum)){ response in
+            completion(response)
+        }
+    }
 }
