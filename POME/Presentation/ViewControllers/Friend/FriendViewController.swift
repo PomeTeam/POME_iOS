@@ -14,7 +14,7 @@ class FriendViewController: BaseTabViewController {
     var currentFriendIndex: Int = 0
     var currentEmotionSelectCardIndex: Int?
 
-    var friends = [String?](repeating: nil, count: 10){
+    var friends = [FriendsResponseModel](){
         didSet{
             isFriendListEmpty()
         }
@@ -26,7 +26,9 @@ class FriendViewController: BaseTabViewController {
     }
     
     //MARK: - UI
+    
     private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
+    
     let friendView = FriendView()
     var emptyFriendView: FriendTableEmptyView?
     var emoijiFloatingView: EmojiFloatingView?{
@@ -37,6 +39,13 @@ class FriendViewController: BaseTabViewController {
     }
     
     //MARK: - Override
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        requestGetFriends()
+    }
     
     override func layout() {
         
@@ -62,10 +71,10 @@ class FriendViewController: BaseTabViewController {
     }
     
     //MARK: - Method
+    
     private func isFriendListEmpty(){
         
         if(friends.isEmpty){
-            
             emptyFriendView = FriendTableEmptyView()
             guard let emptyFriendView = emptyFriendView else { return }
 
@@ -76,11 +85,27 @@ class FriendViewController: BaseTabViewController {
                 $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
             }
         }else{
-            
             guard let emptyFriendView = emptyFriendView else { return }
             emptyFriendView.removeFromSuperview()
             self.emptyFriendView = nil
         }
+    }
+    
+    //MARK: - API
+    
+    private func requestGetFriends(){
+        FriendService.shared.getFriends(pageable: PageableModel(page: 1,
+                                                                size: 10,
+                                                                sort: [])){ result in
+            switch result{
+            case .success(let data):
+                self.friends = data
+                break
+            default:
+                break
+            }
+        }
+
     }
 }
 
@@ -102,7 +127,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
             return cell
         }else{
-
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
                     as? FriendCollectionViewCell else { fatalError() }
             
@@ -237,9 +261,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let sheet = FriendReactionSheetViewController()
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
+        let sheet = FriendReactionSheetViewController().loadAndShowBottomSheet(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

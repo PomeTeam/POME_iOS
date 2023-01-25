@@ -9,7 +9,6 @@ import Foundation
 import Moya
 
 protocol BaseRouter: Moya.TargetType {
-    associatedtype ResultModel: Decodable
 }
 
 extension BaseRouter {

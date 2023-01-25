@@ -8,16 +8,15 @@
 import Foundation
 import Moya
 
-enum FriendRouter{
-    typealias ResultModel = String //임시 설정
+enum FriendRouter: BaseRouter{
     case postEmotion(id: Int, emotion: Int)
     case getFriendSearch(id: Int)
     case postFriend(id: Int)
     case deleteFriend(id: Int)
-    case getFriends
+    case getFriends(pageable: PageableModel)
 }
 
-extension FriendRouter: BaseRouter{
+extension FriendRouter{
     
     var path: String {
         switch self {
@@ -60,8 +59,9 @@ extension FriendRouter: BaseRouter{
             return .requestPlain
         case .deleteFriend:
             return .requestPlain
-        case .getFriends:
-            return .requestPlain
+        case .getFriends(let pageable):
+            return .requestParameters(parameters: ["userId": UserManager.userId ?? "",
+                                                   "pageable" : pageable], encoding: URLEncoding.queryString)
         /*
         case .renameAlbum(_, let request):
             return .requestParameters(parameters: ["name": request.name],
