@@ -11,11 +11,10 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var categorySelectHandler: ((String) -> ())!
+    var completion: ((String) -> ())!
     
-    var categoryArray = ["커피","아이스크림","음료","생활","통신"]
-    
-    let mainView = CategorySelectSheetView().then{
+    private var categories = ["커피","아이스크림","음료","생활","통신"]
+    private let mainView = CategorySelectSheetView().then{
         $0.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
     }
     
@@ -40,7 +39,6 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     override func layout(){
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
@@ -55,14 +53,14 @@ class CategorySelectSheetViewController: BaseSheetViewController {
 extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        categoryArray.count
+        categories.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordCategoryTableViewCell.cellIdentifier, for: indexPath) as? RecordCategoryTableViewCell else { return UITableViewCell() }
         
-        cell.nameLabel.text = categoryArray[indexPath.row]
+        cell.nameLabel.text = categories[indexPath.row]
         
         return cell
     }
@@ -72,7 +70,7 @@ extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDat
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? RecordCategoryTableViewCell,
                 let categoryTitle = selectedCell.nameLabel.text else { return }
         
-        categorySelectHandler(categoryTitle)
+        completion(categoryTitle)
         self.dismiss(animated: true)
     }
     

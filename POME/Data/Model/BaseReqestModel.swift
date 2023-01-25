@@ -1,0 +1,13 @@
+//
+//  BaseReqestModel.swift
+//  POME
+//
+//  Created by 박소윤 on 2023/01/25.
+//
+
+import Foundation
+
+struct BaseReequestModel<T: Encodable>: Encodable{
+    let request: T
+    let userId: String = UserManager.userId ?? ""
+}
