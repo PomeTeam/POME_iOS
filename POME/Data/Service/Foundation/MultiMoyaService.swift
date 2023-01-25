@@ -31,7 +31,7 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
     }
     
     func requestNoResultAPI<T: BaseRouter>(_ target: T,
-                                               completion: @escaping (Result<Int?, Error>) -> Void) {
+                                               completion: @escaping (Result<Int, Error>) -> Void) {
         addObserver()
         request = request(MultiTarget(target)) { result in
             switch result {
