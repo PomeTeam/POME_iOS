@@ -172,10 +172,24 @@
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */; };
 		EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */; };
-		EE98F0C22980DF14007BFCCD /* MultiMoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */; };
+		EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */; };
 		EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C32980DF5A007BFCCD /* UserManager.swift */; };
 		EE98F0C62980DFCC007BFCCD /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C52980DFCC007BFCCD /* UserDefaultWrapper.swift */; };
 		EE98F0C92980E126007BFCCD /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C82980E126007BFCCD /* UserDefault.swift */; };
+		EE98F0D12980EFB1007BFCCD /* RecordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D02980EFB1007BFCCD /* RecordRouter.swift */; };
+		EE98F0D32980EFB9007BFCCD /* RecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D22980EFB9007BFCCD /* RecordService.swift */; };
+		EE98F0D52980EFC0007BFCCD /* GoalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */; };
+		EE98F0D72980EFC7007BFCCD /* GoalServcie.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */; };
+		EE98F0D92980EFCF007BFCCD /* GoalCategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D82980EFCF007BFCCD /* GoalCategoryRouter.swift */; };
+		EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0DA2980EFD9007BFCCD /* GoalCategoryService.swift */; };
+		EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0DC2980EFE0007BFCCD /* UserRouter.swift */; };
+		EE98F0DF2980EFE7007BFCCD /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0DE2980EFE7007BFCCD /* UserService.swift */; };
+		EE98F0E22980F030007BFCCD /* SMSRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E12980F030007BFCCD /* SMSRouter.swift */; };
+		EE98F0E42980F036007BFCCD /* SMSService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E32980F036007BFCCD /* SMSService.swift */; };
+		EE98F0E62980F03D007BFCCD /* FriendRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E52980F03D007BFCCD /* FriendRouter.swift */; };
+		EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E72980F043007BFCCD /* FriendService.swift */; };
+		EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E929810212007BFCCD /* BaseReqestModel.swift */; };
+		EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0EB2981024D007BFCCD /* PageableModel.swift */; };
 		EEB13B6F297F96FE001A8DD9 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */; };
 /* End PBXBuildFile section */
 
@@ -375,10 +389,24 @@
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodURL.swift; sourceTree = "<group>"; };
 		EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
-		EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMoyaProvider.swift; sourceTree = "<group>"; };
+		EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMoyaService.swift; sourceTree = "<group>"; };
 		EE98F0C32980DF5A007BFCCD /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		EE98F0C52980DFCC007BFCCD /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		EE98F0C82980E126007BFCCD /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		EE98F0D02980EFB1007BFCCD /* RecordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRouter.swift; sourceTree = "<group>"; };
+		EE98F0D22980EFB9007BFCCD /* RecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordService.swift; sourceTree = "<group>"; };
+		EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRouter.swift; sourceTree = "<group>"; };
+		EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalServcie.swift; sourceTree = "<group>"; };
+		EE98F0D82980EFCF007BFCCD /* GoalCategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryRouter.swift; sourceTree = "<group>"; };
+		EE98F0DA2980EFD9007BFCCD /* GoalCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryService.swift; sourceTree = "<group>"; };
+		EE98F0DC2980EFE0007BFCCD /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
+		EE98F0DE2980EFE7007BFCCD /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		EE98F0E12980F030007BFCCD /* SMSRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSRouter.swift; sourceTree = "<group>"; };
+		EE98F0E32980F036007BFCCD /* SMSService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSService.swift; sourceTree = "<group>"; };
+		EE98F0E52980F03D007BFCCD /* FriendRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRouter.swift; sourceTree = "<group>"; };
+		EE98F0E72980F043007BFCCD /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
+		EE98F0E929810212007BFCCD /* BaseReqestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReqestModel.swift; sourceTree = "<group>"; };
+		EE98F0EB2981024D007BFCCD /* PageableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableModel.swift; sourceTree = "<group>"; };
 		EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1320,6 +1348,12 @@
 			isa = PBXGroup;
 			children = (
 				EE98F0BC2980DEDA007BFCCD /* Foundation */,
+				EE98F0CA2980EEEA007BFCCD /* Record */,
+				EE98F0CD2980EF45007BFCCD /* Goal */,
+				EE98F0CB2980EF41007BFCCD /* GoalCategory */,
+				EE98F0CC2980EF43007BFCCD /* User */,
+				EE98F0E02980F022007BFCCD /* Friend */,
+				EE98F0CE2980EF6D007BFCCD /* SMS */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -1327,6 +1361,8 @@
 		EE98F0BB2980DEB2007BFCCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EE98F0E929810212007BFCCD /* BaseReqestModel.swift */,
+				EE98F0EB2981024D007BFCCD /* PageableModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1336,7 +1372,7 @@
 			children = (
 				EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */,
 				EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */,
-				EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */,
+				EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1349,6 +1385,60 @@
 				EE98F0C52980DFCC007BFCCD /* UserDefaultWrapper.swift */,
 			);
 			path = UserManager;
+			sourceTree = "<group>";
+		};
+		EE98F0CA2980EEEA007BFCCD /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0D02980EFB1007BFCCD /* RecordRouter.swift */,
+				EE98F0D22980EFB9007BFCCD /* RecordService.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		EE98F0CB2980EF41007BFCCD /* GoalCategory */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0D82980EFCF007BFCCD /* GoalCategoryRouter.swift */,
+				EE98F0DA2980EFD9007BFCCD /* GoalCategoryService.swift */,
+			);
+			path = GoalCategory;
+			sourceTree = "<group>";
+		};
+		EE98F0CC2980EF43007BFCCD /* User */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0DC2980EFE0007BFCCD /* UserRouter.swift */,
+				EE98F0DE2980EFE7007BFCCD /* UserService.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		EE98F0CD2980EF45007BFCCD /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */,
+				EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */,
+			);
+			path = Goal;
+			sourceTree = "<group>";
+		};
+		EE98F0CE2980EF6D007BFCCD /* SMS */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0E12980F030007BFCCD /* SMSRouter.swift */,
+				EE98F0E32980F036007BFCCD /* SMSService.swift */,
+			);
+			path = SMS;
+			sourceTree = "<group>";
+		};
+		EE98F0E02980F022007BFCCD /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				EE98F0E52980F03D007BFCCD /* FriendRouter.swift */,
+				EE98F0E72980F043007BFCCD /* FriendService.swift */,
+			);
+			path = Friend;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1627,9 +1717,11 @@
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */,
+				EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
 				EE98F0C62980DFCC007BFCCD /* UserDefaultWrapper.swift in Sources */,
+				EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */,
 				57CCA77A29289DB9007E22D1 /* FriendReactionSheetViewController.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
@@ -1638,6 +1730,7 @@
 				23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */,
+				EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				575DE96E2976CC7500E61B8F /* FriendViewModel.swift in Sources */,
@@ -1672,6 +1765,7 @@
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
+				EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */,
 				57556A952960380800B67369 /* Protocol.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				575DE9712976CCB900E61B8F /* ReviewViewModel.swift in Sources */,
@@ -1680,10 +1774,12 @@
 				2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				23061242292B51C800662007 /* AppRegisterView.swift in Sources */,
+				EE98F0E42980F036007BFCCD /* SMSService.swift in Sources */,
 				57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
 				57CCA7AA292DE833007E22D1 /* GoalDateView.swift in Sources */,
 				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
+				EE98F0E22980F030007BFCCD /* SMSRouter.swift in Sources */,
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				57C481E1296ABD1B008731D9 /* GoalDateRegisterViewModel.swift in Sources */,
 				57C481D7296ABC9F008731D9 /* CreateGoalUseCase.swift in Sources */,
@@ -1707,6 +1803,7 @@
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
 				57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */,
 				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
+				EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */,
 				57C481DD296ABCDB008731D9 /* Goal.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */,
@@ -1714,7 +1811,10 @@
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */,
 				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
+				EE98F0D92980EFCF007BFCCD /* GoalCategoryRouter.swift in Sources */,
 				570304C0297818ED00AAC56D /* CellReuse.swift in Sources */,
+				EE98F0E62980F03D007BFCCD /* FriendRouter.swift in Sources */,
+				EE98F0D72980EFC7007BFCCD /* GoalServcie.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
@@ -1722,11 +1822,12 @@
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				570304C42978193E00AAC56D /* UITableView.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
+				EE98F0D52980EFC0007BFCCD /* GoalRouter.swift in Sources */,
 				23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */,
 				5799DB7A2977D487001137EA /* ReviewFilterTableViewCell.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
-				EE98F0C22980DF14007BFCCD /* MultiMoyaProvider.swift in Sources */,
+				EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */,
 				57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
@@ -1747,7 +1848,10 @@
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
 				57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */,
+				EE98F0D12980EFB1007BFCCD /* RecordRouter.swift in Sources */,
 				233964A4292ED5CF000F6BAC /* LittleGoalView.swift in Sources */,
+				EE98F0D32980EFB9007BFCCD /* RecordService.swift in Sources */,
+				EE98F0DF2980EFE7007BFCCD /* UserService.swift in Sources */,
 				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 				EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */,

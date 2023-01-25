@@ -8,7 +8,7 @@
 import Foundation
 import Moya
 
-final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
+class MultiMoyaService: MoyaProvider<MultiTarget> {
     
     var request: Cancellable?
     
