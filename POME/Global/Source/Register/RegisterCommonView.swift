@@ -90,7 +90,6 @@ class RegisterCommonTextFieldView: BaseView{
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
         }
-        
         infoTextField.snp.makeConstraints{
             $0.top.equalTo(fieldTitleLabel.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(20)
@@ -110,12 +109,10 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     }
     
     static func generateRightButtonView(image: UIImage, title: String, placeholder: String) -> CommonRightButtonTextFieldView{
-        
-        let view = CommonRightButtonTextFieldView(title: title, placeholder: placeholder).then{
+        return CommonRightButtonTextFieldView(title: title, placeholder: placeholder).then{
             $0.rightImage.image = image
+            $0.rightImage.highlightedImage = image.withTintColor(Color.mint100)
         }
-        
-        return view
     }
     
     required init?(coder: NSCoder) {
@@ -128,16 +125,12 @@ class CommonRightButtonTextFieldView: RegisterCommonTextFieldView{
     }
     
     override func hierarchy() {
-        
         super.hierarchy()
-
         infoTextField.addSubview(rightImage)
     }
     
     override func layout() {
-
         super.layout()
-        
         rightImage.snp.makeConstraints{
             $0.top.equalToSuperview().offset(11)
             $0.centerY.equalToSuperview()

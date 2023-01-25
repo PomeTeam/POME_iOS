@@ -161,10 +161,8 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: CalendarSheetCollectionViewCell.self)
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarSheetCollectionViewCell.cellIdentifier, for: indexPath) as? CalendarSheetCollectionViewCell else { return UICollectionViewCell() }
-        
+
         let index = indexPath.row
-        
         if(index < 7){
             cell.setDayOfTheWeekText(index: index)
         }else if(index >= calendarInfo.collectionViewStartDateIndex){

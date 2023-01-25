@@ -44,25 +44,13 @@ class CalendarSheetView: BaseView {
         $0.collectionViewLayout = flowLayout
         $0.showsVerticalScrollIndicator = false
         $0.isScrollEnabled = false
-        $0.register(CalendarSheetCollectionViewCell.self, forCellWithReuseIdentifier: CalendarSheetCollectionViewCell.cellIdentifier)
         $0.register(cellType: CalendarSheetCollectionViewCell.self)
-        
     }
     
     lazy var completeButton = DefaultButton(titleStr: "선택했어요").then{
         $0.isActivate(false)
     }
-    
-    //MARK: - LifeCycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     //MARK: - Override
     
     override func hierarchy(){
