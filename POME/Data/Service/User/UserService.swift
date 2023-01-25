@@ -14,26 +14,20 @@ final class UserService: MultiMoyaService{
 
 extension UserService{
     
-    func signUp(nickname: String, phoneNum: String, imageKey: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.signUp(nickname: nickname, phoneNum: phoneNum, imageKey: imageKey)){ response in
+    func signUp(model: SignUpRequestModel, completion: @escaping (Result<BaseResponseModel<UserModel>, Error>) -> Void) {
+        requestDecoded(UserRouter.signUp(param: model)){ response in
             completion(response)
         }
     }
     
-    func signIn(phoneNum: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.signIn(phoneNum: phoneNum)){ response in
+    func signIn(model: SignInRequestModel, completion: @escaping (Result<BaseResponseModel<UserModel>, Error>) -> Void) {
+        requestDecoded(UserRouter.signIn(param: model)){ response in
             completion(response)
         }
     }
     
-    func checkNickname(nickName: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.checkNickname(nickName: nickName)){ response in
-            completion(response)
-        }
-    }
-    
-    func sendSMS(phoneNum: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.sendSMS(phoneNum: phoneNum)){ response in
+    func sendSMS(model: SendSMSRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
+        requestDecoded(UserRouter.sendSMS(param: model)) { response in
             completion(response)
         }
     }

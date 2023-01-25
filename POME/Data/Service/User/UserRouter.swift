@@ -9,23 +9,20 @@ import Foundation
 import Moya
 
 enum UserRouter: BaseRouter{
-    case signUp(nickname: String, phoneNum: String, imageKey: String)
-    case signIn(phoneNum: String)
-    case checkNickname(nickName: String)
-    case sendSMS(phoneNum: String)
+    case signUp(param: SignUpRequestModel)
+    case signIn(param: SignInRequestModel)
+    case sendSMS(param: SendSMSRequestModel)
 }
 
 extension UserRouter{
     
     var path: String {
         switch self {
-        case .signUp(let nickname, let phoneNum, let imageKey):
+        case .signUp:
             return HTTPMethodURL.POST.signUp
-        case .signIn(let phoneNum):
+        case .signIn:
             return HTTPMethodURL.POST.signIn
-        case .checkNickname(let nickName):
-            return HTTPMethodURL.POST.nicknameDuplicate
-        case .sendSMS(let phoneNum):
+        case .sendSMS:
             return HTTPMethodURL.POST.sms
         }
     }
@@ -36,8 +33,6 @@ extension UserRouter{
             return .post
         case .signIn:
             return .post
-        case .checkNickname:
-            return .post
         case .sendSMS:
             return .post
         }
@@ -45,18 +40,12 @@ extension UserRouter{
     
     var task: Task {
         switch self {
-        case .signUp(let nickname, let phoneNum, let imageKey):
-            return .requestParameters(parameters: ["nickname": nickname,
-                                                   "phoneNum": phoneNum,
-                                                   "imageKey": imageKey],
-                                      encoding: JSONEncoding.default)
-        case .signIn(let phoneNum):
-            return .requestParameters(parameters: ["phoneNum": phoneNum],
-                                      encoding: JSONEncoding.default)
-        case .checkNickname(let nickName):
-            return .requestParameters(parameters: ["nickName": nickName], encoding: URLEncoding.queryString)
-        case .sendSMS(let phoneNum):
-            return .requestParameters(parameters: ["phoneNum": phoneNum], encoding: URLEncoding.queryString)
+        case .signUp(let param):
+            return .requestJSONEncodable(param)
+        case .signIn(let param):
+            return .requestJSONEncodable(param)
+        case .sendSMS(let param):
+            return .requestJSONEncodable(param)
         }
     }
 }
