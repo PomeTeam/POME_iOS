@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct FriendsResponseModel: Decodable{
+    let friendNickName: String
+    let imageKey: String
+}
