@@ -26,30 +26,6 @@ extension UserService{
         }
     }
     
-    func getFriendSearch(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.getFriendSearch(id: id)){ response in
-            completion(response)
-        }
-    }
-    
-    func generateNewFriend(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.postFriend(id: id)){ response in
-            completion(response)
-        }
-    }
-    
-    func deleteFriend(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.deleteFriend(id: id)){ response in
-            completion(response)
-        }
-    }
-    
-    func getFriends(pageable: PageableModel, completion: @escaping (Result<[FriendsResponseModel], Error>) -> Void) {
-        requestDecoded(FriendRouter.getFriends(pageable: pageable)){ response in
-            completion(response)
-        }
-    }
-    
     func checkNickname(nickName: String, completion: @escaping (Result<Int, Error>) -> Void) {
         requestNoResultAPI(UserRouter.checkNickname(nickName: nickName)){ response in
             completion(response)
