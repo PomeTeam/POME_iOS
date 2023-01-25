@@ -11,17 +11,17 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
-    var currentFriendIndex: Int = 0
+    var currentFriendIndex: Int = 0{
+        willSet{
+            requestGetFriendCards()
+        }
+    }
     var currentEmotionSelectCardIndex: Int?{
         get{
             self.currentEmotionSelectCardIndex ?? nil
         }
         set(value){
-            guard let value = value else {
-                self.currentEmotionSelectCardIndex = nil
-                return
-            }
-            self.currentEmotionSelectCardIndex = value - 1
+            self.currentEmotionSelectCardIndex = value == nil ? nil : value! - 1
         }
     }
 
@@ -121,7 +121,7 @@ class FriendViewController: BaseTabViewController {
     }
     
     private func requestGetFriendCards(){
-        
+        //id -> currentFriendIndex로 접근
     }
     
     private func requestGenerateFriendCardEmotion(reactionIndex: Int){
@@ -186,10 +186,13 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if(collectionView == emoijiFloatingView?.collectionView){
-            
             requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
-            
         }else{
+            
+            if(indexPath.row == currentFriendIndex){
+                return
+            }
+            
             if(currentFriendIndex == 0 && indexPath.row != 0){
                 guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell, let cell = friendListCell.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
                 cell.setUnselectState(row: 0)
@@ -203,14 +206,11 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
-        
         cell.setUnselectState(row: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-
         if(collectionView == emoijiFloatingView?.collectionView){
             return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
         }
