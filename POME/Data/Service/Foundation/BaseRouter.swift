@@ -8,11 +8,11 @@
 import Foundation
 import Moya
 
-protocol BaseTargetType: Moya.TargetType {
+protocol BaseRouter: Moya.TargetType {
     associatedtype ResultModel: Decodable
 }
 
-extension BaseTargetType {
+extension BaseRouter {
 
     var baseURL: URL {
         let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""

@@ -12,7 +12,7 @@ final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
     
     var request: Cancellable?
     
-    func requestDecoded<T: BaseTargetType>(_ target: T,
+    func requestDecoded<T: BaseRouter>(_ target: T,
                                            completion: @escaping (Result<T.ResultModel?, Error>) -> Void) {
         addObserver()
         request(MultiTarget(target)) { result in
@@ -30,7 +30,7 @@ final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
         }
     }
     
-    func requestNoResultAPI<T: BaseTargetType>(_ target: T,
+    func requestNoResultAPI<T: BaseRouter>(_ target: T,
                                                completion: @escaping (Result<Int?, Error>) -> Void) {
         addObserver()
         request = request(MultiTarget(target)) { result in
@@ -43,7 +43,7 @@ final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
         }
     }
     
-    func requestWithProgress<T: BaseTargetType>(_ target: T,
+    func requestWithProgress<T: BaseRouter>(_ target: T,
                                                 progressCompletion: @escaping ((ProgressResponse) -> Void),
                                                 completion: @escaping (Result<Int?, Error>) -> Void) {
         addObserver()
@@ -59,7 +59,7 @@ final class MultiMoyaProvider: MoyaProvider<MultiTarget> {
         }
     }
     
-    func requestDecodedMultiRepsonse<T: BaseTargetType, R: Decodable>(_ target: T,
+    func requestDecodedMultiRepsonse<T: BaseRouter, R: Decodable>(_ target: T,
                                                                       _ requestModel: R.Type,
                                                                       completion: @escaping (Result<R?, Error>) -> Void) {
         addObserver()

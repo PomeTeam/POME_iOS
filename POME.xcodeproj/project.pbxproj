@@ -171,7 +171,7 @@
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */; };
-		EE98F0C02980DF08007BFCCD /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BF2980DF08007BFCCD /* BaseTargetType.swift */; };
+		EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */; };
 		EE98F0C22980DF14007BFCCD /* MultiMoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */; };
 		EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C32980DF5A007BFCCD /* UserManager.swift */; };
 		EE98F0C62980DFCC007BFCCD /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C52980DFCC007BFCCD /* UserDefaultWrapper.swift */; };
@@ -374,7 +374,7 @@
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodURL.swift; sourceTree = "<group>"; };
-		EE98F0BF2980DF08007BFCCD /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
+		EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMoyaProvider.swift; sourceTree = "<group>"; };
 		EE98F0C32980DF5A007BFCCD /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		EE98F0C52980DFCC007BFCCD /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
@@ -1335,7 +1335,7 @@
 			isa = PBXGroup;
 			children = (
 				EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */,
-				EE98F0BF2980DF08007BFCCD /* BaseTargetType.swift */,
+				EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */,
 				EE98F0C12980DF14007BFCCD /* MultiMoyaProvider.swift */,
 			);
 			path = Foundation;
@@ -1697,7 +1697,7 @@
 				57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */,
-				EE98F0C02980DF08007BFCCD /* BaseTargetType.swift in Sources */,
+				EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */,
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */,
