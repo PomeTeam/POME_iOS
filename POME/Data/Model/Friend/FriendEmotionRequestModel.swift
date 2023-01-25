@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct FriendEmotionRequestModel{
-    
+struct FriendEmotionRequestModel: Encodable{
+    let emotionId: Int
 }
