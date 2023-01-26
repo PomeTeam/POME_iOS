@@ -11,12 +11,24 @@ class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
     
-    var currentFriendIndex: Int = 0
-    var currentEmotionSelectCardIndex: Int?
+    var currentFriendIndex: Int = 0{
+        willSet{
+            requestGetFriendCards()
+        }
+    }
+    var currentEmotionSelectCardIndex: Int?{
+        get{
+            self.currentEmotionSelectCardIndex ?? nil
+        }
+        set(value){
+            self.currentEmotionSelectCardIndex = value == nil ? nil : value! - 1
+        }
+    }
 
     var friends = [FriendsResponseModel](){
         didSet{
             isFriendListEmpty()
+            friendView.tableView.reloadData()
         }
     }
     var friendCards = [Reaction?](repeating: nil, count: 13){
@@ -43,7 +55,6 @@ class FriendViewController: BaseTabViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         requestGetFriends()
     }
     
@@ -94,18 +105,45 @@ class FriendViewController: BaseTabViewController {
     //MARK: - API
     
     private func requestGetFriends(){
+        
         FriendService.shared.getFriends(pageable: PageableModel(page: 1,
                                                                 size: 10,
                                                                 sort: [])){ result in
             switch result{
             case .success(let data):
                 self.friends = data
+                self.requestGetFriendCards()
                 break
             default:
                 break
             }
         }
-
+    }
+    
+    private func requestGetFriendCards(){
+        //id -> currentFriendIndex로 접근
+    }
+    
+    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+        
+        guard let cellIndex = self.currentEmotionSelectCardIndex, let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        friendCards[cellIndex] = reaction
+        
+        self.emoijiFloatingView?.dismiss()
+        
+        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+        
+        /*
+        FriendService.shared.generateFriendEmotion(id: <#T##Int#>, emotion: <#T##Int#>){ result in
+            switch result{
+            case .success:
+                break
+            default:
+                break
+            }
+        }
+         */
     }
 }
 
@@ -148,15 +186,13 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
         if(collectionView == emoijiFloatingView?.collectionView){
-            
-            guard let cellIndex = self.currentEmotionSelectCardIndex, let reaction = Reaction(rawValue: indexPath.row) else { return }
-            
-            friendCards[cellIndex] = reaction
-            
-            self.emoijiFloatingView?.dismiss()
-            
-            ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+            requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
         }else{
+            
+            if(indexPath.row == currentFriendIndex){
+                return
+            }
+            
             if(currentFriendIndex == 0 && indexPath.row != 0){
                 guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell, let cell = friendListCell.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
                 cell.setUnselectState(row: 0)
@@ -170,14 +206,11 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
-        
         cell.setUnselectState(row: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-
         if(collectionView == emoijiFloatingView?.collectionView){
             return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
         }
@@ -261,7 +294,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let sheet = FriendReactionSheetViewController().loadAndShowBottomSheet(in: self)
+        _ = FriendReactionSheetViewController().loadAndShowBottomSheet(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
