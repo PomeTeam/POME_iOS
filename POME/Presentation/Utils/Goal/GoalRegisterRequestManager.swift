@@ -14,6 +14,19 @@ class GoalRegisterRequestManager{
     
     var startDate: String = ""
     var endDate: String = ""
+    var name: String = ""
+    var isPublic: Bool = true
+    var oneLineMind: String = ""
+    var price: String = ""
     
     private init() { }
+    
+    func initialize(){
+        startDate = ""
+        endDate = ""
+        name = ""
+        isPublic = true
+        oneLineMind = ""
+        price = ""
+    }
 }

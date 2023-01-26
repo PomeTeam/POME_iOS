@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct GoalRegisterRequestModel{
-    let goalCategoryId: Int
+struct GoalRegisterRequestModel: Encodable{
+//    let goalCategoryId: Int
+    let name: String
     let startDate: String
     let endDate: String
     let oneLineMind: String

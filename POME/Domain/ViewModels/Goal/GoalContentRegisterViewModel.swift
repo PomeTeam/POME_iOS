@@ -20,6 +20,9 @@ class GoalContentRegisterViewModel{
     }
     
     struct Output{
+        let category: Driver<String>
+        let promise: Driver<String>
+        let price: Driver<String>
         let canMoveNext: Driver<Bool>
     }
     
@@ -33,12 +36,28 @@ class GoalContentRegisterViewModel{
                                                          input.promiseTextField,
                                                          input.priceTextField)
         
+        
+        let category = input.categoryTextField
+            .map{ $0 }
+            .asDriver(onErrorJustReturn: "")
+        
+        let promise = input.promiseTextField
+            .map{ $0 }
+            .asDriver(onErrorJustReturn: "")
+        
+        let price = input.priceTextField
+            .map{ $0 }
+            .asDriver(onErrorJustReturn: "")
+        
         let canMoveNext = requestObservable
             .map { category, promise, price in
                 return !category.isEmpty && !promise.isEmpty && !price.isEmpty
             }.asDriver(onErrorJustReturn: false)
 
-        return Output(canMoveNext: canMoveNext)
+        return Output(category: category,
+                      promise: promise,
+                      price: price,
+                      canMoveNext: canMoveNext)
     }
 }
 
