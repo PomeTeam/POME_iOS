@@ -55,7 +55,6 @@ class FriendViewController: BaseTabViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         requestGetFriends()
     }
     
@@ -106,6 +105,7 @@ class FriendViewController: BaseTabViewController {
     //MARK: - API
     
     private func requestGetFriends(){
+        
         FriendService.shared.getFriends(pageable: PageableModel(page: 1,
                                                                 size: 10,
                                                                 sort: [])){ result in
