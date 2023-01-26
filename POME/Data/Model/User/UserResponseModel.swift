@@ -19,3 +19,8 @@ struct SendSMSResponseModel: Decodable{
     let value: String
     let message: String?
 }
+
+struct PresignedURLResponseModel: Decodable {
+    let id: String
+    let presignedUrl: String
+}

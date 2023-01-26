@@ -31,4 +31,16 @@ extension UserService{
             completion(response)
         }
     }
+    
+    func getPresignedURL(id: String, completion: @escaping (Result<PresignedURLResponseModel, Error>) -> Void) {
+        requestDecoded(UserRouter.imageServer(id: id)) { response in
+            completion(response)
+        }
+    }
+    
+    func putImageToServer(preUrl: String, image: UIImage, completion: @escaping (Result<Int, Error>) -> Void) {
+        requestNoResultAPI(UserRouter.putImageToServer(preUrl: preUrl, image: image)) { response in
+            completion(response)
+        }
+    }
 }

@@ -88,7 +88,9 @@ class AppRegisterViewController: BaseViewController {
     }
     @objc func nextButtonDidTap() {
         if inputCode.value == self.authCode {
-            self.navigationController?.pushViewController(TermsViewController(), animated: true)
+            let vc = TermsViewController()
+            vc.phoneNum = self.phone.value
+            self.navigationController?.pushViewController(vc, animated: true)
         } else {
             // TODO: 코드가 맞지 않을 때 예외처리
             print("🤩보내진 인증코드와 입력한 코드번호가 맞지 않습니다.🤩")
