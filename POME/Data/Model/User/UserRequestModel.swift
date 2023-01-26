@@ -21,3 +21,6 @@ struct SendSMSRequestModel: Encodable{
     let phoneNum: String
 }
 
+struct CheckNicknameRequestModel: Encodable{
+    let nickName: String
+}

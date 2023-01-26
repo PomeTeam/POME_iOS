@@ -96,7 +96,7 @@ class RegisterViewController: UIViewController {
                 
         self.name.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
-                self.checkValidName(newValue)
+                self.checkNickName(newValue)
 //            print("name changed : \(newValue) ")
             })
             .disposed(by: disposeBag)
@@ -112,22 +112,22 @@ class RegisterViewController: UIViewController {
         self.registerView.nameTextField.text = currName
         return currName
     }
-    func checkValidName(_ name: String) {
-        if name.count > 0 && name.count <= 10 {
-            registerView.messageLabel.then{
-                $0.text = "멋진 닉네임이네요!"
-                $0.textColor = Color.mint100
-            }
-            registerView.completeButton.isActivate(true)
-        } else {
-            registerView.messageLabel.then{
-                $0.text = "사용할 수 없는 닉네임이에요"
-                $0.textColor = Color.red
-            }
-            registerView.completeButton.isActivate(false)
-        }
-        registerView.messageLabel.isHidden = false
-    }
+//    func checkValidName(_ name: String) {
+//        if name.count > 0 && name.count <= 10 {
+//            registerView.messageLabel.then{
+//                $0.text = "멋진 닉네임이네요!"
+//                $0.textColor = Color.mint100
+//            }
+//            registerView.completeButton.isActivate(true)
+//        } else {
+//            registerView.messageLabel.then{
+//                $0.text = "사용할 수 없는 닉네임이에요"
+//                $0.textColor = Color.red
+//            }
+//            registerView.completeButton.isActivate(false)
+//        }
+//        registerView.messageLabel.isHidden = false
+//    }
     // MARK: - Actions
     @objc func completeButtonDidTap() {
         if self.selectedPhoto != nil {
@@ -164,6 +164,44 @@ extension RegisterViewController : UIImagePickerControllerDelegate, UINavigation
 }
 //MARK: - API
 extension RegisterViewController {
+    // 닉네임 중복 체크 (실시간)
+    private func checkNickName(_ nickname: String) {
+        let checkNicknameRequestModel = CheckNicknameRequestModel(nickName: nickname)
+        UserService.shared.checkNickName(model: checkNicknameRequestModel) { result in
+            switch result {
+                case .success(let data):
+                    self.registerView.messageLabel.isHidden = false
+                    if let isValidName = data.data {
+                        if isValidName {
+                            self.registerView.messageLabel.then{
+                                $0.text = data.message!
+                                $0.textColor = Color.mint100
+                            }
+                            self.registerView.completeButton.isActivate(true)
+                        } else {
+                            self.registerView.messageLabel.then{
+                                $0.text = data.message!
+                                $0.textColor = Color.red
+                            }
+                            self.registerView.completeButton.isActivate(false)
+                        }
+                    } else {
+                        self.registerView.messageLabel.then{
+                            $0.text = data.message!
+                            $0.textColor = Color.red
+                        }
+                        self.registerView.completeButton.isActivate(false)
+                    }
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+    
     // presignedURL 받기 -> 이미지 서버에 저장 -> 회원가입
     private func getPresignedURL(){
         let id = self.fileKey
