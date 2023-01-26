@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController {
     var presignedURL: String = ""
     var imageKey: String = ""
     
+    var phoneNum : String = ""
     
     let name =  BehaviorRelay(value: "")
     
@@ -130,8 +131,6 @@ class RegisterViewController: UIViewController {
     // MARK: - Actions
     @objc func completeButtonDidTap() {
         getPresignedURL()
-//        let vc = CompleteRegisterViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func albumButtonDidTap() {
         self.imagePickerController.sourceType = .photoLibrary
@@ -169,7 +168,7 @@ extension RegisterViewController {
                     print("presignedURL 요청 성공", data.id)
                     self.imageKey = data.id
                     self.presignedURL = data.presignedUrl
-                    print(self.presignedURL)
+//                    print(self.presignedURL)
                 
                     self.putImageToSerVer()
                     break
@@ -187,7 +186,28 @@ extension RegisterViewController {
             switch result{
             case .success(let data):
                 print("서버에 이미지 저장 성공")
+                self.signUp()
+                
                 break
+            default:
+                break
+            }
+        }
+    }
+    // 회원가입
+    private func signUp() {
+        let signUpRequestModel = SignUpRequestModel(nickname: self.name.value, phoneNum: self.phoneNum, imageKey: self.imageKey)
+        UserService.shared.signUp(model: signUpRequestModel) { result in
+            switch result {
+                case .success(let data):
+                    print("회원가입 성공")
+                    print(data)
+                    let vc = CompleteRegisterViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
             default:
                 break
             }
