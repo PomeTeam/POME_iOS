@@ -77,7 +77,7 @@ extension FriendRouter{
                                                    "size" : pageable.size,
                                                    "sort" : pageable.sort], encoding: URLEncoding.queryString)
         case .getAllFriendsRecord:
-            <#code#>
+            return .requestPlain
             
             /*
             case .renameAlbum(_, let request):
