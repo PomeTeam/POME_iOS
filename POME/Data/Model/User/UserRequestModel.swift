@@ -10,7 +10,7 @@ import Foundation
 struct SignUpRequestModel: Encodable {
     let nickname: String
     let phoneNum: String
-    let imageKey: String
+    let imageKey: String?
 }
 
 struct SignInRequestModel: Encodable {

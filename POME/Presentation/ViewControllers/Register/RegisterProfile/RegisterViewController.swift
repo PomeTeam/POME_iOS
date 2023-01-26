@@ -130,7 +130,12 @@ class RegisterViewController: UIViewController {
     }
     // MARK: - Actions
     @objc func completeButtonDidTap() {
-        getPresignedURL()
+        if self.selectedPhoto != nil {
+            getPresignedURL()
+        } else {
+            signUp()
+        }
+        
     }
     @objc func albumButtonDidTap() {
         self.imagePickerController.sourceType = .photoLibrary
@@ -200,11 +205,15 @@ extension RegisterViewController {
         UserService.shared.signUp(model: signUpRequestModel) { result in
             switch result {
                 case .success(let data):
-                    print("회원가입 성공")
                     print(data)
-                    let vc = CompleteRegisterViewController()
-                    self.navigationController?.pushViewController(vc, animated: true)
-                break
+                
+                    if data.success! {
+                        print("회원가입 성공")
+                        let vc = CompleteRegisterViewController()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    break
+                
                 case .failure(let err):
                     print(err.localizedDescription)
                     break
