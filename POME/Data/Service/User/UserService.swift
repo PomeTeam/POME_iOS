@@ -31,4 +31,9 @@ extension UserService{
             completion(response)
         }
     }
+    func getPresignedURL(id: String, completion: @escaping (Result<PresignedURLResponseModel, Error>) -> Void) {
+        requestDecoded(UserRouter.imageServer(id: id)) { response in
+            completion(response)
+        }
+    }
 }

@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Photos
 
 class RegisterViewController: UIViewController {
     
@@ -15,8 +16,12 @@ class RegisterViewController: UIViewController {
     var registerView: RegisterView!
     let maskView = UIImageView()
     
+    // Image
     let imagePickerController = UIImagePickerController()
     var selectedPhoto: UIImage!
+    var fileKey: String = ""
+    var presignedURL: String = ""
+    
     
     let name =  BehaviorRelay(value: "")
     
@@ -123,8 +128,9 @@ class RegisterViewController: UIViewController {
     }
     // MARK: - Actions
     @objc func completeButtonDidTap() {
-        let vc = CompleteRegisterViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        getPresignedURL()
+//        let vc = CompleteRegisterViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func albumButtonDidTap() {
         self.imagePickerController.sourceType = .photoLibrary
@@ -135,10 +141,41 @@ class RegisterViewController: UIViewController {
 extension RegisterViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.selectedPhoto = UIImage()
+        
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.selectedPhoto = image
             self.registerView.profileImage.image = image
         }
+        // imageKey - 날짜 형식
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "yyyyMMdd"
+        fileKey += dateFormat.string(from: Date())
+        fileKey += String(Int64(Date().timeIntervalSince1970)) + "_"
+        fileKey += UUID().uuidString
+        print(fileKey)
+        
         self.dismiss(animated: true, completion: nil)
     }
+}
+//MARK: - API
+extension RegisterViewController {
+    // presignedURL 받기 -> 이미지 서버에 저장 -> 회원가입
+    private func getPresignedURL(){
+        let id = self.fileKey
+        UserService.shared.getPresignedURL(id: id) { result in
+            switch result {
+                case .success(let data):
+                    print("presignedURL 요청 성공")
+                    self.presignedURL = data.presignedUrl
+                    print(self.presignedURL)
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+   
 }

@@ -12,9 +12,21 @@ enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
     case signIn(param: SignInRequestModel)
     case sendSMS(param: SendSMSRequestModel)
+    
+    case imageServer(id: String)
 }
 
 extension UserRouter{
+    
+    var baseURL: URL {
+        switch self {
+        case .imageServer:
+            return URL(string: "http://image-main-server.ap-northeast-2.elasticbeanstalk.com/presigned-url")!
+        default:
+            let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
+            return URL(string: "http://" + url)!
+        }
+    }
     
     var path: String {
         switch self {
@@ -24,6 +36,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.signIn
         case .sendSMS:
             return HTTPMethodURL.POST.sms
+        default:
+            return ""
         }
     }
     
@@ -35,6 +49,8 @@ extension UserRouter{
             return .post
         case .sendSMS:
             return .post
+        case .imageServer:
+            return .get
         }
     }
     
@@ -46,6 +62,8 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .sendSMS(let param):
             return .requestJSONEncodable(param)
+        case .imageServer(let id):
+            return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
         }
     }
 }
