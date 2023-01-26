@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct GoalRegisterRequestModel{
+    let goalCategoryId: Int
+    let startDate: String
+    let endDate: String
+    let oneLineMind: String
+    let price: Int
+    let isPublic: Bool
+}
