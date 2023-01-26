@@ -12,3 +12,17 @@ struct PageableModel: Encodable{
     let size: Int
     let sort = ["string"]
 }
+
+
+protocol ConvertDictionary{
+}
+
+extension ConvertDictionary where Self: Encodable{
+    /*
+    var dictionary: [String : Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String:Any] else { throw NSError() }
+        return dictionary
+    }
+     */
+}

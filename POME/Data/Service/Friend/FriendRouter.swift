@@ -14,6 +14,8 @@ enum FriendRouter: BaseRouter{
     case postFriend(id: Int)
     case deleteFriend(id: Int)
     case getFriends(pageable: PageableModel)
+    case getFriendRecord(id: String, pageable: PageableModel)
+    case getAllFriendsRecord
 }
 
 extension FriendRouter{
@@ -30,6 +32,10 @@ extension FriendRouter{
             return HTTPMethodURL.DELETE.friend + "/\(id)"
         case .getFriends:
             return HTTPMethodURL.GET.friends
+        case .getFriendRecord(let id, _):
+            return HTTPMethodURL.GET.recordOfFriend + "/\(id)"
+        case .getAllFriendsRecord:
+            return ""
         }
     }
     
@@ -44,6 +50,10 @@ extension FriendRouter{
         case .deleteFriend:
             return .delete
         case .getFriends:
+            return .get
+        case .getFriendRecord:
+            return  .get
+        case .getAllFriendsRecord:
             return .get
         }
     }
@@ -62,11 +72,18 @@ extension FriendRouter{
         case .getFriends(let pageable):
             return .requestParameters(parameters: ["userId": UserManager.userId ?? "",
                                                    "pageable" : pageable], encoding: URLEncoding.queryString)
-        /*
-        case .renameAlbum(_, let request):
-            return .requestParameters(parameters: ["name": request.name],
-                                      encoding: JSONEncoding.default)
-         */
+        case .getFriendRecord(_, let pageable):
+            return .requestParameters(parameters: ["page" : pageable.page,
+                                                   "size" : pageable.size,
+                                                   "sort" : pageable.sort], encoding: URLEncoding.queryString)
+        case .getAllFriendsRecord:
+            <#code#>
+            
+            /*
+            case .renameAlbum(_, let request):
+                return .requestParameters(parameters: ["name": request.name],
+                                          encoding: JSONEncoding.default)
+             */
         }
     }
 }
