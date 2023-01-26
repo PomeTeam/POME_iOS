@@ -7,6 +7,7 @@
 
 import Foundation
 import Moya
+import UIKit
 
 enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
@@ -14,6 +15,7 @@ enum UserRouter: BaseRouter{
     case sendSMS(param: SendSMSRequestModel)
     
     case imageServer(id: String)
+    case putImageToServer(preUrl: String, image: UIImage)
 }
 
 extension UserRouter{
@@ -22,6 +24,8 @@ extension UserRouter{
         switch self {
         case .imageServer:
             return URL(string: "http://image-main-server.ap-northeast-2.elasticbeanstalk.com/presigned-url")!
+        case .putImageToServer(let preUrl, _):
+            return URL(string: preUrl)!
         default:
             let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
             return URL(string: "http://" + url)!
@@ -51,6 +55,8 @@ extension UserRouter{
             return .post
         case .imageServer:
             return .get
+        case .putImageToServer:
+            return .put
         }
     }
     
@@ -64,6 +70,20 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .imageServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
+        case .putImageToServer(_, let image):
+            if let image = image.jpegData(compressionQuality: 1.0) {
+                return .uploadMultipart([MultipartFormData(provider: .data(image), name: "image", fileName: "background.jpg", mimeType: "image/jpg")])
+            }
+            return .requestPlain
+        }
+    }
+    
+    var headers: [String: String]? {
+        switch self {
+        case .putImageToServer:
+            return ["Content-Type" : "multipart/form-data"]
+        default:
+            return ["Content-Type": "application/json"]
         }
     }
 }

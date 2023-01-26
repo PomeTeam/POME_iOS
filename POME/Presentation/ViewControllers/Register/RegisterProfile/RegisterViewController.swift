@@ -21,6 +21,7 @@ class RegisterViewController: UIViewController {
     var selectedPhoto: UIImage!
     var fileKey: String = ""
     var presignedURL: String = ""
+    var imageKey: String = ""
     
     
     let name =  BehaviorRelay(value: "")
@@ -165,9 +166,12 @@ extension RegisterViewController {
         UserService.shared.getPresignedURL(id: id) { result in
             switch result {
                 case .success(let data):
-                    print("presignedURL 요청 성공")
+                    print("presignedURL 요청 성공", data.id)
+                    self.imageKey = data.id
                     self.presignedURL = data.presignedUrl
                     print(self.presignedURL)
+                
+                    self.putImageToSerVer()
                     break
                 case .failure(let err):
                     print(err.localizedDescription)
@@ -177,5 +181,16 @@ extension RegisterViewController {
             }
         }
     }
-   
+    // 이미지 서버에 저장
+    private func putImageToSerVer() {
+        UserService.shared.putImageToServer(preUrl: self.presignedURL, image: self.selectedPhoto) { result in
+            switch result{
+            case .success(let data):
+                print("서버에 이미지 저장 성공")
+                break
+            default:
+                break
+            }
+        }
+    }
 }
