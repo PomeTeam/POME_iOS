@@ -9,6 +9,7 @@ import UIKit
 
 class TermsViewController: UIViewController {
     var termsView: TermsView!
+    var phoneNum : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,9 @@ class TermsViewController: UIViewController {
     
     // MARK: - Actions
     @objc func agreeButtonDidTap() {
-        self.navigationController?.pushViewController(RegisterViewController(), animated: true)
+        let vc = RegisterViewController()
+        vc.phoneNum = self.phoneNum
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func termDetailButtonDidTap(sender: UITapGestureRecognizer) {
         self.navigationController?.pushViewController(TermDetailViewController(), animated: true)
