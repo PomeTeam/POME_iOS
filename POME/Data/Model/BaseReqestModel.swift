@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BaseReequestModel<T: Encodable>: Encodable{
+struct BaseRequestModel<T: Encodable>: Encodable{
     let request: T
     let userId: String = UserManager.userId ?? ""
 }

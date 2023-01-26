@@ -15,7 +15,8 @@ extension BaseRouter {
 
     var baseURL: URL {
         let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
-        return URL(string: "http://" + url)!
+//        return URL(string: "http://" + url)!
+        return URL(string: "http://" + "52.79.89.129/api/v1")!
     }
 
     var headers: [String: String]? {
