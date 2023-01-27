@@ -10,4 +10,5 @@ import Foundation
 struct UserDefaultKey{
     static let id = "id"
     static let token = "token"
+    static let phoneNum = "phoneNum"
 }

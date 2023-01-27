@@ -13,4 +13,7 @@ class UserManager {
     
     @UserDefault(key: UserDefaultKey.token, defaultValue: nil)
     static var token: String?
+    
+    @UserDefault(key: UserDefaultKey.phoneNum, defaultValue: nil)
+    static var phoneNum: String?
 }
