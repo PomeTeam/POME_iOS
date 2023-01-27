@@ -31,7 +31,7 @@ class FriendViewController: BaseTabViewController {
             friendView.tableView.reloadData()
         }
     }
-//    var friendCards = [Reaction?](){
+
     var friendCards = [RecordResponseModel](){
         didSet{
             friendView.tableView.reloadData()
@@ -122,7 +122,6 @@ extension FriendViewController{
     }
     
     private func requestGetFriendCards(){
-        //id -> currentFriendIndex로 접근
         let friendId = friends[currentFriendIndex].friendUserId
         FriendService.shared.getFriendRecord(id: friendId,
                                              pageable: PageableModel(page: 0, size: 10)){ result in
@@ -138,24 +137,21 @@ extension FriendViewController{
     
     private func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
-        guard let cellIndex = self.currentEmotionSelectCardIndex, let reaction = Reaction(rawValue: reactionIndex) else { return }
+        guard let cellIndex = self.currentEmotionSelectCardIndex,
+                let reaction = Reaction(rawValue: reactionIndex) else { return }
         
-        friendCards[cellIndex] = reaction
-        
-        self.emoijiFloatingView?.dismiss()
-        
-        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-        
-        /*
-        FriendService.shared.generateFriendEmotion(id: <#T##Int#>, emotion: <#T##Int#>){ result in
+        FriendService.shared.generateFriendEmotion(id: friendCards[cellIndex].id,
+                                                   emotion: reactionIndex){ result in
             switch result{
             case .success:
+                self.friendCards[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
             default:
                 break
             }
         }
-         */
     }
 }
 
@@ -279,7 +275,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         
         guard let emoijiFloatingView = emoijiFloatingView,
               let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        
         emoijiFloatingView.dismissHandler = {
             self.currentEmotionSelectCardIndex = nil
             self.emoijiFloatingView = nil
@@ -290,7 +285,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-        
         emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }
