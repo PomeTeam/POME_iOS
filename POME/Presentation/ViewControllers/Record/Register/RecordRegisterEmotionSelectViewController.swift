@@ -14,6 +14,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     private let mainView = RecordRegisterEmotionSelectView()
     private let viewModel = RecordRegisterEmotionSelectViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    private var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override
     
@@ -79,20 +80,16 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
     //MARK: - Helper
     
     @objc func completeButtonDidClicked(){
-        
-        /* 선택한 emotion 정보 추출
-         
-        let view = mainView.viewWithTag(1) as! RecordRegisterEmotionSelectView.FirstEmotionView
-        print(view.emotion)
-         */
-        
-        let vc = RegisterSuccessViewController(type: .consume)
-        self.navigationController?.pushViewController(vc, animated: true)
+        guard let view = mainView.viewWithTag(ViewTag.select) as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
+        recordManager.emotion = view.emotion.rawValue
+
+        requestGenerateRecord()
     }
     
     func closeButtonDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
+            self.recordManager.initialize()
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -117,5 +114,31 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         willDeselectEmotion.changeDeselectState()
         selectEmotion.changeSelectState()
         
+    }
+}
+
+//MARK: - API
+
+extension RecordRegisterEmotionSelectViewController{
+    
+    private func requestGenerateRecord(){
+        guard let price = Int(recordManager.price) else { return }
+        let request = RecordRegisterRequestModel(goalId: recordManager.goalId,
+                                                 emotionId: recordManager.emotion,
+                                                 usePrice: price,
+                                                 useDate: recordManager.consumeDate,
+                                                 useComment: recordManager.detail)
+        
+        RecordService.shared.generateRecord(request: request){ result in
+            switch result{
+            case .success:
+                self.recordManager.initialize()
+                let vc = RegisterSuccessViewController(type: .consume)
+                self.navigationController?.pushViewController(vc, animated: true)
+                break
+            default:
+                break
+            }
+        }
     }
 }

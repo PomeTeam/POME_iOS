@@ -10,7 +10,7 @@ import RxSwift
 
 class RecordRegisterContentViewController: BaseViewController {
     
-    var goals = [String]()
+    var goals = [GoalCategoryResponseModel]()
     
     private let mainView = RecordRegisterContentView()
     private let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
@@ -114,25 +114,22 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     private func categorySheetWillShow(){
-        let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
-        sheet.completion = { title in
-            self.recordManager.goalId = 0 //TODO: - GOAL id값으로 넣어주기
-            self.mainView.goalField.infoTextField.text = title
+        let sheet = CategorySelectSheetViewController(data: goals).loadAndShowBottomSheet(in: self)
+        sheet.completion = { selectIndex in
+            let goal = self.goals[selectIndex]
+            self.recordManager.goalId =  goal.id//TODO: - GOAL id값으로 넣어주기
+            self.mainView.goalField.infoTextField.text = goal.name
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
     }
     
     @objc private func completeButtonDidClicked(){
-        
-        /* 아래 코드 사용해서 text 데이터 추출하기 for 마지막 공백 제거
-         mainView.contentTextView.recordTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-         */
-        
         let vc = RecordRegisterEmotionSelectViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func backBtnDidClicked(){
+        print(recordManager.info())
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
             self.recordManager.initialize()
@@ -214,7 +211,15 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
 //MARK: - API
 extension RecordRegisterContentViewController{
     private func requestGetGoals(){
-        
+        GoalCategoryService.shared.getGoalCategory{ result in
+            switch result{
+            case .success(let data):
+                self.goals = data
+                break
+            default:
+                break
+            }
+        }
     }
 }
 

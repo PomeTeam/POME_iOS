@@ -12,16 +12,23 @@ class RecordRegisterRequestManager{
     static let shared = RecordRegisterRequestManager()
     
     var goalId: Int = -1
-    var consumeDate: String = ""
+    var consumeDate: String = PomeDateFormatter.getTodayDate()
     var price: String = ""
     var detail: String = ""
+    var emotion: Int = -1
     
     private init() { }
     
     func initialize(){
         goalId = -1
-        consumeDate = ""
+        consumeDate = PomeDateFormatter.getTodayDate()
         price = ""
         detail = ""
+        emotion = -1
+    }
+    
+    func info(){
+        print(self)
+        print("goalId", goalId, "consumeDate", consumeDate, "price", price, "detail", detail)
     }
 }
