@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Const{
-    static let `default` = -1
+    static let `default` = -1 //enum 형 등에서 default에 매핑되는 정수 값
 }
 
 struct Device{
