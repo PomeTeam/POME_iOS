@@ -104,20 +104,22 @@ class FriendDetailView: BaseView {
     
     //MARK: - Method
     
-    func setOthersReaction(count: Int){
+    func setOthersReactionEmpty(){
+        othersReactionButton.backgroundColor = .white
+        othersReactionButton.isEnabled = false
+    }
+    
+    func setOthersReaction(thumbnail: Reaction, count: Int){
         
-        if(count == 0){
-            //TODO: 0개일 때 어떤 이모지 사용...?
-            othersReactionButton.setImage(Image.emojiAdd, for: .normal)
-            return
-        }else if(count == 1){
-            othersReactionButton.setImage(Image.emojiHappy, for: .normal)
+        othersReactionButton.isEnabled = true
+        
+        if(count == 1){
+            othersReactionButton.setImage(thumbnail.defaultImage, for: .normal)
             return
         }
         
         //count > 1인 경우 아래 코드 실행
         self.othersReactionButton.addSubview(othersReactionCountLabel)
-
         othersReactionCountLabel.snp.makeConstraints{
             $0.leading.top.equalToSuperview().offset(6)
             $0.centerX.centerY.equalToSuperview()
@@ -132,7 +134,7 @@ class FriendDetailView: BaseView {
         }
         
         othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(Image.emojiBlurHappy, for: .normal)
+        othersReactionButton.setImage(thumbnail.blurImage, for: .normal)
     }
     
     //MARK: - Override
