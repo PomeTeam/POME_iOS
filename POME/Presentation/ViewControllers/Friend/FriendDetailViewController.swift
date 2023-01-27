@@ -17,7 +17,7 @@ class FriendDetailViewController: BaseViewController {
     }
     
     let mainView = FriendDetailView()
-    let record: RecordResponseModel
+    var record: RecordResponseModel
     
     init(record: RecordResponseModel){
         self.record = record
@@ -77,28 +77,37 @@ extension FriendDetailViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
-                as? EmojiFloatingCollectionViewCell else { fatalError() }
-        
+        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
         cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        
-        guard let reaction = Reaction(rawValue: indexPath.row) else { return }
-        
-        self.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
-        
-        self.emoijiFloatingView?.dismiss()
-        
-        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+        requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
     }
-    
-    
+}
+
+extension FriendDetailViewController{
+    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+        
+        guard let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: record.id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.record.emotionResponse.myEmotion = reactionIndex
+                self.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                break
+            }
+        }
+    }
 }
