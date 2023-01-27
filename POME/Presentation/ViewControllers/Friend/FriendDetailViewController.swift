@@ -16,20 +16,26 @@ class FriendDetailViewController: BaseViewController {
         }
     }
     
-    let mainView = FriendDetailView().then{
-        $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+    let mainView = FriendDetailView()
+    var record: RecordResponseModel
+    
+    init(record: RecordResponseModel){
+        self.record = record
+        super.init(nibName: nil, bundle: nil)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func style(){
-        
         super.style()
-        
-        //MARK: - 지금은 이렇게 넣지만... 데이터 바인딩할 때 데이터 한꺼번에 처리되도록 함수 만들기
-        self.setNavigationTitleLabel(title: "닉네임 입력받기")
+        self.setNavigationTitleLabel(title: record.nickname)
+    }
+    
+    override func initialize() {
+        mainView.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.dataBinding(with: record)
     }
     
     override func layout() {
@@ -37,7 +43,6 @@ class FriendDetailViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP + 24)
             $0.leading.equalToSuperview().offset(24)
@@ -50,17 +55,14 @@ class FriendDetailViewController: BaseViewController {
         emoijiFloatingView = EmojiFloatingView()
         
         guard let emoijiFloatingView = emoijiFloatingView else { return }
-        
         emoijiFloatingView.dismissHandler = {
             self.emoijiFloatingView = nil
         }
         
         self.view.addSubview(emoijiFloatingView)
-
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-        
         emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(mainView.snp.bottom).offset(20 - 4)
         }
@@ -75,28 +77,37 @@ extension FriendDetailViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
-                as? EmojiFloatingCollectionViewCell else { fatalError() }
-        
+        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
         cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        
-        guard let reaction = Reaction(rawValue: indexPath.row) else { return }
-        
-        self.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
-        
-        self.emoijiFloatingView?.dismiss()
-        
-        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+        requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
     }
-    
-    
+}
+
+extension FriendDetailViewController{
+    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+        
+        guard let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: record.id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.record.emotionResponse.myEmotion = reactionIndex
+                self.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                break
+            }
+        }
+    }
 }

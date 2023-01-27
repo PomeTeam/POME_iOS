@@ -10,8 +10,9 @@ import RxSwift
 
 class GoalContentViewController: BaseViewController {
     
-    let mainView = GoalContentView()
-    let viewModel = GoalContentRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
+    private let mainView = GoalContentView()
+    private let viewModel = GoalContentRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
+    private var goalDataManager = GoalRegisterRequestManager.shared
     
     //MARK: - Override
     
@@ -51,18 +52,34 @@ class GoalContentViewController: BaseViewController {
         
         let output = viewModel.transform(input: input)
         
+        output.category
+            .drive(onNext: {
+                self.goalDataManager.name = $0
+            }).disposed(by: disposeBag)
+        
+        output.promise
+            .drive(onNext: {
+                self.goalDataManager.oneLineMind = $0
+            }).disposed(by: disposeBag)
+
+        output.price
+            .drive(onNext: {
+                self.goalDataManager.price = $0
+            }).disposed(by: disposeBag)
+        
         output.canMoveNext
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
         mainView.completeButton.rx.tap
             .bind{
-                self.completeButtonDidClicked()
+                self.requestGenerateGoal()
             }.disposed(by: disposeBag)
         
         mainView.goalMakePublicSwitch.rx.isOn
             .asDriver(onErrorJustReturn: false)
             .drive(onNext: { value in
+                self.goalDataManager.isPublic = value
                 self.mainView.changeGoalMakePublicViewStatus(with: value)
             })
             .disposed(by: disposeBag)
@@ -78,13 +95,9 @@ class GoalContentViewController: BaseViewController {
     private func closeButtonDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
+            self.goalDataManager.initialize()
             self.navigationController?.popToRootViewController(animated: true)
         }
-    }
-    
-    private func completeButtonDidClicked(){
-        let vc = RegisterSuccessViewController(type: .goal)
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func keyboardWillDisappear(){
@@ -113,3 +126,34 @@ extension GoalContentViewController: UITextFieldDelegate{
     }
 }
 
+
+//MARK: - API
+extension GoalContentViewController{
+    
+    private func requestGenerateGoal(){
+
+        guard let price = Int(goalDataManager.price) else { return }
+        let request = GoalRegisterRequestModel(name: goalDataManager.name,
+                                               startDate: goalDataManager.startDate,
+                                               endDate: goalDataManager.endDate,
+                                               oneLineMind: goalDataManager.oneLineMind,
+                                               price: price,
+                                               isPublic: goalDataManager.isPublic)
+        
+        GoalServcie.shared.generateGoal(request: request){ result in
+            switch result{
+            case .success:
+                self.processResponseGenerateGoal()
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    private func processResponseGenerateGoal(){
+        goalDataManager.initialize()
+        let vc = RegisterSuccessViewController(type: .goal)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}

@@ -8,9 +8,10 @@
 import Foundation
 
 enum EmotionTag: Int{
-    case sad
-    case what
+    case `default` = -1 //Const.default
     case happy
+    case what
+    case sad
 }
 
 enum EmotionTime{
@@ -34,9 +35,10 @@ extension EmotionTag{
     
     var message: String{
         switch self{
-        case .sad:      return "후회해요"
-        case .what:     return "모르겠어요"
         case .happy:    return "행복해요"
+        case .what:     return "모르겠어요"
+        case .sad:      return "후회해요"
+        default:        return "아직 감정을 남기지 않았어요"
         }
     }
     
@@ -48,6 +50,8 @@ extension EmotionTag{
                                             secondEmotion: Image.reviewWhat)
         case .happy:    return EmotionTagIcon(firstEmotion: Image.emojiHappy,
                                             secondEmotion: Image.reviewHappy)
+        default:        return EmotionTagIcon(firstEmotion: Image.tagUnselect,
+                                              secondEmotion: Image.tagUnselect)
         }
     }
     

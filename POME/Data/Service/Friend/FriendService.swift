@@ -43,4 +43,16 @@ extension FriendService{
             completion(response)
         }
     }
+    
+    func getFriendRecord(id: String, pageable: PageableModel, completion: @escaping (Result<[RecordResponseModel], Error>) -> Void) {
+        requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable)){ response in
+            completion(response)
+        }
+    }
+    
+    func getAllFriendsRecord(pageable: PageableModel, completion: @escaping (Result<[FriendsResponseModel], Error>) -> Void) {
+//        requestDecoded(FriendRouter.getFriendRecord){ response in
+//            completion(response)
+//        }
+    }
 }

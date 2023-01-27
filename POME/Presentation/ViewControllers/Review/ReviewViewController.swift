@@ -166,9 +166,9 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
             
             if let reaction = consumeRecords[indexPath.row] {
-                cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+                cell.mainView.myReactionButton.setImage(reaction.defaultImage, for: .normal)
             }
-            cell.mainView.setOthersReaction(count: indexPath.row)
+//            cell.mainView.setOthersReaction(count: indexPath.row)
     //        cell.delegate = self
             return cell
         }

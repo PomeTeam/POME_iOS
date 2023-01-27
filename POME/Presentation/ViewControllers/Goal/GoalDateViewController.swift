@@ -16,7 +16,8 @@ class GoalDateViewController: BaseViewController {
     
     private let mainView = GoalDateView()
     private let viewModel = GoalDateRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
-
+    private var goalDataManager = GoalRegisterRequestManager.shared
+    
     //MARK: - Override
     
     override func layout() {
@@ -84,16 +85,17 @@ class GoalDateViewController: BaseViewController {
     }
     
     private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
-        print(mainView.endDateField.isUserInteractionEnabled)
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
         let sheet: CalendarSheetViewController = sender == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
-        
         _ = sheet.loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
             let dateString = PomeDateFormatter.getDateString(date)
-            if(sheet == self.mainView.startDateField){
+            if(dateField == self.mainView.startDateField){
                 self.startDate = dateString
+                self.goalDataManager.startDate = dateString
+            }else{
+                self.goalDataManager.endDate = dateString
             }
             dateField.infoTextField.text = dateString
             dateField.infoTextField.sendActions(for: .valueChanged)

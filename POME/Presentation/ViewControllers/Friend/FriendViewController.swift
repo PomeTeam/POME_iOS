@@ -10,7 +10,6 @@ import UIKit
 class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
-    
     var currentFriendIndex: Int = 0{
         willSet{
             requestGetFriendCards()
@@ -31,7 +30,8 @@ class FriendViewController: BaseTabViewController {
             friendView.tableView.reloadData()
         }
     }
-    var friendCards = [Reaction?](repeating: nil, count: 13){
+
+    var friendCards = [RecordResponseModel](){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -53,7 +53,6 @@ class FriendViewController: BaseTabViewController {
     //MARK: - Override
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         requestGetFriends()
     }
@@ -86,6 +85,7 @@ class FriendViewController: BaseTabViewController {
     private func isFriendListEmpty(){
         
         if(friends.isEmpty){
+            
             emptyFriendView = FriendTableEmptyView()
             guard let emptyFriendView = emptyFriendView else { return }
 
@@ -101,14 +101,15 @@ class FriendViewController: BaseTabViewController {
             self.emptyFriendView = nil
         }
     }
-    
-    //MARK: - API
+}
+
+//MARK: - API
+extension FriendViewController{
     
     private func requestGetFriends(){
         
         FriendService.shared.getFriends(pageable: PageableModel(page: 1,
-                                                                size: 10,
-                                                                sort: [])){ result in
+                                                                size: 10)){ result in
             switch result{
             case .success(let data):
                 self.friends = data
@@ -121,29 +122,36 @@ class FriendViewController: BaseTabViewController {
     }
     
     private func requestGetFriendCards(){
-        //id -> currentFriendIndex로 접근
-    }
-    
-    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
-        
-        guard let cellIndex = self.currentEmotionSelectCardIndex, let reaction = Reaction(rawValue: reactionIndex) else { return }
-        
-        friendCards[cellIndex] = reaction
-        
-        self.emoijiFloatingView?.dismiss()
-        
-        ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-        
-        /*
-        FriendService.shared.generateFriendEmotion(id: <#T##Int#>, emotion: <#T##Int#>){ result in
+        let friendId = friends[currentFriendIndex].friendUserId
+        FriendService.shared.getFriendRecord(id: friendId,
+                                             pageable: PageableModel(page: 0, size: 10)){ result in
             switch result{
-            case .success:
+            case .success(let data):
+                self.friendCards = data
                 break
             default:
                 break
             }
         }
-         */
+    }
+    
+    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+        
+        guard let cellIndex = self.currentEmotionSelectCardIndex,
+                let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: friendCards[cellIndex].id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.friendCards[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -158,15 +166,12 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         if(collectionView == emoijiFloatingView?.collectionView){
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
-                    as? EmojiFloatingCollectionViewCell else { fatalError() }
-            
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
             cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
     
             return cell
         }else{
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
-                    as? FriendCollectionViewCell else { fatalError() }
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
                 cell.profileImage.image = Image.categoryInactive
@@ -228,32 +233,24 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if(indexPath.row == 0){
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListTableViewCell.cellIdentifier, for: indexPath) as? FriendListTableViewCell else {
-                return UITableViewCell() }
-            print(cell)
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendListTableViewCell.self)
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
-
-        if let reaction = friendCards[indexPath.row - 1] {
-            cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
-        }
-        
-        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
-        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
-        
-        cell.mainView.setOthersReaction(count: indexPath.row - 1)
-
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
+        let cardIndex = indexPath.row - 1
+        let record = friendCards[cardIndex]
+    
         cell.delegate = self
+        cell.mainView.dataBinding(with: record)
                 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = FriendDetailViewController()
+        let vc = FriendDetailViewController(record: friendCards[indexPath.row - 1])
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -265,18 +262,15 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         
         guard let emoijiFloatingView = emoijiFloatingView,
               let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        
         emoijiFloatingView.dismissHandler = {
             self.currentEmotionSelectCardIndex = nil
             self.emoijiFloatingView = nil
         }
         
         self.view.addSubview(emoijiFloatingView)
-        
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-        
         emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
         }

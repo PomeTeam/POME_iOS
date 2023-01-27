@@ -26,19 +26,16 @@ class FriendDetailView: BaseView {
     }
     
     let nameLabel = UILabel().then{
-        $0.text = "규렌버"
         $0.textColor = Color.body
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
     }
     
-    let tagLabel = PaddingLabel().then{
-        $0.text = "· 커피 대신 물을 마시자"
+    let goalPromiseLabel = PaddingLabel().then{
         $0.textColor = Color.grey5
         $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
     
     let timeLabel = UILabel().then{
-        $0.text = "· 44분 전   "
         $0.textColor = Color.grey5
         $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
@@ -61,7 +58,6 @@ class FriendDetailView: BaseView {
     
     //
     let priceLabel = UILabel().then{
-        $0.text = "320,800원"
         $0.textColor = Color.title
         $0.setTypoStyleWithMultiLine(typoStyle: .title3)
     }
@@ -104,20 +100,37 @@ class FriendDetailView: BaseView {
     
     //MARK: - Method
     
-    func setOthersReaction(count: Int){
+    func dataBinding(with record: RecordResponseModel){
         
-        if(count == 0){
-            //TODO: 0개일 때 어떤 이모지 사용...?
-            othersReactionButton.setImage(Image.emojiAdd, for: .normal)
-            return
-        }else if(count == 1){
-            othersReactionButton.setImage(Image.emojiHappy, for: .normal)
+        nameLabel.text = record.nickname
+        goalPromiseLabel.text = record.goalPromiseBinding
+        timeLabel.text = record.timeBinding
+        priceLabel.text = record.priceBinding
+        memoLabel.text = record.oneLineMind
+        
+        firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
+        secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
+        myReactionBtn.setImage(record.myReactionBinding, for: .normal)
+        
+        record.othersReactionCount == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
+    }
+    
+    func setOthersReactionEmpty(){
+        othersReactionButton.backgroundColor = .white
+        othersReactionButton.isEnabled = false
+    }
+    
+    func setOthersReaction(thumbnail: Reaction, count: Int){
+        
+        othersReactionButton.isEnabled = true
+        
+        if(count == 1){
+            othersReactionButton.setImage(thumbnail.defaultImage, for: .normal)
             return
         }
         
         //count > 1인 경우 아래 코드 실행
         self.othersReactionButton.addSubview(othersReactionCountLabel)
-
         othersReactionCountLabel.snp.makeConstraints{
             $0.leading.top.equalToSuperview().offset(6)
             $0.centerX.centerY.equalToSuperview()
@@ -132,7 +145,7 @@ class FriendDetailView: BaseView {
         }
         
         othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(Image.emojiBlurHappy, for: .normal)
+        othersReactionButton.setImage(thumbnail.blurImage, for: .normal)
     }
     
     //MARK: - Override
@@ -152,7 +165,7 @@ class FriendDetailView: BaseView {
         marginView.addSubview(moreButton)
         
         topStackView.addArrangedSubview(nameLabel)
-        topStackView.addArrangedSubview(tagLabel)
+        topStackView.addArrangedSubview(goalPromiseLabel)
         topStackView.addArrangedSubview(timeLabel)
         
         emotionStackView.addArrangedSubview(firstEmotionTag)

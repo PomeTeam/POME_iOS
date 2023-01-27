@@ -91,5 +91,4 @@ extension Reaction{
     var unselectImage: UIImage{
         return self.imageDescription.unselectIcon
     }
-
 }
