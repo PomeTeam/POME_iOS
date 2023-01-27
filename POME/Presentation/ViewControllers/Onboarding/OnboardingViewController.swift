@@ -72,8 +72,13 @@ extension OnboardingViewController {
                         // 유저 정보 저장
                         let token = data.data?.accessToken ?? ""
                         let userId = data.data?.userId ?? ""
+                        let nickName = data.data?.nickName ?? ""
+                        let profileImg = data.data?.imageURL ?? ""
+                        
                         UserDefaults.standard.set(token, forKey: "token")
                         UserDefaults.standard.set(userId, forKey: "userId")
+                        UserDefaults.standard.set(nickName, forKey: "nickName")
+                        UserDefaults.standard.set(profileImg, forKey: "profileImg")
                     }
                     
                     break
