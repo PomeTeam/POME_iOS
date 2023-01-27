@@ -248,6 +248,13 @@ extension RegisterViewController {
                 
                     if data.success! {
                         print("회원가입 성공")
+                        
+                        // 유저 정보 저장
+                        let token = data.data?.accessToken ?? ""
+                        let userId = data.data?.userId ?? ""
+                        UserDefaults.standard.set(token, forKey: "token")
+                        UserDefaults.standard.set(userId, forKey: "userId")
+                        
                         let vc = CompleteRegisterViewController()
                         self.navigationController?.pushViewController(vc, animated: true)
                     }

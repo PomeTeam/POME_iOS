@@ -20,8 +20,8 @@ extension FriendService{
         }
     }
     
-    func getFriendSearch(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.getFriendSearch(id: id)){ response in
+    func getFriendSearch(id: String, completion: @escaping (Result<BaseResponseModel<[FriendsResponseModel]>, Error>) -> Void) {
+        requestDecoded(FriendRouter.getFriendSearch(id: id)) { response in
             completion(response)
         }
     }

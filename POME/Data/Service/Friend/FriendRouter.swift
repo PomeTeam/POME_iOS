@@ -10,7 +10,7 @@ import Moya
 
 enum FriendRouter: BaseRouter{
     case postEmotion(id: Int, emotion: Int)
-    case getFriendSearch(id: Int)
+    case getFriendSearch(id: String)
     case postFriend(id: Int)
     case deleteFriend(id: Int)
     case getFriends(pageable: PageableModel)
@@ -64,7 +64,8 @@ extension FriendRouter{
             return .requestParameters(parameters: [:],
                                       encoding: JSONEncoding.default)
         case .getFriendSearch:
-            return .requestPlain
+            let userId = UserManager.userId ?? ""
+            return .requestParameters(parameters: ["userId": userId], encoding: URLEncoding.queryString)
         case .postFriend:
             return .requestPlain
         case .deleteFriend:
