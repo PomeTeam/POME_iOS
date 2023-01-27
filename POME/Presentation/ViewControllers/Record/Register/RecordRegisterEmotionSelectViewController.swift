@@ -132,7 +132,6 @@ extension RecordRegisterEmotionSelectViewController{
         RecordService.shared.generateRecord(request: request){ result in
             switch result{
             case .success:
-                self.recordManager.initialize()
                 let vc = RegisterSuccessViewController(type: .consume)
                 self.navigationController?.pushViewController(vc, animated: true)
                 break
