@@ -13,6 +13,8 @@ target 'POME' do
 
   pod 'Moya', '~> 15.0'
 
+  pod 'Kingfisher'
+
   pod 'RxSwift'
   pod 'RxCocoa'
   pod "RxGesture"

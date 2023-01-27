@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendSearchTableViewCell: BaseTableViewCell {
     let rightButton = UIButton().then{
@@ -13,9 +14,9 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         $0.setImage(Image.addComplete, for: .selected)
     }
     let profileImg = UIImageView().then{
+        $0.image = Image.photoDefault
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 22
-        $0.backgroundColor = Color.pink30
     }
     let profileName = UILabel().then{
         $0.text = "고민"
@@ -24,6 +25,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     }
 
     //MARK: - LifeCycle
+    var friendName: String = ""
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,11 +34,17 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+//        self.rightButton.isSelected = false
+        self.profileName.text = ""
+        self.profileImg.image = Image.photoDefault
+    }
     // MARK: - Methods
     override func setting() {
         super.setting()
         
-//        rightButton.addTarget(self, action: #selector(rightButtonDidTap), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
     }
     override func hierarchy() {
         super.hierarchy()
@@ -60,6 +68,30 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         rightButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-32)
             make.centerY.equalToSuperview()
+        }
+    }
+    // After API
+    func setUpData(_ data: FriendsResponseModel) {
+        let friendId = data.friendUserId
+        self.friendName = data.friendNickName
+        let imageUrl = data.imageKey
+        
+        profileName.text = self.friendName
+        
+        if imageUrl != "default" {
+            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
+    }
+    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
+        let btn = sender
+        if !(btn.isSelected) {
+            btn.isSelected = true
+            generateNewFriend(id: self.friendName)
+        }
+    }
+    private func generateNewFriend(id: String){
+        FriendService.shared.generateNewFriend(id: id) { result in
+            print("\(id) - 친구 추가")
         }
     }
 }

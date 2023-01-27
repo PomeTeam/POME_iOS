@@ -12,6 +12,7 @@ import RxCocoa
 class FriendSearchViewController: BaseViewController {
     var friendSearchView: FriendSearchView!
     var name = BehaviorRelay(value: "")
+    var friendData: [FriendsResponseModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +51,8 @@ class FriendSearchViewController: BaseViewController {
         friendSearchView.searchTextField.rx.controlEvent([.editingChanged])
             .asObservable()
             .subscribe(onNext: { _ in
-                EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
-                print("editingChanged : \(self.friendSearchView.searchTextField.text ?? "")")
+                
+//                print("editingChanged : \(self.friendSearchView.searchTextField.text ?? "")")
             }).disposed(by: disposeBag)
         
         // textField.rx.text의 변경이 있을 때
@@ -65,7 +66,8 @@ class FriendSearchViewController: BaseViewController {
                 
         self.name.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
-                print("name changed : \(newValue) ")
+                self.searchFriend(id: newValue)
+//                print("name changed : \(newValue) ")
             })
             .disposed(by: disposeBag)
     }
@@ -87,22 +89,32 @@ class FriendSearchViewController: BaseViewController {
         self.friendSearchView.searchTextField.text = currName
         return currName
     }
-    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
-        let btn = sender
-        if !(btn.isSelected) {
-            btn.isSelected = true
-        }
-    }
+//    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
+//        let btn = sender
+//        if !(btn.isSelected) {
+//            btn.isSelected = true
+//        }
+//    }
 }
 // MARK: - TableView delegate
 extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let count = self.friendData.count ?? 0
+        if count == 0 {
+            EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
+        } else {
+            EmptyView(self.friendSearchView.searchTableView).hideEmptyView()
+        }
+
+        return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
         
-        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
+        let itemIdx = indexPath.item
+        cell.setUpData(self.friendData[itemIdx])
+        
+//        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
         cell.selectionStyle = .none
         return cell
     }
@@ -110,7 +122,28 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
         return 70
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+//MARK: - API
+extension FriendSearchViewController {
+    private func searchFriend(id: String){
+        FriendService.shared.getFriendSearch(id: id) { result in
+            switch result {
+                case .success(let data):
+                    print("친구 찾기:", id)
+                    print(data.data)
+                
+                    self.friendData = data.data ?? []
+                    self.friendSearchView.searchTableView.reloadData()
+                
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
     }
 }
