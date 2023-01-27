@@ -11,7 +11,7 @@ import Moya
 enum FriendRouter: BaseRouter{
     case postEmotion(id: Int, emotion: Int)
     case getFriendSearch(id: String)
-    case postFriend(id: Int)
+    case postFriend(id: String)
     case deleteFriend(id: Int)
     case getFriends(pageable: PageableModel)
     case getFriendRecord(id: String, pageable: PageableModel)

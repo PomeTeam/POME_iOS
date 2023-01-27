@@ -89,12 +89,12 @@ class FriendSearchViewController: BaseViewController {
         self.friendSearchView.searchTextField.text = currName
         return currName
     }
-    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
-        let btn = sender
-        if !(btn.isSelected) {
-            btn.isSelected = true
-        }
-    }
+//    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
+//        let btn = sender
+//        if !(btn.isSelected) {
+//            btn.isSelected = true
+//        }
+//    }
 }
 // MARK: - TableView delegate
 extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -114,7 +114,7 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
         let itemIdx = indexPath.item
         cell.setUpData(self.friendData[itemIdx])
         
-        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
+//        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
         cell.selectionStyle = .none
         return cell
     }
@@ -132,7 +132,8 @@ extension FriendSearchViewController {
             switch result {
                 case .success(let data):
                     print("친구 찾기:", id)
-                    
+                    print(data.data)
+                
                     self.friendData = data.data ?? []
                     self.friendSearchView.searchTableView.reloadData()
                 

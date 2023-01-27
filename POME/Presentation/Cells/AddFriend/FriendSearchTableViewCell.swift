@@ -25,6 +25,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     }
 
     //MARK: - LifeCycle
+    var friendName: String = ""
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,7 +44,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     override func setting() {
         super.setting()
         
-//        rightButton.addTarget(self, action: #selector(rightButtonDidTap), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
     }
     override func hierarchy() {
         super.hierarchy()
@@ -69,15 +70,28 @@ class FriendSearchTableViewCell: BaseTableViewCell {
             make.centerY.equalToSuperview()
         }
     }
+    // After API
     func setUpData(_ data: FriendsResponseModel) {
         let friendId = data.friendUserId
-        let name = data.friendNickName
+        self.friendName = data.friendNickName
         let imageUrl = data.imageKey
         
-        profileName.text = name
+        profileName.text = self.friendName
         
         if imageUrl != "default" {
             profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
+    }
+    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
+        let btn = sender
+        if !(btn.isSelected) {
+            btn.isSelected = true
+            generateNewFriend(id: self.friendName)
+        }
+    }
+    private func generateNewFriend(id: String){
+        FriendService.shared.generateNewFriend(id: id) { result in
+            print("\(id) - 친구 추가")
         }
     }
 }
