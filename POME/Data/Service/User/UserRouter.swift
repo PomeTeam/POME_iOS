@@ -13,6 +13,7 @@ enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
     case signIn(param: SignInRequestModel)
     case sendSMS(param: SendSMSRequestModel)
+    case checkNickName(param: CheckNicknameRequestModel)
     
     case imageServer(id: String)
     case putImageToServer(preUrl: String, image: UIImage)
@@ -40,6 +41,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.signIn
         case .sendSMS:
             return HTTPMethodURL.POST.sms
+        case .checkNickName:
+            return HTTPMethodURL.POST.nicknameDuplicate
         default:
             return ""
         }
@@ -52,6 +55,8 @@ extension UserRouter{
         case .signIn:
             return .post
         case .sendSMS:
+            return .post
+        case .checkNickName:
             return .post
         case .imageServer:
             return .get
@@ -67,6 +72,8 @@ extension UserRouter{
         case .signIn(let param):
             return .requestJSONEncodable(param)
         case .sendSMS(let param):
+            return .requestJSONEncodable(param)
+        case .checkNickName(let param):
             return .requestJSONEncodable(param)
         case .imageServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
