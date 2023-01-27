@@ -236,27 +236,22 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if(indexPath.row == 0){
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendListTableViewCell.cellIdentifier, for: indexPath) as? FriendListTableViewCell else {
-                return UITableViewCell() }
-            print(cell)
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendListTableViewCell.self)
             cell.collectionView.delegate = self
             cell.collectionView.dataSource = self
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath)
-                as? FriendTableViewCell else { return UITableViewCell() }
-
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
         let cardIndex = indexPath.row - 1
-        if let reaction = friendCards[cardIndex] {
-            cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
-        }
         
-        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
-        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
+        let record = friendCards[cardIndex]
         
-        cell.mainView.setOthersReaction(count: indexPath.row - 1)
-
+        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
+        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
+        cell.mainView.myReactionBtn.setImage(record.myReactionBinding, for: .normal)
+        record.othersReactionCount == 0 ? cell.mainView.setOthersReactionEmpty() : cell.mainView.setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
+        
         cell.delegate = self
                 
         return cell
