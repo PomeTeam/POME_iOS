@@ -27,8 +27,6 @@ struct EmotionResponseModel: Decodable{
 
 extension RecordResponseModel{
     
-    //TODO: 감정/리액션 없을 때 null
-    
     var firstEmotionBinding: EmotionTag{
         EmotionTag(rawValue: self.emotionResponse.firstEmotion) ?? .default
     }

@@ -166,15 +166,12 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         if(collectionView == emoijiFloatingView?.collectionView){
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiFloatingCollectionViewCell.cellIdentifier, for: indexPath)
-                    as? EmojiFloatingCollectionViewCell else { fatalError() }
-            
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
             cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
     
             return cell
         }else{
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendCollectionViewCell.cellIdentifier, for: indexPath)
-                    as? FriendCollectionViewCell else { fatalError() }
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
                 cell.profileImage.image = Image.categoryInactive
@@ -243,16 +240,16 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
-        let cardIndex = indexPath.row - 1
         
+        let cardIndex = indexPath.row - 1
         let record = friendCards[cardIndex]
         
+        cell.delegate = self
         cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
         cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
         cell.mainView.myReactionBtn.setImage(record.myReactionBinding, for: .normal)
-        record.othersReactionCount == 0 ? cell.mainView.setOthersReactionEmpty() : cell.mainView.setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
         
-        cell.delegate = self
+        record.othersReactionCount == 0 ? cell.mainView.setOthersReactionEmpty() : cell.mainView.setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
                 
         return cell
     }
@@ -276,7 +273,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         self.view.addSubview(emoijiFloatingView)
-        
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
