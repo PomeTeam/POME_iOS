@@ -31,7 +31,8 @@ class FriendViewController: BaseTabViewController {
             friendView.tableView.reloadData()
         }
     }
-    var friendCards = [Reaction?](repeating: nil, count: 13){
+//    var friendCards = [Reaction?](){
+    var friendCards = [RecordResponseModel](){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -53,7 +54,6 @@ class FriendViewController: BaseTabViewController {
     //MARK: - Override
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         requestGetFriends()
     }
@@ -101,14 +101,15 @@ class FriendViewController: BaseTabViewController {
             self.emptyFriendView = nil
         }
     }
-    
-    //MARK: - API
+}
+
+//MARK: - API
+extension FriendViewController{
     
     private func requestGetFriends(){
         
         FriendService.shared.getFriends(pageable: PageableModel(page: 1,
-                                                                size: 10,
-                                                                sort: [])){ result in
+                                                                size: 10)){ result in
             switch result{
             case .success(let data):
                 self.friends = data
@@ -122,6 +123,17 @@ class FriendViewController: BaseTabViewController {
     
     private func requestGetFriendCards(){
         //id -> currentFriendIndex로 접근
+        let friendId = friends[currentFriendIndex].friendUserId
+        FriendService.shared.getFriendRecord(id: friendId,
+                                             pageable: PageableModel(page: 0, size: 10)){ result in
+            switch result{
+            case .success(let data):
+                self.friendCards = data
+                break
+            default:
+                break
+            }
+        }
     }
     
     private func requestGenerateFriendCardEmotion(reactionIndex: Int){
@@ -236,9 +248,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
             return cell
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath) as? FriendTableViewCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendTableViewCell.cellIdentifier, for: indexPath)
+                as? FriendTableViewCell else { return UITableViewCell() }
 
-        if let reaction = friendCards[indexPath.row - 1] {
+        let cardIndex = indexPath.row - 1
+        if let reaction = friendCards[cardIndex] {
             cell.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
         }
         

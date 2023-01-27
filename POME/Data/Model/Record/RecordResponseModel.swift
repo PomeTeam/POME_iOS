@@ -9,6 +9,7 @@ import Foundation
 
 struct RecordResponseModel: Decodable{
     let id: Int
+    let nickname: String
     let usePrice: Int
     let useDate: String
     let useComment: String
@@ -17,7 +18,8 @@ struct RecordResponseModel: Decodable{
 }
 
 struct EmotionResponseModel: Decodable{
-    var firstEmotion: Int
+    let firstEmotion: Int
     let secondEmotion: Int
+    var myEmotion: Int
     let friendEmotions: [Int]
 }
