@@ -65,7 +65,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         switch tag {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageProfileTableViewCell", for: indexPath) as? MypageProfileTableViewCell else { return UITableViewCell() }
-            
+            cell.setUpData()
             cell.selectionStyle = .none
             return cell
         case 1:

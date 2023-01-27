@@ -79,6 +79,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         switch tag {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingProfileTableViewCell", for: indexPath) as? SettingProfileTableViewCell else { return UITableViewCell() }
+            cell.setUpData()
             cell.selectionStyle = .none
             return cell
         case 1, 2, 3, 4:
