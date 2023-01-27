@@ -24,8 +24,27 @@ struct EmotionResponseModel: Decodable{
     let friendEmotions: [Int]
 }
 
-
 extension RecordResponseModel{
+    
+    var goalPromiseBinding: String{
+        "· \(self.oneLineMind)"
+    }
+    
+    //TODO: 시간 데이터 가공
+    /*
+     당일인 경우
+     분 단위(44분 전) > 시간 단위(1시간 전)
+     
+     당일이 아닌 경우
+     소비 날짜(6월 24일) 포맷
+     */
+    var timeBinding: String{
+        "· \(self.useDate)  "
+    }
+    
+    var priceBinding: String{
+        "\(self.usePrice)원"
+    }
     
     var firstEmotionBinding: EmotionTag{
         EmotionTag(rawValue: self.emotionResponse.firstEmotion) ?? .default
