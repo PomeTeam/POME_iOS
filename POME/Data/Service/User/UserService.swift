@@ -32,6 +32,12 @@ extension UserService{
         }
     }
     
+    func checkNickName(model: CheckNicknameRequestModel, completion: @escaping (Result<checkNickNameResponseModel, Error>) -> Void) {
+        requestDecoded(UserRouter.checkNickName(param: model)) { response in
+            completion(response)
+        }
+    }
+    
     func getPresignedURL(id: String, completion: @escaping (Result<PresignedURLResponseModel, Error>) -> Void) {
         requestDecoded(UserRouter.imageServer(id: id)) { response in
             completion(response)

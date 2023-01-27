@@ -118,6 +118,7 @@ extension AppRegisterViewController {
                     print("인증번호 전송 성공")
                     guard let authCode = data.data?.value else {return}
                     self.authCode = authCode
+                    print("인증코드:", self.authCode)
                     break
                 case .failure(let err):
                     print(err.localizedDescription)
