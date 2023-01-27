@@ -26,7 +26,7 @@ extension FriendService{
         }
     }
     
-    func generateNewFriend(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
+    func generateNewFriend(id: String, completion: @escaping (Result<Int, Error>) -> Void) {
         requestNoResultAPI(FriendRouter.postFriend(id: id)){ response in
             completion(response)
         }
