@@ -72,4 +72,13 @@ class SettingProfileTableViewCell: BaseTableViewCell {
             make.height.equalTo(12)
         }
     }
+    func setUpData() {
+        let nickName = UserManager.nickName ?? ""
+        let imageUrl = UserManager.profileImg ?? ""
+        
+        profileName.text = nickName
+        if imageUrl != "default" {
+            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
+    }
 }
