@@ -90,9 +90,8 @@ class AppRegisterViewController: BaseViewController {
     }
     @objc func nextButtonDidTap() {
         if isUser && inputCode.value == self.authCode {
-            // 이미 유저임을 확인했을 때
-            print("이미 유저")
-            
+            // 이미 유저임을 확인했을 때 - 로그인 후 기록탭으로 이동
+            signIn()
         } else if !isUser && inputCode.value == self.authCode {
             // 회원가입 시
             let vc = TermsViewController()
@@ -144,6 +143,32 @@ extension AppRegisterViewController {
                     guard let isUser = data.data else {return}
                     self.isUser = isUser
                     print("유저 확인:", isUser)
+                    
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+    private func signIn(){
+        let signInRequestModel = SignInRequestModel(phoneNum: self.phone.value)
+        UserService.shared.signIn(model: signInRequestModel) { result in
+            switch result {
+                case .success(let data):
+                    if data.success! {
+                        // 기록탭으로 이동
+                        self.navigationController?.pushViewController(TabBarController(), animated: true)
+                        // 유저 정보 저장
+                        let token = data.data?.accessToken ?? ""
+                        let userId = data.data?.userId ?? ""
+                        UserDefaults.standard.set(token, forKey: "token")
+                        UserDefaults.standard.set(userId, forKey: "userId")
+                        // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
+                        UserDefaults.standard.set(self.phone.value, forKey: "phoneNum")
+                    }
                     
                     break
                 case .failure(let err):
