@@ -16,20 +16,26 @@ class FriendDetailViewController: BaseViewController {
         }
     }
     
-    let mainView = FriendDetailView().then{
-        $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+    let mainView = FriendDetailView()
+    let record: RecordResponseModel
+    
+    init(record: RecordResponseModel){
+        self.record = record
+        super.init(nibName: nil, bundle: nil)
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func style(){
-        
         super.style()
-        
-        //MARK: - 지금은 이렇게 넣지만... 데이터 바인딩할 때 데이터 한꺼번에 처리되도록 함수 만들기
-        self.setNavigationTitleLabel(title: "닉네임 입력받기")
+        self.setNavigationTitleLabel(title: record.nickname)
+    }
+    
+    override func initialize() {
+        mainView.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.dataBinding(with: record)
     }
     
     override func layout() {
@@ -37,7 +43,6 @@ class FriendDetailViewController: BaseViewController {
         super.layout()
         
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP + 24)
             $0.leading.equalToSuperview().offset(24)
@@ -50,17 +55,14 @@ class FriendDetailViewController: BaseViewController {
         emoijiFloatingView = EmojiFloatingView()
         
         guard let emoijiFloatingView = emoijiFloatingView else { return }
-        
         emoijiFloatingView.dismissHandler = {
             self.emoijiFloatingView = nil
         }
         
         self.view.addSubview(emoijiFloatingView)
-
         emoijiFloatingView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-        
         emoijiFloatingView.containerView.snp.makeConstraints{
             $0.top.equalTo(mainView.snp.bottom).offset(20 - 4)
         }

@@ -10,7 +10,6 @@ import UIKit
 class FriendViewController: BaseTabViewController {
     
     //MARK: - Property
-    
     var currentFriendIndex: Int = 0{
         willSet{
             requestGetFriendCards()
@@ -86,6 +85,7 @@ class FriendViewController: BaseTabViewController {
     private func isFriendListEmpty(){
         
         if(friends.isEmpty){
+            
             emptyFriendView = FriendTableEmptyView()
             guard let emptyFriendView = emptyFriendView else { return }
 
@@ -240,22 +240,17 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
-        
         let cardIndex = indexPath.row - 1
         let record = friendCards[cardIndex]
-        
+    
         cell.delegate = self
-        cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
-        cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
-        cell.mainView.myReactionBtn.setImage(record.myReactionBinding, for: .normal)
-        
-        record.othersReactionCount == 0 ? cell.mainView.setOthersReactionEmpty() : cell.mainView.setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
+        cell.mainView.dataBinding(with: record)
                 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = FriendDetailViewController()
+        let vc = FriendDetailViewController(record: friendCards[indexPath.row - 1])
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

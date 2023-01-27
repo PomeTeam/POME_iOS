@@ -26,19 +26,16 @@ class FriendDetailView: BaseView {
     }
     
     let nameLabel = UILabel().then{
-        $0.text = "규렌버"
         $0.textColor = Color.body
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
     }
     
-    let tagLabel = PaddingLabel().then{
-        $0.text = "· 커피 대신 물을 마시자"
+    let goalPromiseLabel = PaddingLabel().then{
         $0.textColor = Color.grey5
         $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
     
     let timeLabel = UILabel().then{
-        $0.text = "· 44분 전   "
         $0.textColor = Color.grey5
         $0.setTypoStyleWithMultiLine(typoStyle: .body3)
     }
@@ -61,7 +58,6 @@ class FriendDetailView: BaseView {
     
     //
     let priceLabel = UILabel().then{
-        $0.text = "320,800원"
         $0.textColor = Color.title
         $0.setTypoStyleWithMultiLine(typoStyle: .title3)
     }
@@ -103,6 +99,21 @@ class FriendDetailView: BaseView {
     }
     
     //MARK: - Method
+    
+    func dataBinding(with record: RecordResponseModel){
+        
+        nameLabel.text = record.nickname
+        goalPromiseLabel.text = record.goalPromiseBinding
+        timeLabel.text = record.timeBinding
+        priceLabel.text = record.priceBinding
+        memoLabel.text = record.oneLineMind
+        
+        firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
+        secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
+        myReactionBtn.setImage(record.myReactionBinding, for: .normal)
+        
+        record.othersReactionCount == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
+    }
     
     func setOthersReactionEmpty(){
         othersReactionButton.backgroundColor = .white
@@ -154,7 +165,7 @@ class FriendDetailView: BaseView {
         marginView.addSubview(moreButton)
         
         topStackView.addArrangedSubview(nameLabel)
-        topStackView.addArrangedSubview(tagLabel)
+        topStackView.addArrangedSubview(goalPromiseLabel)
         topStackView.addArrangedSubview(timeLabel)
         
         emotionStackView.addArrangedSubview(firstEmotionTag)
