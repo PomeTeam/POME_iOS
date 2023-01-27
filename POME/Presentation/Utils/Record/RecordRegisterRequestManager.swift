@@ -11,10 +11,17 @@ class RecordRegisterRequestManager{
     
     static let shared = RecordRegisterRequestManager()
     
-    var category: String = ""
+    var goalId: Int = -1
     var consumeDate: String = ""
     var price: String = ""
     var detail: String = ""
     
     private init() { }
+    
+    func initialize(){
+        goalId = -1
+        consumeDate = ""
+        price = ""
+        detail = ""
+    }
 }

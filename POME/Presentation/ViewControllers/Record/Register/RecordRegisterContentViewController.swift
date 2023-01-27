@@ -10,13 +10,21 @@ import RxSwift
 
 class RecordRegisterContentViewController: BaseViewController {
     
+    var goals = [String]()
+    
     private let mainView = RecordRegisterContentView()
     private let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
-    private var recordInput = RecordRegisterRequestManager.shared
+    private var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        requestGetGoals()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        recordManager.initialize()
         addKeyboardNotifications()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,14 +109,14 @@ class RecordRegisterContentViewController: BaseViewController {
         sheet.completion = { date in
             self.mainView.dateField.infoTextField.text = PomeDateFormatter.getDateString(date)
             self.mainView.dateField.infoTextField.sendActions(for: .valueChanged)
-            self.recordInput.consumeDate = PomeDateFormatter.getDateString(date)
+            self.recordManager.consumeDate = PomeDateFormatter.getDateString(date)
         }
     }
     
     private func categorySheetWillShow(){
         let sheet = CategorySelectSheetViewController().loadAndShowBottomSheet(in: self)
         sheet.completion = { title in
-            self.recordInput.category = title
+            self.recordManager.goalId = 0 //TODO: - GOAL id값으로 넣어주기
             self.mainView.goalField.infoTextField.text = title
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
@@ -127,6 +135,7 @@ class RecordRegisterContentViewController: BaseViewController {
     override func backBtnDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
+            self.recordManager.initialize()
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -160,7 +169,7 @@ extension RecordRegisterContentViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
         if(textField == mainView.priceField.infoTextField){
             guard let text = textField.text else { return }
-            recordInput.price = text
+            recordManager.price = text
         }
     }
 }
@@ -180,7 +189,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
         if text.isEmpty {
             contentView.setTextViewTextEmptyMode()
         }
-        recordInput.detail = text
+        recordManager.detail = text
     }
     
     func textViewDidChange(_ textView: UITextView){
@@ -199,6 +208,13 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
         let newString = oldString.replacingCharacters(in: changedRange, with: text)
 
         return newString.count <= textSuperView.countLimit
+    }
+}
+
+//MARK: - API
+extension RecordRegisterContentViewController{
+    private func requestGetGoals(){
+        
     }
 }
 
