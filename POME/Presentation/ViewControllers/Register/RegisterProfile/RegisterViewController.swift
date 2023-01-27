@@ -133,6 +133,7 @@ class RegisterViewController: UIViewController {
         if self.selectedPhoto != nil {
             getPresignedURL()
         } else {
+            self.imageKey = "default"
             signUp()
         }
         
