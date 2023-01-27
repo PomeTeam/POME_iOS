@@ -53,7 +53,7 @@ class ReviewDetailView: BaseView {
         $0.spacing = -6
         $0.axis = .horizontal
     }
-    lazy var myReactionBtn = UIButton().then{
+    lazy var myReactionButton = UIButton().then{
         $0.setImage(Image.emojiAdd, for: .normal)
     }
     lazy var othersReactionButton = UIButton()
@@ -87,7 +87,7 @@ class ReviewDetailView: BaseView {
         tagArrowBackgroundView.addSubview(tagArrowImage)
 
         reactionStackView.insertArrangedSubview(othersReactionButton, at: 0)
-        reactionStackView.insertArrangedSubview(myReactionBtn, at: 0)
+        reactionStackView.insertArrangedSubview(myReactionButton, at: 0)
     }
 
 
@@ -145,7 +145,7 @@ class ReviewDetailView: BaseView {
             $0.leading.bottom.equalToSuperview()
         }
         
-        myReactionBtn.snp.makeConstraints{
+        myReactionButton.snp.makeConstraints{
             $0.width.height.equalTo(28)
         }
         
@@ -161,14 +161,14 @@ class ReviewDetailView: BaseView {
         }
     }
     
-    func setOthersReaction(count: Int){
+    func setOthersReaction(thumnail: Reaction, count: Int){
         
         if(count == 0){
             //TODO: 0개일 때 어떤 이모지 사용...?
             othersReactionButton.setImage(Image.emojiAdd, for: .normal)
             return
         }else if(count == 1){
-            othersReactionButton.setImage(Image.emojiHappy, for: .normal)
+            othersReactionButton.setImage(thumnail.defaultImage, for: .normal)
             return
         }
         
@@ -189,6 +189,6 @@ class ReviewDetailView: BaseView {
         }
         
         othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(Image.emojiBlurHappy, for: .normal)
+        othersReactionButton.setImage(thumnail.blurImage, for: .normal)
     }
 }
