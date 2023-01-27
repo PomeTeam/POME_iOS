@@ -11,16 +11,17 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var completion: ((String) -> ())!
+    var completion: ((Int) -> ())!
     
-    private var categories = ["커피","아이스크림","음료","생활","통신"]
+    private let goals: [GoalCategoryResponseModel]
     private let mainView = CategorySelectSheetView().then{
         $0.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
     
-    init(){
+    init(data goals: [GoalCategoryResponseModel]){
+        self.goals = goals
         super.init(type: .category)
     }
     
@@ -53,24 +54,25 @@ class CategorySelectSheetViewController: BaseSheetViewController {
 extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        categories.count
+        goals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordCategoryTableViewCell.cellIdentifier, for: indexPath) as? RecordCategoryTableViewCell else { return UITableViewCell() }
         
-        cell.nameLabel.text = categories[indexPath.row]
+        cell.nameLabel.text = goals[indexPath.row].name
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        /*
         guard let selectedCell = tableView.cellForRow(at: indexPath) as? RecordCategoryTableViewCell,
                 let categoryTitle = selectedCell.nameLabel.text else { return }
-        
-        completion(categoryTitle)
+        */
+        completion(indexPath.row)
         self.dismiss(animated: true)
     }
     
