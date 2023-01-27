@@ -62,4 +62,12 @@ class FriendSearchTableViewCell: BaseTableViewCell {
             make.centerY.equalToSuperview()
         }
     }
+    func setUpData(_ data: FriendsResponseModel) {
+        let friendId = data.friendUserId
+        let name = data.friendNickName
+        let imageUrl = data.imageKey
+        
+        profileName.text = name
+//        profileImg.kf.setImage(with: URL(string: imageUrl))
+    }
 }
