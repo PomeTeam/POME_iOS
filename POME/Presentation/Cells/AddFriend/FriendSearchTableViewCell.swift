@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendSearchTableViewCell: BaseTableViewCell {
     let rightButton = UIButton().then{
@@ -13,9 +14,9 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         $0.setImage(Image.addComplete, for: .selected)
     }
     let profileImg = UIImageView().then{
+        $0.image = Image.photoDefault
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 22
-        $0.backgroundColor = Color.pink30
     }
     let profileName = UILabel().then{
         $0.text = "고민"
@@ -31,6 +32,12 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+//        self.rightButton.isSelected = false
+        self.profileName.text = ""
+        self.profileImg.image = Image.photoDefault
     }
     // MARK: - Methods
     override func setting() {
@@ -68,6 +75,9 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         let imageUrl = data.imageKey
         
         profileName.text = name
-//        profileImg.kf.setImage(with: URL(string: imageUrl))
+        
+        if imageUrl != "default" {
+            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
     }
 }

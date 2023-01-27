@@ -22,7 +22,7 @@ extension BaseRouter {
         let token = UserManager.token ?? ""
         let header = [
             "Content-Type": "application/json",
-            "ACCESS-TOKEN": "Bearer " + token]
+            "ACCESS-TOKEN": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBY2Nlc3MtSGVhZGVyIiwiaWF0IjoxNjc0ODA1MjI1LCJ1c2VySWQiOiJlZTFkYWQ2NS1jNmQzLTRiZmUtODlkNS00MjBmYWI5MDRjMjYiLCJuaWNrbmFtZSI6InRldGV0ZXRlIiwiZXhwIjoxNjc0ODA2NDI1fQ._3WYOKSA0_XgeR15de4Et4NYVt4mv8C0-zMwzbg1fjc"]
         return header
     }
 
