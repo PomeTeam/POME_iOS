@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+final class GoalCategoryService: MultiMoyaService{
+    static let shared = GoalCategoryService()
+    private init() { }
+}
+
+extension GoalCategoryService{
+    func getGoalCategory(completion: @escaping (Result<[GoalCategoryResponseModel], Error>) -> Void){
+        requestDecoded(GoalCategoryRouter.getGoalCategory){ response in
+            completion(response)
+        }
+    }
+}

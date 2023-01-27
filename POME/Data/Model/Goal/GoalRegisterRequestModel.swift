@@ -8,7 +8,6 @@
 import Foundation
 
 struct GoalRegisterRequestModel: Encodable{
-//    let goalCategoryId: Int
     let name: String
     let startDate: String
     let endDate: String
