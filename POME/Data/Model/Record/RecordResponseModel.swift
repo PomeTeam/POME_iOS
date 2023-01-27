@@ -23,3 +23,19 @@ struct EmotionResponseModel: Decodable{
     var myEmotion: Int
     let friendEmotions: [Int]
 }
+
+
+extension RecordResponseModel{
+    
+    var firstEmotionBinding: EmotionTag{
+        EmotionTag(rawValue: self.emotionResponse.firstEmotion) ?? .happy
+    }
+    
+    var secondEmotionBinding: EmotionTag{
+        EmotionTag(rawValue: self.emotionResponse.secondEmotion) ?? .happy
+    }
+    
+    var myReactionBinding: Reaction{
+        Reaction(rawValue: self.emotionResponse.myEmotion) ?? .happy
+    }
+}
