@@ -90,7 +90,7 @@ extension MypageFriendViewController {
                 case .success(let data):
                     if data.success! {
                         self.friendsData = data.data ?? []
-                        print(self.friendsData)
+                        self.friendTableView.reloadData()
                     }
                     
                     break

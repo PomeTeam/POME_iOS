@@ -259,6 +259,7 @@ extension RegisterViewController {
                         UserDefaults.standard.set(userId, forKey: "userId")
                         UserDefaults.standard.set(nickName, forKey: "nickName")
                         UserDefaults.standard.set(profileImg, forKey: "profileImg")
+                        UserDefaults.standard.set(self.phoneNum, forKey: "phoneNum")
                         
                         let vc = CompleteRegisterViewController()
                         self.navigationController?.pushViewController(vc, animated: true)
