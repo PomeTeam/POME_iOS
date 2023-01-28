@@ -32,13 +32,13 @@ extension UserService{
         }
     }
     
-    func checkNickName(model: CheckNicknameRequestModel, completion: @escaping (Result<CheckNickNameResponseModel, Error>) -> Void) {
+    func checkNickName(model: CheckNicknameRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
         requestDecoded(UserRouter.checkNickName(param: model)) { response in
             completion(response)
         }
     }
     
-    func checkUser(model: SendSMSRequestModel, completion: @escaping (Result<CheckNickNameResponseModel, Error>) -> Void) {
+    func checkUser(model: SendSMSRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
         requestDecoded(UserRouter.checkUser(param: model)) { response in
             completion(response)
         }

@@ -44,7 +44,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     override func setting() {
         super.setting()
         
-        rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
+        
     }
     override func hierarchy() {
         super.hierarchy()
@@ -71,7 +71,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         }
     }
     // After API
-    func setUpData(_ data: FriendsResponseModel) {
+    func setUpData(_ data: FriendsResponseModel, _ isFriendSearch: Bool) {
         let friendId = data.friendUserId
         self.friendName = data.friendNickName
         let imageUrl = data.imageKey
@@ -80,6 +80,10 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         
         if imageUrl != "default" {
             profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
+        
+        if isFriendSearch {
+            rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
         }
     }
     @objc func plusFriendButtonDidTap(_ sender: UIButton) {
