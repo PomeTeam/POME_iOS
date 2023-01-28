@@ -8,7 +8,7 @@
 import Foundation
 
 class UserManager {
-    @UserDefault(key: UserDefaultKey.id, defaultValue: nil)
+    @UserDefault(key: UserDefaultKey.userId, defaultValue: nil)
     static var userId: String?
     
     @UserDefault(key: UserDefaultKey.token, defaultValue: nil)

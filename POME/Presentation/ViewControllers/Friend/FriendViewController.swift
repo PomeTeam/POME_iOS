@@ -67,6 +67,8 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     override func viewDidLoad() {
         super.viewDidLoad()
         requestGetFriends()
+        print(UserManager.userId)
+//        print(UserDefaults.value(forKey: "userId"))
     }
     
     override func layout() {
