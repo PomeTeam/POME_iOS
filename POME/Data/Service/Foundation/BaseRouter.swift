@@ -19,10 +19,11 @@ extension BaseRouter {
     }
 
     var headers: [String: String]? {
+        // Token이 "Bearer ~ " 의 형태로 응답받고 저장됨.
         let token = UserManager.token ?? ""
         let header = [
             "Content-Type": "application/json",
-            "ACCESS-TOKEN": "Bearer " + token]
+            "ACCESS-TOKEN": token]
         return header
     }
 

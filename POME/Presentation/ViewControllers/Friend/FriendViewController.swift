@@ -112,7 +112,7 @@ extension FriendViewController{
                                                                 size: 10)){ result in
             switch result{
             case .success(let data):
-                self.friends = data
+                self.friends = data.data ?? []
                 self.requestGetFriendCards()
                 break
             default:

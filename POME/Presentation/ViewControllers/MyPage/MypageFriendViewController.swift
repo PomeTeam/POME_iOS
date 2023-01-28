@@ -9,12 +9,13 @@ import UIKit
 
 class MypageFriendViewController: BaseViewController {
     var friendTableView: UITableView!
+    var friendsData: [FriendsResponseModel] = []
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        getFriends()
     }
     override func style() {
         super.style()
@@ -55,11 +56,16 @@ class MypageFriendViewController: BaseViewController {
 // MARK: - TableView delegate
 extension MypageFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let count = self.friendsData.count ?? 0
+        return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
-
+        
+        let itemIdx = indexPath.item
+        if !self.friendsData.isEmpty {
+            cell.setUpData(self.friendsData[itemIdx])
+        }
         // 친구관리 > (-)버튼
         cell.rightButton.setImage(Image.minusRed, for: .normal)
         cell.rightButton.addTarget(self, action: #selector(showDeleteFriendDialog), for: .touchUpInside)
@@ -74,4 +80,27 @@ extension MypageFriendViewController: UITableViewDelegate, UITableViewDataSource
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+//MARK: - API
+extension MypageFriendViewController {
+    private func getFriends() {
+        let pageModel = PageableModel(page: 0, size: 1)
+        FriendService.shared.getFriends(pageable: pageModel) { result in
+            switch result {
+                case .success(let data):
+                    if data.success! {
+                        self.friendsData = data.data ?? []
+                        print(self.friendsData)
+                    }
+                    
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+
 }

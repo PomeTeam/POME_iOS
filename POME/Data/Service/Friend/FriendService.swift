@@ -38,7 +38,7 @@ extension FriendService{
         }
     }
     
-    func getFriends(pageable: PageableModel, completion: @escaping (Result<[FriendsResponseModel], Error>) -> Void) {
+    func getFriends(pageable: PageableModel, completion: @escaping (Result<BaseResponseModel<[FriendsResponseModel]>, Error>) -> Void) {
         requestDecoded(FriendRouter.getFriends(pageable: pageable)){ response in
             completion(response)
         }
