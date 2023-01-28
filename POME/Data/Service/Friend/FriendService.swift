@@ -32,8 +32,8 @@ extension FriendService{
         }
     }
     
-    func deleteFriend(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.deleteFriend(id: id)){ response in
+    func deleteFriend(id: String, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
+        requestDecoded(FriendRouter.deleteFriend(id: id)){ response in
             completion(response)
         }
     }

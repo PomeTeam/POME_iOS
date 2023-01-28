@@ -89,12 +89,6 @@ class FriendSearchViewController: BaseViewController {
         self.friendSearchView.searchTextField.text = currName
         return currName
     }
-//    @objc func plusFriendButtonDidTap(_ sender: UIButton) {
-//        let btn = sender
-//        if !(btn.isSelected) {
-//            btn.isSelected = true
-//        }
-//    }
 }
 // MARK: - TableView delegate
 extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -112,9 +106,9 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
         
         let itemIdx = indexPath.item
-        cell.setUpData(self.friendData[itemIdx])
+        cell.setUpData(self.friendData[itemIdx], true)
         
-//        cell.rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
+        
         cell.selectionStyle = .none
         return cell
     }
