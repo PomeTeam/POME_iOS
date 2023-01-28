@@ -19,7 +19,11 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     
     //MARK: - Property
     var currentFriendIndex: Int = 0{
-        willSet{
+        willSet(newValue){
+            if(newValue == 0){
+                requestGetAllFriendsRecords()
+                return
+            }
             requestGetFriendCards()
         }
     }
@@ -120,12 +124,16 @@ extension FriendViewController{
             switch result{
             case .success(let data):
                 self.friends = data.data ?? []
-                self.requestGetFriendCards()
+                self.requestGetAllFriendsRecords()
                 break
             default:
                 break
             }
         }
+    }
+    
+    private func requestGetAllFriendsRecords(){
+        
     }
     
     private func requestGetFriendCards(){
