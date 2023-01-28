@@ -10,4 +10,7 @@ import Foundation
 struct UserDefaultKey{
     static let id = "id"
     static let token = "token"
+    static let nickName = "nickName"
+    static let profileImg = "profileImg"
+    static let phoneNum = "phoneNum"
 }

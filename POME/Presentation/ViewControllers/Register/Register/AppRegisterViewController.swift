@@ -19,6 +19,7 @@ class AppRegisterViewController: BaseViewController {
     
     var isValidPhone = false
     var isValidCode = false
+    var isUser = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,15 +85,21 @@ class AppRegisterViewController: BaseViewController {
     // MARK: - Actions
     @objc func codeSendButtonDidTap() {
         appRegisterView.codeSendButton.isSelected = true
-        sendSMS()
+        sendSMS()   // 문자 전송
+        checkUser() // 유저 확인
     }
     @objc func nextButtonDidTap() {
-        if inputCode.value == self.authCode {
+        if isUser && inputCode.value == self.authCode {
+            // 이미 유저임을 확인했을 때 - 로그인 후 기록탭으로 이동
+            signIn()
+        } else if !isUser && inputCode.value == self.authCode {
+            // 회원가입 시
             let vc = TermsViewController()
             vc.phoneNum = self.phone.value
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
-            // TODO: 코드가 맞지 않을 때 예외처리
+            // TODO: 예외처리
+            // 전송된 인증코드와 입력된 인증코드가 다를 때
             print("🤩보내진 인증코드와 입력한 코드번호가 맞지 않습니다.🤩")
         }
     }
@@ -127,6 +134,54 @@ extension AppRegisterViewController {
                 break
             }
         }
-
+    }
+    private func checkUser(){
+        let checkUserRequestModel = SendSMSRequestModel(phoneNum: self.phone.value)
+        UserService.shared.checkUser(model: checkUserRequestModel) { result in
+            switch result {
+                case .success(let data):
+                    guard let isUser = data.data else {return}
+                    self.isUser = isUser
+                    print("유저 확인:", isUser)
+                    
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+    private func signIn(){
+        let signInRequestModel = SignInRequestModel(phoneNum: self.phone.value)
+        UserService.shared.signIn(model: signInRequestModel) { result in
+            switch result {
+                case .success(let data):
+                    if data.success! {
+                        // 기록탭으로 이동
+                        self.navigationController?.pushViewController(TabBarController(), animated: true)
+                        // 유저 정보 저장
+                        let token = data.data?.accessToken ?? ""
+                        let userId = data.data?.userId ?? ""
+                        let nickName = data.data?.nickName ?? ""
+                        let profileImg = data.data?.imageURL ?? ""
+                        
+                        UserDefaults.standard.set(token, forKey: "token")
+                        UserDefaults.standard.set(userId, forKey: "userId")
+                        UserDefaults.standard.set(nickName, forKey: "nickName")
+                        UserDefaults.standard.set(profileImg, forKey: "profileImg")
+                        // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
+                        UserDefaults.standard.set(self.phone.value, forKey: "phoneNum")
+                    }
+                    
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
     }
 }

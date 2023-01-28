@@ -9,12 +9,13 @@ import UIKit
 
 class MypageFriendViewController: BaseViewController {
     var friendTableView: UITableView!
+    var friendsData: [FriendsResponseModel] = []
 
     // MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        getFriends()
     }
     override func style() {
         super.style()
@@ -48,21 +49,32 @@ class MypageFriendViewController: BaseViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
-    @objc func showDeleteFriendDialog() {
+    @objc func showDeleteFriendDialog(_ sender: FriendTapGesture) {
         let dialog = ImageAlert.deleteFriend.generateAndShow(in: self)
+        dialog.completion = {
+            self.deleteFriend(sender.data?.friendNickName ?? "")
+        }
     }
 }
 // MARK: - TableView delegate
 extension MypageFriendViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let count = self.friendsData.count ?? 0
+        return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendSearchTableViewCell", for: indexPath) as? FriendSearchTableViewCell else { return UITableViewCell() }
-
+        
+        let itemIdx = indexPath.item
+        if !self.friendsData.isEmpty {
+            cell.setUpData(self.friendsData[itemIdx], false)
+        }
         // 친구관리 > (-)버튼
         cell.rightButton.setImage(Image.minusRed, for: .normal)
-        cell.rightButton.addTarget(self, action: #selector(showDeleteFriendDialog), for: .touchUpInside)
+        // 친구 삭제 Gesture
+        let deleteFriendGesture = FriendTapGesture(target: self, action: #selector(showDeleteFriendDialog(_:)))
+        deleteFriendGesture.data = self.friendsData[itemIdx]
+        cell.rightButton.addGestureRecognizer(deleteFriendGesture)
         
         cell.selectionStyle = .none
         return cell
@@ -74,4 +86,51 @@ extension MypageFriendViewController: UITableViewDelegate, UITableViewDataSource
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+//MARK: - API
+extension MypageFriendViewController {
+    // 친구 목록 조회
+    private func getFriends() {
+        let pageModel = PageableModel(page: 0, size: 1)
+        FriendService.shared.getFriends(pageable: pageModel) { result in
+            switch result {
+                case .success(let data):
+                    if data.success! {
+                        self.friendsData = data.data ?? []
+                        self.friendTableView.reloadData()
+                    }
+                    
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+
+    // 친구 삭제
+    private func deleteFriend(_ friendId: String) {
+        FriendService.shared.deleteFriend(id: friendId) { result in
+            switch result {
+                case .success(let data):
+                    if data.success! {
+                        print("친구 삭제 성공")
+                        // 친구 목록 다시 불러오기
+                        self.getFriends()
+                    }
+                    break
+                case .failure(let err):
+                    print(err.localizedDescription)
+                    break
+            default:
+                break
+            }
+        }
+    }
+}
+// MARK: - Tap Gesture
+class FriendTapGesture: UITapGestureRecognizer {
+    var data: FriendsResponseModel?
 }

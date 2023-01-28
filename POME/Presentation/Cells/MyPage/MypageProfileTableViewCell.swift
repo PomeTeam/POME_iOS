@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MypageProfileTableViewCell: BaseTableViewCell {
     let profileImg = UIImageView().then{
@@ -55,4 +56,13 @@ class MypageProfileTableViewCell: BaseTableViewCell {
         }
     }
 
+    func setUpData() {
+        let nickName = UserManager.nickName ?? ""
+        let imageUrl = UserManager.profileImg ?? ""
+        
+        profileName.text = nickName
+        if imageUrl != "default" {
+            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+        }
+    }
 }

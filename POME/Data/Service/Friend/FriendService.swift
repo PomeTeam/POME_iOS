@@ -32,13 +32,13 @@ extension FriendService{
         }
     }
     
-    func deleteFriend(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.deleteFriend(id: id)){ response in
+    func deleteFriend(id: String, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
+        requestDecoded(FriendRouter.deleteFriend(id: id)){ response in
             completion(response)
         }
     }
     
-    func getFriends(pageable: PageableModel, completion: @escaping (Result<[FriendsResponseModel], Error>) -> Void) {
+    func getFriends(pageable: PageableModel, completion: @escaping (Result<BaseResponseModel<[FriendsResponseModel]>, Error>) -> Void) {
         requestDecoded(FriendRouter.getFriends(pageable: pageable)){ response in
             completion(response)
         }

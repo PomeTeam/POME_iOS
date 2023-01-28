@@ -41,6 +41,7 @@ enum HTTPMethodURL {
         static let friend = HTTPMethodURL.friendURL
         static let nicknameDuplicate = HTTPMethodURL.userURL + "/check-nickname"
         static let sms = "/sms/send"
+        static let checkUser = HTTPMethodURL.userURL
         
         static let goalCategory = HTTPMethodURL.goalCategoryURL
         

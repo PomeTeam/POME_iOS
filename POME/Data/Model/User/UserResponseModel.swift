@@ -25,11 +25,3 @@ struct PresignedURLResponseModel: Decodable {
     let presignedUrl: String
 }
 
-struct checkNickNameResponseModel: Decodable{
-    let success: Bool?
-    let httpCode: Int?
-    let localDateTime: String?
-    let httpStatus: String?
-    let message: String?
-    let data: Bool?
-}
