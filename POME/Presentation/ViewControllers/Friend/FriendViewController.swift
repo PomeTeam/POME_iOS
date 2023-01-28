@@ -7,7 +7,15 @@
 
 import UIKit
 
-class FriendViewController: BaseTabViewController {
+protocol ControlIndexPath{
+    var cardIndexBy: (IndexPath) -> Int { get }
+}
+
+class FriendViewController: BaseTabViewController, ControlIndexPath {
+
+    var cardIndexBy: (IndexPath) -> Int = { indexPath in
+        return indexPath.row - 1
+    }
     
     //MARK: - Property
     var currentFriendIndex: Int = 0{
@@ -31,7 +39,7 @@ class FriendViewController: BaseTabViewController {
         }
     }
 
-    var friendCards = [RecordResponseModel](){
+    var records = [RecordResponseModel](){
         didSet{
             friendView.tableView.reloadData()
         }
@@ -107,7 +115,6 @@ class FriendViewController: BaseTabViewController {
 extension FriendViewController{
     
     private func requestGetFriends(){
-        
         FriendService.shared.getFriends(pageable: PageableModel(page: 1,
                                                                 size: 10)){ result in
             switch result{
@@ -127,7 +134,7 @@ extension FriendViewController{
                                              pageable: PageableModel(page: 0, size: 10)){ result in
             switch result{
             case .success(let data):
-                self.friendCards = data
+                self.records = data
                 break
             default:
                 break
@@ -140,11 +147,11 @@ extension FriendViewController{
         guard let cellIndex = self.currentEmotionSelectCardIndex,
                 let reaction = Reaction(rawValue: reactionIndex) else { return }
         
-        FriendService.shared.generateFriendEmotion(id: friendCards[cellIndex].id,
+        FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success:
-                self.friendCards[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
@@ -189,7 +196,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        
         if(collectionView == emoijiFloatingView?.collectionView){
             requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
         }else{
@@ -227,7 +233,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource, FriendCellDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        friendCards.count + 1
+        records.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -241,7 +247,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
         let cardIndex = indexPath.row - 1
-        let record = friendCards[cardIndex]
+        let record = records[cardIndex]
     
         cell.delegate = self
         cell.mainView.dataBinding(with: record)
@@ -250,12 +256,12 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = FriendDetailViewController(record: friendCards[indexPath.row - 1])
+        let vc = FriendDetailViewController(record: records[indexPath.row - 1])
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
-        
+
         self.currentEmotionSelectCardIndex = indexPath.row - 1
         
         emoijiFloatingView = EmojiFloatingView()
@@ -292,7 +298,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
-        
         let alert = UIAlertController(title: nil,
                                       message: nil,
                                       preferredStyle: .actionSheet)
@@ -314,6 +319,4 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
              
         self.present(alert, animated: true)
     }
-    
-    
 }
