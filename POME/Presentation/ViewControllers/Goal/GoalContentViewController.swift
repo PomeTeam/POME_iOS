@@ -139,14 +139,7 @@ extension GoalContentViewController{
                                                oneLineMind: goalDataManager.oneLineMind,
                                                price: price,
                                                isPublic: goalDataManager.isPublic)
-        
-        print("name:", goalDataManager.name,
-              "endDate:", goalDataManager.endDate,
-              "isPublic:", goalDataManager.isPublic,
-              "oneLineMind:",goalDataManager.oneLineMind,
-              "price:", goalDataManager.price,
-              "startDate:",goalDataManager.startDate)
-        
+        print(request)
         
         GoalServcie.shared.generateGoal(request: request){ result in
             switch result{
