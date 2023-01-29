@@ -125,11 +125,9 @@ extension FriendViewController{
                                                                 size: 10)){ result in
             switch result{
             case .success(let data):
-                if let data = data.data{
                     print("LOG: 'success' requestGetFriends", data)
                     self.friends = data
                     self.requestGetAllFriendsRecords()
-                }
                 break
             default:
                 print("LOG: 'fail' requestGetFriends")
