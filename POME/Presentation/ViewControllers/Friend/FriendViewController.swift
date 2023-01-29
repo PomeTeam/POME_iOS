@@ -67,8 +67,6 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     override func viewDidLoad() {
         super.viewDidLoad()
         requestGetFriends()
-        print(UserManager.userId)
-//        print(UserDefaults.value(forKey: "userId"))
     }
     
     override func layout() {
@@ -125,10 +123,15 @@ extension FriendViewController{
                                                                 size: 10)){ result in
             switch result{
             case .success(let data):
-                self.friends = data.data ?? []
-                self.requestGetAllFriendsRecords()
+                if let data = data.data{
+                    print("LOG: 'success' requestGetFriends", data)
+                    self.friends = data
+                    self.requestGetAllFriendsRecords()
+                }
                 break
             default:
+                print("LOG: 'fail' requestGetFriends")
+                print(result)
                 break
             }
         }

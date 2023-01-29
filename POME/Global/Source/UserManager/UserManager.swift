@@ -23,3 +23,4 @@ class UserManager {
     @UserDefault(key: UserDefaultKey.phoneNum, defaultValue: nil)
     static var phoneNum: String?
 }
+

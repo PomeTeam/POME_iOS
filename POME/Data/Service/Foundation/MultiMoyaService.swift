@@ -13,13 +13,14 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
     var request: Cancellable?
     
     func requestDecoded<T: BaseRouter, L: Decodable>(_ target: T,
-                                       completion: @escaping (Result<L, Error>) -> Void) {
+                                                     completion: @escaping (Result<L, Error>) -> Void) {
         addObserver()
         request(MultiTarget(target)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let body = try JSONDecoder().decode(L.self, from: response.data)
+                    let decoder = JSONDecoder()
+                    let body = try decoder.decode(L.self, from: response.data)
                     completion(.success(body))
                 } catch let error {
                     completion(.failure(error))
