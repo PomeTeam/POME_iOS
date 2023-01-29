@@ -12,9 +12,9 @@ import UIKit
 enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
     case signIn(param: SignInRequestModel)
-    case sendSMS(param: SendSMSRequestModel)
+    case sendSMS(param: PhoneNumRequestModel)
     case checkNickName(param: CheckNicknameRequestModel)
-    case checkUser(param: SendSMSRequestModel)
+    case checkUser(param: PhoneNumRequestModel)
     
     case imageServer(id: String)
     case putImageToServer(preUrl: String, image: UIImage)

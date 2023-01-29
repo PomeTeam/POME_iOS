@@ -26,7 +26,7 @@ extension UserService{
         }
     }
     
-    func sendSMS(model: SendSMSRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
+    func sendSMS(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
         requestDecoded(UserRouter.sendSMS(param: model)) { response in
             completion(response)
         }
@@ -38,7 +38,7 @@ extension UserService{
         }
     }
     
-    func checkUser(model: SendSMSRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
+    func checkUser(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
         requestDecoded(UserRouter.checkUser(param: model)) { response in
             completion(response)
         }

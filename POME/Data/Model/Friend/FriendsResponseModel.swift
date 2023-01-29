@@ -11,4 +11,5 @@ struct FriendsResponseModel: Decodable{
     let friendUserId: String
     let friendNickName: String
     let imageKey: String
+    let friend: Bool
 }
