@@ -13,7 +13,7 @@ final class GoalCategoryService: MultiMoyaService{
 }
 
 extension GoalCategoryService{
-    func getGoalCategory(completion: @escaping (Result<[GoalCategoryResponseModel], Error>) -> Void){
+    func getGoalCategory(completion: @escaping (Result<BaseResponseModel<[GoalCategoryResponseModel]>, Error>) -> Void){
         requestDecoded(GoalCategoryRouter.getGoalCategory){ response in
             completion(response)
         }

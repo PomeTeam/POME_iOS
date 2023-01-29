@@ -8,7 +8,7 @@
 import Foundation
 
 struct UserDefaultKey{
-    static let id = "id"
+    static let userId = "userId"
     static let token = "token"
     static let nickName = "nickName"
     static let profileImg = "profileImg"
