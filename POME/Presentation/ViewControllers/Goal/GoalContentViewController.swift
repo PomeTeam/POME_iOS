@@ -140,10 +140,15 @@ extension GoalContentViewController{
                                                price: price,
                                                isPublic: goalDataManager.isPublic)
         
+        print(goalDataManager.name, goalDataManager.endDate, goalDataManager.isPublic, goalDataManager.oneLineMind, goalDataManager.price, goalDataManager.startDate)
+        
         GoalServcie.shared.generateGoal(request: request){ result in
             switch result{
-            case .success(let code):
-                print("LOG: success requestGenerateGoal", code)
+            case .success(let data):
+                if(data.success){
+                    print("LOG: success requestGenerateGoal", data.message, data.success)
+                    self.processResponseGenerateGoal()
+                }
                 self.processResponseGenerateGoal()
                 break
             default:
