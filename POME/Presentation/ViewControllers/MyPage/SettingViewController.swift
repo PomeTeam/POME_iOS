@@ -67,11 +67,11 @@ class SettingViewController: BaseViewController {
     @objc func logoutButtonDidTap() {
         // TODO: 로그아웃 API 요청
         // 유저 정보 삭제
-        UserDefaults.standard.removeObject(forKey: "token")
-        UserDefaults.standard.removeObject(forKey: "userId")
-        UserDefaults.standard.removeObject(forKey: "nickName")
-        UserDefaults.standard.removeObject(forKey: "profileImg")
-        UserDefaults.standard.removeObject(forKey: "phoneNum")
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.token)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userId)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.nickName)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.profileImg)
+        UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNum)
         
         self.navigationController?.pushViewController(OnboardingViewController(), animated: true)
         self.dismiss(animated: false)

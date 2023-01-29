@@ -74,10 +74,10 @@ extension OnboardingViewController {
                         let nickName = data.data?.nickName ?? ""
                         let profileImg = data.data?.imageURL ?? ""
                         
-                        UserDefaults.standard.set(token, forKey: "token")
-                        UserDefaults.standard.set(userId, forKey: "userId")
-                        UserDefaults.standard.set(nickName, forKey: "nickName")
-                        UserDefaults.standard.set(profileImg, forKey: "profileImg")
+                        UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
+                        UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
+                        UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
+                        UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
                     }
                     
                     break
