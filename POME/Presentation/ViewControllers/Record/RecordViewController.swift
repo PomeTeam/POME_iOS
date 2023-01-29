@@ -11,6 +11,8 @@ class RecordViewController: BaseTabViewController {
     // Goal Category
     var categories: [GoalCategoryResponseModel] = []
     var categorySelectedIdx = 0
+    // Goal Content
+    
     // Records (임시)
     var recordsOfGoal: [GoalCategoryResponseModel] = []
 

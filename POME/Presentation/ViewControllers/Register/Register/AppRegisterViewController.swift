@@ -172,7 +172,7 @@ extension AppRegisterViewController {
                         UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
                         UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
                         // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
-                        UserDefaults.standard.set(self.phoneNum, forKey: UserDefaultKey.phoneNum)
+                        UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
                     }
                     
                     break
