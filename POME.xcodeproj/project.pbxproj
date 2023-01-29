@@ -16,6 +16,7 @@
 		23061242292B51C800662007 /* AppRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061241292B51C800662007 /* AppRegisterView.swift */; };
 		23061244292B51F200662007 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061243292B51F200662007 /* DefaultTextField.swift */; };
 		230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD70E298626FA0043F6DA /* StatusResponseModel.swift */; };
+		230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD7102986279A0043F6DA /* GoalResponseModel.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */; };
@@ -233,6 +234,7 @@
 		23061241292B51C800662007 /* AppRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterView.swift; sourceTree = "<group>"; };
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		230FD70E298626FA0043F6DA /* StatusResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponseModel.swift; sourceTree = "<group>"; };
+		230FD7102986279A0043F6DA /* GoalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalResponseModel.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
 		232F3FD1292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWithSeparatorTableViewCell.swift; sourceTree = "<group>"; };
@@ -1499,6 +1501,7 @@
 			isa = PBXGroup;
 			children = (
 				EEE5F5ED2981276600ECD31B /* GoalRegisterRequestModel.swift */,
+				230FD7102986279A0043F6DA /* GoalResponseModel.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1835,6 +1838,7 @@
 				57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */,
 				5799DB762977D474001137EA /* GoalTagsTableViewCell.swift in Sources */,
 				57397FBC296E77DE0088B5F4 /* CreateRecordUseCase.swift in Sources */,
+				230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */,
 				570304C22978192100AAC56D /* UICollectionView.swift in Sources */,
 				5724EC5F2917736300DC529B /* MyPageViewController.swift in Sources */,
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
