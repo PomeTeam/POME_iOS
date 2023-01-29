@@ -13,6 +13,7 @@ final class GoalServcie: MultiMoyaService{
 }
 
 extension GoalServcie{
+    
     func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (Result<Int, Error>) -> Void) {
         requestNoResultAPI(GoalRouter.postGoal(request: request)){ response in
             completion(response)

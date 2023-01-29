@@ -142,10 +142,12 @@ extension GoalContentViewController{
         
         GoalServcie.shared.generateGoal(request: request){ result in
             switch result{
-            case .success:
+            case .success(let code):
+                print("LOG: success requestGenerateGoal", code)
                 self.processResponseGenerateGoal()
                 break
             default:
+                print(result)
                 break
             }
         }
