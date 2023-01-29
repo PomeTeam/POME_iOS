@@ -39,7 +39,8 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     var friends = [FriendsResponseModel](){
         didSet{
             isFriendListEmpty()
-            friendView.tableView.reloadData()
+            guard let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell else { return }
+            friendsCell.collectionView.reloadData()
         }
     }
 
@@ -192,6 +193,9 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
             return cell
         }else{
+            
+            //TODO: 친구 데이터 바인딩
+            
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
