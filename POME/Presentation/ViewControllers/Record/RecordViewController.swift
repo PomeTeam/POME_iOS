@@ -8,8 +8,11 @@ import UIKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
+    // Goal Category
     var categories: [GoalCategoryResponseModel] = []
     var categorySelectedIdx = 0
+    // Records (임시)
+    var recordsOfGoal: [GoalCategoryResponseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +144,8 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
 // MARK: - TableView delegate
 extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3 + 4
+        let count = recordsOfGoal.count ?? 0
+        return 3 + count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
