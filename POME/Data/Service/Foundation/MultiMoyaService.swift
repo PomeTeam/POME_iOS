@@ -30,7 +30,31 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
             }
         }
     }
-    
+
+    func requestDecoded<T: BaseRouter, L: Decodable>(_ target: T, completion: @escaping ((NetworkResult<L>) -> Void)) {
+        addObserver()
+        request(MultiTarget(target)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let body = try JSONDecoder().decode(BaseResponseModel<L>.self, from: response.data)
+                    if(body.success!){
+                        if let data = body.data{
+                            completion(.success(data))
+                        }
+                    }else{
+                        completion(.invalidSuccess(body.errorCode!))
+                    }
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    //TODO: - WILL DELETE
     func requestNoResultAPI<T: BaseRouter>(_ target: T,
                                                completion: @escaping (Result<Int, Error>) -> Void) {
         addObserver()
