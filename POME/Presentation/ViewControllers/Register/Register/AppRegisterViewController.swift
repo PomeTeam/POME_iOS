@@ -118,7 +118,7 @@ extension AppRegisterViewController: UITextFieldDelegate {
 //MARK: - API
 extension AppRegisterViewController {
     private func sendSMS(){
-        let sendSMSRequestModel = SendSMSRequestModel(phoneNum: self.phone.value)
+        let sendSMSRequestModel = PhoneNumRequestModel(phoneNum: self.phone.value)
         UserService.shared.sendSMS(model: sendSMSRequestModel) { result in
             switch result {
                 case .success(let data):
@@ -136,7 +136,7 @@ extension AppRegisterViewController {
         }
     }
     private func checkUser(){
-        let checkUserRequestModel = SendSMSRequestModel(phoneNum: self.phone.value)
+        let checkUserRequestModel = PhoneNumRequestModel(phoneNum: self.phone.value)
         UserService.shared.checkUser(model: checkUserRequestModel) { result in
             switch result {
                 case .success(let data):
