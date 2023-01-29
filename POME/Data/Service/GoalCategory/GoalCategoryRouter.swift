@@ -30,7 +30,7 @@ extension GoalCategoryRouter{
     var task: Task {
         switch self {
         case .getGoalCategory:
-            let userId = UserManager.userId
+            let userId = UserManager.userId ?? ""
             return .requestParameters(parameters: ["userId": userId],
                                       encoding: URLEncoding.queryString)
         }

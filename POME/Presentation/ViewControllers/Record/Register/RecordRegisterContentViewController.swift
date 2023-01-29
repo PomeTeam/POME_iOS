@@ -212,7 +212,7 @@ extension RecordRegisterContentViewController{
         GoalCategoryService.shared.getGoalCategory{ result in
             switch result{
             case .success(let data):
-                self.goals = data
+                self.goals = data.data ?? []
                 break
             default:
                 break
