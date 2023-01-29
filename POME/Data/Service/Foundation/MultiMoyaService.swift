@@ -12,6 +12,7 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
     
     var request: Cancellable?
     
+    //TODO: WILL DELETE
     func requestDecoded<T: BaseRouter, L: Decodable>(_ target: T,
                                                      completion: @escaping (Result<L, Error>) -> Void) {
         addObserver()
@@ -62,6 +63,29 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
             switch result {
             case .success(let response):
                 completion(.success(response.statusCode))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func requestNoResultAPI<T: BaseRouter>(_ target: T,
+                                           completion: @escaping (NetworkResult<Any>) -> Void) {
+        addObserver()
+        request = request(MultiTarget(target)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let body = try JSONDecoder().decode(StatusResponseModel.self, from: response.data)
+                    if(body.success){
+                        completion(.success(body.success))
+                    }else{
+                        completion(.invalidSuccess(body.errorCode ?? ""))
+                    }
+                } catch let error {
+                    completion(.failure(error))
+                }
+                
             case .failure(let error):
                 completion(.failure(error))
             }
