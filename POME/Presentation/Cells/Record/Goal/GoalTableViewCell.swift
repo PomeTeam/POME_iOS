@@ -14,8 +14,8 @@ class GoalTableViewCell: BaseTableViewCell {
         $0.layer.borderWidth = 1
         $0.setShadowStyle(type: .card)
     }
-    let goalIsPublicLabel = LockTagLabel.generateUnopenTag()
-    let goalRemainDateLabel = DayTagLabel.generateDateEndTag()
+    var goalIsPublicLabel = LockTagLabel.generateUnopenTag()
+    var goalRemainDateLabel = DayTagLabel.generateDateEndTag()
     let menuButton = UIButton().then{
         $0.setImage(Image.moreVertical, for: .normal)
     }
@@ -125,4 +125,27 @@ class GoalTableViewCell: BaseTableViewCell {
     func overGoal() {
         self.progressBarView.overProgressView()
     }
+//    // After API
+//    func setUpData(_ data: GoalResponseModel) {
+//        let startDate = data.startDate
+//        let endDate = data.endDate
+//        let goalId = data.id
+//        let isPublic = data.isPublic
+//        let nickname = data.nickname
+//        let oneLineMind = data.oneLineMind
+//        let price = data.price
+//
+//        titleLabel.text = oneLineMind
+//        goalConsumeLabel.text = String(price)
+//
+//        if isPublic {
+//            goalIsPublicLabel = LockTagLabel.generateOpenTag()
+//        } else {
+//            goalIsPublicLabel = LockTagLabel.generateUnopenTag()
+//        }
+//
+//        // TODO: startDate와 endDate 비교해 시간 계산
+//
+//
+//    }
 }

@@ -20,8 +20,8 @@ extension GoalServcie{
         }
     }
     
-    func getGoal(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(GoalRouter.getGoal(id: id)){ response in
+    func getGoal(id: Int, completion: @escaping (Result<BaseResponseModel<GoalResponseModel>, Error>) -> Void) {
+        requestDecoded(GoalRouter.getGoal(id: id)) { response in
             completion(response)
         }
     }
