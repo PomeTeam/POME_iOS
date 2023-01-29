@@ -39,7 +39,8 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     var friends = [FriendsResponseModel](){
         didSet{
             isFriendListEmpty()
-            friendView.tableView.reloadData()
+            guard let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell else { return }
+            friendsCell.collectionView.reloadData()
         }
     }
 
@@ -67,6 +68,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     override func viewDidLoad() {
         super.viewDidLoad()
         requestGetFriends()
+        print(UserManager.token, UserManager.userId)
     }
     
     override func layout() {
@@ -123,11 +125,9 @@ extension FriendViewController{
                                                                 size: 10)){ result in
             switch result{
             case .success(let data):
-                if let data = data.data{
                     print("LOG: 'success' requestGetFriends", data)
                     self.friends = data
                     self.requestGetAllFriendsRecords()
-                }
                 break
             default:
                 print("LOG: 'fail' requestGetFriends")
@@ -191,6 +191,9 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
             return cell
         }else{
+            
+            //TODO: 친구 데이터 바인딩
+            
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우

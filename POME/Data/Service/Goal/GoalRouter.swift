@@ -50,7 +50,7 @@ extension GoalRouter{
     var task: Task {
         switch self{
         case .postGoal(let request):
-            return .requestJSONEncodable(BaseRequestModel(request: request))
+            return .requestJSONEncodable(request)
         case .getGoal:
             return .requestPlain
         case .putGoal(_, let request):

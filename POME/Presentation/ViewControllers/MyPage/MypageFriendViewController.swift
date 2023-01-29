@@ -95,14 +95,11 @@ extension MypageFriendViewController {
         FriendService.shared.getFriends(pageable: pageModel) { result in
             switch result {
                 case .success(let data):
-                    if data.success! {
-                        self.friendsData = data.data ?? []
-                        self.friendTableView.reloadData()
-                    }
-                    
+                self.friendsData = data
+                self.friendTableView.reloadData()
                     break
                 case .failure(let err):
-                    print(err.localizedDescription)
+                print(err?.localizedDescription)
                     break
             default:
                 break
