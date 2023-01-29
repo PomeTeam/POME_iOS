@@ -17,8 +17,8 @@ struct SignInRequestModel: Encodable {
     let phoneNum: String
 }
 
-// 닉네임 체크 & 유저 체크 시 사용
-struct SendSMSRequestModel: Encodable{
+// 인증 번호 전송 & 유저 체크 시 사용
+struct PhoneNumRequestModel: Encodable{
     let phoneNum: String
 }
 

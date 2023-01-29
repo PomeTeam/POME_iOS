@@ -75,8 +75,10 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         let friendId = data.friendUserId
         self.friendName = data.friendNickName
         let imageUrl = data.imageKey
+        let isFriend = data.friend
         
         profileName.text = self.friendName
+        rightButton.isSelected = isFriend ? true : false
         
         if imageUrl != "default" {
             profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
