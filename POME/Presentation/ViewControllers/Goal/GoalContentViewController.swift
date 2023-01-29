@@ -140,16 +140,17 @@ extension GoalContentViewController{
                                                price: price,
                                                isPublic: goalDataManager.isPublic)
         print(request)
+        print("LOG: requestData requestGenerateGoal", request)
         
         GoalServcie.shared.generateGoal(request: request){ result in
             switch result{
-            case .success(let data):
-                if(data.success){
-                    print("LOG: success requestGenerateGoal", data.message, data.success)
-                    self.processResponseGenerateGoal()
-                }else{
-                    print(data.message)
-                }
+            case .success:
+                print("LOG: success requestGenerateGoal")
+                self.processResponseGenerateGoal()
+                break
+                //TODO: - 실패 케이스별 로직 처리
+            case.invalidSuccess(let code):
+                print(code)
                 break
             default:
                 print(result)

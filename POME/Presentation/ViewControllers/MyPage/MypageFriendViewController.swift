@@ -99,7 +99,7 @@ extension MypageFriendViewController {
                 self.friendTableView.reloadData()
                     break
                 case .failure(let err):
-                    print(err.localizedDescription)
+                print(err?.localizedDescription)
                     break
             default:
                 break

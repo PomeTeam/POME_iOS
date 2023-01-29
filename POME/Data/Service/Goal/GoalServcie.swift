@@ -14,13 +14,11 @@ final class GoalServcie: MultiMoyaService{
 
 extension GoalServcie{
     
-    func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (Result<StatusResponseModel, Error>) -> Void) {
-        requestDecoded(GoalRouter.postGoal(request: request)){ response in
+    func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+        
+        requestNoResultAPI(GoalRouter.postGoal(request: request)){ response in
             completion(response)
         }
-//        requestNoResultAPI(GoalRouter.postGoal(request: request)){ response in
-//            completion(response)
-//        }
     }
     
     func getGoal(id: Int, completion: @escaping (Result<BaseResponseModel<GoalResponseModel>, Error>) -> Void) {
