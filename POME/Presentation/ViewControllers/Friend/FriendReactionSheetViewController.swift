@@ -58,7 +58,7 @@ class FriendReactionSheetViewController: BaseSheetViewController {
             filterReactions = reactions
             return
         }
-        filterReactions = reactions.filter{ $0.id == id - 1 }
+        filterReactions = reactions.filter{ $0.emotionId == id - 1 }
     }
 }
 
@@ -79,8 +79,8 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
         }else{
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendReactionCollectionViewCell.self)
             let data = filterReactions[indexPath.row]
-            cell.reactionImage.image = Reaction(rawValue: data.id)?.defaultImage
-            cell.nicknameLabel.text = data.name
+            cell.reactionImage.image = Reaction(rawValue: data.emotionId)?.defaultImage
+            cell.nicknameLabel.text = data.nickname
     
             return cell
         }
