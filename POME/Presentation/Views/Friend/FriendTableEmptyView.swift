@@ -9,6 +9,11 @@ import UIKit
 
 class FriendTableEmptyView: BaseView {
     
+    enum EmptyViewInfo: String{
+        case nofriend = "아직 추가한 친구가 없어요"
+        case noRecord = "기록한 씀씀이가 없어요"
+    }
+    
     let stackView = UIStackView().then{
         $0.spacing = 12
         $0.axis = .vertical
@@ -20,9 +25,8 @@ class FriendTableEmptyView: BaseView {
     }
     
     let emptyLabel = UILabel().then{
-        $0.text = "아직 추가한 친구가 없어요"
         $0.textColor = Color.grey5
-        $0.font = UIFont.autoPretendard(type: .m_14)
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
     }
     
     override init(frame: CGRect) {

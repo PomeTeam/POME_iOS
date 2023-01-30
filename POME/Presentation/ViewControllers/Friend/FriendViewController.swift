@@ -16,11 +16,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     //MARK: - Property
     var currentFriendIndex: Int = 0{
         willSet(newValue){
-            if(newValue == 0){
-                requestGetAllFriendsRecords()
-                return
-            }
-            requestGetFriendCards()
+            newValue == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
     var currentEmotionSelectCardIndex: Int?{
@@ -34,15 +30,16 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
 
     var friends = [FriendsResponseModel](){
         didSet{
-            isFriendListEmpty()
-            guard let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell else { return }
-            friendsCell.collectionView.reloadData()
+            isTableViewEmpty()
+            if let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell{
+                friendsCell.collectionView.reloadData()
+            }
         }
     }
 
     var records = [RecordResponseModel](){
         didSet{
-            //TODO: - EMPTY인 경우 View 처리
+            isTableViewEmpty()
             friendView.tableView.reloadData()
         }
     }
@@ -77,8 +74,6 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        isFriendListEmpty()
     }
     
     override func initialize() {
@@ -93,23 +88,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     
     //MARK: - Method
     
-    private func isFriendListEmpty(){
-        
+    private func isTableViewEmpty(){
         if(friends.isEmpty){
-            
-            emptyFriendView = FriendTableEmptyView()
-            guard let emptyFriendView = emptyFriendView else { return }
-
-            self.view.addSubview(emptyFriendView)
-            emptyFriendView.snp.makeConstraints{
-                $0.top.equalToSuperview().offset(178)
-                $0.leading.trailing.equalToSuperview()
-                $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            }
+            friendView.emptyViewWillShow(case: .nofriend)
+        }else if(records.isEmpty){
+            friendView.emptyViewWillShow(case: .noRecord)
         }else{
-            guard let emptyFriendView = emptyFriendView else { return }
-            emptyFriendView.removeFromSuperview()
-            self.emptyFriendView = nil
+            friendView.emptyViewWillHide()
         }
     }
 }
