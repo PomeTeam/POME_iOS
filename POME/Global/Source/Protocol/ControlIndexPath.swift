@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ControlIndexPath{
-    var cardIndexBy: (IndexPath) -> Int { get }
+    var dataIndexBy: (IndexPath) -> Int { get }
 }

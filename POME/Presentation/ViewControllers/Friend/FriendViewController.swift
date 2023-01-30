@@ -9,7 +9,7 @@ import UIKit
 
 class FriendViewController: BaseTabViewController, ControlIndexPath {
 
-    var cardIndexBy: (IndexPath) -> Int = { indexPath in
+    var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 1
     }
     
@@ -42,6 +42,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
 
     var records = [RecordResponseModel](){
         didSet{
+            //TODO: - EMPTY인 경우 View 처리
             friendView.tableView.reloadData()
         }
     }
@@ -143,6 +144,7 @@ extension FriendViewController{
                                              pageable: PageableModel(page: 0, size: 10)){ result in
             switch result{
             case .success(let data):
+                print("LOG: success requestGetFriendCards", data)
                 self.records = data
                 break
             default:
@@ -187,16 +189,15 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
             return cell
         }else{
-            
-            //TODO: 친구 데이터 바인딩
-            
+    
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
                 cell.profileImage.image = Image.categoryInactive
                 cell.nameLabel.text = "전체"
             }else{ //친구 목록 - 친구인 경우
-                cell.nameLabel.text = "연지뉘"
+                cell.nameLabel.text = friends[indexPath.row - 1].friendNickName
+                //TODO: - 친구 이미지 바인딩
             }
             
             if(indexPath.row == currentFriendIndex){
