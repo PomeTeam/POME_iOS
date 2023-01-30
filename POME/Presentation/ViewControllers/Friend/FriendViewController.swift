@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol ControlIndexPath{
-    var cardIndexBy: (IndexPath) -> Int { get }
-}
-
 class FriendViewController: BaseTabViewController, ControlIndexPath {
 
     var cardIndexBy: (IndexPath) -> Int = { indexPath in

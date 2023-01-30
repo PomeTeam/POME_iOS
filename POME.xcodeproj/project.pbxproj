@@ -177,6 +177,7 @@
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D0298799DB00077B28 /* PageableResponseModel.swift */; };
+		EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D229879C0C00077B28 /* ControlIndexPath.swift */; };
 		EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */; };
 		EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */; };
 		EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */; };
@@ -407,6 +408,7 @@
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE9505D0298799DB00077B28 /* PageableResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableResponseModel.swift; sourceTree = "<group>"; };
+		EE9505D229879C0C00077B28 /* ControlIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlIndexPath.swift; sourceTree = "<group>"; };
 		EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodURL.swift; sourceTree = "<group>"; };
 		EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
 		EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiMoyaService.swift; sourceTree = "<group>"; };
@@ -1024,6 +1026,7 @@
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
 				57556A942960380800B67369 /* Protocol.swift */,
 				570304BF297818ED00AAC56D /* CellReuse.swift */,
+				EE9505D229879C0C00077B28 /* ControlIndexPath.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1879,6 +1882,7 @@
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
 				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
+				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
 				57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
