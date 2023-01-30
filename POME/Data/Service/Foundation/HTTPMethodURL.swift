@@ -27,6 +27,7 @@ enum HTTPMethodURL {
         static let friends = HTTPMethodURL.userURL + "/friends"
         
         static let goalCategory = HTTPMethodURL.goalCategoryURL
+        static let goals = HTTPMethodURL.goalsURL + "/users"
     }
     
     struct POST {

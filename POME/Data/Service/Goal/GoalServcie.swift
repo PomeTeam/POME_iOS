@@ -39,8 +39,8 @@ extension GoalServcie{
         }
     }
     
-    func getGoalByCategory(id: Int, pageable: PageableModel, completion: @escaping (Result<[FriendsResponseModel], Error>) -> Void) {
-        requestDecoded(GoalRouter.getGoalsByCategory(id: id, pageable: pageable)){ response in
+    func getUserGoals(completion: @escaping (NetworkResult<PageableResponseModel<[GoalResponseModel]>>) -> Void) {
+        requestDecoded(GoalRouter.getGoals){ response in
             completion(response)
         }
     }
