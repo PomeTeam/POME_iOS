@@ -120,8 +120,8 @@ extension FriendViewController{
     }
     
     private func requestGetAllFriendsRecords(){
-        
-        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0, size: 10)){ response in
+        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0,
+                                                                         size: 10)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetAllFriendsRecords", data)
@@ -136,7 +136,8 @@ extension FriendViewController{
     private func requestGetFriendCards(){
         let friendId = friends[currentFriendIndex].friendUserId
         FriendService.shared.getFriendRecord(id: friendId,
-                                             pageable: PageableModel(page: 0, size: 10)){ result in
+                                             pageable: PageableModel(page: 0,
+                                                                     size: 10)){ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGetFriendCards", data)
@@ -178,10 +179,9 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         if(collectionView == emoijiFloatingView?.collectionView){
-            
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
             cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-    
+            
             return cell
         }else{
     
@@ -231,7 +231,8 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         if(collectionView == emoijiFloatingView?.collectionView){
-            return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
+            return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth,
+                          height: EmojiFloatingCollectionViewCell.cellWidth)
         }
         return FriendCollectionViewCell.cellSize
     }
@@ -254,7 +255,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
         
         let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendTableViewCell.self)
-        let cardIndex = indexPath.row - 1
+        let cardIndex = dataIndexBy(indexPath)
         let record = records[cardIndex]
     
         cell.delegate = self
@@ -264,13 +265,14 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = FriendDetailViewController(record: records[indexPath.row - 1])
+        let dataIndex = dataIndexBy(indexPath)
+        let vc = FriendDetailViewController(record: records[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
 
-        self.currentEmotionSelectCardIndex = indexPath.row - 1
+        self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
         
         emoijiFloatingView = EmojiFloatingView()
         
@@ -301,6 +303,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
     }
     
+    //TODO: - 친구 리액션 바텀시트 데이터 바인딩
     func presentReactionSheet(indexPath: IndexPath) {
         _ = FriendReactionSheetViewController().loadAndShowBottomSheet(in: self)
     }
