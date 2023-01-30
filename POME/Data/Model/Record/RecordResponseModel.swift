@@ -24,9 +24,9 @@ struct EmotionResponseModel: Decodable{
     let friendEmotions: [FriendReactionResponseModel]
 }
 
-struct FriendReactionResponseModel: Decodable{ //TODO: 서버 API 수정되면 타입/이름 확인하기
-    let id: Int
-    let name: String
+struct FriendReactionResponseModel: Decodable{
+    let emotionId: Int
+    let nickname: String
 }
 
 extension RecordResponseModel{
@@ -67,7 +67,7 @@ extension RecordResponseModel{
     }
     
     var othersThumbnailReactionBinding: Reaction{
-        Reaction(rawValue: self.emotionResponse.friendEmotions.first!.id) ?? .happy
+        Reaction(rawValue: self.emotionResponse.friendEmotions.first!.emotionId) ?? .happy
     }
     
     var othersReactionCountBinding: Int{
