@@ -36,7 +36,7 @@ class FriendReactionSheetView: BaseView {
         $0.textColor = Color.body
     }
     
-    let friendEmotionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+    let friendReactionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.itemSize = CGSize(width: FriendReactionCollectionViewCell.cellWidth, height: FriendReactionCollectionViewCell.cellWidth)
@@ -63,7 +63,7 @@ class FriendReactionSheetView: BaseView {
         self.addSubview(emotionCollectionView)
         self.addSubview(separatorLine)
         self.addSubview(countView)
-        self.addSubview(friendEmotionCollectionView)
+        self.addSubview(friendReactionCollectionView)
         
         countView.addSubview(countLabel)
     }
@@ -94,7 +94,7 @@ class FriendReactionSheetView: BaseView {
             $0.leading.equalToSuperview().offset(20)
         }
         
-        friendEmotionCollectionView.snp.makeConstraints{
+        friendReactionCollectionView.snp.makeConstraints{
             $0.top.equalTo(countView.snp.bottom)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)

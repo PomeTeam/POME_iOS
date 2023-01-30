@@ -221,16 +221,13 @@ extension RecordViewController {
         GoalCategoryService.shared.getGoalCategory { result in
             switch result {
                 case .success(let data):
-                    if data.success! {
-                        print("goal categories 조회:", data.data)
-                        self.categories = data.data ?? []
-                        self.recordView.recordTableView.reloadData()
-                    }
-                
-                    break
+                print("goal categories 조회:", data)
+                self.categories = data
+                self.recordView.recordTableView.reloadData()
+                break
                 case .failure(let err):
-                    print(err.localizedDescription)
-                    break
+                print(err?.localizedDescription)
+                break
             default:
                 break
             }

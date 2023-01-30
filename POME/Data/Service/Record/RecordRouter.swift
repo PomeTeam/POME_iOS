@@ -36,7 +36,7 @@ extension RecordRouter{
         switch self{
         case .patchRecord(_, let request):      return .requestJSONEncodable(request)
         case .deleteRecord:                     return .requestPlain
-        case .postRecord(let request):          return .requestJSONEncodable(BaseRequestModel(request: request))
+        case .postRecord(let request):          return .requestJSONEncodable(request)
         }
     }
 }

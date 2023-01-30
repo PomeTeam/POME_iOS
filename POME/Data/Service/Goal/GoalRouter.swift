@@ -13,7 +13,7 @@ enum GoalRouter: BaseRouter{
     case getGoal(id: Int)
     case putGoal(id: Int, request: GoalRegisterRequestModel)
     case deleteGoal(id: Int)
-    case getGoalsByCategory(id: Int, pageable: PageableModel)
+    case getGoals
 }
 
 extension GoalRouter{
@@ -27,8 +27,8 @@ extension GoalRouter{
             return HTTPMethodURL.PUT.goal + "/\(id)"
         case .deleteGoal(let id):
             return HTTPMethodURL.DELETE.goal +  "/\(id)"
-        case .getGoalsByCategory(let id, _):
-            return HTTPMethodURL.GET.pageOfGoalCategory + "/\(id)"
+        case .getGoals:
+            return HTTPMethodURL.GET.goals
         }
     }
     
@@ -42,7 +42,7 @@ extension GoalRouter{
             return .put
         case .deleteGoal:
             return .delete
-        case .getGoalsByCategory:
+        case .getGoals:
             return .get
         }
     }
@@ -57,7 +57,7 @@ extension GoalRouter{
             return .requestPlain
         case .deleteGoal:
             return .requestPlain
-        case .getGoalsByCategory(let pageable):
+        case .getGoals:
             return .requestPlain
         }
     }

@@ -7,16 +7,24 @@
 
 import UIKit
 
-class FriendReactionSheetViewController: BaseSheetViewController, ControlCollectionViewLoad {
+class FriendReactionSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
-    var isCollectionViewFirstLoad: Bool = true
+    var currentReaction: Int = 0
+    var filterReactions: [FriendReactionResponseModel]!{
+        didSet{
+            mainView.friendReactionCollectionView.reloadData()
+        }
+    }
+    let reactions: [FriendReactionResponseModel]
     
     let mainView = FriendReactionSheetView()
     
     //MARK: - LifeCycle
     
-    init(){
+    init(reactions: [FriendReactionResponseModel]){
+        self.filterReactions = reactions
+        self.reactions = reactions
         super.init(type: .friendReaction)
     }
     
@@ -31,8 +39,8 @@ class FriendReactionSheetViewController: BaseSheetViewController, ControlCollect
         mainView.emotionCollectionView.delegate = self
         mainView.emotionCollectionView.dataSource = self
         
-        mainView.friendEmotionCollectionView.delegate = self
-        mainView.friendEmotionCollectionView.dataSource = self
+        mainView.friendReactionCollectionView.delegate = self
+        mainView.friendReactionCollectionView.dataSource = self
     }
     
     override func layout() {
@@ -44,56 +52,51 @@ class FriendReactionSheetViewController: BaseSheetViewController, ControlCollect
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
+    
+    private func filterReactionBy(id: Int){
+        if(id == 0){
+            filterReactions = reactions
+            return
+        }
+        filterReactions = reactions.filter{ $0.id == id - 1 }
+    }
 }
 
 //MARK: - CollectionViewDelegate
 extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView == mainView.emotionCollectionView ? 7 : 10
+        collectionView == mainView.emotionCollectionView ? 7 : filterReactions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if(collectionView == mainView.emotionCollectionView){
             
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier,
-                                                                for: indexPath) as? ReactionTypeCollectionViewCell else { return UICollectionViewCell() }
-            
-            if(isCollectionViewFirstLoad && indexPath.row == 0){ //0번 인덱스('전체')로 기본값 세팅 위한 코드
-                cell.setSelectState(row: indexPath.row)
-                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .left)
-                isCollectionViewFirstLoad = false
-                return cell
-            }
-                
-            cell.setUnselectState(row: indexPath.row)
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ReactionTypeCollectionViewCell.self)
+            currentReaction == indexPath.row ? cell.setSelectState(row: indexPath.row) : cell.setUnselectState(row: indexPath.row)
             
             return cell
         }else{
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FriendReactionCollectionViewCell.cellIdenifier, for: indexPath) as? FriendReactionCollectionViewCell else { return UICollectionViewCell() }
-            
-            cell.reactionImage.image = Image.emojiSad
-            cell.nicknameLabel.text = "기획기획"
-            
+            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendReactionCollectionViewCell.self)
+            let data = filterReactions[indexPath.row]
+            cell.reactionImage.image = Reaction(rawValue: data.id)?.defaultImage
+            cell.nicknameLabel.text = data.name
+    
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if(collectionView == mainView.emotionCollectionView){
-            
             guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
-            
             cell.setSelectState(row: indexPath.row)
+            filterReactionBy(id: indexPath.row)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-
         if(collectionView == mainView.emotionCollectionView){
-            
             guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
-            
             cell.setUnselectState(row: indexPath.row)
         }
     }

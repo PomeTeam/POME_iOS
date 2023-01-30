@@ -9,7 +9,8 @@ import Foundation
 
 enum NetworkResult<T>{
     typealias Code = String
+    typealias Message = String
     case success(T)
-    case invalidSuccess(Code)
+    case invalidSuccess(Code, Message)
     case failure(Error?)
 }

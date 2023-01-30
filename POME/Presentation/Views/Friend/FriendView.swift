@@ -10,9 +10,13 @@ import UIKit
 
 class FriendView: BaseView{
     
+    let emptyView = FriendTableEmptyView()
+    
     let tableView = UITableView().then{
         $0.showsVerticalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 74, right: 0)
+        
+        $0.backgroundView = FriendTableEmptyView()
         
         $0.register(FriendListTableViewCell.self, forCellReuseIdentifier: FriendListTableViewCell.cellIdentifier)
         $0.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.cellIdentifier)
@@ -20,12 +24,27 @@ class FriendView: BaseView{
     
     override func hierarchy() {
         self.addSubview(tableView)
+        tableView.backgroundView = emptyView
     }
     
     override func layout() {
+        
         tableView.snp.makeConstraints{
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
+        
+        tableView.backgroundView?.snp.makeConstraints{
+            $0.centerY.centerX.equalToSuperview()
+        }
+    }
+    
+    func emptyViewWillShow(case type: FriendTableEmptyView.EmptyViewInfo){
+        (tableView.backgroundView as? FriendTableEmptyView)?.emptyLabel.text = type.rawValue
+        tableView.backgroundView?.isHidden = false
+    }
+    
+    func emptyViewWillHide(){
+        tableView.backgroundView?.isHidden = true
     }
 }
 

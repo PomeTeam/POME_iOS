@@ -15,7 +15,7 @@ enum FriendRouter: BaseRouter{
     case deleteFriend(id: String)
     case getFriends(pageable: PageableModel)
     case getFriendRecord(id: String, pageable: PageableModel)
-    case getAllFriendsRecord
+    case getAllFriendsRecord(pageable: PageableModel)
 }
 
 extension FriendRouter{
@@ -35,7 +35,7 @@ extension FriendRouter{
         case .getFriendRecord(let id, _):
             return HTTPMethodURL.GET.recordOfFriend + "/\(id)"
         case .getAllFriendsRecord:
-            return ""
+            return HTTPMethodURL.GET.recordsOfAllFriend
         }
     }
     
@@ -77,14 +77,10 @@ extension FriendRouter{
             return .requestParameters(parameters: ["page" : pageable.page,
                                                    "size" : pageable.size,
                                                    "sort" : pageable.sort], encoding: URLEncoding.queryString)
-        case .getAllFriendsRecord:
-            return .requestPlain
-            
-            /*
-            case .renameAlbum(_, let request):
-                return .requestParameters(parameters: ["name": request.name],
-                                          encoding: JSONEncoding.default)
-             */
+        case .getAllFriendsRecord(let pageable):
+            return .requestParameters(parameters: ["page" : pageable.page,
+                                                   "size" : pageable.size,
+                                                   "sort" : pageable.sort], encoding: URLEncoding.queryString)
         }
     }
 }

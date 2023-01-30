@@ -18,3 +18,8 @@ struct GoalResponseModel: Decodable {
     let startDate: String
 }
 
+extension GoalResponseModel{
+    var goalNameBinding: String{
+        self.goalCategoryResponse.name
+    }
+}
