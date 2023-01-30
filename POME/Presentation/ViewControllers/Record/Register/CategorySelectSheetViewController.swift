@@ -13,14 +13,14 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     
     var completion: ((Int) -> ())!
     
-    private let goals: [GoalCategoryResponseModel]
+    private let goals: [GoalResponseModel]
     private let mainView = CategorySelectSheetView().then{
         $0.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - LifeCycle
     
-    init(data goals: [GoalCategoryResponseModel]){
+    init(data goals: [GoalResponseModel]){
         self.goals = goals
         super.init(type: .category)
     }
@@ -61,7 +61,7 @@ extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDat
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordCategoryTableViewCell.cellIdentifier, for: indexPath) as? RecordCategoryTableViewCell else { return UITableViewCell() }
         
-        cell.nameLabel.text = goals[indexPath.row].name
+        cell.nameLabel.text = goals[indexPath.row].goalNameBinding
         
         return cell
     }

@@ -10,7 +10,7 @@ import RxSwift
 
 class RecordRegisterContentViewController: BaseViewController {
     
-    var goals = [GoalCategoryResponseModel]()
+    var goals = [GoalResponseModel]()
     
     private let mainView = RecordRegisterContentView()
     private let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
@@ -118,7 +118,7 @@ class RecordRegisterContentViewController: BaseViewController {
         sheet.completion = { selectIndex in
             let goal = self.goals[selectIndex]
             self.recordManager.goalId =  goal.id//TODO: - GOAL id값으로 넣어주기
-            self.mainView.goalField.infoTextField.text = goal.name
+            self.mainView.goalField.infoTextField.text = goal.goalNameBinding
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
     }
@@ -209,11 +209,11 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
 //MARK: - API
 extension RecordRegisterContentViewController{
     private func requestGetGoals(){
-        GoalCategoryService.shared.getGoalCategory{ result in
+        GoalServcie.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
-                print("LOG: success requestGetGoals", data)
-                self.goals = data
+                print("LOG: success requestGetGoals", data.content)
+                self.goals = data.content
                 break
             default:
                 print(result)
