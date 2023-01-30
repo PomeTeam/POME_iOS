@@ -44,7 +44,7 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                             completion(.success(data))
                         }
                     }else{
-                        completion(.invalidSuccess(body.errorCode!))
+                        completion(.invalidSuccess(body.errorCode ?? "", body.message ?? ""))
                     }
                 } catch let error {
                     completion(.failure(error))
@@ -80,7 +80,7 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                     if(body.success){
                         completion(.success(body.success))
                     }else{
-                        completion(.invalidSuccess(body.errorCode ?? ""))
+                        completion(.invalidSuccess(body.errorCode ?? "", body.message))
                     }
                 } catch let error {
                     completion(.failure(error))
