@@ -212,10 +212,8 @@ extension RecordRegisterContentViewController{
         GoalCategoryService.shared.getGoalCategory{ result in
             switch result{
             case .success(let data):
-                if let data = data.data{
-                    print("LOG: requestGetGoals", data)
-                    self.goals = data
-                }
+                print("LOG: success requestGetGoals", data)
+                self.goals = data
                 break
             default:
                 print(result)
