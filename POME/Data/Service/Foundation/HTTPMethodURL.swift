@@ -19,6 +19,7 @@ enum HTTPMethodURL {
         static let records = HTTPMethodURL.recordsURL
         static let recordOfGoal = HTTPMethodURL.recordsURL + "/goal" //기록 페이징 조회
         static let recordOfFriend = HTTPMethodURL.recordsURL + "/users" //기록 페이징 조회
+        static let recordsOfAllFriend = HTTPMethodURL.recordsURL + "/friends" //기록 페이징 조회
         
         static let goal = HTTPMethodURL.goalsURL
         static let pageOfGoalCategory = HTTPMethodURL.goalsURL + "/category"

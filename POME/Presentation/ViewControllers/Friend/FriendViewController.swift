@@ -121,6 +121,16 @@ extension FriendViewController{
     
     private func requestGetAllFriendsRecords(){
         
+        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0, size: 10)){ response in
+            switch response {
+            case .success(let data):
+                print("LOG: success requestGetAllFriendsRecords", data)
+                self.records = data
+            default:
+                break
+            }
+        }
+        
     }
     
     private func requestGetFriendCards(){
