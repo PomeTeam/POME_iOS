@@ -112,7 +112,7 @@ class FriendDetailView: BaseView {
         secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
         myReactionBtn.setImage(record.myReactionBinding, for: .normal)
         
-        record.othersReactionCount == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReaction, count: record.othersReactionCount)
+        record.othersReactionCountBinding == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReactionBinding, count: record.othersReactionCountBinding)
     }
     
     func setOthersReactionEmpty(){

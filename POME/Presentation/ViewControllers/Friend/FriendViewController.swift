@@ -303,9 +303,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         }
     }
     
-    //TODO: - 친구 리액션 바텀시트 데이터 바인딩
     func presentReactionSheet(indexPath: IndexPath) {
-        _ = FriendReactionSheetViewController().loadAndShowBottomSheet(in: self)
+        let data = records[dataIndexBy(indexPath)].friendReactions
+        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

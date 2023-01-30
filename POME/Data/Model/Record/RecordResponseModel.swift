@@ -66,11 +66,15 @@ extension RecordResponseModel{
         return Reaction(rawValue: reaction)?.defaultImage ?? Image.emojiAdd
     }
     
-    var othersThumbnailReaction: Reaction{
+    var othersThumbnailReactionBinding: Reaction{
         Reaction(rawValue: self.emotionResponse.friendEmotions.first!.id) ?? .happy
     }
     
-    var othersReactionCount: Int{
+    var othersReactionCountBinding: Int{
         self.emotionResponse.friendEmotions.count
+    }
+    
+    var friendReactions: [FriendReactionResponseModel]{
+        self.emotionResponse.friendEmotions
     }
 }
