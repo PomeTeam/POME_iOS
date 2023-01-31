@@ -12,6 +12,7 @@ struct RecordResponseModel: Decodable{
     let nickname: String
     let usePrice: Int
     let useDate: String
+    let createdAt: String
     let useComment: String
     let oneLineMind: String
     var emotionResponse: EmotionResponseModel
@@ -33,18 +34,6 @@ extension RecordResponseModel{
     
     var goalPromiseBinding: String{
         "· \(self.oneLineMind)"
-    }
-    
-    //TODO: 시간 데이터 가공
-    /*
-     당일인 경우
-     분 단위(44분 전) > 시간 단위(1시간 전)
-     
-     당일이 아닌 경우
-     소비 날짜(6월 24일) 포맷
-     */
-    var timeBinding: String{
-        "· \(self.useDate)  "
     }
     
     var priceBinding: String{
@@ -77,4 +66,24 @@ extension RecordResponseModel{
     var friendReactions: [FriendReactionResponseModel]{
         self.emotionResponse.friendEmotions
     }
+}
+
+extension RecordResponseModel{
+    
+    var timeBinding: String{
+        "· \(self.useDate)  "
+    }
+    
+    //TODO: 시간 데이터 가공
+    /*
+     당일인 경우
+     분 단위(44분 전) > 시간 단위(1시간 전)
+     
+     당일이 아닌 경우
+     소비 날짜(6월 24일) 포맷
+     */
+    
+    
+    //TODO: DayTag 데이터용 D-DAY 계산
+    
 }
