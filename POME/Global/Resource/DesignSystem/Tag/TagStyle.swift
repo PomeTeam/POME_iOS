@@ -119,10 +119,6 @@ class LockTagLabel: TagLabel{
     static func generateOpenTag() -> LockTagLabel{
         return LockTagLabel()
     }
-    
-    static func generateOpenTag() -> LockTagLabel{
-        return LockTagLabel(type: .open)
-    }
 }
 
 class DayTagLabel: TagLabel{
