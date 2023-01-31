@@ -18,9 +18,9 @@ struct RecordResponseModel: Decodable{
 }
 
 struct EmotionResponseModel: Decodable{
-    let firstEmotion: Int?
+    let firstEmotion: Int
     let secondEmotion: Int?
-    var myEmotion: Int     // 처음 기록 생성 시 감정
+    var myEmotion: Int?
     let friendEmotions: [FriendReactionResponseModel]
 }
 
@@ -44,16 +44,6 @@ struct RecordOfGoalResponseModel: Decodable {
     let empty: Bool
 }
 
-//struct RecordContentResponseModel: Decodable {
-//    let id: Int
-//    let nickname: String
-//    let usePrice: Int
-//    let useDate: String
-//    let useComment: String
-//    let oneLineMind: String
-//    let createdAt: String
-//    let emotionResponse: EmotionResponseModel
-//}
 
 struct PagingModel: Decodable {
     let sort: SortModel
@@ -102,10 +92,9 @@ extension RecordResponseModel{
     }
     
     var myReactionBinding: UIImage{
-        let reaction = self.emotionResponse.myEmotion
-//        else {
-//            return Image.emojiAdd
-//        }
+        guard let reaction = self.emotionResponse.myEmotion else {
+            return Image.emojiAdd
+        }
         return Reaction(rawValue: reaction)?.defaultImage ?? Image.emojiAdd
     }
     
