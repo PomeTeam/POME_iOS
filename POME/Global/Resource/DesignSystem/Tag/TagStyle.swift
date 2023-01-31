@@ -49,14 +49,6 @@ class TagLabel: BaseView{
         fatalError("init(coder:) has not been implemented")
     }
     
-//    static func generateDayTag() -> TagLabel{
-//        return TagLabel(style: .Day)
-//    }
-//
-//    static func generateLockTag() -> TagLabel{
-//        return TagLabel(style: .Lock)
-//    }
-    
     //MARK: - Override
     
     override func style() {
@@ -94,25 +86,38 @@ class TagLabel: BaseView{
 class LockTagLabel: TagLabel{
     
     private enum LockType: String{
-        case open = "공개"
-        case unopen = "비공개"
+        case `public` = "공개"
+        case lock = "비공개"
     }
     
-    private init(type: LockType){
+    private var type: LockType!{
+        didSet{
+            self.tagLabel.text = type.rawValue
+        }
+    }
+    
+    init(){
         super.init(style: .Lock)
-        self.tagLabel.text = type.rawValue
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setPublicState(){
+        self.type = .public
+    }
+    
+    func setLockState(){
+        self.type = .lock
+    }
+    //TODO: WILL DELETE
     static func generateUnopenTag() -> LockTagLabel{
-        return LockTagLabel(type: .open)
+        return LockTagLabel()
     }
     
     static func generateOpenTag() -> LockTagLabel{
-        return LockTagLabel(type: .unopen)
+        return LockTagLabel()
     }
 }
 
@@ -123,21 +128,32 @@ class DayTagLabel: TagLabel{
         case end = "END"
     }
     
-    private init(type: DayType){
+    private var type: DayType!
+    
+    init(){
         super.init(style: .Day)
-        self.tagLabel.text = type.rawValue
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setRemainDate(date: String){
+        type = .remain
+        self.tagLabel.text = type.rawValue + date
+    }
+    
+    func setEnd(){
+        type = .end
+        self.tagLabel.text = type.rawValue
+    }
+    //TODO: WILL DELETE
     static func generateDateRemainTag() -> DayTagLabel{
-        return DayTagLabel(type: .remain)
+        return DayTagLabel()
     }
     
     static func generateDateEndTag() -> DayTagLabel{
-        return DayTagLabel(type: .end)
+        return DayTagLabel()
     }
 }
 class ImageTagLabel: BaseView {
