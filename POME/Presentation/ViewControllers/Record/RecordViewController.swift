@@ -187,11 +187,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-            // 목표 종료 셀
+            /* 셀 작업 위해 임시로 주석 처리
+            // MARK: 목표 종료 셀
             if goalContent[self.categorySelectedIdx].isEnd {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 return cell
             }
+             */
             
             return cell
         case 2:
