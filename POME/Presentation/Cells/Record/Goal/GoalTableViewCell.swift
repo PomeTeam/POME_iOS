@@ -125,27 +125,31 @@ class GoalTableViewCell: BaseTableViewCell {
     func overGoal() {
         self.progressBarView.overProgressView()
     }
-//    // After API
-//    func setUpData(_ data: GoalResponseModel) {
-//        let startDate = data.startDate
-//        let endDate = data.endDate
-//        let goalId = data.id
-//        let isPublic = data.isPublic
-//        let nickname = data.nickname
-//        let oneLineMind = data.oneLineMind
-//        let price = data.price
-//
-//        titleLabel.text = oneLineMind
-//        goalConsumeLabel.text = String(price)
-//
-//        if isPublic {
-//            goalIsPublicLabel = LockTagLabel.generateOpenTag()
-//        } else {
-//            goalIsPublicLabel = LockTagLabel.generateUnopenTag()
-//        }
-//
-//        // TODO: startDate와 endDate 비교해 시간 계산
-//
-//
-//    }
+    // After API
+    func setUpData(_ data: GoalResponseModel) {
+        let startDate = data.startDate
+        let endDate = data.endDate
+        let goalId = data.id
+        let isEnd = data.isEnd
+        let isPublic = data.isPublic
+        let nickname = data.nickname
+        let oneLineMind = data.oneLineMind
+        let price = data.price
+
+        titleLabel.text = oneLineMind
+        
+        // 가격 콤마 표시
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
+        goalConsumeLabel.text = "· " + result + "원"
+
+        goalIsPublicLabel = isPublic ? LockTagLabel.generateOpenTag() : LockTagLabel.generateUnopenTag()
+
+        // TODO: startDate와 endDate 비교해 시간 계산
+        // 끝나면 END
+        
+
+
+    }
 }
