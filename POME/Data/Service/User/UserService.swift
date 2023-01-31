@@ -50,9 +50,26 @@ extension UserService{
         }
     }
     
-    func putImageToServer(preUrl: String, image: UIImage, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.putImageToServer(preUrl: preUrl, image: image)) { response in
-            completion(response)
+    func uploadToBinary(url: String, image: UIImage, compeltion: @escaping (String) -> Void) {
+        let semaphore = DispatchSemaphore (value: 0)
+        
+        let imageToData = image.jpegData(compressionQuality: 1)
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "PUT"
+        request.httpBody = imageToData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                semaphore.signal()
+                return
+            }
+            semaphore.signal()
         }
+        task.resume()
+        semaphore.wait()
+        compeltion(url)
     }
 }
+

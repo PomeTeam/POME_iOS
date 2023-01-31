@@ -15,6 +15,7 @@ class SettingProfileTableViewCell: BaseTableViewCell {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 20
         $0.backgroundColor = Color.pink10
+        $0.contentMode = .scaleAspectFill
     }
     let profileName = UILabel().then{
         $0.text = "포포"
@@ -75,10 +76,11 @@ class SettingProfileTableViewCell: BaseTableViewCell {
     func setUpData() {
         let nickName = UserManager.nickName ?? ""
         let imageUrl = UserManager.profileImg ?? ""
+        let imageServer = "https://2023-pome-buket.s3.ap-northeast-2.amazonaws.com/"
         
         profileName.text = nickName
         if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+            profileImg.kf.setImage(with: URL(string: imageServer + imageUrl), placeholder: Image.photoDefault)
         }
     }
 }

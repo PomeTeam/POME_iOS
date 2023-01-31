@@ -17,6 +17,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         $0.image = Image.photoDefault
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 22
+        $0.contentMode = .scaleAspectFill
     }
     let profileName = UILabel().then{
         $0.text = "고민"
@@ -80,8 +81,9 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         profileName.text = self.friendName
         rightButton.isSelected = isFriend ? true : false
         
+        let imageServer = "https://2023-pome-buket.s3.ap-northeast-2.amazonaws.com/"
         if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
+            profileImg.kf.setImage(with: URL(string: imageServer + imageUrl), placeholder: Image.photoDefault)
         }
         
         if isFriendSearch {
