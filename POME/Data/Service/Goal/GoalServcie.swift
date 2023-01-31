@@ -33,8 +33,8 @@ extension GoalServcie{
         }
     }
     
-    func deleteGoal(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(GoalRouter.deleteGoal(id: id)){ response in
+    func deleteGoal(id: Int, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
+        requestDecoded(GoalRouter.deleteGoal(id: id)) { response in
             completion(response)
         }
     }

@@ -127,7 +127,3 @@ extension MypageFriendViewController {
         }
     }
 }
-// MARK: - Tap Gesture
-class FriendTapGesture: UITapGestureRecognizer {
-    var data: FriendsResponseModel?
-}

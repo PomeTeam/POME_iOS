@@ -11,7 +11,6 @@ struct GoalResponseModel: Decodable {
     let endDate: String
     let goalCategoryResponse: GoalCategoryResponseModel
     let id: Int
-    let isEnd: Bool
     let isPublic: Bool
     let nickname: String
     let oneLineMind: String
