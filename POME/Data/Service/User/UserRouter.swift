@@ -85,19 +85,21 @@ extension UserRouter{
         case .imageServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
         case .putImageToServer(_, let image):
-            if let image = image.jpegData(compressionQuality: 1.0) {
-                return .uploadMultipart([MultipartFormData(provider: .data(image), name: "image", fileName: "background.jpg", mimeType: "image/jpg")])
-            }
-            return .requestPlain
+            return .requestJSONEncodable(ImageSendModel(image: (image.jpegData(compressionQuality: 0.9))!))
         }
     }
     
     var headers: [String: String]? {
         switch self {
         case .putImageToServer:
-            return ["Content-Type" : "multipart/form-data"]
+            return ["Content-Type" : "application/octet-stream"]
         default:
             return ["Content-Type": "application/json"]
         }
     }
+}
+
+
+struct ImageSendModel: Encodable{
+    let image: Data
 }

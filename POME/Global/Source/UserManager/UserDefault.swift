@@ -13,4 +13,6 @@ struct UserDefaultKey{
     static let nickName = "nickName"
     static let profileImg = "profileImg"
     static let phoneNum = "phoneNum"
+    
+    static let imageServer = "imageServer"
 }
