@@ -8,9 +8,7 @@
 import Foundation
 
 class GoalDetailTableViewCell: BaseTableViewCell{
-    
-    static let cellIdentifier = "GoalDetailTableViewCell"
-    
+
     let goalBannerView = UIView().then{
         $0.layer.borderColor = Color.grey2.cgColor
         $0.layer.borderWidth = 1
@@ -21,10 +19,9 @@ class GoalDetailTableViewCell: BaseTableViewCell{
         $0.spacing = 4
         $0.axis = .horizontal
     }
-    let goalIsPublicLabel = LockTagLabel.generateOpenTag()
-    let goalRemainDateLabel = DayTagLabel.generateDateEndTag()
+    let goalIsPublicLabel = LockTagLabel()
+    let goalRemainDateLabel = DayTagLabel()
     let goalTitleLabel = UILabel().then{
-        $0.text = "커피 대신 물을 마시자"
         $0.textColor = Color.title
         $0.setTypoStyleWithSingleLine(typoStyle: .title2)
     }
@@ -65,5 +62,19 @@ class GoalDetailTableViewCell: BaseTableViewCell{
             $0.bottom.equalToSuperview().offset(-14)
             $0.trailing.equalToSuperview().offset(-16)
         }
+    }
+    
+    func bindingEmptyData(){
+        goalRemainDateLabel.setRemainDate(date: "00")
+        goalIsPublicLabel.setLockState()
+        goalTitleLabel.text = "제목입니다."
+    }
+    
+    func bindingData(goal: GoalResponseModel){
+        goal.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
+        
+        goalTitleLabel.text = goal.oneLineMind
+        
+        //TODO: 시간 계산 메서드 생성 및 데이터 바인딩
     }
 }
