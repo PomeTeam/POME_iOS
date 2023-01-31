@@ -31,4 +31,10 @@ extension RecordService{
             completion(response)
         }
     }
+    
+    func getRecordsOfGoal(id: Int, page: Int, size: Int, completion: @escaping (Result<BaseResponseModel<RecordOfGoalResponseModel>, Error>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, page: page, size: size)) { response in
+            completion(response)
+        }
+    }
 }

@@ -5,6 +5,7 @@
 //  Created by 박지윤 on 2022/11/06.
 //
 import UIKit
+import CloudKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
@@ -13,9 +14,8 @@ class RecordViewController: BaseTabViewController {
     var categorySelectedIdx = 0
     // Goal Content
     var goalContent: [GoalResponseModel] = []
-    
-    // Records (임시)
-    var recordsOfGoal: [GoalCategoryResponseModel] = []
+    // Records
+    var recordsOfGoal: [RecordResponseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,12 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let itemIdx = indexPath.row
         self.categorySelectedIdx = itemIdx
         
+        // 기간이 지난 목표
         if isGoalEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
+        
+        // 목표에 저장된 씀씀이 조회
+        getRecordsOfGoal(id: goalContent[itemIdx].id, page: 0, size: 10)
+        
         self.recordView.recordTableView.reloadData()
         
         return true
@@ -197,7 +202,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-            // MARK: 목표 종료 셀
+            // MARK: 기간이 지난 목표 셀
             // TODO: 목표 종료 기준?
             if isGoalEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
@@ -213,6 +218,8 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
+            let itemIdx = indexPath.item - 3
+            cell.setUpData(self.recordsOfGoal[itemIdx])
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
@@ -245,10 +252,13 @@ extension RecordViewController {
         GoalServcie.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
-                print("LOG: success requestGetGoals", data.content)
                 self.goalContent = data.content
                 for x in data.content {
                     self.categories.append(x.goalCategoryResponse)
+                }
+                // 목표에 맞는 기록들 조회
+                if !self.goalContent.isEmpty {
+                    self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id, page: 0, size: 10)
                 }
                 self.recordView.recordTableView.reloadData()
                 
@@ -273,6 +283,24 @@ extension RecordViewController {
                 print(result)
                 break
             }
+        }
+    }
+    private func getRecordsOfGoal(id: Int, page: Int, size: Int) {
+        RecordService.shared.getRecordsOfGoal(id: id, page: page, size: size) { result in
+            switch result{
+            case .success(let data):
+                print(data)
+                if data.success! {
+                    print("LOG: 씀씀이 조회", data.data?.content)
+                    self.recordsOfGoal = data.data?.content ?? []
+                    self.recordView.recordTableView.reloadData()
+                }
+                break
+            default:
+                print(result)
+                break
+            }
+
         }
     }
     private func isGoalEnd(_ data: GoalResponseModel) -> Bool {
