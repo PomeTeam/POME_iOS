@@ -19,14 +19,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
             newValue == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
-    var currentEmotionSelectCardIndex: Int?{
-        get{
-            self.currentEmotionSelectCardIndex ?? nil
-        }
-        set(value){
-            self.currentEmotionSelectCardIndex = value == nil ? nil : value! - 1
-        }
-    }
+    var currentEmotionSelectCardIndex: Int?
 
     var friends = [FriendsResponseModel](){
         didSet{
@@ -163,6 +156,7 @@ extension FriendViewController{
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
             default:
+                print(result)
                 break
             }
         }
@@ -271,7 +265,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
-
+        print(dataIndexBy(indexPath))
         self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
         
         emoijiFloatingView = EmojiFloatingView()
