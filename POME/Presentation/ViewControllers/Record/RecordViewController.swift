@@ -12,6 +12,7 @@ class RecordViewController: BaseTabViewController {
     var categories: [GoalCategoryResponseModel] = []
     var categorySelectedIdx = 0
     // Goal Content
+    var goalContent: [GoalResponseModel] = []
     
     // Records (임시)
     var recordsOfGoal: [GoalCategoryResponseModel] = []
@@ -19,7 +20,10 @@ class RecordViewController: BaseTabViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getGoalCategories()
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        requestGetGoals()
     }
     override func style() {
         super.style()
@@ -120,20 +124,22 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GoalTagCollectionViewCell.cellIdentifier, for: indexPath)
                 as? GoalTagCollectionViewCell else { fatalError() }
         
-        cell.goalCategoryLabel.text = categories[indexPath.row].name
-        if indexPath.row == self.categorySelectedIdx {cell.setSelectState()}
-        else if indexPath.row == 4 {cell.setInactivateState()}  //임시
+        let itemIdx = indexPath.row
+        cell.goalCategoryLabel.text = categories[itemIdx].name
+        
+        if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
+        else if goalContent[itemIdx].isEnd {cell.setInactivateState()} // 종료된 목표일 시
         else {cell.setUnselectState()}
-        // TODO: Goal Category 상태 별 구분 필요
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        self.categorySelectedIdx = indexPath.row
-        if self.categorySelectedIdx == 4 {self.showGoalFinishWarning()}
+        let itemIdx = indexPath.row
+        self.categorySelectedIdx = itemIdx
+        
+        if goalContent[itemIdx].isEnd {self.showGoalFinishWarning()}
         self.recordView.recordTableView.reloadData()
-        // TODO: Goal Category 상태 별 구분 필요
         
         return true
     }
@@ -166,6 +172,10 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
+            
+            if !self.goalContent.isEmpty {
+                cell.setUpData(self.goalContent[self.categorySelectedIdx])
+            }
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
@@ -177,11 +187,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-            // 목표 종료 셀 (임시)
-            if self.categorySelectedIdx == 4 {
+            /* 셀 작업 위해 임시로 주석 처리
+            // MARK: 목표 종료 셀
+            if goalContent[self.categorySelectedIdx].isEnd {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 return cell
             }
+             */
             
             return cell
         case 2:
@@ -217,18 +229,22 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 }
 //MARK: - API
 extension RecordViewController {
-    private func getGoalCategories() {
-        GoalCategoryService.shared.getGoalCategory { result in
-            switch result {
-                case .success(let data):
-                print("goal categories 조회:", data)
-                self.categories = data
+    private func requestGetGoals(){
+        // api 호출할 때마다 Goal Category 배열 초기화
+        self.categories.removeAll()
+        GoalServcie.shared.getUserGoals{ result in
+            switch result{
+            case .success(let data):
+                print("LOG: success requestGetGoals", data.content)
+                self.goalContent = data.content
+                for x in data.content {
+                    self.categories.append(x.goalCategoryResponse)
+                }
                 self.recordView.recordTableView.reloadData()
-                break
-                case .failure(let err):
-                print(err?.localizedDescription)
+                
                 break
             default:
+                print(result)
                 break
             }
         }
