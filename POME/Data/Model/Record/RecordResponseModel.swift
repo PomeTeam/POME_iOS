@@ -36,6 +36,16 @@ extension RecordResponseModel{
         "· \(self.oneLineMind)"
     }
     
+    var timeBinding: String{
+        
+        if(isTodayWritten){
+            return "· \(manufactureTimeData())  "
+        }
+        
+        let dateString = PomeDateFormatter.getRecordDateString(self.useDate)
+        return "· \(dateString)  "
+    }
+    
     var priceBinding: String{
         "\(self.usePrice)원"
     }
@@ -70,20 +80,32 @@ extension RecordResponseModel{
 
 extension RecordResponseModel{
     
-    var timeBinding: String{
-        "· \(self.useDate)  "
+    // "createdAt": "2023-01-27 20:11:04.000000"
+    // "useDate": "2023.02.23"
+    private var isTodayWritten: Bool{
+        let createTimeReplace = createdAt.replacingOccurrences(of: "-", with: ".")
+        let createTime = createTimeReplace.split(separator: " ")[0]
+        return createTime == self.useDate
     }
     
-    //TODO: 시간 데이터 가공
-    /*
-     당일인 경우
-     분 단위(44분 전) > 시간 단위(1시간 전)
-     
-     당일이 아닌 경우
-     소비 날짜(6월 24일) 포맷
-     */
-    
-    
-    //TODO: DayTag 데이터용 D-DAY 계산
+    private func manufactureTimeData() -> String{
+        let rawCreateTime = String(createdAt.split(separator: ".")[0])
+        let createTimeFormatter = DateFormatter().then{
+            $0.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        }
+        
+        guard let createTime: Date = createTimeFormatter.date(from: rawCreateTime) else {
+            return ""
+        }
+        
+        let current = Date()
+        let intervalTime = (current.timeIntervalSince(createTime) / (60)).rounded()
+        let time = Int(intervalTime)
+        
+        let hour = time / 60
+        let minute =  time % 60
+        
+        return hour == 0 ? "\(minute)분 전" : "\(hour)시간 전"
+    }
     
 }
