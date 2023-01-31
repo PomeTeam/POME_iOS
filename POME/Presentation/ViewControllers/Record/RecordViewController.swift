@@ -80,10 +80,13 @@ class RecordViewController: BaseTabViewController {
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
-    @objc func alertGoalMenuButtonDidTap() {
+    @objc func alertGoalMenuButtonDidTap(_ sender: GoalTapGesture) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
             let dialog = ImageAlert.deleteInProgressGoal.generateAndShow(in: self)
+            dialog.completion = {
+                self.deleteGoal(id: sender.data?.id ?? 0)
+            }
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -179,9 +182,12 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             if !self.goalContent.isEmpty {
                 cell.setUpData(self.goalContent[self.categorySelectedIdx])
+                // Alert Menu
+                let deleteGoalGesture = GoalTapGesture(target: self, action: #selector(alertGoalMenuButtonDidTap(_:)))
+                deleteGoalGesture.data = self.goalContent[self.categorySelectedIdx]
+                cell.menuButton.addGestureRecognizer(deleteGoalGesture)
             }
-            // Alert Menu
-            cell.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
+            
             cell.selectionStyle = .none
             
             // MARK: 목표가 존재하지 않을 때
@@ -192,6 +198,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             // MARK: 목표 종료 셀
+            // TODO: 목표 종료 기준?
             if isGoalEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 cell.finishGoalButton.addTarget(self, action: #selector(finishGoalButtonDidTap), for: .touchUpInside)
@@ -245,6 +252,22 @@ extension RecordViewController {
                 }
                 self.recordView.recordTableView.reloadData()
                 
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
+    private func deleteGoal(id: Int){
+        GoalServcie.shared.deleteGoal(id: id) { result in
+            switch result{
+            case .success(let data):
+                if data.success! {
+                    print("목표 삭제 성공")
+                    self.categorySelectedIdx = 0
+                    self.requestGetGoals()
+                }
                 break
             default:
                 print(result)

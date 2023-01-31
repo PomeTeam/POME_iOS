@@ -24,6 +24,7 @@
 		232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */; };
 		232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */; };
 		232FD9D2293436950072E9D5 /* MypageFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232FD9D1293436950072E9D5 /* MypageFriendViewController.swift */; };
+		2338F4AC2989079400F37EA1 /* TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338F4AB2989079400F37EA1 /* TapGesture.swift */; };
 		2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */; };
 		2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */; };
 		2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649E292EC9F7000F6BAC /* AllRecordsView.swift */; };
@@ -245,6 +246,7 @@
 		232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingViewController.swift; sourceTree = "<group>"; };
 		232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		232FD9D1293436950072E9D5 /* MypageFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageFriendViewController.swift; sourceTree = "<group>"; };
+		2338F4AB2989079400F37EA1 /* TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGesture.swift; sourceTree = "<group>"; };
 		2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGoalTableViewCell.swift; sourceTree = "<group>"; };
 		2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsViewController.swift; sourceTree = "<group>"; };
 		2339649E292EC9F7000F6BAC /* AllRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsView.swift; sourceTree = "<group>"; };
@@ -513,6 +515,14 @@
 				232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		2338F4AA2989077F00F37EA1 /* TapGestures */ = {
+			isa = PBXGroup;
+			children = (
+				2338F4AB2989079400F37EA1 /* TapGesture.swift */,
+			);
+			path = TapGestures;
 			sourceTree = "<group>";
 		};
 		233964A2292ED5BB000F6BAC /* Goal */ = {
@@ -784,6 +794,7 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				5724EC85291B4C9200DC529B /* Const.swift */,
 				EE98F0C72980DFD0007BFCCD /* UserManager */,
 				5724EC732919220800DC529B /* Base */,
@@ -1786,6 +1797,7 @@
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
 				57CCA797292B7A1E007E22D1 /* TagStyle.swift in Sources */,
+				2338F4AC2989079400F37EA1 /* TapGesture.swift in Sources */,
 				57CCA78D292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift in Sources */,
 				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				EE98F0C92980E126007BFCCD /* UserDefault.swift in Sources */,
