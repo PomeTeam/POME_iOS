@@ -108,11 +108,11 @@ class LockTagLabel: TagLabel{
     }
     
     static func generateUnopenTag() -> LockTagLabel{
-        return LockTagLabel(type: .open)
+        return LockTagLabel(type: .unopen)
     }
     
     static func generateOpenTag() -> LockTagLabel{
-        return LockTagLabel(type: .unopen)
+        return LockTagLabel(type: .open)
     }
 }
 
