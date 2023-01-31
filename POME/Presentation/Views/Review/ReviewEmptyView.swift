@@ -8,6 +8,12 @@
 import UIKit
 
 class ReviewEmptyView: BaseView {
+    
+    let stackView = UIStackView().then{
+        $0.spacing = 12
+        $0.axis = .vertical
+        $0.alignment = .center
+    }
 
     let emptyImage = UIImageView().then{
         $0.image = Image.noting
@@ -22,30 +28,20 @@ class ReviewEmptyView: BaseView {
     
     //MARK: - LifeCycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func hierarchy(){
-        self.addSubview(emptyImage)
-        self.addSubview(emptyLabel)
+        self.addSubview(stackView)
+        stackView.addArrangedSubview(emptyImage)
+        stackView.addArrangedSubview(emptyLabel)
     }
     
     override func layout(){
         
-        emptyImage.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(130)
-            $0.centerX.equalToSuperview()
-            $0.width.height.equalTo(24)
+        stackView.snp.makeConstraints{
+            $0.top.bottom.leading.trailing.equalToSuperview()
         }
         
-        emptyLabel.snp.makeConstraints{
-            $0.top.equalTo(emptyImage.snp.bottom).offset(12)
-            $0.centerX.equalToSuperview()
+        emptyImage.snp.makeConstraints{
+            $0.width.height.equalTo(24)
         }
     }
 }

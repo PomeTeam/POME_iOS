@@ -13,10 +13,12 @@ class ReviewView: BaseView{
         $0.backgroundColor = Color.transparent
         $0.showsVerticalScrollIndicator = false
         
-        $0.register(GoalTagsTableViewCell.self, forCellReuseIdentifier: GoalTagsTableViewCell.cellIdentifier)
-        $0.register(GoalDetailTableViewCell.self, forCellReuseIdentifier: GoalDetailTableViewCell.cellIdentifier)
-        $0.register(ReviewFilterTableViewCell.self, forCellReuseIdentifier: ReviewFilterTableViewCell.cellIdentifier)
-        $0.register(ConsumeReviewTableViewCell.self, forCellReuseIdentifier: ConsumeReviewTableViewCell.cellIdentifier)
+        $0.backgroundView = ReviewEmptyView()
+        
+        $0.register(cellType: GoalTagsTableViewCell.self)
+        $0.register(cellType: GoalDetailTableViewCell.self)
+        $0.register(cellType: ReviewFilterTableViewCell.self)
+        $0.register(cellType: ConsumeReviewTableViewCell.self)
     }
     
     override func hierarchy() {
@@ -26,6 +28,11 @@ class ReviewView: BaseView{
     override func layout() {
         tableView.snp.makeConstraints{
             $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        tableView.backgroundView?.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(380)
+            $0.centerX.equalToSuperview()
         }
     }
 }
