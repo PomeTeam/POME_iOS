@@ -9,5 +9,4 @@ import Foundation
 
 struct BaseRequestModel<T: Encodable>: Encodable{
     let request: T
-    let userId: String = UserManager.userId ?? ""
 }

@@ -156,6 +156,7 @@ extension FriendViewController{
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
             default:
+                print(result)
                 break
             }
         }

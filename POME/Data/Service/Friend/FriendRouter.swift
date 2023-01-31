@@ -23,7 +23,7 @@ extension FriendRouter{
     var path: String {
         switch self {
         case .postEmotion(let id, _):
-            return HTTPMethodURL.POST.friendEmotion + "/\(id)" + "friend-emotion"
+            return HTTPMethodURL.POST.friendEmotion + "/\(id)" + "/friend-emotion"
         case .getFriendSearch(let id):
             return HTTPMethodURL.GET.friendSearch + "/\(id)"
         case .postFriend(let id):
@@ -61,11 +61,12 @@ extension FriendRouter{
     var task: Task {
         switch self {
         case .postEmotion(_, let emotion):
-            return .requestParameters(parameters: [:],
+            return .requestParameters(parameters: ["emotionId" : emotion],
                                       encoding: JSONEncoding.default)
         case .getFriendSearch:
             let userId = UserManager.userId ?? ""
-            return .requestParameters(parameters: ["userId": userId], encoding: URLEncoding.queryString)
+            return .requestParameters(parameters: ["userId": userId],
+                                      encoding: URLEncoding.queryString)
         case .postFriend:
             return .requestPlain
         case .deleteFriend:
