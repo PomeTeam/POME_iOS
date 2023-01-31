@@ -29,7 +29,6 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
             }
         }
     }
-
     var records = [RecordResponseModel](){
         didSet{
             isTableViewEmpty()
@@ -265,7 +264,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     }
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
-        print(dataIndexBy(indexPath))
+
         self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
         
         emoijiFloatingView = EmojiFloatingView()
