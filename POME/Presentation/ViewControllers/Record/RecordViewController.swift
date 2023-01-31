@@ -60,6 +60,10 @@ class RecordViewController: BaseTabViewController {
         self.present(sheet, animated: true, completion: nil)
          */
     }
+    @objc func finishGoalButtonDidTap() {
+        let vc = AllRecordsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @objc func cannotAddGoalButtonDidTap() {
         //TODO: 목표 등록/개수 제한 팝업 코드 분리
         let vc = GoalDateViewController()
@@ -128,7 +132,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if goalContent[itemIdx].isEnd {cell.setInactivateState()} // 종료된 목표일 시
+        else if isGoalEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
         else {cell.setUnselectState()}
         
         return cell
@@ -138,7 +142,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let itemIdx = indexPath.row
         self.categorySelectedIdx = itemIdx
         
-        if goalContent[itemIdx].isEnd {self.showGoalFinishWarning()}
+        if isGoalEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
         self.recordView.recordTableView.reloadData()
         
         return true
@@ -187,13 +191,12 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
-            /* 셀 작업 위해 임시로 주석 처리
             // MARK: 목표 종료 셀
-            if goalContent[self.categorySelectedIdx].isEnd {
+            if isGoalEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                cell.finishGoalButton.addTarget(self, action: #selector(finishGoalButtonDidTap), for: .touchUpInside)
                 return cell
             }
-             */
             
             return cell
         case 2:
@@ -247,6 +250,21 @@ extension RecordViewController {
                 print(result)
                 break
             }
+        }
+    }
+    private func isGoalEnd(_ data: GoalResponseModel) -> Bool {
+        let endDate = data.endDate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let convertDate = dateFormatter.date(from: endDate)
+        
+        // 종료 날짜가 오늘보다 이전인 지 확인
+        let result: ComparisonResult = Date().compare(convertDate ?? .now)
+        if result == .orderedDescending {
+            return true
+        } else {
+            return false
         }
     }
 }
