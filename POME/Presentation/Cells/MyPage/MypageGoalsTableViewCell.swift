@@ -83,3 +83,20 @@ class MypageGoalsTableViewCell: BaseTableViewCell {
         }
     }
 }
+//MARK: - API
+// TODO: 완료한 목표 보관함
+//extension MypageGoalsTableViewCell {
+//    public func getGoalCounts(){
+//        GoalServcie.shared.getUserGoals{ result in
+//            switch result{
+//            case .success(let data):
+//                self.subTitleLabel.text = "다시 보고 싶은 지난 목표가 \(data.content.count)건 있어요"
+//
+//                break
+//            default:
+//                print(result)
+//                break
+//            }
+//        }
+//    }
+//}

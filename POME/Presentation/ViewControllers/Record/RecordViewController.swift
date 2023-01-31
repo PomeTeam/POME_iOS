@@ -51,20 +51,20 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
-        //TODO: 소비 기록 등록/소비 등록 제한 코드 분리
-        let vc = RecordRegisterContentViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-        /*
-        let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
-         */
+        if self.goalContent.isEmpty {
+            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
+            sheet.loadViewIfNeeded()
+            self.present(sheet, animated: true, completion: nil)
+        } else {
+            let vc = RecordRegisterContentViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     @objc func finishGoalButtonDidTap() {
         let vc = AllRecordsViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    @objc func cannotAddGoalButtonDidTap() {
+    @objc func addGoalButtonDidTap() {
         //TODO: 목표 등록/개수 제한 팝업 코드 분리
         let vc = GoalDateViewController()
         self.navigationController?.pushViewController(vc, animated: true)
@@ -174,7 +174,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.goalCollectionView.reloadData()
             
             // Add Goal
-            cell.goalPlusButton.addTarget(self, action: #selector(cannotAddGoalButtonDidTap), for: .touchUpInside)
+            cell.goalPlusButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
             
             return cell
         case 1:
@@ -193,7 +193,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             // MARK: 목표가 존재하지 않을 때
             if self.categories.count == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyGoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
-                cell.makeGoalButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
+                cell.makeGoalButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
                 return cell
             }
             
