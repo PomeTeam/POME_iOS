@@ -15,7 +15,7 @@ class RecordViewController: BaseTabViewController {
     // Goal Content
     var goalContent: [GoalResponseModel] = []
     // Records
-    var recordsOfGoal: [RecordContentResponseModel] = []
+    var recordsOfGoal: [RecordResponseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,6 +218,8 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
+            let itemIdx = indexPath.item - 3
+            cell.setUpData(self.recordsOfGoal[itemIdx])
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
@@ -250,10 +252,13 @@ extension RecordViewController {
         GoalServcie.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
-//                print("LOG: success requestGetGoals", data.content)
                 self.goalContent = data.content
                 for x in data.content {
                     self.categories.append(x.goalCategoryResponse)
+                }
+                // 목표에 맞는 기록들 조회
+                if !self.goalContent.isEmpty {
+                    self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id, page: 0, size: 10)
                 }
                 self.recordView.recordTableView.reloadData()
                 

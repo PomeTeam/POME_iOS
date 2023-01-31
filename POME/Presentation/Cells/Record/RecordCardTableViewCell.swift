@@ -14,7 +14,7 @@ class RecordCardTableViewCell: BaseTableViewCell {
         $0.layer.borderWidth = 1
         $0.setShadowStyle(type: .card)
     }
-    let firstEmotion = ImageTagLabel(Image.emojiSad, "후회해요", .activate)
+    let firstEmotion = EmotionTagView()
     let nextEmotion = ImageTagLabel(Image.emojiSad, "아직 감정을 남기지 않았어요", .inactivate)
     let arrowImage = UIImageView().then{
         $0.image = Image.rightArrowGray
@@ -105,5 +105,21 @@ class RecordCardTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-14)
         }
+    }
+    func setUpData(_ data: RecordResponseModel) {
+        let price = data.usePrice
+        let content = data.useComment
+        
+        // 가격 콤마 표시
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
+        priceLabel.text = result + "원"
+        
+        contentLabel.text = content
+        dateLabel.text = data.timeBinding
+        
+        // TODO: 감정 설정
+        firstEmotion.emotionImage.image = data.myReactionBinding
     }
 }

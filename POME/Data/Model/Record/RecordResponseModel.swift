@@ -31,7 +31,7 @@ struct FriendReactionResponseModel: Decodable{
 
 // 목표에 기록된 씀씀이 조회
 struct RecordOfGoalResponseModel: Decodable {
-    let content: [RecordContentResponseModel]
+    let content: [RecordResponseModel]
     let pageable: PagingModel
     let totalPages: Int
     let totalElements: Int
@@ -44,16 +44,16 @@ struct RecordOfGoalResponseModel: Decodable {
     let empty: Bool
 }
 
-struct RecordContentResponseModel: Decodable {
-    let id: Int
-    let nickname: String
-    let usePrice: Int
-    let useDate: String
-    let useComment: String
-    let oneLineMind: String
-    let createdAt: String
-    let emotionResponse: EmotionResponseModel
-}
+//struct RecordContentResponseModel: Decodable {
+//    let id: Int
+//    let nickname: String
+//    let usePrice: Int
+//    let useDate: String
+//    let useComment: String
+//    let oneLineMind: String
+//    let createdAt: String
+//    let emotionResponse: EmotionResponseModel
+//}
 
 struct PagingModel: Decodable {
     let sort: SortModel
