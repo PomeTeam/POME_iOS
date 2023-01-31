@@ -51,16 +51,20 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
-        //TODO: 소비 기록 등록/소비 등록 제한 코드 분리
-        let vc = RecordRegisterContentViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-        /*
-        let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
-         */
+        if self.goalContent.isEmpty {
+            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!")
+            sheet.loadViewIfNeeded()
+            self.present(sheet, animated: true, completion: nil)
+        } else {
+            let vc = RecordRegisterContentViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
-    @objc func cannotAddGoalButtonDidTap() {
+    @objc func finishGoalButtonDidTap() {
+        let vc = AllRecordsViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func addGoalButtonDidTap() {
         //TODO: 목표 등록/개수 제한 팝업 코드 분리
         let vc = GoalDateViewController()
         self.navigationController?.pushViewController(vc, animated: true)
@@ -76,10 +80,13 @@ class RecordViewController: BaseTabViewController {
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
-    @objc func alertGoalMenuButtonDidTap() {
+    @objc func alertGoalMenuButtonDidTap(_ sender: GoalTapGesture) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
             let dialog = ImageAlert.deleteInProgressGoal.generateAndShow(in: self)
+            dialog.completion = {
+                self.deleteGoal(id: sender.data?.id ?? 0)
+            }
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -128,7 +135,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if goalContent[itemIdx].isEnd {cell.setInactivateState()} // 종료된 목표일 시
+        else if isGoalEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
         else {cell.setUnselectState()}
         
         return cell
@@ -138,7 +145,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let itemIdx = indexPath.row
         self.categorySelectedIdx = itemIdx
         
-        if goalContent[itemIdx].isEnd {self.showGoalFinishWarning()}
+        if isGoalEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
         self.recordView.recordTableView.reloadData()
         
         return true
@@ -167,7 +174,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.goalCollectionView.reloadData()
             
             // Add Goal
-            cell.goalPlusButton.addTarget(self, action: #selector(cannotAddGoalButtonDidTap), for: .touchUpInside)
+            cell.goalPlusButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
             
             return cell
         case 1:
@@ -175,25 +182,28 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             if !self.goalContent.isEmpty {
                 cell.setUpData(self.goalContent[self.categorySelectedIdx])
+                // Alert Menu
+                let deleteGoalGesture = GoalTapGesture(target: self, action: #selector(alertGoalMenuButtonDidTap(_:)))
+                deleteGoalGesture.data = self.goalContent[self.categorySelectedIdx]
+                cell.menuButton.addGestureRecognizer(deleteGoalGesture)
             }
-            // Alert Menu
-            cell.menuButton.addTarget(self, action: #selector(alertGoalMenuButtonDidTap), for: .touchUpInside)
+            
             cell.selectionStyle = .none
             
             // MARK: 목표가 존재하지 않을 때
             if self.categories.count == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyGoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
-                cell.makeGoalButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
+                cell.makeGoalButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
                 return cell
             }
             
-            /* 셀 작업 위해 임시로 주석 처리
             // MARK: 목표 종료 셀
-            if goalContent[self.categorySelectedIdx].isEnd {
+            // TODO: 목표 종료 기준?
+            if isGoalEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                cell.finishGoalButton.addTarget(self, action: #selector(finishGoalButtonDidTap), for: .touchUpInside)
                 return cell
             }
-             */
             
             return cell
         case 2:
@@ -247,6 +257,37 @@ extension RecordViewController {
                 print(result)
                 break
             }
+        }
+    }
+    private func deleteGoal(id: Int){
+        GoalServcie.shared.deleteGoal(id: id) { result in
+            switch result{
+            case .success(let data):
+                if data.success! {
+                    print("목표 삭제 성공")
+                    self.categorySelectedIdx = 0
+                    self.requestGetGoals()
+                }
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
+    private func isGoalEnd(_ data: GoalResponseModel) -> Bool {
+        let endDate = data.endDate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let convertDate = dateFormatter.date(from: endDate)
+        
+        // 종료 날짜가 오늘보다 이전인 지 확인
+        let result: ComparisonResult = Date().compare(convertDate ?? .now)
+        if result == .orderedDescending {
+            return true
+        } else {
+            return false
         }
     }
 }

@@ -128,9 +128,8 @@ class GoalTableViewCell: BaseTableViewCell {
     // After API
     func setUpData(_ data: GoalResponseModel) {
         let startDate = data.startDate
-        let endDate = data.endDate
+        let endDateStr = data.endDate
         let goalId = data.id
-        let isEnd = data.isEnd
         let isPublic = data.isPublic
         let nickname = data.nickname
         let oneLineMind = data.oneLineMind
@@ -144,11 +143,30 @@ class GoalTableViewCell: BaseTableViewCell {
         let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
         goalConsumeLabel.text = "· " + result + "원"
 
-        goalIsPublicLabel = isPublic ? LockTagLabel.generateOpenTag() : LockTagLabel.generateUnopenTag()
+        if isPublic {
+            goalIsPublicLabel.setPublicState()
+        } else {
+            goalIsPublicLabel.setLockState()
+        }
 
-        // TODO: startDate와 endDate 비교해 시간 계산
-        // 끝나면 END
+        // 현재 시간과 endDate 비교해 시간 계산
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let date = Date()
+        let nowDateStr = formatter.string(from: date)
+        let nowDate = formatter.date(from: nowDateStr)
         
+        let endDate = formatter.date(from: endDateStr)
+        let diffBetweenDates = endDate!.timeIntervalSince(nowDate!)
+        let diff = Int(diffBetweenDates / (60 * 60 * 24))
+        
+        if diff > 0 {
+            goalRemainDateLabel.setRemainDate(date: String(diff))
+        } else {
+            goalRemainDateLabel.setEnd()
+        }
+        
+        // TODO: 사용 금액으로 ProgressBar 만들기
 
 
     }
