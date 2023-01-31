@@ -18,9 +18,9 @@ struct RecordResponseModel: Decodable{
 }
 
 struct EmotionResponseModel: Decodable{
-    let firstEmotion: Int
+    let firstEmotion: Int?
     let secondEmotion: Int?
-    var myEmotion: Int?
+    var myEmotion: Int     // 처음 기록 생성 시 감정
     let friendEmotions: [FriendReactionResponseModel]
 }
 
@@ -28,6 +28,48 @@ struct FriendReactionResponseModel: Decodable{
     let emotionId: Int
     let nickname: String
 }
+
+// 목표에 기록된 씀씀이 조회
+struct RecordOfGoalResponseModel: Decodable {
+    let content: [RecordContentResponseModel]
+    let pageable: PagingModel
+    let totalPages: Int
+    let totalElements: Int
+    let last: Bool
+    let size: Int
+    let number: Int
+    let sort: SortModel
+    let numberOfElements: Int
+    let first: Bool
+    let empty: Bool
+}
+
+struct RecordContentResponseModel: Decodable {
+    let id: Int
+    let nickname: String
+    let usePrice: Int
+    let useDate: String
+    let useComment: String
+    let oneLineMind: String
+    let createdAt: String
+    let emotionResponse: EmotionResponseModel
+}
+
+struct PagingModel: Decodable {
+    let sort: SortModel
+    let offset: Int
+    let pageNumber: Int
+    let pageSize: Int
+    let paged: Bool
+    let unpaged: Bool
+}
+
+struct SortModel: Decodable {
+    let empty: Bool
+    let sorted: Bool
+    let unsorted: Bool
+}
+
 
 extension RecordResponseModel{
     
@@ -52,7 +94,7 @@ extension RecordResponseModel{
     }
     
     var firstEmotionBinding: EmotionTag{
-        EmotionTag(rawValue: self.emotionResponse.firstEmotion) ?? .default
+        EmotionTag(rawValue: self.emotionResponse.firstEmotion ?? 0) ?? .default
     }
     
     var secondEmotionBinding: EmotionTag{
@@ -60,9 +102,10 @@ extension RecordResponseModel{
     }
     
     var myReactionBinding: UIImage{
-        guard let reaction = self.emotionResponse.myEmotion else {
-            return Image.emojiAdd
-        }
+        let reaction = self.emotionResponse.myEmotion
+//        else {
+//            return Image.emojiAdd
+//        }
         return Reaction(rawValue: reaction)?.defaultImage ?? Image.emojiAdd
     }
     
