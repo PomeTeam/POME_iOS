@@ -227,7 +227,7 @@ extension RegisterViewController {
     }
     // 이미지 서버에 저장
     private func putImageToSerVer() {
-        UploadImage.shared.uploadToBinary(url: self.presignedURL, image: self.selectedPhoto) { result in
+        UserService.shared.uploadToBinary(url: self.presignedURL, image: self.selectedPhoto) { result in
             print("서버에 이미지 저장 성공")
             self.signUp()
         }

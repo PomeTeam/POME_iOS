@@ -50,36 +50,13 @@ extension UserService{
         }
     }
     
-    func putImageToServer(preUrl: String, image: UIImage, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(UserRouter.putImageToServer(preUrl: preUrl, image: image)) { response in
-            completion(response)
-        }
-    }
-    
-}
-
-
-struct UploadImage {
-    static let shared = UploadImage()
-    
     func uploadToBinary(url: String, image: UIImage, compeltion: @escaping (String) -> Void) {
-        
         let semaphore = DispatchSemaphore (value: 0)
-        
-        var fileKey = String()
-        
-        let dateFormat = DateFormatter()
-        dateFormat.dateFormat = "yyyyMMdd"
-        fileKey += dateFormat.string(from: Date())
-        fileKey += String(Int64(Date().timeIntervalSince1970)) + "_"
-        fileKey += UUID().uuidString + ".png"
-        print(fileKey)
         
         let imageToData = image.jpegData(compressionQuality: 1)
         
         var request = URLRequest(url: URL(string: url)!)
         request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-        
         request.httpMethod = "PUT"
         request.httpBody = imageToData
         
@@ -95,3 +72,4 @@ struct UploadImage {
         compeltion(url)
     }
 }
+

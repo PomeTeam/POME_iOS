@@ -17,7 +17,6 @@ enum UserRouter: BaseRouter{
     case checkUser(param: PhoneNumRequestModel)
     
     case imageServer(id: String)
-    case putImageToServer(preUrl: String, image: UIImage)
 }
 
 extension UserRouter{
@@ -26,8 +25,6 @@ extension UserRouter{
         switch self {
         case .imageServer:
             return URL(string: "http://image-main-server.ap-northeast-2.elasticbeanstalk.com/presigned-url")!
-        case .putImageToServer(let preUrl, _):
-            return URL(string: preUrl)!
         default:
             let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
             return URL(string: "http://" + url)!
@@ -63,8 +60,6 @@ extension UserRouter{
             return .post
         case .imageServer:
             return .get
-        case .putImageToServer:
-            return .put
         case .checkUser:
             return .post
         }
@@ -84,15 +79,11 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .imageServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .putImageToServer(_, let image):
-            return .requestJSONEncodable(ImageSendModel(image: (image.jpegData(compressionQuality: 0.9))!))
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .putImageToServer:
-            return ["Content-Type" : "application/octet-stream"]
         default:
             return ["Content-Type": "application/json"]
         }
