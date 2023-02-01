@@ -23,12 +23,10 @@ class ReviewDetailView: BaseView {
     }
     
     let priceLabel = UILabel().then{
-        $0.text = "320,800원"
         $0.textColor = Color.title
         $0.setTypoStyleWithSingleLine(typoStyle: .title3)
     }
     let memoLabel = UILabel().then{
-        $0.text = "아휴 힘빠져 이젠 진짜 포기다 포기 도대체 뭐가 문제일까 현실을 되돌아볼 필요를 느낀다ㅠ 이정도 노력했으면 된거 아닌가 진짜 개 힘빠지네 그래서 오늘은 물 대신 라떼 한잔을 마셨습니다 ㅋ 라뗴 존맛탱~~ 다들 나흐바 시그니쳐 커피를 마셔주세요 설탕 솔솔 뿌려서 개맛있음"
         $0.textColor = Color.title
         $0.setTypoStyleWithMultiLine(typoStyle: .body2)
         $0.numberOfLines = 0
@@ -39,12 +37,10 @@ class ReviewDetailView: BaseView {
         $0.axis = .horizontal
     }
     let tagLabel = PaddingLabel().then{
-        $0.text = "커피 대신 물을 마시자"
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
     let timeLabel = UILabel().then{
-        $0.text = "· 44분 전"
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
@@ -160,21 +156,38 @@ class ReviewDetailView: BaseView {
             $0.height.equalTo(22)
         }
     }
+    //MARK: - Method
     
-    func setOthersReaction(thumnail: Reaction, count: Int){
+    func dataBinding(with record: RecordResponseModel){
+        /*
+        goalPromiseLabel.text = record.goalPromiseBinding
+        timeLabel.text = record.timeBinding
+        priceLabel.text = record.priceBinding
+        memoLabel.text = record.oneLineMind
         
-        if(count == 0){
-            //TODO: 0개일 때 어떤 이모지 사용...?
-            othersReactionButton.setImage(Image.emojiAdd, for: .normal)
-            return
-        }else if(count == 1){
-            othersReactionButton.setImage(thumnail.defaultImage, for: .normal)
+        firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
+        secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
+        myReactionBtn.setImage(record.myReactionBinding, for: .normal)
+        */
+        record.othersReactionCountBinding == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReactionBinding, count: record.othersReactionCountBinding)
+    }
+    
+    func setOthersReactionEmpty(){
+        othersReactionButton.backgroundColor = .white
+        othersReactionButton.isEnabled = false
+    }
+    
+    func setOthersReaction(thumbnail: Reaction, count: Int){
+        
+        othersReactionButton.isEnabled = true
+        
+        if(count == 1){
+            othersReactionButton.setImage(thumbnail.defaultImage, for: .normal)
             return
         }
         
         //count > 1인 경우 아래 코드 실행
         self.othersReactionButton.addSubview(othersReactionCountLabel)
-
         othersReactionCountLabel.snp.makeConstraints{
             $0.leading.top.equalToSuperview().offset(6)
             $0.centerX.centerY.equalToSuperview()
@@ -189,6 +202,6 @@ class ReviewDetailView: BaseView {
         }
         
         othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(thumnail.blurImage, for: .normal)
+        othersReactionButton.setImage(thumbnail.blurImage, for: .normal)
     }
 }

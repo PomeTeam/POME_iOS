@@ -13,6 +13,7 @@ class FriendReactionSheetViewController: BaseSheetViewController {
     var currentReaction: Int = 0
     var filterReactions: [FriendReactionResponseModel]!{
         didSet{
+            mainView.countLabel.text = "전체 \(filterReactions.count)개"
             mainView.friendReactionCollectionView.reloadData()
         }
     }
@@ -23,7 +24,6 @@ class FriendReactionSheetViewController: BaseSheetViewController {
     //MARK: - LifeCycle
     
     init(reactions: [FriendReactionResponseModel]){
-        self.filterReactions = reactions
         self.reactions = reactions
         super.init(type: .friendReaction)
     }
@@ -41,6 +41,9 @@ class FriendReactionSheetViewController: BaseSheetViewController {
         
         mainView.friendReactionCollectionView.delegate = self
         mainView.friendReactionCollectionView.dataSource = self
+        
+        mainView.countLabel.text = "전체 \(reactions.count)개"
+        filterReactions = reactions
     }
     
     override func layout() {
@@ -54,11 +57,7 @@ class FriendReactionSheetViewController: BaseSheetViewController {
     }
     
     private func filterReactionBy(id: Int){
-        if(id == 0){
-            filterReactions = reactions
-            return
-        }
-        filterReactions = reactions.filter{ $0.emotionId == id - 1 }
+        filterReactions = id == 0 ? reactions : reactions.filter{ $0.emotionId == id - 1 }
     }
 }
 
@@ -77,8 +76,10 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
             
             return cell
         }else{
+            
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendReactionCollectionViewCell.self)
             let data = filterReactions[indexPath.row]
+            
             cell.reactionImage.image = Reaction(rawValue: data.emotionId)?.defaultImage
             cell.nicknameLabel.text = data.nickname
     
