@@ -13,6 +13,7 @@ enum RecordRouter: BaseRouter{
     case deleteRecord(id: Int)
     case postRecord(request: RecordRegisterRequestModel)
     case getRecordsOfGoalByUser(id: Int, pageable: PageableModel)
+    case postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel)
 }
 
 extension RecordRouter{
@@ -23,6 +24,7 @@ extension RecordRouter{
         case .deleteRecord(let id):                 return HTTPMethodURL.DELETE.record + "/\(id)"
         case .postRecord:                           return HTTPMethodURL.POST.record
         case .getRecordsOfGoalByUser(let id, _):    return HTTPMethodURL.GET.recordOfGoal + "/\(id)"
+        case .postSecondEmotion(let id, _):         return HTTPMethodURL.POST.secondEmotion + "/\(id)" + "/second-emotion"
         }
     }
     
@@ -32,6 +34,7 @@ extension RecordRouter{
         case .deleteRecord:             return .delete
         case .postRecord:               return .post
         case .getRecordsOfGoalByUser:   return .get
+        case .postSecondEmotion:        return .post
         }
     }
     
@@ -44,6 +47,7 @@ extension RecordRouter{
                                                                                                "size" : pageable.size,
                                                                                                "sort" : pageable.sort],
                                                                                   encoding: URLEncoding.queryString)
+        case .postSecondEmotion(_, let param):          return .requestJSONEncodable(param)
         }
     }
 }

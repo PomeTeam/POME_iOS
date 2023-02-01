@@ -19,7 +19,7 @@ class CommentView: BaseView {
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
     }
-    let goalView = LittleGoalView(true, "end", "커피 대신 물을 마시자")
+    let goalView = LittleGoalView()
     
     let textViewBackView = UIView().then{
         $0.backgroundColor = Color.grey0

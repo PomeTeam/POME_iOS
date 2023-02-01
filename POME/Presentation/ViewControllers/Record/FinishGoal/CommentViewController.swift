@@ -10,6 +10,7 @@ import UIKit
 class CommentViewController: BaseViewController {
     let textViewPlaceHolder = "목표에 대한 한줄 코멘트를 남겨보세요"
     var commentView: CommentView!
+    var goalContent: GoalResponseModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,9 @@ class CommentViewController: BaseViewController {
         super.view.backgroundColor = .white
         
         commentView = CommentView()
+        if let goalContent = self.goalContent {
+            commentView.goalView.setUpContent(goalContent)
+        }
         commentView.commentTextView.delegate = self
     }
     override func layout() {

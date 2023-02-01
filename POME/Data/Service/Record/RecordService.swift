@@ -37,4 +37,10 @@ extension RecordService{
             completion(response)
         }
     }
+    
+    func postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+        requestNoResultAPI(RecordRouter.postSecondEmotion(id: id, param: param)){ response in
+            completion(response)
+        }
+    }
 }

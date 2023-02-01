@@ -7,13 +7,16 @@
 
 import UIKit
 
+// 목표 종료 시 나타나는 뷰컨
 class AllRecordsViewController: BaseViewController {
     var allRecordsView: AllRecordsView!
+    var goalContent: GoalResponseModel?
+    var recordsOfGoal: [RecordResponseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        getRecordsOfGoal(id: self.goalContent?.id ?? 0, page: 0, size: 15)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -44,7 +47,9 @@ class AllRecordsViewController: BaseViewController {
     }
     // MARK: - Actions
     @objc func nextButtonDidTap() {
-        self.navigationController?.pushViewController(CommentViewController(), animated: true)
+        let vc = CommentViewController()
+        vc.goalContent = self.goalContent
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func alertRecordMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -79,10 +84,14 @@ class AllRecordsViewController: BaseViewController {
 // MARK: - TableView delegate
 extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let count = self.recordsOfGoal.count ?? 0
+        return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
+        // Set Data
+        let itemIdx = indexPath.item
+        cell.setUpData(self.recordsOfGoal[itemIdx])
         // Alert Menu
         cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
         cell.selectionStyle = .none
@@ -91,5 +100,31 @@ extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+// MARK: - API
+extension AllRecordsViewController {
+    private func getRecordsOfGoal(id: Int, page: Int, size: Int) {
+        RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
+            switch result{
+            case .success(let data):
+                print("LOG: 씀씀이 조회", data.content)
+                self.recordsOfGoal = data.content
+                self.allRecordsView.allRecordsTableView.reloadData()
+                self.setUpContent()
+                
+                break
+            default:
+                print(result)
+                break
+            }
+
+        }
+    }
+    private func setUpContent() {
+        self.allRecordsView.countLabel.text = "전체 \(self.recordsOfGoal.count)건"
+        if let goalContent = self.goalContent {
+            self.allRecordsView.goalView.setUpContent(goalContent)
+        }
     }
 }

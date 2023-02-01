@@ -15,14 +15,14 @@ struct RecordResponseModel: Decodable{
     let createdAt: String
     let useComment: String
     let oneLineMind: String
-    var emotionResponse: EmotionResponseModel
+    var emotionResponse: EmotionResponseModel   // 임시...
 }
 
 struct EmotionResponseModel: Decodable{
     let firstEmotion: Int
     let secondEmotion: Int?
     var myEmotion: Int?
-    let friendEmotions: [FriendReactionResponseModel]
+    let friendEmotions: [FriendReactionResponseModel]?
 }
 
 struct FriendReactionResponseModel: Decodable{
@@ -66,15 +66,15 @@ extension RecordResponseModel{
     }
     
     var othersThumbnailReactionBinding: Reaction{
-        Reaction(rawValue: self.emotionResponse.friendEmotions.first!.emotionId) ?? .happy
+        Reaction(rawValue: self.emotionResponse.friendEmotions?.first!.emotionId ?? 1) ?? .happy
     }
     
     var othersReactionCountBinding: Int{
-        self.emotionResponse.friendEmotions.count
+        self.emotionResponse.friendEmotions!.count ?? 0
     }
     
     var friendReactions: [FriendReactionResponseModel]{
-        self.emotionResponse.friendEmotions
+        self.emotionResponse.friendEmotions ?? []
     }
 }
 
