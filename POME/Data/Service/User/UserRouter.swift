@@ -25,7 +25,7 @@ extension UserRouter{
         switch self {
         case .getPresignedURLServer:
             let url = Bundle.main.infoDictionary?["GET_PRESIGNED_URL"] as? String ?? ""
-            return URL(string: url)!
+            return URL(string: "http://" + url)!
         default:
             let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
             return URL(string: "http://" + url)!
