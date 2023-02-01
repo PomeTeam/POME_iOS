@@ -78,8 +78,6 @@ class SettingProfileTableViewCell: BaseTableViewCell {
         let imageURL = UserManager.profileImg ?? ""
         
         profileName.text = nickName
-        if imageURL != "default" {
-            profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
-        }
+        profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
     }
 }
