@@ -94,4 +94,7 @@ class GoEmotionBannerTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-14)
         }
     }
+    func setUpCount(_ count: Int) {
+        subTitleLabel.text = "다시 돌아볼 씀씀이가 \(count)건 있어요"
+    }
 }
