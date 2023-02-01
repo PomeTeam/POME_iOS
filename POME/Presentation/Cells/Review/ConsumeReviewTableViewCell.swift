@@ -9,14 +9,11 @@ import UIKit
 
 class ConsumeReviewTableViewCell: BaseTableViewCell {
     
-    static let cellIdentifier = "ConsumeReviewTableViewCell"
-    
     let shadowView = UIView().then{
         $0.layer.borderWidth = 1
         $0.layer.borderColor = Color.grey2.cgColor
         $0.setShadowStyle(type: .card)
     }
-    
     let mainView = ReviewDetailView().then{
         $0.memoLabel.numberOfLines = 2
     }

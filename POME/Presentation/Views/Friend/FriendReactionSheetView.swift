@@ -31,7 +31,6 @@ class FriendReactionSheetView: BaseView {
     let countView = UIView()
     
     let countLabel = UILabel().then{
-        $0.text = "전체 6개"
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textColor = Color.body
     }

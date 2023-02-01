@@ -177,6 +177,7 @@
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
+		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D0298799DB00077B28 /* PageableResponseModel.swift */; };
 		EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D229879C0C00077B28 /* ControlIndexPath.swift */; };
 		EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */; };
@@ -409,6 +410,7 @@
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
+		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE9505D0298799DB00077B28 /* PageableResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableResponseModel.swift; sourceTree = "<group>"; };
 		EE9505D229879C0C00077B28 /* ControlIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlIndexPath.swift; sourceTree = "<group>"; };
 		EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodURL.swift; sourceTree = "<group>"; };
@@ -794,8 +796,8 @@
 		5724EC19291012DA00DC529B /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				5724EC85291B4C9200DC529B /* Const.swift */,
+				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				EE98F0C72980DFD0007BFCCD /* UserManager */,
 				5724EC732919220800DC529B /* Base */,
 				57543B762951BE8600A409E3 /* Calendar */,
@@ -805,6 +807,7 @@
 				57CCA7CA292EF937007E22D1 /* Register */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
 				57B16851295941BD00639A15 /* Toast */,
+				EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1903,6 +1906,7 @@
 				57CCA77429286EC2007E22D1 /* SheetInfo.swift in Sources */,
 				5724EC4F29168A8800DC529B /* BaseView.swift in Sources */,
 				57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */,
+				EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */,
 				57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */,
 				23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */,
 				23ADE499292D405D003002D9 /* MypageGoalsTableViewCell.swift in Sources */,

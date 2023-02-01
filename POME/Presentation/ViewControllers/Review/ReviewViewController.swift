@@ -7,11 +7,19 @@
 
 import UIKit
 
-class ReviewViewController: BaseTabViewController {
+class ReviewViewController: BaseTabViewController, ControlIndexPath {
     
     //MARK: - Properties
     
-    var currentGoal: Int = 0
+    var dataIndexBy: (IndexPath) -> Int = { indexPath in
+        return indexPath.row - 3
+    }
+    
+    var currentGoal: Int = 0{
+        didSet{
+            requestGetRecords()
+        }
+    }
     var goals = [GoalResponseModel](){
         didSet{
             if let cell = self.mainView.tableView.cellForRow(at: [0,0]) as? GoalTagsTableViewCell{
@@ -92,16 +100,30 @@ extension ReviewViewController{
         GoalServcie.shared.getUserGoals{ [self] response in
             switch response{
             case .success(let data):
+                print("LOG: success requestGetGoals", data)
                 goals = data.content
                 requestGetRecords()
                 break
             default:
+                print("LOG: fail requestGetGoals", response)
                 break
             }
         }
     }
     
     private func requestGetRecords(){
+        let goalId = goals[currentGoal].id
+        RecordService.shared.getRecordsOfGoal(id: goalId, pageable: PageableModel(page: 0)){ response in
+            switch response {
+            case .success(let data):
+                print("LOG: success requestGetRecords", data)
+                self.records = data.content
+                break
+            default:
+                print("LOG: fail requestGetRecords", response)
+                break
+            }
+        }
     }
 }
 
@@ -139,6 +161,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
             cell.setUnselectState()
         }
+        currentGoal = indexPath.row
         cell.setSelectState()
     }
 
@@ -175,14 +198,13 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         default:
             //TODO: 기록 데이터 바인딩
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self)
-            cell.mainView.firstEmotionTag.setTagInfo(when: .first, state: .happy)
-            cell.mainView.secondEmotionTag.setTagInfo(when: .second, state: .sad)
             
-//            if let reaction = records[indexPath.row] {
-//                cell.mainView.myReactionButton.setImage(reaction.defaultImage, for: .normal)
-//            }
-//            cell.mainView.setOthersReaction(count: indexPath.row)
-    //        cell.delegate = self
+            let cardIndex = dataIndexBy(indexPath)
+            let record = records[cardIndex]
+            
+            //        cell.delegate = self
+            cell.mainView.dataBinding(with: record)
+        
             return cell
         }
     }

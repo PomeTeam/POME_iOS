@@ -7,40 +7,6 @@
 
 import UIKit
 
-struct PomeDateFormatter{
-    
-    static let formatter = DateFormatter().then{
-        $0.dateFormat = "yyyy.MM.dd"
-    }
-    
-    static func getTodayDate() -> String{
-        return formatter.string(from: Date())
-    }
-    
-    static func getDateString(_ date: CalendarSelectDate) -> String{
-        "\(date.year)." + convertIntToFormatterString(date.month) + "." + convertIntToFormatterString(date.date)
-    }
-    
-    static func getRecordDateString(_ date: String) -> String{
-        //'2023.02.23' > '2월 23일'
-        guard let date = PomeDateFormatter.formatter.date(from: date) else {
-            return ""
-        }
-        let formatter = DateFormatter().then{
-            $0.dateFormat = "M월 d일"
-        }
-        return formatter.string(from: date)
-    }
-    
-    static private func convertIntToFormatterString(_ int: Int) -> String{
-        int < 10 ? "0\(int)" : String(int)
-    }
-    
-    static func getDateType(from: String){
-        formatter.date(from: from)
-    }
-}
-
 class RecordRegisterContentView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",

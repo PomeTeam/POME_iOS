@@ -30,38 +30,6 @@ struct FriendReactionResponseModel: Decodable{
     let nickname: String
 }
 
-// 목표에 기록된 씀씀이 조회
-struct RecordOfGoalResponseModel: Decodable {
-    let content: [RecordResponseModel]
-    let pageable: PagingModel
-    let totalPages: Int
-    let totalElements: Int
-    let last: Bool
-    let size: Int
-    let number: Int
-    let sort: SortModel
-    let numberOfElements: Int
-    let first: Bool
-    let empty: Bool
-}
-
-
-struct PagingModel: Decodable {
-    let sort: SortModel
-    let offset: Int
-    let pageNumber: Int
-    let pageSize: Int
-    let paged: Bool
-    let unpaged: Bool
-}
-
-struct SortModel: Decodable {
-    let empty: Bool
-    let sorted: Bool
-    let unsorted: Bool
-}
-
-
 extension RecordResponseModel{
     
     var goalPromiseBinding: String{
@@ -116,7 +84,7 @@ extension RecordResponseModel{
     // "useDate": "2023.02.23"
     private var isTodayWritten: Bool{
         let createTimeReplace = createdAt.replacingOccurrences(of: "-", with: ".")
-        let createTime = createTimeReplace.split(separator: " ")[0]
+        let createTime = createTimeReplace.split(separator: "T")[0]
         return createTime == self.useDate
     }
     

@@ -286,15 +286,12 @@ extension RecordViewController {
         }
     }
     private func getRecordsOfGoal(id: Int, page: Int, size: Int) {
-        RecordService.shared.getRecordsOfGoal(id: id, page: page, size: size) { result in
+        RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
             switch result{
             case .success(let data):
-                print(data)
-                if data.success! {
-                    print("LOG: 씀씀이 조회", data.data?.content)
-                    self.recordsOfGoal = data.data?.content ?? []
-                    self.recordView.recordTableView.reloadData()
-                }
+                print("LOG: 씀씀이 조회", data.content)
+                self.recordsOfGoal = data.content
+                self.recordView.recordTableView.reloadData()
                 break
             default:
                 print(result)
