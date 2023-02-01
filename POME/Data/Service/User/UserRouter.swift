@@ -16,15 +16,16 @@ enum UserRouter: BaseRouter{
     case checkNickName(param: CheckNicknameRequestModel)
     case checkUser(param: PhoneNumRequestModel)
     
-    case imageServer(id: String)
+    case getPresignedURLServer(id: String)
 }
 
 extension UserRouter{
     
     var baseURL: URL {
         switch self {
-        case .imageServer:
-            return URL(string: "http://image-main-server.ap-northeast-2.elasticbeanstalk.com/presigned-url")!
+        case .getPresignedURLServer:
+            let url = Bundle.main.infoDictionary?["GET_PRESIGNED_URL"] as? String ?? ""
+            return URL(string: url)!
         default:
             let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
             return URL(string: "http://" + url)!
@@ -58,7 +59,7 @@ extension UserRouter{
             return .post
         case .checkNickName:
             return .post
-        case .imageServer:
+        case .getPresignedURLServer:
             return .get
         case .checkUser:
             return .post
@@ -77,7 +78,7 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .checkUser(let param):
             return .requestJSONEncodable(param)
-        case .imageServer(let id):
+        case .getPresignedURLServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
         }
     }

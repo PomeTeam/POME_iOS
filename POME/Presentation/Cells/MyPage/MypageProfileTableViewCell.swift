@@ -59,12 +59,11 @@ class MypageProfileTableViewCell: BaseTableViewCell {
 
     func setUpData() {
         let nickName = UserManager.nickName ?? ""
-        let imageUrl = UserManager.profileImg ?? ""
-        let imageServer = "https://2023-pome-buket.s3.ap-northeast-2.amazonaws.com/"
+        let imageURL = UserManager.profileImg ?? ""
         
         profileName.text = nickName
-        if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageServer + imageUrl), placeholder: Image.photoDefault)
+        if imageURL != "default" {
+            profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
         }
     }
 }

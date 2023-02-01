@@ -75,15 +75,14 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     func setUpData(_ data: FriendsResponseModel, _ isFriendSearch: Bool) {
         let friendId = data.friendUserId
         self.friendName = data.friendNickName
-        let imageUrl = data.imageKey
+        let imageURL = data.imageKey
         let isFriend = data.friend
         
         profileName.text = self.friendName
         rightButton.isSelected = isFriend ? true : false
         
-        let imageServer = "https://2023-pome-buket.s3.ap-northeast-2.amazonaws.com/"
-        if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageServer + imageUrl), placeholder: Image.photoDefault)
+        if imageURL != "default" {
+            profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
         }
         
         if isFriendSearch {
