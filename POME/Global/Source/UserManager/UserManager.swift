@@ -22,5 +22,8 @@ class UserManager {
     
     @UserDefault(key: UserDefaultKey.phoneNum, defaultValue: nil)
     static var phoneNum: String?
+    
+    @UserDefault(key: UserDefaultKey.imageServer, defaultValue: nil)
+    static var imageServer: String?
 }
 

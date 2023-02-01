@@ -17,6 +17,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         $0.image = Image.photoDefault
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 22
+        $0.contentMode = .scaleAspectFill
     }
     let profileName = UILabel().then{
         $0.text = "고민"
@@ -74,15 +75,13 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     func setUpData(_ data: FriendsResponseModel, _ isFriendSearch: Bool) {
         let friendId = data.friendUserId
         self.friendName = data.friendNickName
-        let imageUrl = data.imageKey
+        let imageURL = data.imageKey
         let isFriend = data.friend
         
         profileName.text = self.friendName
         rightButton.isSelected = isFriend ? true : false
         
-        if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
-        }
+        profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
         
         if isFriendSearch {
             rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)

@@ -13,6 +13,7 @@ class MypageProfileTableViewCell: BaseTableViewCell {
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 39
         $0.backgroundColor = Color.pink10
+        $0.contentMode = .scaleAspectFill
     }
     let profileName = UILabel().then{
         $0.text = "포포"
@@ -58,11 +59,9 @@ class MypageProfileTableViewCell: BaseTableViewCell {
 
     func setUpData() {
         let nickName = UserManager.nickName ?? ""
-        let imageUrl = UserManager.profileImg ?? ""
+        let imageURL = UserManager.profileImg ?? ""
         
         profileName.text = nickName
-        if imageUrl != "default" {
-            profileImg.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
-        }
+        profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
     }
 }

@@ -16,18 +16,16 @@ enum UserRouter: BaseRouter{
     case checkNickName(param: CheckNicknameRequestModel)
     case checkUser(param: PhoneNumRequestModel)
     
-    case imageServer(id: String)
-    case putImageToServer(preUrl: String, image: UIImage)
+    case getPresignedURLServer(id: String)
 }
 
 extension UserRouter{
     
     var baseURL: URL {
         switch self {
-        case .imageServer:
-            return URL(string: "http://image-main-server.ap-northeast-2.elasticbeanstalk.com/presigned-url")!
-        case .putImageToServer(let preUrl, _):
-            return URL(string: preUrl)!
+        case .getPresignedURLServer:
+            let url = Bundle.main.infoDictionary?["GET_PRESIGNED_URL"] as? String ?? ""
+            return URL(string: "http://" + url)!
         default:
             let url = Bundle.main.infoDictionary?["API_URL"] as? String ?? ""
             return URL(string: "http://" + url)!
@@ -61,10 +59,8 @@ extension UserRouter{
             return .post
         case .checkNickName:
             return .post
-        case .imageServer:
+        case .getPresignedURLServer:
             return .get
-        case .putImageToServer:
-            return .put
         case .checkUser:
             return .post
         }
@@ -82,22 +78,20 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .checkUser(let param):
             return .requestJSONEncodable(param)
-        case .imageServer(let id):
+        case .getPresignedURLServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .putImageToServer(_, let image):
-            if let image = image.jpegData(compressionQuality: 1.0) {
-                return .uploadMultipart([MultipartFormData(provider: .data(image), name: "image", fileName: "background.jpg", mimeType: "image/jpg")])
-            }
-            return .requestPlain
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .putImageToServer:
-            return ["Content-Type" : "multipart/form-data"]
         default:
             return ["Content-Type": "application/json"]
         }
     }
+}
+
+
+struct ImageSendModel: Encodable{
+    let image: Data
 }

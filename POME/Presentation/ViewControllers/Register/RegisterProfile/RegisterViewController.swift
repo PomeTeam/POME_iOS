@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Photos
+import Foundation
+import Alamofire
 
 class RegisterViewController: UIViewController {
     
@@ -212,7 +214,6 @@ extension RegisterViewController {
                     print("presignedURL 요청 성공", data.id)
                     self.imageKey = data.id
                     self.presignedURL = data.presignedUrl
-//                    print(self.presignedURL)
                 
                     self.putImageToSerVer()
                     break
@@ -226,16 +227,9 @@ extension RegisterViewController {
     }
     // 이미지 서버에 저장
     private func putImageToSerVer() {
-        UserService.shared.putImageToServer(preUrl: self.presignedURL, image: self.selectedPhoto) { result in
-            switch result{
-            case .success(let data):
-                print("서버에 이미지 저장 성공")
-                self.signUp()
-                
-                break
-            default:
-                break
-            }
+        UserService.shared.uploadToBinary(url: self.presignedURL, image: self.selectedPhoto) { result in
+            print("서버에 이미지 저장 성공")
+            self.signUp()
         }
     }
     // 회원가입
@@ -274,4 +268,5 @@ extension RegisterViewController {
             }
         }
     }
+    
 }
