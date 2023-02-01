@@ -81,9 +81,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
         profileName.text = self.friendName
         rightButton.isSelected = isFriend ? true : false
         
-        if imageURL != "default" {
-            profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
-        }
+        profileImg.kf.setImage(with: URL(string: imageURL), placeholder: Image.photoDefault)
         
         if isFriendSearch {
             rightButton.addTarget(self, action: #selector(plusFriendButtonDidTap(_:)), for: .touchUpInside)
