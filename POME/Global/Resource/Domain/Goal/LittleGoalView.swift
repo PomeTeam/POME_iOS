@@ -22,22 +22,17 @@ class LittleGoalView: UIView {
     var remainDate: String?
     var goalTitle: String?
     
-    init(_ isPublic: Bool? = nil,
-         _ remainDate: String? = nil,
-         _ goalTitle: String? = nil) {
+    init() {
         
         super.init(frame: CGRect.zero)
         
-        self.isPublic = isPublic
-        self.remainDate = remainDate
-        self.goalTitle = goalTitle
         
         self.backgroundColor = .white
         self.layer.borderColor = Color.grey2.cgColor
         self.layer.borderWidth = 1
         self.setShadowStyle(type: .card)
         
-        setUpContent()
+//        setUpContent()
         hierarchy()
         layout()
     }
@@ -47,11 +42,15 @@ class LittleGoalView: UIView {
     }
     
     // MARK: - Methods
-    func setUpContent() {
-        if self.isPublic ?? false {goalIsPublicLabel = LockTagLabel.generateOpenTag()}
-        else {goalIsPublicLabel = LockTagLabel.generateUnopenTag()}
+    func setUpContent(_ data: GoalResponseModel) {
+        self.isPublic = data.isPublic
+        self.goalTitle = data.oneLineMind
+        
+        if self.isPublic ?? false {goalIsPublicLabel.setPublicState()}
+        else {goalIsPublicLabel.setLockState()}
         
         goalTitleLabel.text = self.goalTitle
+        goalRemainDateLabel.setEnd()    // 기한이 지난 목표이기 때문에 무조건 END 태그
     }
     // MARK: - Layouts
     func hierarchy() {

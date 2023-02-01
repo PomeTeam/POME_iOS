@@ -14,3 +14,7 @@ struct RecordRegisterRequestModel: Encodable{
     let useDate: String
     let useComment: String
 }
+
+struct RecordSecondEmotionRequestModel: Encodable{
+    let emotionId: Int
+}

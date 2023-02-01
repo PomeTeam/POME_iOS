@@ -14,3 +14,7 @@ class GoalTapGesture: UITapGestureRecognizer {
 class FriendTapGesture: UITapGestureRecognizer {
     var data: FriendsResponseModel?
 }
+
+class RecordTapGesture: UITapGestureRecognizer {
+    var data: RecordResponseModel?
+}

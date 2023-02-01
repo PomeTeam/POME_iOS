@@ -15,7 +15,8 @@ class RecordCardTableViewCell: BaseTableViewCell {
         $0.setShadowStyle(type: .card)
     }
     let firstEmotion = EmotionTagView()
-    let nextEmotion = ImageTagLabel(Image.emojiSad, "아직 감정을 남기지 않았어요", .inactivate)
+    let nextEmotion = EmotionTagView()
+//    let nextEmotion = ImageTagLabel(Image.emojiSad, "아직 감정을 남기지 않았어요", .inactivate)
     let arrowImage = UIImageView().then{
         $0.image = Image.rightArrowGray
     }
@@ -117,9 +118,10 @@ class RecordCardTableViewCell: BaseTableViewCell {
         priceLabel.text = result + "원"
         
         contentLabel.text = content
-        dateLabel.text = data.timeBinding
+        dateLabel.text = data.timeBinding.components(separatedBy: ["·"]).joined()
         
-        // TODO: 감정 설정
-        firstEmotion.emotionImage.image = data.myReactionBinding
+        
+        firstEmotion.setTagInfo(when: .first, state: data.firstEmotionBinding)
+        nextEmotion.setTagInfo(when: .second, state: data.secondEmotionBinding)
     }
 }

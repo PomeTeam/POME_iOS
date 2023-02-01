@@ -44,28 +44,16 @@ class GoalWithProgressBarView: UIView {
     var consume: String?
     var ratio: CGFloat?
     
-    init(_ isPublic: Bool? = nil,
-         _ remainDate: String? = nil,
-         _ goalTitle: String? = nil,
-         _ goalConsume: String? = nil,
-         _ consume: String? = nil,
-         _ ratio: CGFloat? = nil) {
+    init() {
         
         super.init(frame: CGRect.zero)
-        
-        self.isPublic = isPublic
-        self.remainDate = remainDate
-        self.goalTitle = goalTitle
-        self.goalConsume = goalConsume
-        self.consume = consume
-        self.ratio = ratio
         
         self.backgroundColor = .white
         self.layer.borderColor = Color.grey2.cgColor
         self.layer.borderWidth = 1
         self.setShadowStyle(type: .card)
         
-        setUpContent()
+//        setUpContent()
         hierarchy()
         layout()
     }
@@ -75,12 +63,24 @@ class GoalWithProgressBarView: UIView {
     }
     
     // MARK: - Methods
-    func setUpContent() {
-        if self.isPublic ?? false {goalIsPublicLabel = LockTagLabel.generateOpenTag()}
-        else {goalIsPublicLabel = LockTagLabel.generateUnopenTag()}
+    func setUpContent(_ data: GoalResponseModel) {
+        self.isPublic = data.isPublic
+        self.goalTitle = data.oneLineMind
+        // TODO: remain tag
+        // TODO: consume
+        // TODO: ratio
+        self.goalConsume = String(data.price)
+        
+        if self.isPublic ?? false {goalIsPublicLabel.setPublicState()}
+        else {goalIsPublicLabel.setLockState()}
+        
+        // 가격 콤마 표시
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let result = numberFormatter.string(from: NSNumber(value: data.price)) ?? ""
+        goalConsumeLabel.text = "· " + result + "원"
         
         goalTitleLabel.text = self.goalTitle
-        goalConsumeLabel.text = "· " + (self.goalConsume ?? "")
         consumeLabel.text = self.consume
         
         if self.ratio ?? CGFloat(0) == CGFloat(0) {zeroRatio()}
@@ -88,6 +88,9 @@ class GoalWithProgressBarView: UIView {
         else {
             self.progressBarView.ratio = self.ratio ?? CGFloat(0)
         }
+        
+        // 기한이 지난 목표이기 때문에 무조건 END 태그
+        goalRemainDateLabel.setEnd()
     }
     func overRatio() {
         self.progressBarView.overProgressView()
