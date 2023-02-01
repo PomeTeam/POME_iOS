@@ -91,7 +91,7 @@ extension MypageFriendViewController: UITableViewDelegate, UITableViewDataSource
 extension MypageFriendViewController {
     // 친구 목록 조회
     private func getFriends() {
-        let pageModel = PageableModel(page: 0, size: 1)
+        let pageModel = PageableModel(page: 0)
         FriendService.shared.getFriends(pageable: pageModel) { result in
             switch result {
                 case .success(let data):

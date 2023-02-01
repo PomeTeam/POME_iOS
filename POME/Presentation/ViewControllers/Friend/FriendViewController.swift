@@ -95,8 +95,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
 extension FriendViewController{
     
     private func requestGetFriends(){
-        FriendService.shared.getFriends(pageable: PageableModel(page: 1,
-                                                                size: 10)){ result in
+        FriendService.shared.getFriends(pageable: PageableModel(page: 1)){ result in
             switch result{
             case .success(let data):
                     print("LOG: 'success' requestGetFriends", data)
@@ -112,8 +111,7 @@ extension FriendViewController{
     }
     
     private func requestGetAllFriendsRecords(){
-        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0,
-                                                                         size: 10)){ response in
+        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetAllFriendsRecords", data)
@@ -128,8 +126,7 @@ extension FriendViewController{
     private func requestGetFriendCards(){
         let friendId = friends[currentFriendIndex].friendUserId
         FriendService.shared.getFriendRecord(id: friendId,
-                                             pageable: PageableModel(page: 0,
-                                                                     size: 10)){ result in
+                                             pageable: PageableModel(page: 0)){ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGetFriendCards", data)
