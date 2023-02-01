@@ -36,7 +36,7 @@ class ReviewDetailView: BaseView {
         $0.spacing = 2
         $0.axis = .horizontal
     }
-    let tagLabel = PaddingLabel().then{
+    let tagLabel = UILabel().then{
         $0.textColor = Color.grey5
         $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
@@ -159,16 +159,16 @@ class ReviewDetailView: BaseView {
     //MARK: - Method
     
     func dataBinding(with record: RecordResponseModel){
-        /*
-        goalPromiseLabel.text = record.goalPromiseBinding
+
+        tagLabel.text = record.goalPromiseBinding
         timeLabel.text = record.timeBinding
         priceLabel.text = record.priceBinding
         memoLabel.text = record.oneLineMind
         
         firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
         secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
-        myReactionBtn.setImage(record.myReactionBinding, for: .normal)
-        */
+        myReactionButton.setImage(record.myReactionBinding, for: .normal)
+
         record.othersReactionCountBinding == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReactionBinding, count: record.othersReactionCountBinding)
     }
     

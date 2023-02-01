@@ -114,7 +114,7 @@ extension ReviewViewController{
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
         RecordService.shared.getRecordsOfGoal(id: goalId, pageable: PageableModel(page: 0,
-                                                                                  size:  Const.requestPagingSize)){ response in
+                                                                                  size: Const.requestPagingSize)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)
@@ -162,6 +162,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
             cell.setUnselectState()
         }
+        currentGoal = indexPath.row
         cell.setSelectState()
     }
 
@@ -202,13 +203,9 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             let cardIndex = dataIndexBy(indexPath)
             let record = records[cardIndex]
             
+            //        cell.delegate = self
             cell.mainView.dataBinding(with: record)
-            
-//            if let reaction = records[indexPath.row] {
-//                cell.mainView.myReactionButton.setImage(reaction.defaultImage, for: .normal)
-//            }
-//            cell.mainView.setOthersReaction(count: indexPath.row)
-    //        cell.delegate = self
+        
             return cell
         }
     }
