@@ -53,7 +53,7 @@ class GoalWithProgressBarView: UIView {
         self.layer.borderWidth = 1
         self.setShadowStyle(type: .card)
         
-//        setUpContent()
+        
         hierarchy()
         layout()
     }
@@ -66,7 +66,6 @@ class GoalWithProgressBarView: UIView {
     func setUpContent(_ data: GoalResponseModel) {
         self.isPublic = data.isPublic
         self.goalTitle = data.oneLineMind
-        // TODO: remain tag
         // TODO: consume
         // TODO: ratio
         self.goalConsume = String(data.price)

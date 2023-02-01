@@ -9,6 +9,8 @@ import UIKit
 
 class RecordEmotionViewController: BaseViewController {
     var recordEmotionView = RecordEmotionView()
+    var goalContent: GoalResponseModel?
+    var noSecondEmotionRecord: [RecordResponseModel] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,19 +58,24 @@ class RecordEmotionViewController: BaseViewController {
 // MARK: - TableView delegate
 extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 + 3
+        let count = self.noSecondEmotionRecord.count ?? 0
+        return 1 + count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
         switch tag {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordEmotionTableViewCell", for: indexPath) as? RecordEmotionTableViewCell else { return UITableViewCell() }
-            
+            if let goalContent = self.goalContent {
+                cell.setUpData(goalContent, self.noSecondEmotionRecord.count ?? 0)
+            }
             cell.selectionStyle = .none
             
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
+            let itemIdx = indexPath.item - 1
+            cell.setUpData(self.noSecondEmotionRecord[itemIdx])
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
             cell.selectionStyle = .none
@@ -77,6 +84,13 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tag = indexPath.row
+        if tag > 1 {
+            let vc = SecondEmotionViewController()
+            vc.recordId = self.noSecondEmotionRecord[indexPath.item - 1].id
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

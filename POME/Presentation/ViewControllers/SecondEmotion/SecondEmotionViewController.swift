@@ -49,21 +49,21 @@ class SecondEmotionViewController: BaseViewController {
     }
     // MARK: - Actions
     @objc func happyEmotionDidTap(){
-        self.selectedEmotionId = 1
+        self.selectedEmotionId = 0
         secondEmotionView.happyEmoji.isSelected.toggle()
         secondEmotionView.whatEmoji.isSelected = false
         secondEmotionView.sadEmoji.isSelected = false
         isButtonActivate()
     }
     @objc func whatEmotionDidTap(){
-        self.selectedEmotionId = 2
+        self.selectedEmotionId = 1
         secondEmotionView.happyEmoji.isSelected = false
         secondEmotionView.whatEmoji.isSelected.toggle()
         secondEmotionView.sadEmoji.isSelected = false
         isButtonActivate()
     }
     @objc func sadEmotionDidTap(){
-        self.selectedEmotionId = 3
+        self.selectedEmotionId = 2
         secondEmotionView.happyEmoji.isSelected = false
         secondEmotionView.whatEmoji.isSelected = false
         secondEmotionView.sadEmoji.isSelected.toggle()

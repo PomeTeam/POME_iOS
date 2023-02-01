@@ -16,6 +16,8 @@ class RecordViewController: BaseTabViewController {
     var goalContent: [GoalResponseModel] = []
     // Records
     var recordsOfGoal: [RecordResponseModel] = []
+    var noSecondEmotionRecords: [RecordResponseModel] = []
+//    var noSecondEmotionRecordCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -207,7 +209,6 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             // MARK: 기간이 지난 목표 셀
-            // TODO: 목표 종료 기준?
             if isGoalEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
@@ -219,7 +220,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoEmotionBannerTableViewCell", for: indexPath) as? GoEmotionBannerTableViewCell else { return UITableViewCell() }
-            
+            cell.setUpCount(self.noSecondEmotionRecords.count ?? 0)
             cell.selectionStyle = .none
             return cell
         default:
@@ -238,17 +239,16 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
         if tag == 2 {
-            self.navigationController?.pushViewController(RecordEmotionViewController(), animated: true)
+            let vc = RecordEmotionViewController()
+            vc.goalContent = self.goalContent[self.categorySelectedIdx]
+            vc.noSecondEmotionRecord = self.noSecondEmotionRecords
+            self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
             // 감정을 남길 수 없을 때
             // cannotAddEmotionDidTap()
             let vc = SecondEmotionViewController()
             vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
             self.navigationController?.pushViewController(vc, animated: true)
-        } else if tag == 1 {
-            if self.categorySelectedIdx == 4 {
-                self.navigationController?.pushViewController(AllRecordsViewController(), animated: true)
-            }
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -286,6 +286,7 @@ extension RecordViewController {
                 if data.success! {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
+                    self.noSecondEmotionRecords.removeAll()
                     self.requestGetGoals()
                 }
                 break
@@ -301,7 +302,16 @@ extension RecordViewController {
             case .success(let data):
                 print("LOG: 씀씀이 조회", data.content)
                 self.recordsOfGoal = data.content
+                
+                self.noSecondEmotionRecords.removeAll()
+                // 두번째 감정이 없는 기록 갯수
+                for x in data.content {
+                    if x.emotionResponse.secondEmotion == nil || x.emotionResponse.secondEmotion == 3 {
+                        self.noSecondEmotionRecords.append(x)
+                    }
+                }
                 self.recordView.recordTableView.reloadData()
+                
                 break
             default:
                 print(result)
