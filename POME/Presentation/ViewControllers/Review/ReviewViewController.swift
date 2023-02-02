@@ -15,6 +15,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         return indexPath.row - 3
     }
     
+    var currentEmotionSelectCardIndex: Int?
     var currentGoal: Int = 0{
         didSet{
             requestGetRecords()
@@ -30,11 +31,13 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     }
     var records = [RecordResponseModel](){
         didSet{
+            isTableViewEmpty()
             mainView.tableView.reloadData()
         }
     }
     
     let mainView = ReviewView()
+    var emoijiFloatingView: EmojiFloatingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +68,10 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     
     //MARK: - Method
     
+    private func isTableViewEmpty(){
+        records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
+    }
+    
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
         let sheet: EmotionFilterSheetViewController!
@@ -94,8 +101,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
 }
 
 //MARK: - API
-
 extension ReviewViewController{
+    
     private func requestGetGoals(){
         GoalServcie.shared.getUserGoals{ [self] response in
             switch response{
@@ -121,6 +128,25 @@ extension ReviewViewController{
                 break
             default:
                 print("LOG: fail requestGetRecords", response)
+                break
+            }
+        }
+    }
+    
+    func requestGenerateFriendCardEmotion(reactionIndex: Int) {
+        guard let cellIndex = self.currentEmotionSelectCardIndex,
+                let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                print(result)
                 break
             }
         }
@@ -202,7 +228,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             let cardIndex = dataIndexBy(indexPath)
             let record = records[cardIndex]
             
-            //        cell.delegate = self
+            cell.delegate = self
             cell.mainView.dataBinding(with: record)
         
             return cell
@@ -210,7 +236,58 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ReviewDetailViewController()
+        let dataIndex = dataIndexBy(indexPath)
+        let vc = ReviewDetailViewController(record: records[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension ReviewViewController: RecordCellWithEmojiDelegate{
+    
+    func presentEmojiFloatingView(indexPath: IndexPath) {
+
+        self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
+        
+        emoijiFloatingView = EmojiFloatingView().then{
+            $0.delegate = self
+            $0.completion = {
+                print("LOG: emoijiFloatingView completion closure called")
+                self.currentEmotionSelectCardIndex = nil
+                self.emoijiFloatingView = nil
+            }
+        }
+
+        guard let cell = mainView.tableView.cellForRow(at: indexPath) as? ConsumeReviewTableViewCell else { return }
+        emoijiFloatingView.show(in: self, standard: cell)
+    }
+    
+    func presentReactionSheet(indexPath: IndexPath) {
+        let data = records[dataIndexBy(indexPath)].friendReactions
+        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+    }
+    
+    func presentEtcActionSheet(indexPath: IndexPath) {
+        /*
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            ToastMessageView.generateHideToastView().show(in: self)
+        }
+
+        let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(hideAction)
+        alert.addAction(declarationAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
+         */
     }
 }
