@@ -162,21 +162,21 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
-            
-            if(indexPath.row == 0){ //친구 목록 - 전체인 경우
-                cell.profileImage.image = Image.categoryInactive
-                cell.nameLabel.text = "전체"
-            }else{ //친구 목록 - 친구인 경우
-                cell.nameLabel.text = friends[indexPath.row - 1].friendNickName
-                //TODO: - 친구 이미지 바인딩
-            }
-            
-            if(indexPath.row == currentFriendIndex){
-                cell.setSelectState(row: indexPath.row)
-            }
-            
-            return cell
+        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
+        
+        if(indexPath.row == 0){ //친구 목록 - 전체인 경우
+            cell.profileImage.image = Image.categoryInactive
+            cell.nameLabel.text = "전체"
+        }else{ //친구 목록 - 친구인 경우
+            cell.nameLabel.text = friends[indexPath.row - 1].friendNickName
+            //TODO: - 친구 이미지 바인딩
+        }
+        
+        if(indexPath.row == currentFriendIndex){
+            cell.setSelectState(row: indexPath.row)
+        }
+        
+        return cell
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
@@ -192,8 +192,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
         cell.setSelectState(row: indexPath.row)
-        
-        self.currentFriendIndex = indexPath.row
+        currentFriendIndex = indexPath.row
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -245,31 +244,14 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         emoijiFloatingView = EmojiFloatingView().then{
             $0.delegate = self
             $0.completion = {
+                print("LOG: emoijiFloatingView completion closure called")
                 self.currentEmotionSelectCardIndex = nil
                 self.emoijiFloatingView = nil
             }
         }
 
         guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        
-        self.view.addSubview(emoijiFloatingView)
-        emoijiFloatingView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        emoijiFloatingView.containerView.snp.makeConstraints{
-            $0.top.equalTo(cell.baseView.snp.bottom).offset(-4)
-        }
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3) {
-                self.emoijiFloatingView.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
-            } completion: { finished in
-                UIView.animate(withDuration: 0.5, delay: 0) {
-                    self.emoijiFloatingView.containerView.transform = .identity
-                }
-            }
-            
-        }
+        emoijiFloatingView.show(in: self, standard: cell)
     }
     
     func presentReactionSheet(indexPath: IndexPath) {

@@ -49,17 +49,15 @@ final class EmojiFloatingView: BaseView {
     }
     
     @objc func dismiss(){
-        
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
                 self.transform = CGAffineTransform(translationX: 0, y: 10)
                 self.layer.opacity = 0.0
             }, completion:{ finished in
                 self.removeFromSuperview()
+                self.completion()
             })
         }
-        
-        self.completion()
     }
     
     override func hierarchy() {
@@ -68,21 +66,40 @@ final class EmojiFloatingView: BaseView {
     }
     
     override func layout() {
-
         containerView.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(23)
             $0.trailing.equalToSuperview().offset(-22)
             $0.height.equalTo(54)
         }
-        
         collectionView.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    func show(in viewController: UIViewController, standard: BaseTableViewCell){
+
+        viewController.view.addSubview(self)
+        self.snp.makeConstraints{
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        self.containerView.snp.makeConstraints{
+            $0.top.equalTo(standard.baseView.snp.bottom).offset(-4)
+        }
+        
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                self.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
+            } completion: { finished in
+                UIView.animate(withDuration: 0.5, delay: 0) {
+                    self.containerView.transform = .identity
+                }
+            }
+            
         }
     }
 }
 
 extension EmojiFloatingView: UIGestureRecognizerDelegate {
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard touch.view?.isDescendant(of: self.containerView) == false else {
             return false
