@@ -9,7 +9,7 @@ import UIKit
 
 final class EmojiFloatingView: BaseView {
     
-    var delegate: EmojiCellDelegate!
+    var delegate: RecordCellWithEmojiDelegate!
     var completion: (() -> ())!
     
     let containerView = UIView().then{
@@ -84,6 +84,28 @@ final class EmojiFloatingView: BaseView {
         }
         self.containerView.snp.makeConstraints{
             $0.top.equalTo(standard.baseView.snp.bottom).offset(-4)
+        }
+        
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                self.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
+            } completion: { finished in
+                UIView.animate(withDuration: 0.5, delay: 0) {
+                    self.containerView.transform = .identity
+                }
+            }
+            
+        }
+    }
+    
+    func show(in viewController: UIViewController, standard: BaseView){
+
+        viewController.view.addSubview(self)
+        self.snp.makeConstraints{
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        self.containerView.snp.makeConstraints{
+            $0.top.equalTo(standard.snp.bottom).offset(20 - 4)
         }
         
         DispatchQueue.main.async {

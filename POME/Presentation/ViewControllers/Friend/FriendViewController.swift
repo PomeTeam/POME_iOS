@@ -86,7 +86,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
 }
 
 //MARK: - API
-extension FriendViewController: EmojiCellDelegate{
+extension FriendViewController{
     
     private func requestGetFriends(){
         FriendService.shared.getFriends(pageable: PageableModel(page: 1)){ result in
@@ -206,7 +206,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 //MARK: - TableView Delegate
-extension FriendViewController: UITableViewDelegate, UITableViewDataSource, FriendCellDelegate{
+extension FriendViewController: UITableViewDelegate, UITableViewDataSource, RecordCellWithEmojiDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         records.count + 1
