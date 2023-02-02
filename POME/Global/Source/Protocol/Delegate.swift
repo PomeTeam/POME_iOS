@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol CellDelegate{ //TableViewCell, CollectionViewCell 등에서 사용하는 delegate
-    func sendCellIndex(indexPath: IndexPath)
+protocol EmojiCellDelegate{
+    func requestGenerateFriendCardEmotion(reactionIndex: Int)
 }
 
 protocol FriendCellDelegate{
