@@ -9,7 +9,8 @@ import UIKit
 
 class EmojiFloatingView: BaseView {
     
-    var dismissHandler: (() -> ())!
+    var delegate: EmojiCellDelegate!
+    var completion: (() -> ())!
     
     let containerView = UIView().then{
         $0.backgroundColor = .white
