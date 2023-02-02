@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmojiFloatingView: BaseView {
+final class EmojiFloatingView: BaseView {
     
     var delegate: EmojiCellDelegate!
     var completion: (() -> ())!
@@ -22,10 +22,11 @@ class EmojiFloatingView: BaseView {
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
-            $0.itemSize = CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
             $0.minimumLineSpacing = 14
             $0.minimumInteritemSpacing = 14
             $0.scrollDirection = .horizontal
+            $0.itemSize = CGSize(width: EmojiFloatingCollectionViewCell.cellWidth,
+                                 height: EmojiFloatingCollectionViewCell.cellWidth)
         }
         
         $0.collectionViewLayout = flowLayout
@@ -38,10 +39,13 @@ class EmojiFloatingView: BaseView {
     
     override func style() {
         
-        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
-        dismissGesture.delegate = self
-        
+        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss)).then{
+            $0.delegate = self
+        }
         self.addGestureRecognizer(dismissGesture)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     @objc func dismiss(){
@@ -55,7 +59,7 @@ class EmojiFloatingView: BaseView {
             })
         }
         
-        self.dismissHandler()
+        self.completion()
     }
     
     override func hierarchy() {
@@ -75,22 +79,37 @@ class EmojiFloatingView: BaseView {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
-    
-    final func initialize(){
-        let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss))
-        dismissGesture.delegate = self
-        
-        self.addGestureRecognizer(dismissGesture)
-    }
-
 }
 
 extension EmojiFloatingView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        guard touch.view?.isDescendant(of: self.containerView) == false else { return false }
-        
+        guard touch.view?.isDescendant(of: self.containerView) == false else {
+            return false
+        }
         return true
+    }
+}
+
+extension EmojiFloatingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(for: indexPath,
+                                                      cellType: EmojiFloatingCollectionViewCell.self)
+        cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        delegate.requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
+        return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth,
+                      height: EmojiFloatingCollectionViewCell.cellWidth)
     }
 }

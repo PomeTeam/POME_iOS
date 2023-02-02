@@ -55,7 +55,7 @@ class FriendDetailViewController: BaseViewController {
         emoijiFloatingView = EmojiFloatingView()
         
         guard let emoijiFloatingView = emoijiFloatingView else { return }
-        emoijiFloatingView.dismissHandler = {
+        emoijiFloatingView.completion = {
             self.emoijiFloatingView = nil
         }
         

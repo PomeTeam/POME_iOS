@@ -41,13 +41,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
     
     let friendView = FriendView()
-    var emptyFriendView: FriendTableEmptyView?
-    var emoijiFloatingView: EmojiFloatingView?{
-        didSet{
-            emoijiFloatingView?.collectionView.delegate = self
-            emoijiFloatingView?.collectionView.dataSource = self
-        }
-    }
+    var emoijiFloatingView: EmojiFloatingView!
     
     //MARK: - Override
     
@@ -92,7 +86,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
 }
 
 //MARK: - API
-extension FriendViewController{
+extension FriendViewController: EmojiCellDelegate{
     
     private func requestGetFriends(){
         FriendService.shared.getFriends(pageable: PageableModel(page: 1)){ result in
@@ -138,7 +132,7 @@ extension FriendViewController{
         }
     }
     
-    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+    func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
         guard let cellIndex = self.currentEmotionSelectCardIndex,
                 let reaction = Reaction(rawValue: reactionIndex) else { return }
@@ -163,18 +157,11 @@ extension FriendViewController{
 extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView == emoijiFloatingView?.collectionView ? 6 : friends.count + 1
+        friends.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        if(collectionView == emoijiFloatingView?.collectionView){
-            let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
-            cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-            
-            return cell
-        }else{
-    
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: FriendCollectionViewCell.self)
             
             if(indexPath.row == 0){ //친구 목록 - 전체인 경우
@@ -190,28 +177,23 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             }
             
             return cell
-        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        if(collectionView == emoijiFloatingView?.collectionView){
-            requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
-        }else{
-            
-            if(indexPath.row == currentFriendIndex){
-                return
-            }
-            
-            if(currentFriendIndex == 0 && indexPath.row != 0){
-                guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell, let cell = friendListCell.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
-                cell.setUnselectState(row: 0)
-            }
-            
-            guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
-            cell.setSelectState(row: indexPath.row)
-            
-            self.currentFriendIndex = indexPath.row
+        if(indexPath.row == currentFriendIndex){
+            return
         }
+        
+        if(currentFriendIndex == 0 && indexPath.row != 0){
+            guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell,
+                    let cell = friendListCell.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
+            cell.setUnselectState(row: 0)
+        }
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
+        cell.setSelectState(row: indexPath.row)
+        
+        self.currentFriendIndex = indexPath.row
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -220,11 +202,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        if(collectionView == emoijiFloatingView?.collectionView){
-            return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth,
-                          height: EmojiFloatingCollectionViewCell.cellWidth)
-        }
-        return FriendCollectionViewCell.cellSize
+        FriendCollectionViewCell.cellSize
     }
 }
 
@@ -264,14 +242,15 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
 
         self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
         
-        emoijiFloatingView = EmojiFloatingView()
-        
-        guard let emoijiFloatingView = emoijiFloatingView,
-              let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        emoijiFloatingView.dismissHandler = {
-            self.currentEmotionSelectCardIndex = nil
-            self.emoijiFloatingView = nil
+        emoijiFloatingView = EmojiFloatingView().then{
+            $0.delegate = self
+            $0.completion = {
+                self.currentEmotionSelectCardIndex = nil
+                self.emoijiFloatingView = nil
+            }
         }
+
+        guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
         
         self.view.addSubview(emoijiFloatingView)
         emoijiFloatingView.snp.makeConstraints{
@@ -283,10 +262,10 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3) {
-                emoijiFloatingView.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
+                self.emoijiFloatingView.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
             } completion: { finished in
                 UIView.animate(withDuration: 0.5, delay: 0) {
-                    emoijiFloatingView.containerView.transform = .identity
+                    self.emoijiFloatingView.containerView.transform = .identity
                 }
             }
             
