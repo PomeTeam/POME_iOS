@@ -9,7 +9,8 @@ import Foundation
 
 @objc protocol RecordCellWithEmojiDelegate{
     func requestGenerateFriendCardEmotion(reactionIndex: Int)
-    func presentEmojiFloatingView(indexPath: IndexPath)
+    @objc optional func presentEmojiFloatingView(indexPath: IndexPath)
     @objc optional func presentReactionSheet(indexPath: IndexPath)
     @objc optional func presentEtcActionSheet(indexPath: IndexPath)
 }
+
