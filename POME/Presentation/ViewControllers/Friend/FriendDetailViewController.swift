@@ -29,7 +29,7 @@ class FriendDetailViewController: BaseViewController {
     }
     
     override func initialize() {
-        mainView.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.myReactionBtn.addTarget(self, action: #selector(presentEmojiFloatingView), for: .touchUpInside)
         mainView.othersReactionButton.addTarget(self, action: #selector(presentReactionSheet), for: .touchUpInside)
         mainView.moreButton.addTarget(self, action: #selector(presentEtcActionSheet), for: .touchUpInside)
         mainView.dataBinding(with: record)
@@ -46,23 +46,12 @@ class FriendDetailViewController: BaseViewController {
             $0.centerX.equalToSuperview()
         }
     }
-    
-    @objc func myReactionBtnDidClicked(){
-        
-        emoijiFloatingView = EmojiFloatingView().then{
-            $0.delegate = self
-            $0.completion = {
-                self.emoijiFloatingView = nil
-            }
-        }
-        
-        emoijiFloatingView.show(in: self, standard: mainView)
-    }
 
 }
 
 extension FriendDetailViewController: RecordCellWithEmojiDelegate{
-    func presentEmojiFloatingView(indexPath: IndexPath) {
+    
+    @objc func presentEmojiFloatingView() {
         
         emoijiFloatingView = EmojiFloatingView().then{
             $0.delegate = self

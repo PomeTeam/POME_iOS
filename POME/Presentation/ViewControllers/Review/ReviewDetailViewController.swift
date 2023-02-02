@@ -8,8 +8,10 @@
 import UIKit
 
 class ReviewDetailViewController: BaseViewController {
-
-    let record: RecordResponseModel
+    
+    var record: RecordResponseModel
+    
+    var emoijiFloatingView: EmojiFloatingView!
     let mainView = ReviewDetailView()
     
     init(record: RecordResponseModel){
@@ -22,7 +24,9 @@ class ReviewDetailViewController: BaseViewController {
     }
     
     override func initialize() {
-//        mainView.myReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.myReactionButton.addTarget(self, action: #selector(presentEmojiFloatingView), for: .touchUpInside)
+        mainView.othersReactionButton.addTarget(self, action: #selector(presentReactionSheet), for: .touchUpInside)
+        mainView.moreButton.addTarget(self, action: #selector(presentEtcActionSheet), for: .touchUpInside)
         mainView.dataBinding(with: record)
     }
     
@@ -38,23 +42,50 @@ class ReviewDetailViewController: BaseViewController {
             $0.bottom.lessThanOrEqualToSuperview()
         }
     }
-    /*
-    @objc func myReactionBtnDidClicked(){
+}
+extension ReviewDetailViewController: RecordCellWithEmojiDelegate{
+    
+    @objc func presentEmojiFloatingView() {
         
-        emoijiFloatingView = EmojiFloatingView()
-        
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
-        emoijiFloatingView.completion = {
-            self.emoijiFloatingView = nil
+        emoijiFloatingView = EmojiFloatingView().then{
+            $0.delegate = self
+            $0.completion = {
+                self.emoijiFloatingView = nil
+            }
         }
         
-        self.view.addSubview(emoijiFloatingView)
-        emoijiFloatingView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        emoijiFloatingView.containerView.snp.makeConstraints{
-            $0.top.equalTo(mainView.snp.bottom).offset(20 - 4)
+        emoijiFloatingView.show(in: self, standard: mainView)
+    }
+    
+    @objc func presentReactionSheet() {
+        let data = record.friendReactions
+        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+    }
+    
+    @objc func presentEtcActionSheet() {
+        
+    }
+}
+
+//MARK: - API
+
+extension ReviewDetailViewController{
+    func requestGenerateFriendCardEmotion(reactionIndex: Int){
+        
+        guard let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: record.id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.record.emotionResponse.myEmotion = reactionIndex
+                self.mainView.myReactionButton.setImage(reaction.defaultImage, for: .normal)
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                break
+            }
         }
     }
-     */
 }
