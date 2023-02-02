@@ -60,7 +60,7 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
 
         guard let index = getCellIndex() else { return }
 
-        delegate?.presentEmojiFloatingView(indexPath: index)
+        delegate?.presentEmojiFloatingView!(indexPath: index)
     }
     
     @objc func othersReactionBtnDidClicked(){
