@@ -245,10 +245,10 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
             // 감정을 남길 수 없을 때
-            // cannotAddEmotionDidTap()
-            let vc = SecondEmotionViewController()
-            vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
-            self.navigationController?.pushViewController(vc, animated: true)
+             cannotAddEmotionDidTap()
+//            let vc = SecondEmotionViewController()
+//            vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -260,7 +260,7 @@ extension RecordViewController {
         // api 호출할 때마다 Goal 배열 초기화
         self.goalContent.removeAll()
         self.categories.removeAll()
-        GoalServcie.shared.getUserGoals{ result in
+        GoalService.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
                 for x in data.content {
@@ -283,7 +283,7 @@ extension RecordViewController {
         }
     }
     private func deleteGoal(id: Int){
-        GoalServcie.shared.deleteGoal(id: id) { result in
+        GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
                 if data.success! {

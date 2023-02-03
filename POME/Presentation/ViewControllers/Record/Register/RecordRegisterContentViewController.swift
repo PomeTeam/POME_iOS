@@ -209,7 +209,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
 //MARK: - API
 extension RecordRegisterContentViewController{
     private func requestGetGoals(){
-        GoalServcie.shared.getUserGoals{ result in
+        GoalService.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGetGoals", data.content)

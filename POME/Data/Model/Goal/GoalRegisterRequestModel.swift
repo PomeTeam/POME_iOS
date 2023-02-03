@@ -15,3 +15,7 @@ struct GoalRegisterRequestModel: Encodable{
     let price: Int
     let isPublic: Bool
 }
+
+struct FinishGoalRequestModel: Encodable{
+    let oneLineComment: String
+}
