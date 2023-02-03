@@ -74,6 +74,7 @@ extension ReviewDetailViewController{
         
         guard let reaction = Reaction(rawValue: reactionIndex) else { return }
         
+        //MARK: - 결과로 데이터 재정의하는 걸로 변경하기.
         FriendService.shared.generateFriendEmotion(id: record.id,
                                                    emotion: reactionIndex){ result in
             switch result{
