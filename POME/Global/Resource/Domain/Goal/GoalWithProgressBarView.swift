@@ -78,24 +78,13 @@ class GoalWithProgressBarView: UIView {
         
         goalTitleLabel.text = self.goalTitle
         
-        if self.ratio ?? CGFloat(0) == CGFloat(0) {zeroRatio()}
-        else if self.ratio ?? CGFloat(0) >= CGFloat(0.95) {overRatio()}
-        else {
-            self.progressBarView.ratio = self.ratio ?? CGFloat(0)
-        }
-        
         // 기한이 지난 목표이기 때문에 무조건 END 태그
         goalRemainDateLabel.setEnd()
         
         // ProgressBar
         self.progressBarView.ratio = CGFloat(Double(data.usePrice) / Double(data.price))
     }
-    func overRatio() {
-        self.progressBarView.overProgressView()
-    }
-    func zeroRatio() {
-        self.progressBarView.zeroProgressView()
-    }
+    
     // MARK: - Layouts
     func hierarchy() {
         self.addSubview(goalIsPublicLabel)

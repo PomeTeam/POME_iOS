@@ -243,11 +243,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             vc.noSecondEmotionRecord = self.noSecondEmotionRecords
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
-            // 감정을 남길 수 없을 때
              cannotAddEmotionDidTap()
-//            let vc = SecondEmotionViewController()
-//            vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
-//            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)

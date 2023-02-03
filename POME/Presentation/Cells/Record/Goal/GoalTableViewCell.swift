@@ -127,6 +127,43 @@ class GoalTableViewCell: BaseTableViewCell {
 //    }
     // After API
     func setUpData(_ data: GoalResponseModel) {
+        setUpContents(data)
+
+        // 현재 시간과 endDate 비교해 시간 계산
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let date = Date()
+        let nowDateStr = formatter.string(from: date)
+        let nowDate = formatter.date(from: nowDateStr)
+        
+        let endDate = formatter.date(from: data.endDate)
+        let diffBetweenDates = endDate!.timeIntervalSince(nowDate!)
+        let diff = Int(diffBetweenDates / (60 * 60 * 24))
+        
+        if diff > 0 {
+            goalRemainDateLabel.setRemainDate(date: String(diff))
+        } else {
+            goalRemainDateLabel.setEnd()
+        }
+        
+
+    }
+    func setUpCompletedData(_ data: GoalResponseModel) {
+        setUpContents(data)
+        
+        let ratio = Double(data.usePrice) / Double(data.price)
+        if ratio.isLess(than: 1.0) {
+            goalRemainDateLabel.backgroundColor = Color.mint100
+            goalRemainDateLabel.tagLabel.textColor = .white
+            goalRemainDateLabel.tagLabel.text = "성공"
+        } else {
+            goalRemainDateLabel.backgroundColor = Color.red
+            goalRemainDateLabel.tagLabel.textColor = .white
+            goalRemainDateLabel.tagLabel.text = "반성"
+        }
+
+    }
+    func setUpContents(_ data: GoalResponseModel) {
         let startDate = data.startDate
         let endDateStr = data.endDate
         let goalId = data.id
@@ -153,25 +190,8 @@ class GoalTableViewCell: BaseTableViewCell {
             goalIsPublicLabel.setLockState()
         }
 
-        // 현재 시간과 endDate 비교해 시간 계산
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        let date = Date()
-        let nowDateStr = formatter.string(from: date)
-        let nowDate = formatter.date(from: nowDateStr)
-        
-        let endDate = formatter.date(from: endDateStr)
-        let diffBetweenDates = endDate!.timeIntervalSince(nowDate!)
-        let diff = Int(diffBetweenDates / (60 * 60 * 24))
-        
-        if diff > 0 {
-            goalRemainDateLabel.setRemainDate(date: String(diff))
-        } else {
-            goalRemainDateLabel.setEnd()
-        }
-        
         // ProgressBar
-        self.progressBarView.ratio = CGFloat(Double(usePrice) / Double(price))
-
+        let ratio = Double(usePrice) / Double(price)
+        self.progressBarView.ratio = CGFloat(ratio)
     }
 }

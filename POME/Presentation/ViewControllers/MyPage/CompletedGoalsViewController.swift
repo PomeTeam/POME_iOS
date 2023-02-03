@@ -94,7 +94,7 @@ extension CompletedGoalsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
         let itemIdx = indexPath.item
-        cell.setUpData(self.completeGoalContent[itemIdx])
+        cell.setUpCompletedData(self.completeGoalContent[itemIdx])
         
         let deleteGoalGesture = GoalTapGesture(target: self, action: #selector(alertGoalMenuButtonDidTap(_:)))
         deleteGoalGesture.data = self.completeGoalContent[itemIdx]
