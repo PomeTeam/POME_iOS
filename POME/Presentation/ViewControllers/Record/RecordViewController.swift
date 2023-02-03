@@ -141,7 +141,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if isGoalDateEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
+        else if isGoalDateEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 기한이 지난 목표일 때
         else {cell.setUnselectState()}
         
         return cell
@@ -257,14 +257,17 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - API
 extension RecordViewController {
     private func requestGetGoals(){
-        // api 호출할 때마다 Goal Category 배열 초기화
+        // api 호출할 때마다 Goal 배열 초기화
+        self.goalContent.removeAll()
         self.categories.removeAll()
         GoalServcie.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
-                self.goalContent = data.content
                 for x in data.content {
-                    self.categories.append(x.goalCategoryResponse)
+                    if !x.isEnd {
+                        self.goalContent.append(x)
+                        self.categories.append(x.goalCategoryResponse)
+                    }
                 }
                 // 목표에 맞는 기록들 조회
                 if !self.goalContent.isEmpty {
@@ -300,7 +303,7 @@ extension RecordViewController {
         RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
             switch result{
             case .success(let data):
-                print("LOG: 씀씀이 조회", data.content)
+//                print("LOG: 씀씀이 조회", data.content)
                 self.recordsOfGoal = data.content
                 
                 self.noSecondEmotionRecords.removeAll()
