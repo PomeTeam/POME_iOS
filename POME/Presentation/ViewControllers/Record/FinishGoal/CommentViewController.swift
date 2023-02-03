@@ -58,6 +58,11 @@ class CommentViewController: BaseViewController {
     }
     @objc func notSubmitButtonDidTap() {
         let dialog = ImageAlert.deleteEndGoal.generateAndShow(in: self)
+        // 삭제하기 클릭 시
+        dialog.completion = {
+            // 목표를 삭제한다.
+            self.deleteGoal(id: self.goalContent?.id ?? 0)
+        }
     }
 }
 // MARK: - TextView delegate
@@ -93,6 +98,23 @@ extension CommentViewController {
         GoalService.shared.finishGoal(id: self.goalContent?.id ?? 0, param: param) { result in
             print("목표 종료하기 성공")
             self.navigationController?.pushViewController(SubmitViewController(), animated: true)
+        }
+    }
+    private func deleteGoal(id: Int){
+        GoalService.shared.deleteGoal(id: id) { result in
+            switch result{
+            case .success(let data):
+                if data.success! {
+                    print("목표 삭제 성공")
+                    // 첫화면으로 전환
+                    guard let tabBarController = UIStoryboard(name: "gomin", bundle: nil).instantiateViewController(identifier: "TabBarController") as? UITabBarController else {return}
+                    self.navigationController?.pushViewController(tabBarController, animated: true)
+                }
+                break
+            default:
+                print(result)
+                break
+            }
         }
     }
 }
