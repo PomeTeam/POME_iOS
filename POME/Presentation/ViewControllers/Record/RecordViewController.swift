@@ -141,7 +141,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if isGoalEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
+        else if isGoalDateEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
         else {cell.setUnselectState()}
         
         return cell
@@ -152,7 +152,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.categorySelectedIdx = itemIdx
         
         // 기간이 지난 목표
-        if isGoalEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
+        if isGoalDateEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
         
         // 목표에 저장된 씀씀이 조회
         getRecordsOfGoal(id: goalContent[itemIdx].id, page: 0, size: 10)
@@ -209,7 +209,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             // MARK: 기간이 지난 목표 셀
-            if isGoalEnd(goalContent[self.categorySelectedIdx]) {
+            if isGoalDateEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
                 finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
@@ -326,7 +326,7 @@ extension RecordViewController {
             self.requestGetGoals()
         }
     }
-    private func isGoalEnd(_ data: GoalResponseModel) -> Bool {
+    private func isGoalDateEnd(_ data: GoalResponseModel) -> Bool {
         let endDate = data.endDate
         
         let dateFormatter = DateFormatter()

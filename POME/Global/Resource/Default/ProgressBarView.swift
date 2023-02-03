@@ -27,10 +27,12 @@ final class ProgressBarView: UIView {
     }
     var ratio: CGFloat = 0.0 {
         didSet {
-            self.isHidden = !self.ratio.isLess(than: 1.0)
+            if !self.ratio.isLess(than: 1.0) {self.overProgressView()}
+            else {self.commonProgressView()}
             numLabel.then{
                 let num = Double(ratio) * 100
-                $0.text = "\(Int(num))%"
+                if !self.ratio.isLess(than: 1.0) {$0.text = "초과"}
+                else {$0.text = "\(Int(num))%"}
                 $0.setTypoStyleWithSingleLine(typoStyle: .title5)
             }
 
@@ -40,7 +42,11 @@ final class ProgressBarView: UIView {
             }
             self.progressBarView.snp.remakeConstraints {
                 $0.height.equalTo(6)
-                $0.width.equalToSuperview().multipliedBy(self.ratio)
+                if !self.ratio.isLess(than: 1.0) {
+                    $0.width.equalToSuperview().multipliedBy(0.95)
+                } else {
+                    $0.width.equalToSuperview().multipliedBy(self.ratio)
+                }
             }
             self.numLabel.snp.remakeConstraints {
                 $0.centerX.equalTo(progressBarView.snp.trailing)
@@ -73,10 +79,14 @@ final class ProgressBarView: UIView {
     // MARK: - Methods
     func overProgressView() {
         self.progressBarView.backgroundColor = Color.red
-        self.ratio = 0.95
         self.numLabel.then{
             $0.backgroundColor = Color.red
-            $0.text = "초과"
+        }
+    }
+    func commonProgressView() {
+        self.progressBarView.backgroundColor = Color.mint100
+        self.numLabel.then{
+            $0.backgroundColor = Color.mint100
         }
     }
     func zeroProgressView() {
