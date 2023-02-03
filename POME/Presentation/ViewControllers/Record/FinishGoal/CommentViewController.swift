@@ -12,7 +12,7 @@ class CommentViewController: BaseViewController {
     var commentView: CommentView!
     var goalContent: GoalResponseModel?
     
-    var oneLineComment: String!
+    var oneLineComment: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +51,10 @@ class CommentViewController: BaseViewController {
 
     // MARK: - Actions
     @objc func submitButtonDidTap() {
-        let model = FinishGoalRequestModel(oneLineComment: self.oneLineComment)
-        self.finishGoal(model)
+        if let oneLineComment = self.oneLineComment {
+            let model = FinishGoalRequestModel(oneLineComment: oneLineComment)
+            self.finishGoal(model)
+        }
     }
     @objc func notSubmitButtonDidTap() {
         let dialog = ImageAlert.deleteEndGoal.generateAndShow(in: self)
@@ -69,6 +71,7 @@ extension CommentViewController : UITextViewDelegate {
         }
     }
     func textViewDidChange(_ textView: UITextView) {
+        self.oneLineComment = textView.text
         commentView.countLabel.textColor = Color.body
         commentView.countLabel.text = "\(textView.text.count)/150"
     }
