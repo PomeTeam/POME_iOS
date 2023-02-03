@@ -29,6 +29,7 @@ enum HTTPMethodURL {
         
         static let goalCategory = HTTPMethodURL.goalCategoryURL
         static let goals = HTTPMethodURL.goalsURL + "/users"
+        static let finishedGoals = HTTPMethodURL.goalsURL + "/users/end"
     }
     
     struct POST {

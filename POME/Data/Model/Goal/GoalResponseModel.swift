@@ -18,6 +18,7 @@ struct GoalResponseModel: Decodable {
     let startDate: String
     let isEnd: Bool
     let usePrice: Int
+    let oneLineComment: String?
 }
 
 extension GoalResponseModel{

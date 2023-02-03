@@ -50,4 +50,10 @@ extension GoalService{
             completion(response)
         }
     }
+    
+    func getFinishedGoals(completion: @escaping (NetworkResult<PageableResponseModel<GoalResponseModel>>) -> Void) {
+        requestDecoded(GoalRouter.getFinishedGoals){ response in
+            completion(response)
+        }
+    }
 }

@@ -122,9 +122,9 @@ class GoalTableViewCell: BaseTableViewCell {
             $0.height.equalTo(22)
         }
     }
-    func overGoal() {
-        self.progressBarView.overProgressView()
-    }
+//    func overGoal() {
+//        self.progressBarView.overProgressView()
+//    }
     // After API
     func setUpData(_ data: GoalResponseModel) {
         let startDate = data.startDate

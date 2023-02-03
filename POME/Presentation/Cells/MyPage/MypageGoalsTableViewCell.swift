@@ -22,7 +22,7 @@ class MypageGoalsTableViewCell: BaseTableViewCell {
         $0.textColor = Color.title
     }
     let subTitleLabel = UILabel().then{
-        $0.text = "다시 보고 싶은 지난 목표가 2건 있어요"
+        $0.text = "다시 보고 싶은 지난 목표가 0건 있어요"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey6
     }
@@ -34,6 +34,8 @@ class MypageGoalsTableViewCell: BaseTableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+    
     }
     
     required init?(coder: NSCoder) {
@@ -82,21 +84,7 @@ class MypageGoalsTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-14)
         }
     }
+    func setUpData(_ count: Int) {
+        self.subTitleLabel.text = "다시 보고 싶은 지난 목표가 \(count)건 있어요"
+    }
 }
-//MARK: - API
-// TODO: 완료한 목표 보관함
-//extension MypageGoalsTableViewCell {
-//    public func getGoalCounts(){
-//        GoalServcie.shared.getUserGoals{ result in
-//            switch result{
-//            case .success(let data):
-//                self.subTitleLabel.text = "다시 보고 싶은 지난 목표가 \(data.content.count)건 있어요"
-//
-//                break
-//            default:
-//                print(result)
-//                break
-//            }
-//        }
-//    }
-//}
