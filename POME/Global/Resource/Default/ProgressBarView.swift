@@ -42,9 +42,13 @@ final class ProgressBarView: UIView {
             }
             self.progressBarView.snp.remakeConstraints {
                 $0.height.equalTo(6)
+                // 초과 또는 0% 일 때 바 길이 조절
                 if !self.ratio.isLess(than: 1.0) {
                     $0.width.equalToSuperview().multipliedBy(0.95)
-                } else {
+                } else if self.ratio.isZero {
+                    $0.width.equalToSuperview().multipliedBy(0.05)
+                }
+                else {
                     $0.width.equalToSuperview().multipliedBy(self.ratio)
                 }
             }
@@ -88,9 +92,5 @@ final class ProgressBarView: UIView {
         self.numLabel.then{
             $0.backgroundColor = Color.mint100
         }
-    }
-    func zeroProgressView() {
-        self.ratio = 0.05
-        self.numLabel.text = "0%"
     }
 }

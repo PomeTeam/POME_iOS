@@ -16,7 +16,6 @@ class RecordCardTableViewCell: BaseTableViewCell {
     }
     let firstEmotion = EmotionTagView()
     let nextEmotion = EmotionTagView()
-//    let nextEmotion = ImageTagLabel(Image.emojiSad, "아직 감정을 남기지 않았어요", .inactivate)
     let arrowImage = UIImageView().then{
         $0.image = Image.rightArrowGray
     }
