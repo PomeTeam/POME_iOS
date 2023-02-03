@@ -17,7 +17,6 @@ class RecordViewController: BaseTabViewController {
     // Records
     var recordsOfGoal: [RecordResponseModel] = []
     var noSecondEmotionRecords: [RecordResponseModel] = []
-//    var noSecondEmotionRecordCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,7 +151,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.categorySelectedIdx = itemIdx
         
         // 기간이 지난 목표
-        if isGoalDateEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
+        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count == 0 {self.showGoalFinishWarning()}
         
         // 목표에 저장된 씀씀이 조회
         getRecordsOfGoal(id: goalContent[itemIdx].id, page: 0, size: 10)
