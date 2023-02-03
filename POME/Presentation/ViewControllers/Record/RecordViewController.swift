@@ -17,7 +17,6 @@ class RecordViewController: BaseTabViewController {
     // Records
     var recordsOfGoal: [RecordResponseModel] = []
     var noSecondEmotionRecords: [RecordResponseModel] = []
-//    var noSecondEmotionRecordCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +140,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if isGoalEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 종료된 목표일 시
+        else if isGoalDateEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 기한이 지난 목표일 때
         else {cell.setUnselectState()}
         
         return cell
@@ -152,7 +151,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.categorySelectedIdx = itemIdx
         
         // 기간이 지난 목표
-        if isGoalEnd(goalContent[itemIdx]) {self.showGoalFinishWarning()}
+        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count == 0 {self.showGoalFinishWarning()}
         
         // 목표에 저장된 씀씀이 조회
         getRecordsOfGoal(id: goalContent[itemIdx].id, page: 0, size: 10)
@@ -209,7 +208,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             // MARK: 기간이 지난 목표 셀
-            if isGoalEnd(goalContent[self.categorySelectedIdx]) {
+            if isGoalDateEnd(goalContent[self.categorySelectedIdx]) {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
                 finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
@@ -245,10 +244,10 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
             // 감정을 남길 수 없을 때
-            // cannotAddEmotionDidTap()
-            let vc = SecondEmotionViewController()
-            vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
-            self.navigationController?.pushViewController(vc, animated: true)
+             cannotAddEmotionDidTap()
+//            let vc = SecondEmotionViewController()
+//            vc.recordId = self.recordsOfGoal[indexPath.item - 3].id
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -257,14 +256,17 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 //MARK: - API
 extension RecordViewController {
     private func requestGetGoals(){
-        // api 호출할 때마다 Goal Category 배열 초기화
+        // api 호출할 때마다 Goal 배열 초기화
+        self.goalContent.removeAll()
         self.categories.removeAll()
-        GoalServcie.shared.getUserGoals{ result in
+        GoalService.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
-                self.goalContent = data.content
                 for x in data.content {
-                    self.categories.append(x.goalCategoryResponse)
+                    if !x.isEnd {
+                        self.goalContent.append(x)
+                        self.categories.append(x.goalCategoryResponse)
+                    }
                 }
                 // 목표에 맞는 기록들 조회
                 if !self.goalContent.isEmpty {
@@ -280,7 +282,7 @@ extension RecordViewController {
         }
     }
     private func deleteGoal(id: Int){
-        GoalServcie.shared.deleteGoal(id: id) { result in
+        GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
                 if data.success! {
@@ -300,7 +302,7 @@ extension RecordViewController {
         RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
             switch result{
             case .success(let data):
-                print("LOG: 씀씀이 조회", data.content)
+//                print("LOG: 씀씀이 조회", data.content)
                 self.recordsOfGoal = data.content
                 
                 self.noSecondEmotionRecords.removeAll()
@@ -326,7 +328,7 @@ extension RecordViewController {
             self.requestGetGoals()
         }
     }
-    private func isGoalEnd(_ data: GoalResponseModel) -> Bool {
+    private func isGoalDateEnd(_ data: GoalResponseModel) -> Bool {
         let endDate = data.endDate
         
         let dateFormatter = DateFormatter()

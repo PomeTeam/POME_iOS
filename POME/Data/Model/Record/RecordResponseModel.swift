@@ -15,7 +15,7 @@ struct RecordResponseModel: Decodable{
     let createdAt: String
     let useComment: String
     let oneLineMind: String
-    var emotionResponse: EmotionResponseModel   // 임시...
+    var emotionResponse: EmotionResponseModel
 }
 
 struct EmotionResponseModel: Decodable{

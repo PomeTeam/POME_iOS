@@ -134,14 +134,18 @@ class GoalTableViewCell: BaseTableViewCell {
         let nickname = data.nickname
         let oneLineMind = data.oneLineMind
         let price = data.price
+        let usePrice = data.usePrice
 
         titleLabel.text = oneLineMind
         
         // 가격 콤마 표시
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
+        var result = numberFormatter.string(from: NSNumber(value: usePrice)) ?? ""
+        consumeLabel.text = "\(result)원"
+        result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
         goalConsumeLabel.text = "· " + result + "원"
+        
 
         if isPublic {
             goalIsPublicLabel.setPublicState()
@@ -166,8 +170,8 @@ class GoalTableViewCell: BaseTableViewCell {
             goalRemainDateLabel.setEnd()
         }
         
-        // TODO: 사용 금액으로 ProgressBar 만들기
-
+        // ProgressBar
+        self.progressBarView.ratio = CGFloat(Double(usePrice) / Double(price))
 
     }
 }

@@ -16,12 +16,16 @@ class AllRecordsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        getRecordsOfGoal(id: self.goalContent?.id ?? 0, page: 0, size: 15)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getRecordsOfGoal(id: self.goalContent?.id ?? 0, page: 0, size: 15)
+    }
+    
     override func style() {
         super.style()
         
@@ -99,6 +103,10 @@ extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = SecondEmotionViewController()
+        vc.recordId = self.recordsOfGoal[indexPath.item].id
+        self.navigationController?.pushViewController(vc, animated: true)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

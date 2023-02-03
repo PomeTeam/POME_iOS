@@ -142,7 +142,7 @@ extension GoalContentViewController{
         print(request)
         print("LOG: requestData requestGenerateGoal", request)
         
-        GoalServcie.shared.generateGoal(request: request){ result in
+        GoalService.shared.generateGoal(request: request){ result in
             switch result{
             case .success:
                 print("LOG: success requestGenerateGoal")

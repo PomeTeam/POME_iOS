@@ -53,6 +53,7 @@ enum HTTPMethodURL {
     struct PUT {
         static let record = HTTPMethodURL.recordsURL
         static let goal = HTTPMethodURL.goalsURL
+        static let finishGoal = HTTPMethodURL.goalsURL + "/end"
     }
     
     struct DELETE {
