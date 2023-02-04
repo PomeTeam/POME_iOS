@@ -10,10 +10,8 @@ import UIKit
 class FriendTableViewCell: BaseTableViewCell {
     
     //MARK: - Properties
-
-    static let cellIdentifier = "FriendTableViewCell"
     
-    var delegate: FriendCellDelegate?
+    var delegate: RecordCellWithEmojiDelegate?
     
     let mainView = FriendDetailView().then{
         $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
@@ -40,11 +38,11 @@ class FriendTableViewCell: BaseTableViewCell {
     }
     
     override func prepareForReuse() {
-//        mainView.nameLabel.text = ""
-//        mainView.tagLabel.text = ""
-//        mainView.timeLabel.text = ""
-//        mainView.priceLabel.text = ""
-//        mainView.memoLabel.text = ""
+        mainView.nameLabel.text = ""
+        mainView.goalPromiseLabel.text = ""
+        mainView.timeLabel.text = ""
+        mainView.priceLabel.text = ""
+        mainView.memoLabel.text = ""
         mainView.othersReactionCountLabel.text = ""
         
         mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
@@ -56,21 +54,21 @@ class FriendTableViewCell: BaseTableViewCell {
         
         guard let index = getCellIndex() else { return }
 
-        delegate?.presentEmojiFloatingView(indexPath: index)
+        delegate?.presentEmojiFloatingView!(indexPath: index)
     }
     
     @objc func othersReactionBtnDidClicked(){
         
         guard let index = getCellIndex() else { return }
 
-        delegate?.presentReactionSheet(indexPath: index)
+        delegate?.presentReactionSheet!(indexPath: index)
     }
     
     @objc func moreButtonDidClicked(){
         
         guard let index = getCellIndex() else { return }
         
-        delegate?.presentEtcActionSheet(indexPath: index)
+        delegate?.presentEtcActionSheet!(indexPath: index)
     }
     
     //MARK: - Override

@@ -10,9 +10,7 @@ import UIKit
 class FriendCollectionViewCell: BaseCollectionViewCell {
 
     //MARK: - Properties
-    static let cellIdentifier = "FriendCollectionViewCell"
-    
-    static let cellSize = CGSize(width: 48, height: 86) //86
+    static let cellSize = CGSize(width: 48, height: 86)
     
     //MARK: - UI
     let profileImage = UIImageView().then{

@@ -9,15 +9,10 @@ import UIKit
 
 class FriendDetailViewController: BaseViewController {
     
-    var emoijiFloatingView: EmojiFloatingView?{
-        didSet{
-            emoijiFloatingView?.collectionView.delegate = self
-            emoijiFloatingView?.collectionView.dataSource = self
-        }
-    }
-    
-    let mainView = FriendDetailView()
     var record: RecordResponseModel
+    
+    var emoijiFloatingView: EmojiFloatingView!
+    let mainView = FriendDetailView()
     
     init(record: RecordResponseModel){
         self.record = record
@@ -34,7 +29,9 @@ class FriendDetailViewController: BaseViewController {
     }
     
     override func initialize() {
-        mainView.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.myReactionBtn.addTarget(self, action: #selector(presentEmojiFloatingView), for: .touchUpInside)
+        mainView.othersReactionButton.addTarget(self, action: #selector(presentReactionSheet), for: .touchUpInside)
+        mainView.moreButton.addTarget(self, action: #selector(presentEtcActionSheet), for: .touchUpInside)
         mainView.dataBinding(with: record)
     }
     
@@ -49,50 +46,36 @@ class FriendDetailViewController: BaseViewController {
             $0.centerX.equalToSuperview()
         }
     }
-    
-    @objc func myReactionBtnDidClicked(){
-        
-        emoijiFloatingView = EmojiFloatingView()
-        
-        guard let emoijiFloatingView = emoijiFloatingView else { return }
-        emoijiFloatingView.dismissHandler = {
-            self.emoijiFloatingView = nil
-        }
-        
-        self.view.addSubview(emoijiFloatingView)
-        emoijiFloatingView.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        emoijiFloatingView.containerView.snp.makeConstraints{
-            $0.top.equalTo(mainView.snp.bottom).offset(20 - 4)
-        }
-    }
 
 }
 
-extension FriendDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension FriendDetailViewController: RecordCellWithEmojiDelegate{
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+    @objc func presentEmojiFloatingView() {
+        
+        emoijiFloatingView = EmojiFloatingView().then{
+            $0.delegate = self
+            $0.completion = {
+                self.emoijiFloatingView = nil
+            }
+        }
+        
+        emoijiFloatingView.show(in: self, standard: mainView)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: EmojiFloatingCollectionViewCell.self)
-        cell.emojiImage.image = Reaction(rawValue: indexPath.row)?.defaultImage
-        return cell
+    @objc func presentReactionSheet() {
+        let data = record.friendReactions
+        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
-        return CGSize(width: EmojiFloatingCollectionViewCell.cellWidth, height: EmojiFloatingCollectionViewCell.cellWidth)
+    @objc func presentEtcActionSheet() {
+        
     }
 }
 
+//MARK: - API
 extension FriendDetailViewController{
-    private func requestGenerateFriendCardEmotion(reactionIndex: Int){
+    func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
         guard let reaction = Reaction(rawValue: reactionIndex) else { return }
         

@@ -10,7 +10,7 @@ import UIKit
 class EmotionFilterSheetViewController: BaseSheetViewController {
     
     var filterTime: EmotionTime!
-    var filterHandler: ((Int) -> ())!
+    var completion: ((Int) -> ())!
     
     let mainView = EmotionFilterSheetView().then{
         $0.cancelButton.addTarget(self, action: #selector(cancelButtonDidClicked), for: .touchUpInside)
@@ -90,7 +90,7 @@ extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        filterHandler(indexPath.row)
+        completion(indexPath.row)
         self.dismiss(animated: true, completion: nil)
     }
     

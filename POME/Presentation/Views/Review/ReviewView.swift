@@ -12,7 +12,7 @@ class ReviewView: BaseView{
     let tableView = UITableView().then{
         $0.backgroundColor = Color.transparent
         $0.showsVerticalScrollIndicator = false
-        
+        $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 74, right: 0)
         $0.backgroundView = ReviewEmptyView()
         
         $0.register(cellType: GoalTagsTableViewCell.self)
@@ -35,4 +35,13 @@ class ReviewView: BaseView{
             $0.centerX.equalToSuperview()
         }
     }
+    
+    func emptyViewWillShow(){
+        tableView.backgroundView?.isHidden = false
+    }
+    
+    func emptyViewWillHide(){
+        tableView.backgroundView?.isHidden = true
+    }
 }
+

@@ -7,12 +7,10 @@
 
 import Foundation
 
-protocol CellDelegate{ //TableViewCell, CollectionViewCell 등에서 사용하는 delegate
-    func sendCellIndex(indexPath: IndexPath)
+@objc protocol RecordCellWithEmojiDelegate{
+    func requestGenerateFriendCardEmotion(reactionIndex: Int)
+    @objc optional func presentEmojiFloatingView(indexPath: IndexPath)
+    @objc optional func presentReactionSheet(indexPath: IndexPath)
+    @objc optional func presentEtcActionSheet(indexPath: IndexPath)
 }
 
-protocol FriendCellDelegate{
-    func presentEmojiFloatingView(indexPath: IndexPath)
-    func presentReactionSheet(indexPath: IndexPath)
-    func presentEtcActionSheet(indexPath: IndexPath)
-}
