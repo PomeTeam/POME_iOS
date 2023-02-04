@@ -189,7 +189,7 @@
 		EE98F0D12980EFB1007BFCCD /* RecordRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D02980EFB1007BFCCD /* RecordRouter.swift */; };
 		EE98F0D32980EFB9007BFCCD /* RecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D22980EFB9007BFCCD /* RecordService.swift */; };
 		EE98F0D52980EFC0007BFCCD /* GoalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */; };
-		EE98F0D72980EFC7007BFCCD /* GoalServcie.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */; };
+		EE98F0D72980EFC7007BFCCD /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D62980EFC7007BFCCD /* GoalService.swift */; };
 		EE98F0D92980EFCF007BFCCD /* GoalCategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0D82980EFCF007BFCCD /* GoalCategoryRouter.swift */; };
 		EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0DA2980EFD9007BFCCD /* GoalCategoryService.swift */; };
 		EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0DC2980EFE0007BFCCD /* UserRouter.swift */; };
@@ -422,7 +422,7 @@
 		EE98F0D02980EFB1007BFCCD /* RecordRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRouter.swift; sourceTree = "<group>"; };
 		EE98F0D22980EFB9007BFCCD /* RecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordService.swift; sourceTree = "<group>"; };
 		EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRouter.swift; sourceTree = "<group>"; };
-		EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalServcie.swift; sourceTree = "<group>"; };
+		EE98F0D62980EFC7007BFCCD /* GoalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalService.swift; sourceTree = "<group>"; };
 		EE98F0D82980EFCF007BFCCD /* GoalCategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryRouter.swift; sourceTree = "<group>"; };
 		EE98F0DA2980EFD9007BFCCD /* GoalCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryService.swift; sourceTree = "<group>"; };
 		EE98F0DC2980EFE0007BFCCD /* UserRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRouter.swift; sourceTree = "<group>"; };
@@ -1479,7 +1479,7 @@
 			isa = PBXGroup;
 			children = (
 				EE98F0D42980EFC0007BFCCD /* GoalRouter.swift */,
-				EE98F0D62980EFC7007BFCCD /* GoalServcie.swift */,
+				EE98F0D62980EFC7007BFCCD /* GoalService.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1924,7 +1924,7 @@
 				EE98F0D92980EFCF007BFCCD /* GoalCategoryRouter.swift in Sources */,
 				570304C0297818ED00AAC56D /* CellReuse.swift in Sources */,
 				EE98F0E62980F03D007BFCCD /* FriendRouter.swift in Sources */,
-				EE98F0D72980EFC7007BFCCD /* GoalServcie.swift in Sources */,
+				EE98F0D72980EFC7007BFCCD /* GoalService.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,

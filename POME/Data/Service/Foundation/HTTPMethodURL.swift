@@ -29,6 +29,7 @@ enum HTTPMethodURL {
         
         static let goalCategory = HTTPMethodURL.goalCategoryURL
         static let goals = HTTPMethodURL.goalsURL + "/users"
+        static let finishedGoals = HTTPMethodURL.goalsURL + "/users/end"
     }
     
     struct POST {
@@ -53,6 +54,7 @@ enum HTTPMethodURL {
     struct PUT {
         static let record = HTTPMethodURL.recordsURL
         static let goal = HTTPMethodURL.goalsURL
+        static let finishGoal = HTTPMethodURL.goalsURL + "/end"
     }
     
     struct DELETE {

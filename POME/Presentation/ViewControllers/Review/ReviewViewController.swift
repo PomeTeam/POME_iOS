@@ -144,7 +144,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
 extension ReviewViewController{
     
     private func requestGetGoals(){
-        GoalServcie.shared.getUserGoals{ [self] response in
+        GoalService.shared.getUserGoals{ [self] response in
             switch response{
             case .success(let data):
                 print("LOG: success requestGetGoals", data)

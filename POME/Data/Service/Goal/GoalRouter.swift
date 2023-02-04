@@ -14,6 +14,8 @@ enum GoalRouter: BaseRouter{
     case putGoal(id: Int, request: GoalRegisterRequestModel)
     case deleteGoal(id: Int)
     case getGoals
+    case finishGoal(id: Int, param: FinishGoalRequestModel)
+    case getFinishedGoals
 }
 
 extension GoalRouter{
@@ -29,6 +31,10 @@ extension GoalRouter{
             return HTTPMethodURL.DELETE.goal +  "/\(id)"
         case .getGoals:
             return HTTPMethodURL.GET.goals
+        case .finishGoal(let id, _):
+            return HTTPMethodURL.PUT.finishGoal +  "/\(id)"
+        case .getFinishedGoals:
+            return HTTPMethodURL.GET.finishedGoals
         }
     }
     
@@ -44,6 +50,10 @@ extension GoalRouter{
             return .delete
         case .getGoals:
             return .get
+        case .finishGoal:
+            return .put
+        case .getFinishedGoals:
+            return .get
         }
     }
     
@@ -58,6 +68,10 @@ extension GoalRouter{
         case .deleteGoal:
             return .requestPlain
         case .getGoals:
+            return .requestPlain
+        case .finishGoal(_, let param):
+            return .requestJSONEncodable(param)
+        case .getFinishedGoals:
             return .requestPlain
         }
     }

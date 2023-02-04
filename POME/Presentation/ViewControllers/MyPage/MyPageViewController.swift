@@ -9,11 +9,15 @@ import UIKit
 
 class MyPageViewController: BaseTabViewController {
     var mypageTableView: UITableView!
+    var completedGoalCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        getFinishedGoalCounts()
     }
     
     override func style() {
@@ -70,7 +74,8 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageGoalsTableViewCell", for: indexPath) as? MypageGoalsTableViewCell else { return UITableViewCell() }
-            
+            cell.setUpData(self.completedGoalCount)
+            print(self.completedGoalCount)
             cell.selectionStyle = .none
             return cell
         default:
@@ -130,4 +135,20 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.isSelected = true
     }
     
+}
+//MARK: - API
+extension MyPageViewController {
+    private func getFinishedGoalCounts(){
+        GoalService.shared.getFinishedGoals { result in
+            switch result{
+            case .success(let data):
+                self.completedGoalCount = data.content.count
+                self.mypageTableView.reloadData()
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
 }

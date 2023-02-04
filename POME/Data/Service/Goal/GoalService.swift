@@ -7,12 +7,12 @@
 
 import Foundation
 
-final class GoalServcie: MultiMoyaService{
-    static let shared = GoalServcie()
+final class GoalService: MultiMoyaService{
+    static let shared = GoalService()
     private init() { }
 }
 
-extension GoalServcie{
+extension GoalService{
     
     func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         
@@ -41,6 +41,18 @@ extension GoalServcie{
     
     func getUserGoals(completion: @escaping (NetworkResult<PageableResponseModel<GoalResponseModel>>) -> Void) {
         requestDecoded(GoalRouter.getGoals){ response in
+            completion(response)
+        }
+    }
+    
+    func finishGoal(id: Int, param: FinishGoalRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+        requestNoResultAPI(GoalRouter.finishGoal(id: id, param: param)){ response in
+            completion(response)
+        }
+    }
+    
+    func getFinishedGoals(completion: @escaping (NetworkResult<PageableResponseModel<GoalResponseModel>>) -> Void) {
+        requestDecoded(GoalRouter.getFinishedGoals){ response in
             completion(response)
         }
     }
