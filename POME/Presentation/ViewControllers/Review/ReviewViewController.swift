@@ -15,6 +15,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         return indexPath.row - 3
     }
     
+    let filterInitialState = -1
+    var filterController: (Int, Int)!
     var currentEmotionSelectCardIndex: Int?
     var currentGoal: Int = 0{
         didSet{
@@ -29,10 +31,16 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
             }
         }
     }
-    var records = [RecordResponseModel](){
+    var filteredRecords = [RecordResponseModel](){
         didSet{
             isTableViewEmpty()
+            filteredRecords = records
             mainView.tableView.reloadData()
+        }
+    }
+    var records = [RecordResponseModel](){
+        didSet{
+            filteredRecords = records
         }
     }
     
@@ -59,6 +67,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         mainView.tableView.separatorStyle = .none
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
+        
+        filterController = (filterInitialState, filterInitialState)
     }
     
     override func topBtnDidClicked() {
@@ -69,34 +79,64 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     //MARK: - Method
     
     private func isTableViewEmpty(){
-        records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
+        filteredRecords.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
         let sheet: EmotionFilterSheetViewController!
+        var emotionTime: EmotionTime!
         
         guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
         //TODO: Tag 활용하는 방식으로 변경하기
         if(sender == cell.firstEmotionFilter.filterButton){
+            emotionTime = .first
             sheet = EmotionFilterSheetViewController.generateFirstEmotionFilterSheet()
         }else{
+            emotionTime = .second
             sheet = EmotionFilterSheetViewController.generateSecondEmotionFilterSheet()
         }
         
         sheet.completion = { emotion in
+            
+            switch emotionTime{
+            case .first:
+                self.filterController.0 = emotion
+            case .second:
+                self.filterController.1 = emotion
+            default:
+                return
+            }
+            
             guard let filterView = sender.superview as? ReviewFilterTableViewCell.EmotionFilterView,
                     let emotion = EmotionTag(rawValue: emotion) else { return }
+            
             filterView.setFilterSelectState(emotion: emotion)
+            self.filterRecordsByEmotion()
         }
         
         _ = sheet.loadAndShowBottomSheet(in: self)
     }
     
-    @objc func reloadingButtonDidClicked(){
+    @objc func filterInitializeButtonDidClicked(){
         guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
         cell.firstEmotionFilter.setFilterDefaultState()
         cell.secondEmotionFilter.setFilterDefaultState()
+        filterController = (filterInitialState, filterInitialState)
+        filteredRecords = records
+    }
+    
+    private func filterRecordsByEmotion(){
+        
+        self.filteredRecords = records
+        
+        if(filterController.1 != filterInitialState){
+            print("befor second emotion filter ", filterController.1, filteredRecords)
+            filteredRecords = filteredRecords.filter({
+                $0.emotionResponse.secondEmotion == filterController.1
+            })
+            print("after second emotion filter ", filteredRecords)
+        }
     }
 }
 
@@ -137,11 +177,11 @@ extension ReviewViewController{
         guard let cellIndex = self.currentEmotionSelectCardIndex,
                 let reaction = Reaction(rawValue: reactionIndex) else { return }
         
-        FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
+        FriendService.shared.generateFriendEmotion(id: filteredRecords[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success:
-                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.filteredRecords[cellIndex].emotionResponse.myEmotion = reactionIndex
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
@@ -200,7 +240,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return records.count + 3
+        return filteredRecords.count + 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -219,14 +259,14 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self)
             cell.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
             cell.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-            cell.reloadingButton.addTarget(self, action: #selector(reloadingButtonDidClicked), for: .touchUpInside)
+            cell.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
             return cell
         default:
             //TODO: 기록 데이터 바인딩
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self)
             
             let cardIndex = dataIndexBy(indexPath)
-            let record = records[cardIndex]
+            let record = filteredRecords[cardIndex]
             
             cell.delegate = self
             cell.mainView.dataBinding(with: record)
@@ -236,8 +276,11 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if(indexPath.row < 3){
+            return
+        }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(record: records[dataIndex])
+        let vc = ReviewDetailViewController(record: filteredRecords[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -262,7 +305,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = records[dataIndexBy(indexPath)].friendReactions
+        let data = filteredRecords[dataIndexBy(indexPath)].friendReactions
         _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
