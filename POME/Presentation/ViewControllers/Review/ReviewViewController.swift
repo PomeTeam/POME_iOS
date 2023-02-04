@@ -34,7 +34,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     var filteredRecords = [RecordResponseModel](){
         didSet{
             isTableViewEmpty()
-            filteredRecords = records
             mainView.tableView.reloadData()
         }
     }
@@ -128,15 +127,20 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     
     private func filterRecordsByEmotion(){
         
-        self.filteredRecords = records
+        var filter = records
         
+        if(filterController.0 != filterInitialState){
+            filter = filter.filter({
+                $0.emotionResponse.firstEmotion == filterController.0
+            })
+        }
         if(filterController.1 != filterInitialState){
-            print("befor second emotion filter ", filterController.1, filteredRecords)
-            filteredRecords = filteredRecords.filter({
+            filter = filter.filter({
                 $0.emotionResponse.secondEmotion == filterController.1
             })
-            print("after second emotion filter ", filteredRecords)
         }
+        
+        filteredRecords = filter
     }
 }
 
@@ -334,3 +338,5 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
          */
     }
 }
+
+
