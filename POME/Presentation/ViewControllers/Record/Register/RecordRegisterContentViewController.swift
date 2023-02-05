@@ -12,11 +12,24 @@ class RecordRegisterContentViewController: BaseViewController {
     
     var goals = [GoalResponseModel]()
     
-    private let mainView = RecordRegisterContentView()
-    private let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
-    private var recordManager = RecordRegisterRequestManager.shared
+    let mainView: RecordContentView
+    let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override
+    
+    convenience init(){
+        self.init(mainView: RecordRegisterContentView())
+    }
+    
+    init(mainView: RecordContentView){
+        self.mainView = mainView
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,12 +105,12 @@ class RecordRegisterContentViewController: BaseViewController {
     
     //MARK: - Helper
     
-    private func addKeyboardNotifications() {
+    func addKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillAppear(noti:)), name: UIResponder.keyboardWillShowNotification , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillDisappear(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func removeKeyboardNotifications() {
+    func removeKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -123,7 +136,7 @@ class RecordRegisterContentViewController: BaseViewController {
         }
     }
     
-    @objc private func completeButtonDidClicked(){
+    @objc func completeButtonDidClicked(){
         let vc = RecordRegisterEmotionSelectViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
