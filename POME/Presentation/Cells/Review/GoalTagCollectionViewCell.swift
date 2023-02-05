@@ -10,7 +10,6 @@ import UIKit
 class GoalTagCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Properties
-    static let cellIdentifier = "GoalCategoryCollectionViewCell"
     
     let goalCategoryView = UIView().then{
         $0.layer.cornerRadius = 30 / 2
