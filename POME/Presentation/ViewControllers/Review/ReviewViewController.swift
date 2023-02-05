@@ -314,17 +314,21 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
-        /*
+
+        let recordIndex = dataIndexBy(indexPath)
+        
         let alert = UIAlertController(title: nil,
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
+        let hideAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            ToastMessageView.generateHideToastView().show(in: self)
+            let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
+                                                       record: self.records[recordIndex])
+            self.navigationController?.pushViewController(vc, animated: true)
         }
 
-        let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
+        let declarationAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
         }
         
@@ -335,6 +339,5 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
-         */
     }
 }
