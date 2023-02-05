@@ -85,7 +85,7 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag > 1 {
+        if tag > 0 {
             let vc = SecondEmotionViewController()
             vc.recordId = self.noSecondEmotionRecord[indexPath.item - 1].id
             self.navigationController?.pushViewController(vc, animated: true)

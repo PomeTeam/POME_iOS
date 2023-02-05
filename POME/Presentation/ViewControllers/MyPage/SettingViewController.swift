@@ -131,10 +131,28 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         let tag = indexPath.row
         switch tag {
         case 1:
+            // 친구 관리
             self.navigationController?.pushViewController(MypageFriendViewController(), animated: true)
+        case 2:
+            // 문의하기
+            LinkManager(self, .contact)
         case 3:
+            // 알림 설정
             self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
+        case 4:
+            // 신고하기
+            LinkManager(self, .report)
+        case 6:
+            // TODO: 약관 및 정책
+            print("")
+        case 7:
+            // TODO: 오픈소스 라이센스
+            print("")
+        case 8:
+            // TODO: 버전 정보
+            print("")
         case 9:
+            // 로그아웃
             showLogoutDialog()
         default:
             print("")
