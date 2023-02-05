@@ -98,9 +98,9 @@ class AppRegisterViewController: BaseViewController {
             vc.phoneNum = self.phone.value
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
-            // TODO: 예외처리
             // 전송된 인증코드와 입력된 인증코드가 다를 때
-            print("🤩보내진 인증코드와 입력한 코드번호가 맞지 않습니다.🤩")
+            self.appRegisterView.errorMessageLabel.isHidden = false
+            print("보내진 인증코드와 입력한 코드번호가 맞지 않습니다.")
         }
     }
 }
