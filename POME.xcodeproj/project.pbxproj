@@ -34,6 +34,7 @@
 		2345E1C829819471003185E0 /* UserRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C729819471003185E0 /* UserRequestModel.swift */; };
 		2345E1CA2981947A003185E0 /* UserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C92981947A003185E0 /* UserResponseModel.swift */; };
 		235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235B3972292D6288003ACA01 /* TextPopUpViewController.swift */; };
+		2360903F298FBD8D00523727 /* LinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2360903E298FBD8D00523727 /* LinkManager.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
 		2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */; };
@@ -258,6 +259,7 @@
 		2345E1C729819471003185E0 /* UserRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequestModel.swift; sourceTree = "<group>"; };
 		2345E1C92981947A003185E0 /* UserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseModel.swift; sourceTree = "<group>"; };
 		235B3972292D6288003ACA01 /* TextPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPopUpViewController.swift; sourceTree = "<group>"; };
+		2360903E298FBD8D00523727 /* LinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManager.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
@@ -547,6 +549,14 @@
 			path = User;
 			sourceTree = "<group>";
 		};
+		2360903D298FBD7F00523727 /* LinkManager */ = {
+			isa = PBXGroup;
+			children = (
+				2360903E298FBD8D00523727 /* LinkManager.swift */,
+			);
+			path = LinkManager;
+			sourceTree = "<group>";
+		};
 		2367FC5A292BEC53006ED970 /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +809,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC85291B4C9200DC529B /* Const.swift */,
+				2360903D298FBD7F00523727 /* LinkManager */,
 				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				EE98F0C72980DFD0007BFCCD /* UserManager */,
 				5724EC732919220800DC529B /* Base */,
@@ -1801,6 +1812,7 @@
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
+				2360903F298FBD8D00523727 /* LinkManager.swift in Sources */,
 				5724EC512917680A00DC529B /* TabBarController.swift in Sources */,
 				57CCA797292B7A1E007E22D1 /* TagStyle.swift in Sources */,
 				2338F4AC2989079400F37EA1 /* TapGesture.swift in Sources */,
@@ -2164,7 +2176,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DS2AD6Q7T4;
+				DEVELOPMENT_TEAM = B974XY47GZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -2194,7 +2206,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = DS2AD6Q7T4;
+				DEVELOPMENT_TEAM = B974XY47GZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

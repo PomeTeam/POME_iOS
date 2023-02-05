@@ -31,11 +31,11 @@ class TermsViewController: UIViewController {
         }
     }
     func initialize() {
-        let useTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        let useTermTap = UITapGestureRecognizer(target: self, action: #selector(userTermButtonDidTap))
         termsView.useTermLabel.addGestureRecognizer(useTermTap)
-        let privTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        let privTermTap = UITapGestureRecognizer(target: self, action: #selector(privTermButtonDidTap))
         termsView.privacyTermLabel.addGestureRecognizer(privTermTap)
-        let markTermTap = UITapGestureRecognizer(target: self, action: #selector(termDetailButtonDidTap))
+        let markTermTap = UITapGestureRecognizer(target: self, action: #selector(markTermButtonDidTap))
         termsView.marketingTermLabel.addGestureRecognizer(markTermTap)
         
         termsView.allAgreeCheck.addTarget(self, action: #selector(allAgreeButtonDidTap), for: .touchUpInside)
@@ -58,8 +58,15 @@ class TermsViewController: UIViewController {
         vc.phoneNum = self.phoneNum
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    @objc func termDetailButtonDidTap(sender: UITapGestureRecognizer) {
+    @objc func userTermButtonDidTap(sender: UITapGestureRecognizer) {
+        // TODO: 개인정보 동의 노션 페이지 랜딩
         self.navigationController?.pushViewController(TermDetailViewController(), animated: true)
+    }
+    @objc func privTermButtonDidTap(sender: UITapGestureRecognizer) {
+        LinkManager(self, .privacyTerm)
+    }
+    @objc func markTermButtonDidTap(sender: UITapGestureRecognizer) {
+        LinkManager(self, .marketingTerm)
     }
     @objc func allAgreeButtonDidTap() {
         if !termsView.allAgreeCheck.isSelected {
