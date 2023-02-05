@@ -38,8 +38,20 @@ extension RecordService{
         }
     }
     
+    func getRecordsOfGoalAtRecordTab(id: Int, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtRecordTab(id: id)) { response in
+            completion(response)
+        }
+    }
+    
     func postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         requestNoResultAPI(RecordRouter.postSecondEmotion(id: id, param: param)){ response in
+            completion(response)
+        }
+    }
+    
+    func getNoSecondEmotionRecords(id: Int, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+        requestDecoded(RecordRouter.getNoSecondEmoRecords(id: id)) { response in
             completion(response)
         }
     }

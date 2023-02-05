@@ -13,6 +13,8 @@ enum RecordRouter: BaseRouter{
     case deleteRecord(id: Int)
     case postRecord(request: RecordRegisterRequestModel)
     case getRecordsOfGoalByUser(id: Int, pageable: PageableModel)
+    case getRecordsOfGoalByUserAtRecordTab(id: Int)    // 기록탭
+    case getNoSecondEmoRecords(id: Int)     // 일주일이 지났고, 두 번째 감정을 남겨야하는 기록 조회
     case postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel)
 }
 
@@ -24,6 +26,9 @@ extension RecordRouter{
         case .deleteRecord(let id):                 return HTTPMethodURL.DELETE.record + "/\(id)"
         case .postRecord:                           return HTTPMethodURL.POST.record
         case .getRecordsOfGoalByUser(let id, _):    return HTTPMethodURL.GET.recordOfGoal + "/\(id)"
+        case .getRecordsOfGoalByUserAtRecordTab(let id):
+                                                    return HTTPMethodURL.GET.recordOfGoal + "/\(id)/record-tab"
+        case .getNoSecondEmoRecords(let id):        return HTTPMethodURL.GET.noSecondEmotionRecords + "/\(id)"
         case .postSecondEmotion(let id, _):         return HTTPMethodURL.POST.secondEmotion + "/\(id)" + "/second-emotion"
         }
     }
@@ -35,6 +40,9 @@ extension RecordRouter{
         case .postRecord:               return .post
         case .getRecordsOfGoalByUser:   return .get
         case .postSecondEmotion:        return .post
+        case .getRecordsOfGoalByUserAtRecordTab:
+                                        return .get
+        case .getNoSecondEmoRecords:    return .get
         }
     }
     
@@ -47,6 +55,8 @@ extension RecordRouter{
                                                                                                "size" : pageable.size,
                                                                                                "sort" : pageable.sort],
                                                                                   encoding: URLEncoding.queryString)
+        case .getRecordsOfGoalByUserAtRecordTab:        return .requestPlain
+        case .getNoSecondEmoRecords:                    return .requestPlain
         case .postSecondEmotion(_, let param):          return .requestJSONEncodable(param)
         }
     }

@@ -151,10 +151,11 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.categorySelectedIdx = itemIdx
         
         // 기간이 지난 목표
-        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count == 0 {self.showGoalFinishWarning()}
+        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count != 0 {self.showGoalFinishWarning()}
         
         // 목표에 저장된 씀씀이 조회
-        getRecordsOfGoal(id: goalContent[itemIdx].id, page: 0, size: 10)
+        getRecordsOfGoal(id: goalContent[itemIdx].id)
+        getNoSecondEmotionRecords(id: goalContent[itemIdx].id)
         
         self.recordView.recordTableView.reloadData()
         
@@ -240,7 +241,6 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         if tag == 2 {
             let vc = RecordEmotionViewController()
             vc.goalContent = self.goalContent[self.categorySelectedIdx]
-            vc.noSecondEmotionRecord = self.noSecondEmotionRecords
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
              cannotAddEmotionDidTap()
@@ -251,6 +251,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 }
 //MARK: - API
 extension RecordViewController {
+    // MARK: 목표 리스트 조회 API
     private func requestGetGoals(){
         // api 호출할 때마다 Goal 배열 초기화
         self.goalContent.removeAll()
@@ -266,7 +267,8 @@ extension RecordViewController {
                 }
                 // 목표에 맞는 기록들 조회
                 if !self.goalContent.isEmpty {
-                    self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id, page: 0, size: 10)
+                    self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+                    self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
                 }
                 self.recordView.recordTableView.reloadData()
                 
@@ -277,6 +279,7 @@ extension RecordViewController {
             }
         }
     }
+    // MARK: 목표 삭제 API
     private func deleteGoal(id: Int){
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
@@ -284,7 +287,6 @@ extension RecordViewController {
                 if data.success! {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
-                    self.noSecondEmotionRecords.removeAll()
                     self.requestGetGoals()
                 }
                 break
@@ -294,20 +296,14 @@ extension RecordViewController {
             }
         }
     }
-    private func getRecordsOfGoal(id: Int, page: Int, size: Int) {
-        RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
+    // MARK: 목표에 해당하는 기록 조회 API
+    // TODO: 일주일이 지나지 않은 기록.. 날짜 문의
+    private func getRecordsOfGoal(id: Int) {
+        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id) { result in
             switch result{
             case .success(let data):
-//                print("LOG: 씀씀이 조회", data.content)
-                self.recordsOfGoal = data.content
-                
-                self.noSecondEmotionRecords.removeAll()
-                // 두번째 감정이 없는 기록 갯수
-                for x in data.content {
-                    if x.emotionResponse.secondEmotion == nil || x.emotionResponse.secondEmotion == 3 {
-                        self.noSecondEmotionRecords.append(x)
-                    }
-                }
+//                print("LOG: 씀씀이 조회", data)
+                self.recordsOfGoal = data
                 self.recordView.recordTableView.reloadData()
                 
                 break
@@ -318,12 +314,31 @@ extension RecordViewController {
 
         }
     }
+    // MARK: 기록 삭제 API
     private func deleteRecord(id: Int) {
         RecordService.shared.deleteRecord(id: id) { result in
             print("기록 삭제 성공")
             self.requestGetGoals()
         }
     }
+    // MARK: 일주일이 지났고, 두 번째 감정이 없는 기록 조회 API
+    private func getNoSecondEmotionRecords(id: Int) {
+        RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
+            switch result{
+            case .success(let data):
+//                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
+                
+                self.noSecondEmotionRecords = data
+                self.recordView.recordTableView.reloadData()
+
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
+    // MARK: 종료 날짜가 오늘보다 이전인 지 확인
     private func isGoalDateEnd(_ data: GoalResponseModel) -> Bool {
         let endDate = data.endDate
         
@@ -331,7 +346,6 @@ extension RecordViewController {
         dateFormatter.dateFormat = "yyyy.MM.dd"
         let convertDate = dateFormatter.date(from: endDate)
         
-        // 종료 날짜가 오늘보다 이전인 지 확인
         let result: ComparisonResult = Date().compare(convertDate ?? .now)
         if result == .orderedDescending {
             return true
