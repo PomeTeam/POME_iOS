@@ -11,6 +11,7 @@ class RecordRegisterRequestManager{
     
     static let shared = RecordRegisterRequestManager()
     
+    var recordId: Int = -1
     var goalId: Int = -1
     var consumeDate: String = PomeDateFormatter.getTodayDate()
     var price: String = ""
@@ -20,6 +21,7 @@ class RecordRegisterRequestManager{
     private init() { }
     
     func initialize(){
+        recordId = -1
         goalId = -1
         consumeDate = PomeDateFormatter.getTodayDate()
         price = ""
@@ -27,8 +29,12 @@ class RecordRegisterRequestManager{
         emotion = -1
     }
     
-    func info(){
-        print(self)
-        print("goalId", goalId, "consumeDate", consumeDate, "price", price, "detail", detail)
+    func bind(goalId: Int, record: RecordResponseModel){
+        self.recordId = record.id
+        self.goalId = goalId
+        self.consumeDate = record.useDate
+        self.price = String(record.usePrice)
+        self.detail = record.useComment
+        self.emotion = record.emotionResponse.firstEmotion
     }
 }

@@ -7,10 +7,8 @@
 
 import UIKit
 
-class RecordRegisterContentView: BaseView {
+class RecordContentView: BaseView{
     
-    let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
-                                            subtitle: "소비에 대한 간단한 기록을 남겨보세요")
     let goalField = CommonRightButtonTextFieldView.generateRightButtonView(image: Image.arrowDown,
                                                                            title: "목표",
                                                                            placeholder: "목표를 선택해주세요")
@@ -31,13 +29,10 @@ class RecordRegisterContentView: BaseView {
     }
     let contentTextView = CharactersCountTextView(type: .consume)
     lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
-        $0.isActivate(false)
+        $0.isActivate = true
     }
     
-    //MARK: - Override
-    
     override func hierarchy() {
-        self.addSubview(titleView)
         self.addSubview(goalField)
         self.addSubview(dateField)
         self.addSubview(priceField)
@@ -47,15 +42,8 @@ class RecordRegisterContentView: BaseView {
     }
     
     override func layout() {
-        titleView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(12)
-            $0.leading.trailing.equalToSuperview()
-        }
-    
-        goalField.snp.makeConstraints{
-            $0.top.equalTo(titleView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview()
-        }
+        
+        setTopConstriant()
         
         dateField.snp.makeConstraints{
             $0.top.equalTo(goalField.snp.bottom)
@@ -76,7 +64,7 @@ class RecordRegisterContentView: BaseView {
             $0.top.equalTo(contentTitle.snp.bottom).offset(12)
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
-            $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-21)
+            $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-107)
         }
         
         completeButton.snp.makeConstraints{
@@ -84,6 +72,41 @@ class RecordRegisterContentView: BaseView {
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(52)
+        }
+    }
+    
+    func setTopConstriant(){
+        goalField.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(12)
+            $0.leading.trailing.equalToSuperview()
+        }
+    }
+}
+
+class RecordRegisterContentView: RecordContentView {
+    
+    let titleView = RegisterCommonTitleView(title: "어떤 소비를 하셨나요?",
+                                            subtitle: "소비에 대한 간단한 기록을 남겨보세요")
+
+    
+    //MARK: - Override
+    override func hierarchy() {
+        self.addSubview(titleView)
+        super.hierarchy()
+        contentTextView.snp.updateConstraints{
+            $0.bottom.greaterThanOrEqualTo(completeButton.snp.top).offset(-21)
+        }
+    }
+    
+    override func setTopConstriant() {
+        titleView.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(12)
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        goalField.snp.makeConstraints{
+            $0.top.equalTo(titleView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview()
         }
     }
 }

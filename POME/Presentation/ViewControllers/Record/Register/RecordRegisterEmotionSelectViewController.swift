@@ -86,7 +86,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         requestGenerateRecord()
     }
     
-    func closeButtonDidClicked(){
+    private func closeButtonDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
             self.recordManager.initialize()
