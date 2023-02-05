@@ -338,5 +338,3 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
          */
     }
 }
-
-
