@@ -144,59 +144,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     }
 }
 
-//MARK: - API
-extension ReviewViewController{
-    
-    private func requestGetGoals(){
-        GoalService.shared.getUserGoals{ [self] response in
-            switch response{
-            case .success(let data):
-                print("LOG: success requestGetGoals", data)
-                goals = data.content
-                requestGetRecords()
-                break
-            default:
-                print("LOG: fail requestGetGoals", response)
-                break
-            }
-        }
-    }
-    
-    private func requestGetRecords(){
-        let goalId = goals[currentGoal].id
-        RecordService.shared.getRecordsOfGoal(id: goalId, pageable: PageableModel(page: 0)){ response in
-            switch response {
-            case .success(let data):
-                print("LOG: success requestGetRecords", data)
-                self.records = data.content
-                break
-            default:
-                print("LOG: fail requestGetRecords", response)
-                break
-            }
-        }
-    }
-    
-    func requestGenerateFriendCardEmotion(reactionIndex: Int) {
-        guard let cellIndex = self.currentEmotionSelectCardIndex,
-                let reaction = Reaction(rawValue: reactionIndex) else { return }
-        
-        FriendService.shared.generateFriendEmotion(id: filteredRecords[cellIndex].id,
-                                                   emotion: reactionIndex){ result in
-            switch result{
-            case .success:
-                self.filteredRecords[cellIndex].emotionResponse.myEmotion = reactionIndex
-                self.emoijiFloatingView?.dismiss()
-                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-                break
-            default:
-                print(result)
-                break
-            }
-        }
-    }
-}
-
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -324,12 +271,13 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         let hideAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
-                                                       record: self.records[recordIndex])
+                                                       record: self.filteredRecords[recordIndex])
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
         let declarationAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
+            self.requestDeleteRecord(index: recordIndex)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -339,5 +287,77 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
+    }
+}
+
+//MARK: - API
+extension ReviewViewController{
+    
+    private func requestGetGoals(){
+        GoalService.shared.getUserGoals{ [self] response in
+            switch response{
+            case .success(let data):
+                print("LOG: success requestGetGoals", data)
+                goals = data.content
+                requestGetRecords()
+                break
+            default:
+                print("LOG: fail requestGetGoals", response)
+                break
+            }
+        }
+    }
+    
+    private func requestGetRecords(){
+        let goalId = goals[currentGoal].id
+        RecordService.shared.getRecordsOfGoal(id: goalId, pageable: PageableModel(page: 0)){ response in
+            switch response {
+            case .success(let data):
+                print("LOG: success requestGetRecords", data)
+                self.records = data.content
+                break
+            default:
+                print("LOG: fail requestGetRecords", response)
+                break
+            }
+        }
+    }
+    
+    func requestGenerateFriendCardEmotion(reactionIndex: Int) {
+        guard let cellIndex = self.currentEmotionSelectCardIndex,
+                let reaction = Reaction(rawValue: reactionIndex) else { return }
+        
+        FriendService.shared.generateFriendEmotion(id: filteredRecords[cellIndex].id,
+                                                   emotion: reactionIndex){ result in
+            switch result{
+            case .success:
+                self.filteredRecords[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.emoijiFloatingView?.dismiss()
+                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
+    
+    func requestDeleteRecord(index filterRecordIndex: Int){
+        let record = filteredRecords[filterRecordIndex]
+        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id})
+        RecordService.shared.deleteRecord(id: record.id){ response in
+            switch response {
+            case .success:
+                self.filteredRecords.remove(at: filterRecordIndex)
+                if let index = recordRemoveIndex{
+                    self.records.remove(at: index)
+                }
+                print("LOG: success requestDeleteRecord")
+                break
+            default:
+                print("LOG: fail requestGetRecords", response)
+                break
+            }
+        }
     }
 }

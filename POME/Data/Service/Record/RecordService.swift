@@ -20,7 +20,7 @@ extension RecordService{
         }
     }
     
-    func deleteRecord(id: Int, completion: @escaping (Result<Int, Error>) -> Void) {
+    func deleteRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         requestNoResultAPI(RecordRouter.deleteRecord(id: id)){ response in
             completion(response)
         }
