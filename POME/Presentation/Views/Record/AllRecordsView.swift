@@ -27,7 +27,7 @@ class AllRecordsView: BaseView {
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
     }
-    let nextButton = DefaultButton(titleStr: "남겼어요")
+    let nextButton = DefaultButton(titleStr: "목표 종료하기")
     var allRecordsTableView: UITableView!
     
     //MARK: - LifeCycle
