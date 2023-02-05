@@ -114,22 +114,6 @@ class RegisterViewController: UIViewController {
         self.registerView.nameTextField.text = currName
         return currName
     }
-//    func checkValidName(_ name: String) {
-//        if name.count > 0 && name.count <= 10 {
-//            registerView.messageLabel.then{
-//                $0.text = "멋진 닉네임이네요!"
-//                $0.textColor = Color.mint100
-//            }
-//            registerView.completeButton.isActivate(true)
-//        } else {
-//            registerView.messageLabel.then{
-//                $0.text = "사용할 수 없는 닉네임이에요"
-//                $0.textColor = Color.red
-//            }
-//            registerView.completeButton.isActivate(false)
-//        }
-//        registerView.messageLabel.isHidden = false
-//    }
     // MARK: - Actions
     @objc func completeButtonDidTap() {
         if self.selectedPhoto != nil {
@@ -141,8 +125,29 @@ class RegisterViewController: UIViewController {
         
     }
     @objc func albumButtonDidTap() {
-        self.imagePickerController.sourceType = .photoLibrary
-        self.present(imagePickerController, animated: true, completion: nil)
+        // 이미 프로필이미지가 있는 상태에서 탭할 때
+        if self.selectedPhoto != nil {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
+                self.imagePickerController.sourceType = .photoLibrary
+                self.present(self.imagePickerController, animated: true, completion: nil)
+            }
+            let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
+                // 프로필 이미지 삭제하기
+                self.selectedPhoto = nil
+                self.registerView.profileImage.image = Image.photoDefault
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+            
+            alert.addAction(modifyAction)
+            alert.addAction(deleteAction)
+            alert.addAction(cancelAction)
+            
+            self.present(alert, animated: true)
+        } else {
+            self.imagePickerController.sourceType = .photoLibrary
+            self.present(imagePickerController, animated: true, completion: nil)
+        }
     }
 }
 // MARK: - ImagePicker Delegate
