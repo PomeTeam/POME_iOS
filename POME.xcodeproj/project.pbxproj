@@ -178,6 +178,8 @@
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
+		EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */; };
+		EE8C2BFA298F5DD500BE52B4 /* RecordModifyEmotionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF9298F5DD500BE52B4 /* RecordModifyEmotionSelectViewController.swift */; };
 		EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D0298799DB00077B28 /* PageableResponseModel.swift */; };
 		EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D229879C0C00077B28 /* ControlIndexPath.swift */; };
 		EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */; };
@@ -411,6 +413,8 @@
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
+		EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyContentViewController.swift; sourceTree = "<group>"; };
+		EE8C2BF9298F5DD500BE52B4 /* RecordModifyEmotionSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyEmotionSelectViewController.swift; sourceTree = "<group>"; };
 		EE9505D0298799DB00077B28 /* PageableResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableResponseModel.swift; sourceTree = "<group>"; };
 		EE9505D229879C0C00077B28 /* ControlIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlIndexPath.swift; sourceTree = "<group>"; };
 		EE98F0BD2980DEE7007BFCCD /* HTTPMethodURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethodURL.swift; sourceTree = "<group>"; };
@@ -1290,6 +1294,7 @@
 		57CCA7BC292EE9CF007E22D1 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				EE8C2BF6298F5DA800BE52B4 /* Modify */,
 				57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */,
 				57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */,
 				57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */,
@@ -1387,6 +1392,15 @@
 				2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE8C2BF6298F5DA800BE52B4 /* Modify */ = {
+			isa = PBXGroup;
+			children = (
+				EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */,
+				EE8C2BF9298F5DD500BE52B4 /* RecordModifyEmotionSelectViewController.swift */,
+			);
+			path = Modify;
 			sourceTree = "<group>";
 		};
 		EE98F0B92980DEA6007BFCCD /* Repositories */ = {
@@ -1855,6 +1869,7 @@
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
 				57C481DB296ABCD0008731D9 /* GoalRepository.swift in Sources */,
 				57397FB7296E77920088B5F4 /* RecordRegisterContentViewModel.swift in Sources */,
+				EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */,
 				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				EEE5F5E9298126E000ECD31B /* RecordResponseModel.swift in Sources */,
@@ -1897,6 +1912,7 @@
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
 				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
+				EE8C2BFA298F5DD500BE52B4 /* RecordModifyEmotionSelectViewController.swift in Sources */,
 				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
 				57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */,
