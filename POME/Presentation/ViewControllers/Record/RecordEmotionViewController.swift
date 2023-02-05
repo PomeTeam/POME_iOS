@@ -18,6 +18,12 @@ class RecordEmotionViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let goalContent = goalContent {
+            self.getNoSecondEmotionRecords(id: goalContent.id)
+        }
+    }
+    
     override func style() {
         super.style()
         
@@ -92,5 +98,26 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - API
+extension RecordEmotionViewController {
+    // MARK: 일주일이 지났고, 두 번째 감정이 없는 기록 조회 API
+    private func getNoSecondEmotionRecords(id: Int) {
+        RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
+            switch result{
+            case .success(let data):
+//                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
+                
+                self.noSecondEmotionRecord = data
+                self.recordEmotionView.recordEmotionTableView.reloadData()
+
+                break
+            default:
+                print(result)
+                break
+            }
+        }
     }
 }
