@@ -67,15 +67,14 @@ class RecordViewController: BaseTabViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func addGoalButtonDidTap() {
-        //TODO: 목표 등록/개수 제한 팝업 코드 분리
-        let vc = GoalDateViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-       
-        /*
-        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
-         */
+        if self.goalContent.count <= 10 {
+            let vc = GoalDateViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
+            sheet.loadViewIfNeeded()
+            self.present(sheet, animated: true, completion: nil)
+        }
     }
     func cannotAddEmotionDidTap() {
         let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!")
@@ -225,12 +224,16 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
-            let itemIdx = indexPath.item - 3
-            cell.setUpData(self.recordsOfGoal[itemIdx])
-            // Alert Menu
-            let deleteRecordGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
-            deleteRecordGesture.data = self.recordsOfGoal[itemIdx]
-            cell.menuButton.addGestureRecognizer(deleteRecordGesture)
+            
+            if !self.recordsOfGoal.isEmpty {
+                let itemIdx = indexPath.item - 3
+                cell.setUpData(self.recordsOfGoal[itemIdx])
+                // Alert Menu
+                let deleteRecordGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
+                deleteRecordGesture.data = self.recordsOfGoal[itemIdx]
+                cell.menuButton.addGestureRecognizer(deleteRecordGesture)
+            }
+            
             cell.selectionStyle = .none
             return cell
         }
@@ -268,9 +271,9 @@ extension RecordViewController {
                 // 목표에 맞는 기록들 조회
                 if !self.goalContent.isEmpty {
                     self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
-                    self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
+                } else {
+                    self.recordView.recordTableView.reloadData()
                 }
-                self.recordView.recordTableView.reloadData()
                 
                 break
             default:
@@ -304,7 +307,7 @@ extension RecordViewController {
             case .success(let data):
 //                print("LOG: 씀씀이 조회", data)
                 self.recordsOfGoal = data
-                self.recordView.recordTableView.reloadData()
+                self.getNoSecondEmotionRecords(id: id)
                 
                 break
             default:
@@ -326,7 +329,7 @@ extension RecordViewController {
         RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
             switch result{
             case .success(let data):
-//                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
+                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
                 
                 self.noSecondEmotionRecords = data
                 self.recordView.recordTableView.reloadData()
