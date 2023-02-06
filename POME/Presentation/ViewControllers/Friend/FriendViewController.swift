@@ -15,8 +15,8 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     
     //MARK: - Property
     var currentFriendIndex: Int = 0{
-        willSet(newValue){
-            newValue == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
+        didSet{
+            currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
     var currentEmotionSelectCardIndex: Int?
@@ -180,9 +180,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        if(indexPath.row == currentFriendIndex){
-            return
-        }
         
         if(currentFriendIndex == 0 && indexPath.row != 0){
             guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell,
