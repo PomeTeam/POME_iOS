@@ -85,9 +85,10 @@ class GoalDateViewController: BaseViewController {
     }
     
     private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
-        guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
         
-        let sheet: CalendarSheetViewController = sender == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
+        guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
+   
+        let sheet: CalendarSheetViewController = dateField == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
         _ = sheet.loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
             let dateString = PomeDateFormatter.getDateString(date)

@@ -65,7 +65,7 @@ extension RecordModifyContentViewController{
                                           request: request){ response in
             switch response{
             case .success:
-                self.navigationController?.popToRootViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
                 break
             default:
                 break

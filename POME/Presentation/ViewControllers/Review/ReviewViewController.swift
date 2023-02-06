@@ -46,8 +46,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     let mainView = ReviewView()
     var emoijiFloatingView: EmojiFloatingView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         requestGetGoals()
     }
     
@@ -231,7 +230,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(record: filteredRecords[dataIndex])
+        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: filteredRecords[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -268,22 +267,25 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        let hideAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
                                                        record: self.filteredRecords[recordIndex])
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
-        let declarationAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
-            self.requestDeleteRecord(index: recordIndex)
+            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
+            alert.completion = {
+                self.requestDeleteRecord(index: recordIndex)
+            }
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        alert.addAction(hideAction)
-        alert.addAction(declarationAction)
+        alert.addAction(editAction)
+        alert.addAction(deleteAction)
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
@@ -344,7 +346,7 @@ extension ReviewViewController{
     
     func requestDeleteRecord(index filterRecordIndex: Int){
         let record = filteredRecords[filterRecordIndex]
-        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id})
+        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id })
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:

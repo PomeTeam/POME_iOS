@@ -14,21 +14,14 @@ class CalendarSheetView: BaseView {
     let yearMonthStackView = UIStackView().then{
         $0.spacing = 10
     }
-    
     let yearMonthLabel = UILabel().then{
         $0.textAlignment = .center
         $0.setTypoStyleWithSingleLine(typoStyle: .title3)
         $0.textColor = Color.title
     }
-    
-    /*
-     disabled: Color.grey5
-     normal: Color.body
-     */
     let lastMonthButton = UIButton().then{
         $0.setImage(Image.calendarArrowLeft.withTintColor(Color.body), for: .normal)
     }
-    
     let nextMonthButton = UIButton().then{
         $0.setImage(Image.calendarArrowRight.withTintColor(Color.body), for: .normal)
     }
@@ -48,7 +41,7 @@ class CalendarSheetView: BaseView {
     }
     
     lazy var completeButton = DefaultButton(titleStr: "선택했어요").then{
-        $0.isActivate(false)
+        $0.isActivate = false
     }
 
     //MARK: - Override

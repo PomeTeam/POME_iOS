@@ -16,14 +16,11 @@ struct CalendarSelectDate{
 class CalendarSheetViewController: BaseSheetViewController {
     
     struct CalendarInfo{
-        
         var startDayOfTheWeek: Int
         var endDate: Int
-        
         var collectionViewCellCount: Int{
             startDayOfTheWeek + endDate + 7
         }
-        
         var collectionViewStartDateIndex: Int{
             startDayOfTheWeek + 7
         }
@@ -31,33 +28,25 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var possibleDateRange: (CalendarSelectDate, CalendarSelectDate)!
     var selectDate: CalendarSelectDate!
     var completion: ((CalendarSelectDate) -> ())!
     
-    var calendar = Calendar.current
-    
-    private var calendarDate: Date!{
+    let calendar = Calendar.current
+    var calendarDate: Date!{
         didSet{
             updateCalendarInfo()
         }
     }
-    
-    private var calendarInfo: CalendarInfo!{
+    var calendarInfo: CalendarInfo!{
         didSet{
             updateCalendarTitleAndCollectionView()
         }
     }
-    
     private var calendarDateFormatter = DateFormatter().then{
         $0.dateFormat = "yyyy년 M월"
     }
     
-    private let mainView = CalendarSheetView().then{
-        $0.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
-        $0.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
-        $0.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
-    }
+    private let mainView = CalendarSheetView()
     
     //MARK: - LifeCycle
 
@@ -72,9 +61,7 @@ class CalendarSheetViewController: BaseSheetViewController {
     //MARK: - Override
 
     override func layout() {
-        
         self.view.addSubview(mainView)
-        
         mainView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
@@ -87,6 +74,10 @@ class CalendarSheetViewController: BaseSheetViewController {
         
         mainView.calendarCollectionView.dataSource = self
         mainView.calendarCollectionView.delegate = self
+        
+        mainView.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
+        mainView.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
+        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
         initializeCalendarDate()
     }
@@ -108,10 +99,8 @@ class CalendarSheetViewController: BaseSheetViewController {
     
     //MARK: - Helper
     
-    private func initializeCalendarDate(){
-        
+    func initializeCalendarDate(){
         let components = calendar.dateComponents([.year, .month], from: Date())
-        
         calendarDate = calendar.date(from: components) ?? Date()
     }
     
@@ -139,7 +128,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         let month = calendar.component(.month, from: calendarDate)
         
         guard var selectDate = selectDate else {
-            mainView.completeButton.isActivate(true)
+            mainView.completeButton.isActivate = true
             selectDate = CalendarSelectDate(year: year,
                                             month: month,
                                             date: date)
@@ -187,26 +176,5 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CalendarSheetCollectionViewCell else { return }
         cell.changeViewAttributesByState(.normal)
-    }
-}
-
-class EndDateCalendarSheetViewController: CalendarSheetViewController{
-    
-    private let startDate: String!
-    private var possibleEndDate: CalendarSelectDate!
-    
-    init(with startDate: String?){
-        self.startDate = startDate
-        super.init()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func caculatePossibleDuration(){
-//        let calendar = Calendar
-        let start = PomeDateFormatter.getDateType(from: startDate)
-//        let endDate = calendar.date(byAdding: .date, value: 30, to: start)
     }
 }

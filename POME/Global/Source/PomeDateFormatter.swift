@@ -36,7 +36,7 @@ struct PomeDateFormatter{
         int < 10 ? "0\(int)" : String(int)
     }
     
-    static func getDateType(from: String){
-        formatter.date(from: from)
+    static func getDateType(from: String) -> Date{
+        formatter.date(from: from) ?? Date()
     }
 }

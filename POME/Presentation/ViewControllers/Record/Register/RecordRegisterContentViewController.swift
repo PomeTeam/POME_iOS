@@ -158,7 +158,7 @@ class RecordRegisterContentViewController: BaseViewController {
     override func backBtnDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
-            self.navigationController?.popToRootViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
