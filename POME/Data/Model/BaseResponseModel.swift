@@ -8,11 +8,12 @@
 import Foundation
 
 struct BaseResponseModel<T: Decodable>: Decodable{
-    let success: Bool?
-    let httpCode: Int?
+    let success: Bool
+    let httpCode: Int
     let errorCode: String?
-    let localDateTime: String?
-    let httpStatus: String?
-    let message: String?
+    let localDateTime: String
+    let httpStatus: String
+    let message: String
     let data: T?
 }
+
