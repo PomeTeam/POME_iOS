@@ -268,22 +268,22 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        let hideAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
                                                        record: self.filteredRecords[recordIndex])
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
-        let declarationAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
             self.requestDeleteRecord(index: recordIndex)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         
-        alert.addAction(hideAction)
-        alert.addAction(declarationAction)
+        alert.addAction(editAction)
+        alert.addAction(deleteAction)
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
