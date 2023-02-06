@@ -38,8 +38,8 @@ extension RecordService{
         }
     }
     
-    func getRecordsOfGoalAtRecordTab(id: Int, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtRecordTab(id: id)) { response in
+    func getRecordsOfGoalAtRecordTab(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtRecordTab(id: id, pageable: pageable)) { response in
             completion(response)
         }
     }

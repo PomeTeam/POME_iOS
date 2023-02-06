@@ -17,6 +17,8 @@ class RecordViewController: BaseTabViewController {
     // Records
     var recordsOfGoal: [RecordResponseModel] = []
     var noSecondEmotionRecords: [RecordResponseModel] = []
+    // Page
+    var recordPage: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +171,21 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 // MARK: - TableView delegate
 extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        /* 무한 스크롤
+            itemIdx = 3개 셀 제외하고 기록카드부터 시작
+            size = 15개
+            recordPage = 0부터 시작
+         */
+        let itemIdx = indexPath.row - 2
+        let size = Const.requestPagingSize
+        if (itemIdx % size == 0) && (itemIdx / size == recordPage ?? 0 - 1) {
+            recordPage = (recordPage ?? 0) + 1
+            if !self.goalContent.isEmpty {
+                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = recordsOfGoal.count ?? 0
         return 3 + count
@@ -271,6 +288,9 @@ extension RecordViewController {
                 }
                 // 목표에 맞는 기록들 조회
                 if !self.goalContent.isEmpty {
+                    // 기록 초기화 후 다시 호출
+                    self.recordPage = 0
+                    self.recordsOfGoal.removeAll()
                     self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
                 } else {
                     self.recordView.recordTableView.reloadData()
@@ -301,13 +321,16 @@ extension RecordViewController {
         }
     }
     // MARK: 목표에 해당하는 기록 조회 API
-    // TODO: 일주일이 지나지 않은 기록.. 날짜 문의
     private func getRecordsOfGoal(id: Int) {
-        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id) { result in
+        let pageModel = PageableModel(page: self.recordPage ?? 0)
+        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id, pageable: pageModel) { result in
             switch result{
             case .success(let data):
 //                print("LOG: 씀씀이 조회", data)
-                self.recordsOfGoal = data
+                // Paging 때문에 append하는 방식으로 작업
+                for recordData in data {
+                    self.recordsOfGoal.append(recordData)
+                }
                 self.getNoSecondEmotionRecords(id: id)
                 
                 break
@@ -330,7 +353,7 @@ extension RecordViewController {
         RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
             switch result{
             case .success(let data):
-                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
+//                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
                 
                 self.noSecondEmotionRecords = data
                 self.recordView.recordTableView.reloadData()
