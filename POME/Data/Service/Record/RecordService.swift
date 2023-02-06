@@ -44,6 +44,13 @@ extension RecordService{
         }
     }
     
+    func getRecordsOfGoalAtReviewTab(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, pageable: pageable)) { response in
+            completion(response)
+        }
+    }
+    
+    
     func postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         requestNoResultAPI(RecordRouter.postSecondEmotion(id: id, param: param)){ response in
             completion(response)
