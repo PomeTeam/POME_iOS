@@ -38,6 +38,12 @@ class DeleteUserViewController: BaseViewController {
         
         self.deleteUserView.deleteUserTableView.delegate = self
         self.deleteUserView.deleteUserTableView.dataSource = self
+        
+        deleteUserView.completeButton.rx.tap
+            .bind {
+                self.navigationController?.pushViewController(DeleteUserDetailViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 // MARK: - TableView delegate

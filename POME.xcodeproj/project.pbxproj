@@ -68,6 +68,8 @@
 		23B4FD4C293863620020AD40 /* AppRegisterFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B4FD4B293863620020AD40 /* AppRegisterFlowUITests.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
+		23F14C172990D41C00630AB2 /* DeleteUserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F14C162990D41C00630AB2 /* DeleteUserDetailView.swift */; };
+		23F14C192990D72600630AB2 /* TextInfoPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */; };
 		23F364D1291B793B009232B4 /* RegisterViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */; };
 		23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */; };
 		23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F364D6291B7BB4009232B4 /* FriendSearchView.swift */; };
@@ -297,6 +299,8 @@
 		23B4FD4B293863620020AD40 /* AppRegisterFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterFlowUITests.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		23F14C162990D41C00630AB2 /* DeleteUserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserDetailView.swift; sourceTree = "<group>"; };
+		23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInfoPopUpViewController.swift; sourceTree = "<group>"; };
 		23F364D0291B793B009232B4 /* RegisterViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewControllerExtension.swift; sourceTree = "<group>"; };
 		23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchViewController.swift; sourceTree = "<group>"; };
 		23F364D6291B7BB4009232B4 /* FriendSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchView.swift; sourceTree = "<group>"; };
@@ -536,6 +540,7 @@
 			isa = PBXGroup;
 			children = (
 				232C1C8E2990CD6F0087B81A /* DeleteUserView.swift */,
+				23F14C162990D41C00630AB2 /* DeleteUserDetailView.swift */,
 			);
 			path = DeleteUser;
 			sourceTree = "<group>";
@@ -596,6 +601,7 @@
 				574E615F29718ADE002BCDAF /* AlertInfo.swift */,
 				2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */,
 				235B3972292D6288003ACA01 /* TextPopUpViewController.swift */,
+				23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -1925,6 +1931,7 @@
 				EEE5F5EB2981270700ECD31B /* FriendEmotionRequestModel.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
+				23F14C192990D72600630AB2 /* TextInfoPopUpViewController.swift in Sources */,
 				EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */,
 				57556A952960380800B67369 /* Protocol.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
@@ -1968,6 +1975,7 @@
 				23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */,
 				232C1C8C2990CCFD0087B81A /* DeleteUserDetailViewController.swift in Sources */,
 				57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */,
+				23F14C172990D41C00630AB2 /* DeleteUserDetailView.swift in Sources */,
 				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
 				EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */,
 				57C481DD296ABCDB008731D9 /* Goal.swift in Sources */,
