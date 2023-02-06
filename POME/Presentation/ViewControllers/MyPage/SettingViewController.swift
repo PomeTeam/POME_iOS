@@ -9,7 +9,7 @@ import UIKit
 
 class SettingViewController: BaseViewController {
 
-    let settingTitleArray = ["친구 관리", "문의 하기", "알림 설정", "신고하기", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃"]
+    let settingTitleArray = ["친구 관리", "문의 하기", "알림 설정", "신고하기", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃", "탈퇴하기"]
     var settingTableView: UITableView!
 
     // MARK: - Life Cycles
@@ -80,7 +80,7 @@ class SettingViewController: BaseViewController {
 // MARK: - TableView delegate
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 11
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
@@ -99,6 +99,20 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setUpTitle(settingTitleArray[tag - 1])
+            return cell
+        case 10:
+            let cell = UITableViewCell()
+            cell.backgroundColor = Color.grey0
+            cell.textLabel?.then{
+                $0.text = settingTitleArray[tag - 1]
+                $0.setTypoStyleWithSingleLine(typoStyle: .subtitle1)
+                $0.textColor = Color.grey5
+            }
+            cell.textLabel?.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(24)
+                make.centerY.equalToSuperview()
+            }
+            
             return cell
         default:
             let cell = UITableViewCell()
@@ -121,7 +135,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         switch tag {
         case 0, 1, 2, 3, 4:
             return 71
-        case 6, 7, 8, 9:
+        case 6, 7, 8, 9, 10:
             return 59
         default:
             return 32
@@ -154,8 +168,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case 9:
             // 로그아웃
             showLogoutDialog()
+        case 10:
+            // 탈퇴하기
+            print("탈퇴하기")
         default:
             print("")
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
