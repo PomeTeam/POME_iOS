@@ -170,7 +170,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             showLogoutDialog()
         case 10:
             // 탈퇴하기
-            print("탈퇴하기")
+            self.navigationController?.pushViewController(DeleteUserViewController(), animated: true)
         default:
             print("")
         }
