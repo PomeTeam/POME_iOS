@@ -65,25 +65,29 @@ class RecordViewController: BaseTabViewController {
         }
     }
     @objc func finishGoalButtonDidTap(_ sender: GoalTapGesture) {
-        let vc = AllRecordsViewController()
-        vc.goalContent = sender.data
-        self.navigationController?.pushViewController(vc, animated: true)
+        /*
+         7일이전 기록 있을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우고 & 종료 페이지 진입 불가
+         7일 이전 기록은 없으나 2차감정 기록을 하지 않았을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우기 & 종료 페이지 진입 불가
+         모든 감정기록 완료했을 때 -> 종료페이지 진입
+         */
+        
+        if !self.recordsOfGoal.isEmpty || !self.noSecondEmotionRecords.isEmpty {
+            showNoSecondEmotionWarning()
+        } else {
+            let vc = AllRecordsViewController()
+            vc.goalContent = sender.data
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     @objc func addGoalButtonDidTap() {
         if self.goalContent.count <= 10 {
             let vc = GoalDateViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
-            let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
-            sheet.loadViewIfNeeded()
-            self.present(sheet, animated: true, completion: nil)
+            cannotAddGoalWarning()
         }
     }
-    func cannotAddEmotionDidTap() {
-        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!")
-        sheet.loadViewIfNeeded()
-        self.present(sheet, animated: true, completion: nil)
-    }
+    
     @objc func alertGoalMenuButtonDidTap(_ sender: GoalTapGesture) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
@@ -118,13 +122,26 @@ class RecordViewController: BaseTabViewController {
         
         self.present(alert, animated: true)
     }
-    func showGoalFinishWarning() {
+    
+    // MARK: - Warning Sheets
+    func showNoSecondEmotionWarning() {
         let sheet = RecordBottomSheetViewController(Image.penPink,
                                                     "아직 돌아보지 않은 기록이 있어요!",
                                                     "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요")
         sheet.loadViewIfNeeded()
         self.present(sheet, animated: true, completion: nil)
     }
+    func cannotAddEmotionWarning() {
+        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!")
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
+    }
+    func cannotAddGoalWarning() {
+        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!")
+        sheet.loadViewIfNeeded()
+        self.present(sheet, animated: true, completion: nil)
+    }
+    
 }
 //MARK: - CollectionView Delegate
 extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -153,9 +170,11 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         self.categorySelectedIdx = itemIdx
         
         // 기간이 지난 목표
-        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count != 0 {self.showGoalFinishWarning()}
+//        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count != 0 {self.showNoSecondEmotionWarning()}
         
         // 목표에 저장된 씀씀이 조회
+        self.recordPage = 0
+        self.recordsOfGoal.removeAll()
         getRecordsOfGoal(id: goalContent[itemIdx].id)
         getNoSecondEmotionRecords(id: goalContent[itemIdx].id)
         
@@ -264,7 +283,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             vc.goalContent = self.goalContent[self.categorySelectedIdx]
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
-             cannotAddEmotionDidTap()
+             cannotAddEmotionWarning()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
