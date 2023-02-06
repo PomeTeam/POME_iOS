@@ -113,11 +113,11 @@ extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - API
 extension AllRecordsViewController {
     private func getRecordsOfGoal(id: Int, page: Int, size: Int) {
-        RecordService.shared.getRecordsOfGoal(id: id, pageable: PageableModel(page: page)) { result in
+        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id, pageable: PageableModel(page: page)) { result in
             switch result{
             case .success(let data):
-                print("LOG: 씀씀이 조회", data.content)
-                self.recordsOfGoal = data.content
+                print("LOG: 씀씀이 조회", data)
+                self.recordsOfGoal = data
                 self.allRecordsView.allRecordsTableView.reloadData()
                 self.setUpContent()
                 
@@ -126,7 +126,6 @@ extension AllRecordsViewController {
                 print(result)
                 break
             }
-
         }
     }
     private func setUpContent() {
