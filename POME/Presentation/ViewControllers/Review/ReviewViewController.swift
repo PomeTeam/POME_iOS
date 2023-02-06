@@ -231,7 +231,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(record: filteredRecords[dataIndex])
+        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: filteredRecords[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -344,7 +344,7 @@ extension ReviewViewController{
     
     func requestDeleteRecord(index filterRecordIndex: Int){
         let record = filteredRecords[filterRecordIndex]
-        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id})
+        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id })
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
