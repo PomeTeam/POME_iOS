@@ -57,7 +57,8 @@ class RecordViewController: BaseTabViewController {
             sheet.loadViewIfNeeded()
             self.present(sheet, animated: true, completion: nil)
         } else {
-            let vc = RecordRegisterContentViewController()
+            let goal = goalContent[categorySelectedIdx]
+            let vc = RecordRegisterContentViewController(goal: goal)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
