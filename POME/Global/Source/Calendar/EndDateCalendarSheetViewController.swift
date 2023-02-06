@@ -62,7 +62,7 @@ class EndDateCalendarSheetViewController: CalendarSheetViewController{
         
         cell.changeViewAttributesByState(.disabled)
         if(year == possibleDateRange.0.year && month == possibleDateRange.0.month){
-            if(dateValue >= possibleDateRange.0.date){
+            if(dateValue > possibleDateRange.0.date){
                 cell.changeViewAttributesByState(.normal)
             }
         }else if(year == possibleDateRange.1.year && month == possibleDateRange.1.month){
