@@ -39,12 +39,12 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
             case .success(let response):
                 do {
                     let body = try JSONDecoder().decode(BaseResponseModel<L>.self, from: response.data)
-                    if(body.success!){
+                    if(body.success){
                         if let data = body.data{
                             completion(.success(data))
                         }
                     }else{
-                        completion(.invalidSuccess(body.errorCode ?? "", body.message ?? ""))
+                        completion(.invalidSuccess(body.errorCode ?? "", body.message ))
                     }
                 } catch let error {
                     completion(.failure(error))

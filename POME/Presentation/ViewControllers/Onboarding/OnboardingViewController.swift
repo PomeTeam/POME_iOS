@@ -64,7 +64,7 @@ extension OnboardingViewController {
         UserService.shared.signIn(model: signInRequestModel) { result in
             switch result {
                 case .success(let data):
-                    if data.success! {
+                    if data.success {
                         print("로그인 성공")
                         // 기록탭으로 이동
                         self.navigationController?.pushViewController(TabBarController(), animated: true)

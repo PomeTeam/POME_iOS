@@ -287,7 +287,7 @@ extension RecordViewController {
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
-                if data.success! {
+                if data.success {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
                     self.requestGetGoals()
