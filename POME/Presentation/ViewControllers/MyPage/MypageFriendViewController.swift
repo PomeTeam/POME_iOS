@@ -112,7 +112,7 @@ extension MypageFriendViewController {
         FriendService.shared.deleteFriend(id: friendId) { result in
             switch result {
                 case .success(let data):
-                    if data.success! {
+                    if data.success {
                         print("친구 삭제 성공")
                         // 친구 목록 다시 불러오기
                         self.getFriends()

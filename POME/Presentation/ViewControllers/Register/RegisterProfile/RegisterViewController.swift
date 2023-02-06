@@ -182,20 +182,20 @@ extension RegisterViewController {
                     if let isValidName = data.data {
                         if isValidName {
                             self.registerView.messageLabel.then{
-                                $0.text = data.message!
+                                $0.text = data.message
                                 $0.textColor = Color.mint100
                             }
                             self.registerView.completeButton.isActivate(true)
                         } else {
                             self.registerView.messageLabel.then{
-                                $0.text = data.message!
+                                $0.text = data.message
                                 $0.textColor = Color.red
                             }
                             self.registerView.completeButton.isActivate(false)
                         }
                     } else {
                         self.registerView.messageLabel.then{
-                            $0.text = data.message!
+                            $0.text = data.message
                             $0.textColor = Color.red
                         }
                         self.registerView.completeButton.isActivate(false)
@@ -245,7 +245,7 @@ extension RegisterViewController {
                 case .success(let data):
                     print(data)
                 
-                    if data.success! {
+                    if data.success {
                         print("회원가입 성공")
                         
                         // 유저 정보 저장

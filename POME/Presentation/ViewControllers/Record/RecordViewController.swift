@@ -57,7 +57,8 @@ class RecordViewController: BaseTabViewController {
             sheet.loadViewIfNeeded()
             self.present(sheet, animated: true, completion: nil)
         } else {
-            let vc = RecordRegisterContentViewController()
+            let goal = goalContent[categorySelectedIdx]
+            let vc = RecordRegisterContentViewController(goal: goal)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -287,7 +288,7 @@ extension RecordViewController {
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
-                if data.success! {
+                if data.success {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
                     self.requestGetGoals()

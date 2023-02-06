@@ -10,6 +10,7 @@ import RxSwift
 
 class RecordRegisterContentViewController: BaseViewController {
     
+    final private let baseGoal: GoalResponseModel!
     var goals = [GoalResponseModel]()
     
     let mainView: RecordContentView
@@ -18,11 +19,18 @@ class RecordRegisterContentViewController: BaseViewController {
     
     //MARK: - Override
     
-    convenience init(){
-        self.init(mainView: RecordRegisterContentView())
+    convenience init(goal: GoalResponseModel){
+        self.init(goal: goal, mainView: RecordRegisterContentView())
+    }
+    
+    private init(goal: GoalResponseModel, mainView: RecordContentView){
+        self.baseGoal = goal
+        self.mainView = mainView
+        super.init(nibName: nil, bundle: nil)
     }
     
     init(mainView: RecordContentView){
+        self.baseGoal = nil
         self.mainView = mainView
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,6 +46,7 @@ class RecordRegisterContentViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         recordManager.initialize()
+        recordManager.goalId = baseGoal.id
         addKeyboardNotifications()
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -59,6 +68,11 @@ class RecordRegisterContentViewController: BaseViewController {
     override func initialize() {
         mainView.priceField.infoTextField.delegate = self
         mainView.contentTextView.recordTextView.delegate = self
+        bindingData()
+    }
+    
+    func bindingData(){
+        mainView.goalField.infoTextField.text = baseGoal.goalNameBinding
     }
     
     override func bind(){

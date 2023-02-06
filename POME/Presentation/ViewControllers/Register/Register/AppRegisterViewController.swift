@@ -158,7 +158,7 @@ extension AppRegisterViewController {
         UserService.shared.signIn(model: signInRequestModel) { result in
             switch result {
                 case .success(let data):
-                    if data.success! {
+                    if data.success {
                         // 기록탭으로 이동
                         self.navigationController?.pushViewController(TabBarController(), animated: true)
                         // 유저 정보 저장
