@@ -310,7 +310,7 @@ extension ReviewViewController{
     
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
-        RecordService.shared.getRecordsOfGoal(id: goalId, pageable: PageableModel(page: 0)){ response in
+        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, pageable: PageableModel(page: 0)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)

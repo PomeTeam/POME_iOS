@@ -44,7 +44,7 @@ extension RecordService{
         }
     }
     
-    func getRecordsOfGoalAtReviewTab(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+    func getRecordsOfGoalAtReviewTab(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
         requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, pageable: pageable)) { response in
             completion(response)
         }
