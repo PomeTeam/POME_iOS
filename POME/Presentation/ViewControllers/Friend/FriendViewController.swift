@@ -118,7 +118,10 @@ extension FriendViewController{
     }
     
     private func requestGetFriendCards(){
-        let friendId = friends[currentFriendIndex].friendUserId
+        
+        let friendIndex = currentFriendIndex - 1
+        let friendId = friends[friendIndex].friendUserId
+        
         FriendService.shared.getFriendRecord(id: friendId,
                                              pageable: PageableModel(page: 0)){ result in
             switch result{
