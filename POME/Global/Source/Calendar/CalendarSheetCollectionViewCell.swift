@@ -15,6 +15,7 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
         case disabled
     }
     
+    private var dateState: CalendarCellState = .normal
     static let cellSize: CGFloat = (Device.WIDTH - 40 - 9.17*6) / 7
     
     let infoLabel = UILabel().then{
@@ -64,8 +65,13 @@ class CalendarSheetCollectionViewCell: BaseCollectionViewCell {
     }
     
     func changeViewAttributesByState(_ state: CalendarCellState){
+        dateState = state
         baseView.backgroundColor = state.backgroundColor
         infoLabel.textColor = state.textColor
+    }
+    
+    var isDisabled: Bool{
+        return dateState == .disabled
     }
 }
 
