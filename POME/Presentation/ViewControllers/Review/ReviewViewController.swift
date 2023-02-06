@@ -46,8 +46,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     let mainView = ReviewView()
     var emoijiFloatingView: EmojiFloatingView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
         requestGetGoals()
     }
     
