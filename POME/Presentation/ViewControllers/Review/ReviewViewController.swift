@@ -277,7 +277,10 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
 
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
-            self.requestDeleteRecord(index: recordIndex)
+            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
+            alert.completion = {
+                self.requestDeleteRecord(index: recordIndex)
+            }
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
