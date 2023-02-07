@@ -178,6 +178,7 @@
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */; };
+		EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */; };
@@ -414,6 +415,7 @@
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDateCalendarSheetViewController.swift; sourceTree = "<group>"; };
+		EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyContentViewController.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC85291B4C9200DC529B /* Const.swift */,
+				EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */,
 				2360903D298FBD7F00523727 /* LinkManager */,
 				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				EE98F0C72980DFD0007BFCCD /* UserManager */,
@@ -822,7 +825,6 @@
 				57CCA7CA292EF937007E22D1 /* Register */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
 				57B16851295941BD00639A15 /* Toast */,
-				EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1076,6 +1078,7 @@
 				2367FC56292BDBC0006ED970 /* ProgressBarView.swift */,
 				2385A8D0292C58F9003A62EA /* EmptyView.swift */,
 				5724EC752919224700DC529B /* PaddingLabel.swift */,
+				EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */,
 			);
 			path = Default;
 			sourceTree = "<group>";
@@ -1810,6 +1813,7 @@
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
 				57397FB9296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift in Sources */,
 				232FD9D2293436950072E9D5 /* MypageFriendViewController.swift in Sources */,
+				EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
