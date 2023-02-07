@@ -39,4 +39,13 @@ struct PomeDateFormatter{
     static func getDateType(from: String) -> Date{
         formatter.date(from: from) ?? Date()
     }
+    
+    // 남은 일 수 반환 - Int
+    static func getRemainDate(_ endDateStr: String) -> Int {
+        let endDate = formatter.date(from: endDateStr)
+        let diffBetweenDates = endDate!.timeIntervalSince(Date())
+        let diff = Int(diffBetweenDates / (60 * 60 * 24))
+        
+        return diff
+    }
 }

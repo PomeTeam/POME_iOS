@@ -68,13 +68,9 @@ class GoalWithProgressBarView: UIView {
         if self.isPublic ?? false {goalIsPublicLabel.setPublicState()}
         else {goalIsPublicLabel.setLockState()}
         
-        // 가격 콤마 표시
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        var result = numberFormatter.string(from: NSNumber(value: data.usePrice)) ?? ""
-        consumeLabel.text = result + "원"
-        result = numberFormatter.string(from: NSNumber(value: data.price)) ?? ""
-        goalConsumeLabel.text = "· " + result + "원"
+        
+        consumeLabel.text = data.usePriceBinding
+        goalConsumeLabel.text = data.priceBinding
         
         goalTitleLabel.text = self.goalTitle
         

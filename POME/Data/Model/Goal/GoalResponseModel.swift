@@ -22,7 +22,28 @@ struct GoalResponseModel: Decodable {
 }
 
 extension GoalResponseModel{
+    static let numberFormatter = NumberFormatter().then{
+        $0.numberStyle = .decimal
+    }
+    
     var goalNameBinding: String{
         self.goalCategoryResponse.name
+    }
+    var remainDateBinding: Int {
+        let diff = PomeDateFormatter.getRemainDate(self.endDate)
+        return diff
+    }
+    
+    var usePriceBinding: String{
+        // 가격 콤마 표시
+        var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.usePrice)) ?? ""
+        
+        return "\(result)원"
+    }
+    var priceBinding: String {
+        // 가격 콤마 표시
+        var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.price)) ?? ""
+        
+        return "· \(result)원"
     }
 }

@@ -138,9 +138,13 @@ class DayTagLabel: TagLabel{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setRemainDate(date: String){
-        type = .remain
-        self.tagLabel.text = type.rawValue + date
+    func setRemainDate(diff: Int){
+        if diff > 0 {
+            type = .remain
+            self.tagLabel.text = type.rawValue + String(diff)
+        } else {
+            setEnd()
+        }
     }
     
     func setEnd(){

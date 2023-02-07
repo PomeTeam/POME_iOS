@@ -65,7 +65,7 @@ class GoalDetailTableViewCell: BaseTableViewCell{
     }
     
     func bindingEmptyData(){
-        goalRemainDateLabel.setRemainDate(date: "00")
+        goalRemainDateLabel.setRemainDate(diff: 0)
         goalIsPublicLabel.setLockState()
         goalTitleLabel.text = "제목입니다."
     }
@@ -76,5 +76,6 @@ class GoalDetailTableViewCell: BaseTableViewCell{
         goalTitleLabel.text = goal.oneLineMind
         
         //TODO: 시간 계산 메서드 생성 및 데이터 바인딩
+        goalRemainDateLabel.setRemainDate(diff: goal.remainDateBinding)
     }
 }
