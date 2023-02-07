@@ -33,7 +33,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
         didSet{
             if let cell = self.mainView.tableView.cellForRow(at: [0,0]) as? GoalTagsTableViewCell{
                 cell.tagCollectionView.reloadData()
-                mainView.tableView.reloadData()
             }
         }
     }
