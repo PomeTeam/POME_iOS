@@ -7,15 +7,22 @@
 
 import UIKit
 
-class FriendViewController: BaseTabViewController, ControlIndexPath {
+class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
 
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 1
     }
     
     //MARK: - Property
+    
+    var page: Int = 0
+    var isPaging: Bool = false
+    var hasNextPage: Bool = true
+    
     var currentFriendIndex: Int = 0{
         didSet{
+            page = 0
+            hasNextPage = true
             currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
@@ -84,6 +91,38 @@ class FriendViewController: BaseTabViewController, ControlIndexPath {
     }
 }
 
+extension FriendViewController{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        // 스크롤이 테이블 뷰 Offset의 끝에 가게 되면 다음 페이지를 호출
+        if offsetY > (contentHeight - height) {
+            if isPaging == false && hasNextPage {
+                beginPaging()
+            }
+        }
+    }
+    
+    func beginPaging(){
+        
+        isPaging = true
+        page = page + 1
+        
+        // Section 1을 reload하여 로딩 셀을 보여줌 (페이징 진행 중인 것을 확인할 수 있도록)
+        DispatchQueue.main.async { [self] in
+            friendView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        }
+
+        // 페이징 메소드 호출
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.currentFriendIndex == 0 ? self.requestGetAllFriendsRecords() : self.requestGetFriendCards()
+        }
+    }
+}
+
 //MARK: - API
 extension FriendViewController{
     
@@ -104,10 +143,14 @@ extension FriendViewController{
     }
     
     private func requestGetAllFriendsRecords(){
-        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: 0)){ response in
+        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: page)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetAllFriendsRecords", data)
+                if(data.isEmpty){
+                    self.recordRequestIsEmpty()
+                    return
+                }
                 self.records = data
             default:
                 break
@@ -122,10 +165,14 @@ extension FriendViewController{
         let friendId = friends[friendIndex].friendUserId
         
         FriendService.shared.getFriendRecord(id: friendId,
-                                             pageable: PageableModel(page: 0)){ result in
+                                             pageable: PageableModel(page: page)){ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGetFriendCards", data)
+                if(data.isEmpty){
+                    self.recordRequestIsEmpty()
+                    return
+                }
                 self.records = data
                 break
             default:
@@ -133,6 +180,13 @@ extension FriendViewController{
             }
         }
     }
+    
+    func recordRequestIsEmpty() {
+        isPaging = false
+        hasNextPage = false
+        friendView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+    }
+    
     
     func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
@@ -207,12 +261,28 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 //MARK: - TableView Delegate
 extension FriendViewController: UITableViewDelegate, UITableViewDataSource, RecordCellWithEmojiDelegate{
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        records.count + 1
+        if(section == 0){
+            return records.count + 1
+        }else if(section == 1 && isPaging && hasNextPage){
+            return 1
+        }else{
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
+        if(indexPath.section == 1){
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
+            cell.startLoading()
+            return cell
+        }
+        
         if(indexPath.row == 0){
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FriendListTableViewCell.self)
             cell.collectionView.delegate = self

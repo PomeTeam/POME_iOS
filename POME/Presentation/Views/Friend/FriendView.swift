@@ -18,6 +18,7 @@ class FriendView: BaseView{
         
         $0.backgroundView = FriendTableEmptyView()
         
+        $0.register(cellType: LoadingTableViewCell.self)
         $0.register(FriendListTableViewCell.self, forCellReuseIdentifier: FriendListTableViewCell.cellIdentifier)
         $0.register(FriendTableViewCell.self, forCellReuseIdentifier: FriendTableViewCell.cellIdentifier)
     }

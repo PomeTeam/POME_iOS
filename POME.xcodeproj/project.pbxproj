@@ -185,6 +185,7 @@
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */; };
 		EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */; };
+		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */; };
@@ -428,6 +429,7 @@
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDateCalendarSheetViewController.swift; sourceTree = "<group>"; };
 		EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
+		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyContentViewController.swift; sourceTree = "<group>"; };
@@ -1100,6 +1102,7 @@
 				57556A942960380800B67369 /* Protocol.swift */,
 				570304BF297818ED00AAC56D /* CellReuse.swift */,
 				EE9505D229879C0C00077B28 /* ControlIndexPath.swift */,
+				EE2628D0299231230013137C /* Pageable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1872,6 +1875,7 @@
 				EEE5F5EE2981276600ECD31B /* GoalRegisterRequestModel.swift in Sources */,
 				232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */,
 				EEE5F5F02981278900ECD31B /* FriendsResponseModel.swift in Sources */,
+				EE2628D1299231230013137C /* Pageable.swift in Sources */,
 				EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */,
 				57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */,
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReviewViewController: BaseTabViewController, ControlIndexPath {
+class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     //MARK: - Properties
     
@@ -15,9 +15,9 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         return indexPath.row - 3
     }
     
-    private var page = 0
-    private var isPaging: Bool = false
-    private var hasNextPage: Bool = true
+    var page = 0
+    var isPaging: Bool = false
+    var hasNextPage: Bool = true
     
     let filterInitialState = -1
     var filterController: (Int, Int)!
@@ -37,15 +37,11 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
             }
         }
     }
-    var filteredRecords = [RecordResponseModel](){
-        didSet{
-            isTableViewEmpty()
-            mainView.tableView.reloadData()
-        }
-    }
     var records = [RecordResponseModel](){
         didSet{
-            filteredRecords = records
+            isPaging = false
+            isTableViewEmpty()
+            mainView.tableView.reloadData()
         }
     }
     
@@ -83,7 +79,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     //MARK: - Method
     
     private func isTableViewEmpty(){
-        filteredRecords.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
+        records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     @objc func filterButtonDidClicked(_ sender: UIButton){
@@ -127,7 +123,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         cell.firstEmotionFilter.setFilterDefaultState()
         cell.secondEmotionFilter.setFilterDefaultState()
         filterController = (filterInitialState, filterInitialState)
-        filteredRecords = records
     }
     
     private func filterRecordsByEmotion(){
@@ -144,8 +139,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
                 $0.emotionResponse.secondEmotion == filterController.1
             })
         }
-        
-        filteredRecords = filter
     }
 }
 
@@ -233,7 +226,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0){
-            return filteredRecords.count + 3
+            return records.count + 3
         }else if(section == 1 && isPaging && hasNextPage){
             return 1
         }else{
@@ -242,6 +235,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if(indexPath.section == 1){
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
             cell.startLoading()
@@ -269,7 +263,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self)
             
             let cardIndex = dataIndexBy(indexPath)
-            let record = filteredRecords[cardIndex]
+            let record = records[cardIndex]
             
             cell.delegate = self
             cell.mainView.dataBinding(with: record)
@@ -283,7 +277,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: filteredRecords[dataIndex])
+        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: records[dataIndex])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -308,7 +302,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = filteredRecords[dataIndexBy(indexPath)].friendReactions
+        let data = records[dataIndexBy(indexPath)].friendReactions
         _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
@@ -323,7 +317,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
-                                                       record: self.filteredRecords[recordIndex])
+                                                       record: self.records[recordIndex])
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
@@ -362,7 +356,7 @@ extension ReviewViewController{
             }
         }
     }
-    
+
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
         RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, pageable: PageableModel(page: page)){ response in
@@ -372,14 +366,9 @@ extension ReviewViewController{
                 if(self.page == 0){
                     self.records = data.content
                 }else{
-                    if(data.empty){
-                        self.hasNextPage = false
-                        self.mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-                    }
-                    self.records.append(contentsOf: data.content)
+                    data.empty ? self.recordRequestIsEmpty() : self.records.append(contentsOf: data.content)
                 }
-                self.isPaging = false
-                break
+                return
             default:
                 print("LOG: fail requestGetRecords", response)
                 break
@@ -387,15 +376,21 @@ extension ReviewViewController{
         }
     }
     
+    func recordRequestIsEmpty() {
+        isPaging = false
+        hasNextPage = false
+        mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+    }
+    
     func requestGenerateFriendCardEmotion(reactionIndex: Int) {
         guard let cellIndex = self.currentEmotionSelectCardIndex,
                 let reaction = Reaction(rawValue: reactionIndex) else { return }
         
-        FriendService.shared.generateFriendEmotion(id: filteredRecords[cellIndex].id,
+        FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success:
-                self.filteredRecords[cellIndex].emotionResponse.myEmotion = reactionIndex
+                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
@@ -406,16 +401,12 @@ extension ReviewViewController{
         }
     }
     
-    func requestDeleteRecord(index filterRecordIndex: Int){
-        let record = filteredRecords[filterRecordIndex]
-        let recordRemoveIndex = self.records.firstIndex(where: { $0.id == record.id })
+    func requestDeleteRecord(index: Int){
+        let record = records[index]
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
-                self.filteredRecords.remove(at: filterRecordIndex)
-                if let index = recordRemoveIndex{
-                    self.records.remove(at: index)
-                }
+                self.records.remove(at: index)
                 print("LOG: success requestDeleteRecord")
                 break
             default:
