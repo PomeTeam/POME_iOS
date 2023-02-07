@@ -18,3 +18,7 @@ class FriendTapGesture: UITapGestureRecognizer {
 class RecordTapGesture: UITapGestureRecognizer {
     var data: RecordResponseModel?
 }
+
+class IndexPathTapGesture: UITapGestureRecognizer {
+    var data: IndexPath!
+}

@@ -19,6 +19,8 @@ class RecordViewController: BaseTabViewController {
     var noSecondEmotionRecords: [RecordResponseModel] = []
     // Page
     var recordPage: Int?
+    // Cell Height
+    var expendingCellContent = ExpandingTableViewCellContent()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +122,12 @@ class RecordViewController: BaseTabViewController {
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true)
+    }
+    // MARK: 더보기 버튼 - Dynamic Cell Height Method
+    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
+        let content = expendingCellContent
+        content.expanded = !content.expanded
+        self.recordView.recordTableView.reloadRows(at: [sender.data], with: .automatic)
     }
     
     // MARK: - Warning Sheets
@@ -273,7 +281,13 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 let deleteRecordGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
                 deleteRecordGesture.data = self.recordsOfGoal[itemIdx]
                 cell.menuButton.addGestureRecognizer(deleteRecordGesture)
+                // 더보기 버튼 클릭 Gesture
+                let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
+                viewMoreGesture.data = indexPath
+                cell.viewMoreButton.addGestureRecognizer(viewMoreGesture)
             }
+            // Cell Height Set
+            cell.settingHeight(isClicked: expendingCellContent)
             
             cell.selectionStyle = .none
             return cell
