@@ -11,6 +11,8 @@ class RecordEmotionViewController: BaseViewController {
     var recordEmotionView = RecordEmotionView()
     var goalContent: GoalResponseModel?
     var noSecondEmotionRecord: [RecordResponseModel] = []
+    // Cell Height
+    var expendingCellContent = ExpandingTableViewCellContent()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,7 @@ class RecordEmotionViewController: BaseViewController {
     override func initialize() {
         super.initialize()
     }
+    
     // MARK: - Actions
     @objc func alertRecordMenuButtonDidTap() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -59,6 +62,12 @@ class RecordEmotionViewController: BaseViewController {
         alert.addAction(cancelAction)
         
         self.present(alert, animated: true)
+    }
+    // MARK: 더보기 버튼 - Dynamic Cell Height Method
+    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
+        let content = expendingCellContent
+        content.expanded = !content.expanded
+        self.recordEmotionView.recordEmotionTableView.reloadRows(at: [sender.data], with: .automatic)
     }
 }
 // MARK: - TableView delegate
@@ -80,10 +89,21 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
-            let itemIdx = indexPath.item - 1
-            cell.setUpData(self.noSecondEmotionRecord[itemIdx])
+            
+            if !self.noSecondEmotionRecord.isEmpty {
+                let itemIdx = indexPath.item - 1
+                cell.setUpData(self.noSecondEmotionRecord[itemIdx])
+            }
+            
             // Alert Menu
             cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
+            // 더보기 버튼 클릭 Gesture
+            let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
+            viewMoreGesture.data = indexPath
+            cell.viewMoreButton.addGestureRecognizer(viewMoreGesture)
+            // Cell Height Set
+            cell.settingHeight(isClicked: expendingCellContent)
+            
             cell.selectionStyle = .none
             return cell
         }
