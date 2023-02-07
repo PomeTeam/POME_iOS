@@ -10,5 +10,6 @@ import Foundation
 struct PageableResponseModel<T: Decodable>: Decodable{
     let content: [T]
     let empty: Bool
+    let last: Bool
 }
 
