@@ -13,6 +13,7 @@ class FriendSearchViewController: BaseViewController {
     var friendSearchView: FriendSearchView!
     var name = BehaviorRelay(value: "")
     var friendData: [FriendsResponseModel] = []
+    var isFromRegister: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,20 +73,29 @@ class FriendSearchViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     func initButton() {
-        // TODO: 이전 화면에 따라 다르게 화면 전환 구분
-        // 1. 회원가입 진행 중 친구 추가했을 때: '완료했어요' 클릭 시 기록 탭으로 이동
-        // 2. 친구 탭에서 친구 추가했을 때: '완료했어요' 클릭 시 친구 탭(이전 화면)으로 이동
         friendSearchView.completeButton.rx.tap
             .bind {
-                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                self.completeButtonDidTap()
             }
             .disposed(by: disposeBag)
         friendSearchView.completeButtonBottom.rx.tap
             .bind {
-                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                self.completeButtonDidTap()
             }
             .disposed(by: disposeBag)
     }
+    // 이전 화면에 따라 다르게 화면 전환 구분
+    // 1. 회원가입 진행 중 친구 추가했을 때: '완료했어요' 클릭 시 기록 탭으로 이동
+    // 2. 친구 탭에서 친구 추가했을 때: '완료했어요' 클릭 시 친구 탭(이전 화면)으로 이동
+    // '완료했어요' 버튼 클릭 Event
+    func completeButtonDidTap() {
+        if self.isFromRegister {
+            self.navigationController?.pushViewController(TabBarController(), animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     func setValidName(_ nameStr: String) -> String {
         var currName = nameStr
         if nameStr.count <= 10 {

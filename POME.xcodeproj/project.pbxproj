@@ -617,7 +617,6 @@
 			children = (
 				23B3B7D9293193E7008CB960 /* RegisterProfile */,
 				23B3B7D8293193CB008CB960 /* Register */,
-				23F364D2291B7AA2009232B4 /* AddFriend */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -731,14 +730,6 @@
 				23B3B7DE29319425008CB960 /* SecondEmotionView.swift */,
 			);
 			path = SecondEmotion;
-			sourceTree = "<group>";
-		};
-		23F364D2291B7AA2009232B4 /* AddFriend */ = {
-			isa = PBXGroup;
-			children = (
-				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
-			);
-			path = AddFriend;
 			sourceTree = "<group>";
 		};
 		23F364D5291B7BA9009232B4 /* AddFriend */ = {
@@ -914,7 +905,6 @@
 		5724EC1E2910132800DC529B /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				232C1C882990CCD90087B81A /* DeleteUser */,
 				23B3B7DA29319402008CB960 /* SecondEmotion */,
 				23ADE48D292D33B3003002D9 /* Notification */,
 				2306123A292B4CA300662007 /* Onboarding */,
@@ -1023,6 +1013,7 @@
 		5724EC56291772FA00DC529B /* Friend */ = {
 			isa = PBXGroup;
 			children = (
+				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
 				5724EC5C2917735B00DC529B /* FriendViewController.swift */,
 				57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */,
 				57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */,
@@ -1033,6 +1024,7 @@
 		5724EC572917730900DC529B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				232C1C882990CCD90087B81A /* DeleteUser */,
 				5724EC5E2917736300DC529B /* MyPageViewController.swift */,
 				23F5782F292D4C73002DD28E /* CompletedGoalsViewController.swift */,
 				23F57833292D5460002DD28E /* SettingViewController.swift */,

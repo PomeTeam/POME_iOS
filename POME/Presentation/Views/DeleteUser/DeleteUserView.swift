@@ -86,6 +86,8 @@ class DeleteUserView: BaseView {
             $0.showsVerticalScrollIndicator = false
             $0.backgroundColor = Color.transparent
             
+            $0.isScrollEnabled = false
+            
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }

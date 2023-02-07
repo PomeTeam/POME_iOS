@@ -296,7 +296,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag == 2 {
+        if tag == 2 && !self.goalContent.isEmpty {
             let vc = RecordEmotionViewController()
             vc.goalContent = self.goalContent[self.categorySelectedIdx]
             self.navigationController?.pushViewController(vc, animated: true)

@@ -74,6 +74,8 @@ class RecordEmotionViewController: BaseViewController {
 extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = self.noSecondEmotionRecord.count ?? 0
+        count == 0 ? EmptyView(self.recordEmotionView.recordEmotionTableView).showEmptyView(Image.noting, "돌아볼 씀씀이가 없어요") : EmptyView(self.recordEmotionView.recordEmotionTableView).hideEmptyView()
+        
         return 1 + count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
