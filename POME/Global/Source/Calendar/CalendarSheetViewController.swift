@@ -127,18 +127,10 @@ class CalendarSheetViewController: BaseSheetViewController {
         let year = calendar.component(.year, from: calendarDate)
         let month = calendar.component(.month, from: calendarDate)
         
-        guard var selectDate = selectDate else {
+        if(selectDate == nil){
             mainView.completeButton.isActivate = true
-            selectDate = CalendarSelectDate(year: year,
-                                            month: month,
-                                            date: date)
-            return
         }
-        
-        selectDate.year = year
-        selectDate.month = month
-        selectDate.date = date
-        
+        selectDate = CalendarSelectDate(year: year, month: month, date: date)
     }
 }
 

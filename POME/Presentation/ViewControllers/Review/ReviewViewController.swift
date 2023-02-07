@@ -15,11 +15,16 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
         return indexPath.row - 3
     }
     
+    private var page = 0
+    private var isPaging: Bool = false
+    private var hasNextPage: Bool = false
+    
     let filterInitialState = -1
     var filterController: (Int, Int)!
     var currentEmotionSelectCardIndex: Int?
     var currentGoal: Int = 0{
         didSet{
+            page = 0
             requestGetRecords()
         }
     }
@@ -189,11 +194,27 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredRecords.count + 3
+        if(section == 0){
+            return filteredRecords.count + 3
+        }else if(section == 1 && isPaging && hasNextPage){
+            return 1
+        }else{
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if(indexPath.section == 1){
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
+            cell.startLoading()
+            return cell
+        }
         
         switch indexPath.row{
         case 0:
@@ -312,7 +333,7 @@ extension ReviewViewController{
     
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
-        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, pageable: PageableModel(page: 0)){ response in
+        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, pageable: PageableModel(page: page)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)
