@@ -24,4 +24,9 @@ extension UICollectionView{
         }
         return cell
     }
+    
+    final func cellForItem<T: BaseCollectionViewCell>(at indexPath: IndexPath, cellType: T.Type) -> T {
+        guard let cell = self.cellForItem(at: indexPath) as? T else { fatalError() }
+        return cell
+    }
 }
