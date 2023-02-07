@@ -31,13 +31,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var friends = [FriendsResponseModel](){
         didSet{
             isTableViewEmpty()
-            if let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell{
-                friendsCell.collectionView.reloadData()
-            }
+            let friendsCell = friendView.tableView.cellForRow(at: [0,0], cellType: FriendListTableViewCell.self)
+            friendsCell.collectionView.reloadData()
         }
     }
     var records = [RecordResponseModel](){
         didSet{
+            isPaging = false
             isTableViewEmpty()
             friendView.tableView.reloadData()
         }
@@ -151,7 +151,12 @@ extension FriendViewController{
                     self.recordRequestIsEmpty()
                     return
                 }
-                self.records = data
+                if(self.page == 0){
+                    self.records = data
+                }else{
+                    self.records.append(contentsOf: data)
+                }
+                return
             default:
                 break
             }
@@ -173,7 +178,11 @@ extension FriendViewController{
                     self.recordRequestIsEmpty()
                     return
                 }
-                self.records = data
+                if(self.page == 0){
+                    self.records = data
+                }else{
+                    self.records.append(contentsOf: data)
+                }
                 break
             default:
                 break
