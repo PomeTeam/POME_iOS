@@ -17,7 +17,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     var page = 0
     var isPaging: Bool = false
-    var hasNextPage: Bool = true
+    var hasNextPage: Bool = false
     
     let filterInitialState = -1
     var filterController: (Int, Int)!
@@ -25,7 +25,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var currentGoal: Int = 0{
         didSet{
             page = 0
-            hasNextPage = true
+            hasNextPage = false
             requestGetRecords()
         }
     }
@@ -148,7 +148,6 @@ extension ReviewViewController{
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         
-        // 스크롤이 테이블 뷰 Offset의 끝에 가게 되면 다음 페이지를 호출
         if offsetY > (contentHeight - height) {
             if isPaging == false && hasNextPage {
                 beginPaging()
@@ -161,12 +160,10 @@ extension ReviewViewController{
         isPaging = true
         page = page + 1
         
-        // Section 1을 reload하여 로딩 셀을 보여줌 (페이징 진행 중인 것을 확인할 수 있도록)
         DispatchQueue.main.async { [self] in
             mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
 
-        // 페이징 메소드 호출
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.requestGetRecords()
         }
@@ -362,11 +359,7 @@ extension ReviewViewController{
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)
-                if(self.page == 0){
-                    self.records = data.content
-                }else{
-                    data.empty ? self.recordRequestIsEmpty() : self.records.append(contentsOf: data.content)
-                }
+                self.processResponseGetRecords(data: data)
                 return
             default:
                 print("LOG: fail requestGetRecords", response)
@@ -375,9 +368,23 @@ extension ReviewViewController{
         }
     }
     
+    private func processResponseGetRecords(data: PageableResponseModel<RecordResponseModel>){
+        
+        hasNextPage = !data.last
+        
+        if(page == 0){
+            records = data.content
+        }else{
+            records.append(contentsOf: data.content)
+        }
+        
+        if(data.empty){
+            recordRequestIsEmpty()
+        }
+    }
+    
     func recordRequestIsEmpty() {
         isPaging = false
-        hasNextPage = false
         mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }
     
