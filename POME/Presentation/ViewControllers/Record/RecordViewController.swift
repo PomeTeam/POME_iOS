@@ -33,7 +33,6 @@ class RecordViewController: BaseTabViewController {
         
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
-        EmptyView(recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
     }
     override func layout() {
         super.layout()
@@ -207,6 +206,11 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = recordsOfGoal.count ?? 0
+        if count == 0 {
+            EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
+        } else {
+            EmptyView(self.recordView.recordTableView).hideEmptyView()
+        }
         return 3 + count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -386,17 +390,6 @@ extension RecordViewController {
     }
     // MARK: 종료 날짜가 오늘보다 이전인 지 확인
     private func isGoalDateEnd(_ data: GoalResponseModel) -> Bool {
-        let endDate = data.endDate
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        let convertDate = dateFormatter.date(from: endDate)
-        
-        let result: ComparisonResult = Date().compare(convertDate ?? .now)
-        if result == .orderedDescending {
-            return true
-        } else {
-            return false
-        }
+        PomeDateFormatter.isDateEnd(data.endDate)
     }
 }

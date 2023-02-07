@@ -158,11 +158,7 @@ class GoalTableViewCell: BaseTableViewCell {
         consumeLabel.text = data.usePriceBinding
         goalConsumeLabel.text = data.priceBinding
 
-        if isPublic {
-            goalIsPublicLabel.setPublicState()
-        } else {
-            goalIsPublicLabel.setLockState()
-        }
+        data.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
 
         // ProgressBar
         let ratio = Double(usePrice) / Double(price)

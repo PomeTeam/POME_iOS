@@ -65,9 +65,7 @@ class GoalWithProgressBarView: UIView {
         self.isPublic = data.isPublic
         self.goalTitle = data.oneLineMind
         
-        if self.isPublic ?? false {goalIsPublicLabel.setPublicState()}
-        else {goalIsPublicLabel.setLockState()}
-        
+        data.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
         
         consumeLabel.text = data.usePriceBinding
         goalConsumeLabel.text = data.priceBinding

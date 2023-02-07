@@ -48,4 +48,15 @@ struct PomeDateFormatter{
         
         return diff
     }
+    // 종료 날짜가 오늘보다 이전인 지 확인
+    static func isDateEnd(_ endDateStr: String) -> Bool {
+        let convertDate = formatter.date(from: endDateStr)
+        
+        let result: ComparisonResult = Date().compare(convertDate ?? .now)
+        if result == .orderedDescending {
+            return true
+        } else {
+            return false
+        }
+    }
 }
