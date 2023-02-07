@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class RecordCardTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
@@ -81,6 +82,7 @@ class RecordCardTableViewCell: BaseTableViewCell {
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.bottom.equalToSuperview().inset(6)
+            make.height.greaterThanOrEqualTo(182)
         }
         firstEmotion.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
@@ -138,6 +140,9 @@ class RecordCardTableViewCell: BaseTableViewCell {
         if isClicked.expanded == true {
             self.contentLabel.numberOfLines = 0
             viewMoreButton.isHidden = true
+            viewMoreButton.snp.updateConstraints { make in
+                make.height.equalTo(0)
+            }
         } else {
             self.contentLabel.numberOfLines = 2
             viewMoreButton.isHidden = contentLabel.countCurrentLines() > 2 ? false : true
