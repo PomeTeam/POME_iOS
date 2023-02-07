@@ -124,21 +124,6 @@ class RecordEmotionTableViewCell: BaseTableViewCell {
         goalTitleLabel.text = data.oneLineMind
         recordCountLabel.text = "전체 \(count)건"
         
-        // 현재 시간과 endDate 비교해 시간 계산
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        let date = Date()
-        let nowDateStr = formatter.string(from: date)
-        let nowDate = formatter.date(from: nowDateStr)
-        
-        let endDate = formatter.date(from: data.endDate)
-        let diffBetweenDates = endDate!.timeIntervalSince(nowDate!)
-        let diff = Int(diffBetweenDates / (60 * 60 * 24))
-        
-        if diff > 0 {
-            goalRemainDateLabel.setRemainDate(date: String(diff))
-        } else {
-            goalRemainDateLabel.setEnd()
-        }
+        goalRemainDateLabel.setRemainDate(diff: data.remainDateBinding)
     }
 }

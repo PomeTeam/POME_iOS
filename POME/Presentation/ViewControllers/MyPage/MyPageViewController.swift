@@ -75,7 +75,6 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageGoalsTableViewCell", for: indexPath) as? MypageGoalsTableViewCell else { return UITableViewCell() }
             cell.setUpData(self.completedGoalCount)
-            print(self.completedGoalCount)
             cell.selectionStyle = .none
             return cell
         default:

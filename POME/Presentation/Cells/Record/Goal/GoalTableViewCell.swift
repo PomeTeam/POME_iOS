@@ -129,25 +129,9 @@ class GoalTableViewCell: BaseTableViewCell {
     func setUpData(_ data: GoalResponseModel) {
         setUpContents(data)
 
-        // 현재 시간과 endDate 비교해 시간 계산
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        let date = Date()
-        let nowDateStr = formatter.string(from: date)
-        let nowDate = formatter.date(from: nowDateStr)
-        
-        let endDate = formatter.date(from: data.endDate)
-        let diffBetweenDates = endDate!.timeIntervalSince(nowDate!)
-        let diff = Int(diffBetweenDates / (60 * 60 * 24))
-        
-        if diff > 0 {
-            goalRemainDateLabel.setRemainDate(date: String(diff))
-        } else {
-            goalRemainDateLabel.setEnd()
-        }
-        
-
+        goalRemainDateLabel.setRemainDate(diff: data.remainDateBinding)
     }
+    // MARK: 마이페이지 > 완료된 목표함
     func setUpCompletedData(_ data: GoalResponseModel) {
         setUpContents(data)
         
@@ -164,31 +148,17 @@ class GoalTableViewCell: BaseTableViewCell {
 
     }
     func setUpContents(_ data: GoalResponseModel) {
-        let startDate = data.startDate
-        let endDateStr = data.endDate
-        let goalId = data.id
         let isPublic = data.isPublic
-        let nickname = data.nickname
         let oneLineMind = data.oneLineMind
         let price = data.price
         let usePrice = data.usePrice
 
         titleLabel.text = oneLineMind
         
-        // 가격 콤마 표시
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        var result = numberFormatter.string(from: NSNumber(value: usePrice)) ?? ""
-        consumeLabel.text = "\(result)원"
-        result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
-        goalConsumeLabel.text = "· " + result + "원"
-        
+        consumeLabel.text = data.usePriceBinding
+        goalConsumeLabel.text = data.priceBinding
 
-        if isPublic {
-            goalIsPublicLabel.setPublicState()
-        } else {
-            goalIsPublicLabel.setLockState()
-        }
+        data.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
 
         // ProgressBar
         let ratio = Double(usePrice) / Double(price)

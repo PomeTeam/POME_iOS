@@ -46,8 +46,7 @@ class LittleGoalView: UIView {
         self.isPublic = data.isPublic
         self.goalTitle = data.oneLineMind
         
-        if self.isPublic ?? false {goalIsPublicLabel.setPublicState()}
-        else {goalIsPublicLabel.setLockState()}
+        data.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
         
         goalTitleLabel.text = self.goalTitle
         goalRemainDateLabel.setEnd()    // 기한이 지난 목표이기 때문에 무조건 END 태그
