@@ -17,7 +17,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     
     private var page = 0
     private var isPaging: Bool = false
-    private var hasNextPage: Bool = false
+    private var hasNextPage: Bool = true
     
     let filterInitialState = -1
     var filterController: (Int, Int)!
@@ -25,6 +25,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     var currentGoal: Int = 0{
         didSet{
             page = 0
+            hasNextPage = true
             requestGetRecords()
         }
     }
@@ -148,6 +149,38 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath {
     }
 }
 
+extension ReviewViewController{
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        // 스크롤이 테이블 뷰 Offset의 끝에 가게 되면 다음 페이지를 호출
+        if offsetY > (contentHeight - height) {
+            if isPaging == false && hasNextPage {
+                beginPaging()
+            }
+        }
+    }
+    
+    func beginPaging(){
+        
+        isPaging = true
+        page = page + 1
+        
+        // Section 1을 reload하여 로딩 셀을 보여줌 (페이징 진행 중인 것을 확인할 수 있도록)
+        DispatchQueue.main.async { [self] in
+            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        }
+
+        // 페이징 메소드 호출
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.requestGetRecords()
+        }
+    }
+}
+
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -194,7 +227,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
@@ -209,7 +242,6 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if(indexPath.section == 1){
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
             cell.startLoading()
@@ -337,7 +369,16 @@ extension ReviewViewController{
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)
-                self.records = data.content
+                if(self.page == 0){
+                    self.records = data.content
+                }else{
+                    if(data.empty){
+                        self.hasNextPage = false
+                        self.mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+                    }
+                    self.records.append(contentsOf: data.content)
+                }
+                self.isPaging = false
                 break
             default:
                 print("LOG: fail requestGetRecords", response)
