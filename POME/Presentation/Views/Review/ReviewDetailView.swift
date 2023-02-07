@@ -163,7 +163,7 @@ class ReviewDetailView: BaseView {
         tagLabel.text = record.goalPromiseBinding
         timeLabel.text = record.timeBinding
         priceLabel.text = record.priceBinding
-        memoLabel.text = record.oneLineMind
+        memoLabel.text = record.useComment
         
         firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
         secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
@@ -173,7 +173,7 @@ class ReviewDetailView: BaseView {
     }
     
     func setOthersReactionEmpty(){
-        othersReactionButton.backgroundColor = .white
+        othersReactionButton.setImage(.none, for: .normal)
         othersReactionButton.isEnabled = false
     }
     

@@ -24,6 +24,20 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
         $0.memoLabel.numberOfLines = 2
     }
     
+    override func prepareForReuse() {
+        mainView.tagLabel.text = ""
+        mainView.timeLabel.text = ""
+        mainView.priceLabel.text = ""
+        mainView.memoLabel.text = ""
+        mainView.othersReactionCountLabel.text = ""
+        
+        mainView.firstEmotionTag.setTagInfo(when: .first, state: .default)
+        mainView.secondEmotionTag.setTagInfo(when: .second, state: .default)
+        
+        mainView.myReactionButton.setImage(Image.emojiAdd, for: .normal)
+        mainView.othersReactionButton.setImage(.none, for: .normal)
+    }
+    
     override func setting(){
         super.setting()
         self.selectedBackgroundView = UIView()

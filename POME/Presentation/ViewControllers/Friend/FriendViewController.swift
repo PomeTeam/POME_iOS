@@ -17,12 +17,12 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     var page: Int = 0
     var isPaging: Bool = false
-    var hasNextPage: Bool = true
+    var hasNextPage: Bool = false
     
     var currentFriendIndex: Int = 0{
         didSet{
             page = 0
-            hasNextPage = true
+            hasNextPage = false
             currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
@@ -31,13 +31,14 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var friends = [FriendsResponseModel](){
         didSet{
             isTableViewEmpty()
-            if let friendsCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell{
+            if let friendsCell = friendView.tableView.cellForRow(at: [0,0], cellType: FriendListTableViewCell.self){
                 friendsCell.collectionView.reloadData()
             }
         }
     }
     var records = [RecordResponseModel](){
         didSet{
+            isPaging = false
             isTableViewEmpty()
             friendView.tableView.reloadData()
         }
@@ -111,12 +112,10 @@ extension FriendViewController{
         isPaging = true
         page = page + 1
         
-        // Section 1을 reload하여 로딩 셀을 보여줌 (페이징 진행 중인 것을 확인할 수 있도록)
         DispatchQueue.main.async { [self] in
             friendView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
 
-        // 페이징 메소드 호출
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.currentFriendIndex == 0 ? self.requestGetAllFriendsRecords() : self.requestGetFriendCards()
         }
@@ -151,7 +150,13 @@ extension FriendViewController{
                     self.recordRequestIsEmpty()
                     return
                 }
-                self.records = data
+                if(self.page == 0){
+                    self.records = data
+                }else{
+                    self.records.append(contentsOf: data)
+                }
+                self.hasNextPage = true
+                return
             default:
                 break
             }
@@ -173,7 +178,12 @@ extension FriendViewController{
                     self.recordRequestIsEmpty()
                     return
                 }
-                self.records = data
+                if(self.page == 0){
+                    self.records = data
+                }else{
+                    self.records.append(contentsOf: data)
+                }
+                self.hasNextPage = true
                 break
             default:
                 break

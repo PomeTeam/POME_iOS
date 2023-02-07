@@ -29,14 +29,6 @@ class FriendTableViewCell: BaseTableViewCell {
     
     //MARK: - LifeCycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func prepareForReuse() {
         mainView.nameLabel.text = ""
         mainView.goalPromiseLabel.text = ""
@@ -45,7 +37,11 @@ class FriendTableViewCell: BaseTableViewCell {
         mainView.memoLabel.text = ""
         mainView.othersReactionCountLabel.text = ""
         
+        mainView.firstEmotionTag.setTagInfo(when: .first, state: .default)
+        mainView.secondEmotionTag.setTagInfo(when: .second, state: .default)
+        
         mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
+        mainView.othersReactionButton.setImage(.none, for: .normal)
     }
     
     //MARK: - Action
