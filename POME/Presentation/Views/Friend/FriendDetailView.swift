@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 class FriendDetailView: BaseView {
     
@@ -15,7 +15,10 @@ class FriendDetailView: BaseView {
     let marginView = UIView()
     
     let profileImage = UIImageView().then{
-        $0.backgroundColor = Color.grey4
+        $0.image = Image.photoDefault
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 30/2
+        $0.contentMode = .scaleAspectFill
     }
     
     //user stackView
@@ -99,8 +102,9 @@ class FriendDetailView: BaseView {
     
     //MARK: - Method
     
-    func dataBinding(with record: RecordResponseModel){
+    func dataBinding(image: String?, with record: RecordResponseModel){
         
+        profileImage.kf.setImage(with: URL(string: image ?? ""), placeholder: Image.photoDefault)
         nameLabel.text = record.nickname
         goalPromiseLabel.text = record.goalPromiseBinding
         timeLabel.text = record.timeBinding
