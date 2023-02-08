@@ -16,12 +16,12 @@ struct GoalResponseModel: Decodable {
     let oneLineMind: String
     let price: Int
     let startDate: String
-    let isEnd: Bool
     let usePrice: Int
     let oneLineComment: String?
 }
 
 extension GoalResponseModel{
+    
     static let numberFormatter = NumberFormatter().then{
         $0.numberStyle = .decimal
     }
@@ -45,5 +45,9 @@ extension GoalResponseModel{
         var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.price)) ?? ""
         
         return "· \(result)원"
+    }
+    
+    var isEnd: Bool{
+        PomeDateFormatter.isDateEnd(self.endDate)
     }
 }
