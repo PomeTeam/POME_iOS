@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
 
@@ -34,6 +35,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
             if let friendsCell = friendView.tableView.cellForRow(at: [0,0], cellType: FriendListTableViewCell.self){
                 friendsCell.collectionView.reloadData()
             }
+            constructImageData()
         }
     }
     var records = [RecordResponseModel](){
@@ -41,6 +43,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
             isPaging = false
             isTableViewEmpty()
             friendView.tableView.reloadData()
+        }
+    }
+    
+    var friendsImage = [String : String]()
+    private func constructImageData(){
+        friends.forEach{
+            friendsImage[$0.friendNickName] = $0.imageKey
         }
     }
     
@@ -230,8 +239,9 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.profileImage.image = Image.categoryInactive
             cell.nameLabel.text = "전체"
         }else{ //친구 목록 - 친구인 경우
-            cell.nameLabel.text = friends[indexPath.row - 1].friendNickName
-            //TODO: - 친구 이미지 바인딩
+            let friend = friends[indexPath.row - 1]
+            cell.nameLabel.text = friend.friendNickName
+            cell.profileImage.kf.setImage(with: URL(string: friend.imageKey), placeholder: Image.photoDefault)
         }
         
         if(indexPath.row == currentFriendIndex){
@@ -301,14 +311,15 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         let record = records[cardIndex]
     
         cell.delegate = self
-        cell.mainView.dataBinding(with: record)
+        cell.mainView.dataBinding(image: friendsImage[record.nickname], with: record)
                 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataIndex = dataIndexBy(indexPath)
-        let vc = FriendDetailViewController(record: records[dataIndex])
+        let record = records[dataIndex]
+        let vc = FriendDetailViewController(image: friendsImage[record.nickname], record: record)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
