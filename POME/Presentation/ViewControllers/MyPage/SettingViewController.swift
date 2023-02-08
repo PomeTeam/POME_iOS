@@ -65,16 +65,7 @@ class SettingViewController: BaseViewController {
         dialog.okBtn.addTarget(self, action: #selector(logoutButtonDidTap), for: .touchUpInside)
     }
     @objc func logoutButtonDidTap() {
-        // TODO: 로그아웃 API 요청
-        // 유저 정보 삭제
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.token)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.userId)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.nickName)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.profileImg)
-        UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNum)
-        
-        self.navigationController?.pushViewController(OnboardingViewController(), animated: true)
-        self.dismiss(animated: false)
+        self.logout()
     }
 }
 // MARK: - TableView delegate
@@ -175,5 +166,32 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             print("")
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+// MARK: - API
+extension SettingViewController {
+    func logout() {
+        UserService.shared.logout { result in
+            switch result{
+            case .success(let data):
+                if data.self {
+                    print("로그아웃 성공")
+                    // 유저 정보 삭제
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.token)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userId)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.nickName)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.profileImg)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNum)
+                    
+                    self.navigationController?.pushViewController(OnboardingViewController(), animated: true)
+                    self.dismiss(animated: false)
+                }
+                
+                break
+            default:
+                print(result)
+                break
+            }
+        }
     }
 }
