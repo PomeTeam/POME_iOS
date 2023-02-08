@@ -43,6 +43,7 @@ enum HTTPMethodURL {
         
         static let signUp = HTTPMethodURL.userURL + "/sign-up"
         static let signIn = HTTPMethodURL.userURL + "/sign-in"
+        static let logout = HTTPMethodURL.userURL + "/logout"
         static let friend = HTTPMethodURL.friendURL
         static let nicknameDuplicate = HTTPMethodURL.userURL + "/check-nickname"
         static let sms = "/sms/send"
@@ -64,6 +65,7 @@ enum HTTPMethodURL {
         static let goal = HTTPMethodURL.goalsURL
         static let friend = HTTPMethodURL.friendURL
         static let goalCategory = HTTPMethodURL.goalCategoryURL
+        static let deleteUser = HTTPMethodURL.userURL
     }
     
     
