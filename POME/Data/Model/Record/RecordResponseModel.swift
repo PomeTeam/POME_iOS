@@ -47,7 +47,9 @@ extension RecordResponseModel{
     }
     
     var priceBinding: String{
-        "\(self.usePrice)원"
+        // 가격 콤마 표시
+        var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.usePrice)) ?? ""
+        return "\(result)원"
     }
     
     var firstEmotionBinding: EmotionTag{

@@ -59,7 +59,6 @@ extension DeleteUserViewController: UITableViewDelegate, UITableViewDataSource {
         cell.checkButton.isSelected = indexPath.row == self.selectedIdx ?? -1 ? true : false
         
         return cell
-        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54 + 12

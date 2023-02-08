@@ -11,7 +11,8 @@ import UIKit
 class DeleteUserDetailView: BaseView {
     // MARK: - Views
     let titleLabel = UILabel().then{
-        $0.text = "OO님 잠깐만요!\n삭제하기 전에 읽어보세요."
+        let nickname = UserManager.nickName ?? ""
+        $0.text = "\(nickname)님 잠깐만요!\n삭제하기 전에 읽어보세요."
         $0.numberOfLines = 0
         $0.setTypoStyleWithMultiLine(typoStyle: .title1)
         $0.textColor = Color.title

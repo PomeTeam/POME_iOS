@@ -85,7 +85,9 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     }
     
     override func topBtnDidClicked() {
-        self.navigationController?.pushViewController(FriendSearchViewController(), animated: true)
+        let vc = FriendSearchViewController()
+        vc.isFromRegister = false
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: - Method

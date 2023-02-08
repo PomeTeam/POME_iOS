@@ -117,7 +117,7 @@ extension AllRecordsViewController {
             switch result{
             case .success(let data):
                 print("LOG: 씀씀이 조회", data)
-                self.recordsOfGoal = data
+                self.recordsOfGoal = data.content
                 self.allRecordsView.allRecordsTableView.reloadData()
                 self.setUpContent()
                 

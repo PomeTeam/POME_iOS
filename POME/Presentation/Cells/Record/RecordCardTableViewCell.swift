@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class RecordCardTableViewCell: BaseTableViewCell {
     let backView = UIView().then{
@@ -25,7 +26,6 @@ class RecordCardTableViewCell: BaseTableViewCell {
         $0.textColor = Color.title
     }
     let contentLabel = UILabel().then{
-        $0.text = "아휴 힘빠져 이젠 진짜 포기다 포기 도대체 뭐가 문제일까 현실을 되돌아볼 필요를 느낀다ㅠ 이정도 노력했으면 된거아"
         $0.setTypoStyleWithMultiLine(typoStyle: .body2)
         $0.textColor = Color.body
         $0.numberOfLines = 2
@@ -37,6 +37,12 @@ class RecordCardTableViewCell: BaseTableViewCell {
     }
     let menuButton = UIButton().then{
         $0.setImage(Image.moreHorizontal, for: .normal)
+    }
+    let viewMoreButton = UIButton().then{
+        $0.setTitle("더보기", for: .normal)
+        $0.titleLabel?.setTypoStyleWithSingleLine(typoStyle: .body2)
+        $0.setTitleColor(Color.grey6, for: .normal)
+        $0.isHidden = true
     }
 
     //MARK: - LifeCycle
@@ -67,6 +73,8 @@ class RecordCardTableViewCell: BaseTableViewCell {
         backView.addSubview(contentLabel)
         backView.addSubview(dateLabel)
         backView.addSubview(menuButton)
+        
+        backView.addSubview(viewMoreButton)
     }
     override func layout() {
         super.layout()
@@ -74,7 +82,7 @@ class RecordCardTableViewCell: BaseTableViewCell {
         backView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.bottom.equalToSuperview().inset(6)
-            make.height.equalTo(182)
+            make.height.greaterThanOrEqualTo(182)
         }
         firstEmotion.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
@@ -93,10 +101,6 @@ class RecordCardTableViewCell: BaseTableViewCell {
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(firstEmotion.snp.bottom).offset(14)
         }
-        contentLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(priceLabel.snp.bottom).offset(4)
-        }
         dateLabel.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview().inset(16)
         }
@@ -105,22 +109,51 @@ class RecordCardTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-14)
         }
+        viewMoreButton.snp.makeConstraints { make in
+            make.height.equalTo(22)
+            make.leading.equalToSuperview().offset(16)
+            make.bottom.equalTo(menuButton.snp.top).offset(-16)
+        }
+        contentLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.top.equalTo(priceLabel.snp.bottom).offset(4)
+            make.bottom.equalTo(viewMoreButton.snp.top).offset(-6)
+        }
     }
     func setUpData(_ data: RecordResponseModel) {
-        let price = data.usePrice
         let content = data.useComment
         
-        // 가격 콤마 표시
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let result = numberFormatter.string(from: NSNumber(value: price)) ?? ""
-        priceLabel.text = result + "원"
+        priceLabel.text = data.priceBinding
         
         contentLabel.text = content
+        // 2줄이 넘어가면 더보기 버튼 보이게
+        viewMoreButton.isHidden = contentLabel.countCurrentLines() > 2 ? false : true
+        
         dateLabel.text = data.timeBinding.components(separatedBy: ["·"]).joined()
         
         
         firstEmotion.setTagInfo(when: .first, state: data.firstEmotionBinding)
         nextEmotion.setTagInfo(when: .second, state: data.secondEmotionBinding)
+    }
+    // MARK: 클릭 상태에 따라 텍스트 줄 수 제한
+    func settingHeight(isClicked: ExpandingTableViewCellContent) {
+        if isClicked.expanded == true {
+            self.contentLabel.numberOfLines = 0
+            viewMoreButton.isHidden = true
+            viewMoreButton.snp.updateConstraints { make in
+                make.height.equalTo(0)
+            }
+        } else {
+            self.contentLabel.numberOfLines = 2
+            viewMoreButton.isHidden = contentLabel.countCurrentLines() > 2 ? false : true
+        }
+    }
+}
+// MARK: - Dynamic Cell Height Class
+class ExpandingTableViewCellContent {
+    var expanded: Bool
+
+    init() {
+        self.expanded = false
     }
 }

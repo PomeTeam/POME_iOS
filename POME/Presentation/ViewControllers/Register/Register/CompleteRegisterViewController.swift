@@ -80,6 +80,7 @@ class CompleteRegisterViewController: UIViewController {
         addButton.rx.tap
             .bind {
                 let vc = FriendSearchViewController()
+                vc.isFromRegister = true
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
