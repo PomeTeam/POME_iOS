@@ -64,8 +64,8 @@ extension RecordRouter{
                                                                         return .requestParameters(parameters: ["page" : pageable.page,
                                                                                                                "size" : pageable.size,
                                                                                                                "sort" : pageable.sort,
-                                                                                                               "firstEmotion": firstEmotion ?? "",
-                                                                                                               "secondEmotion": secondEmotion ?? ""],
+                                                                                                               "first_emotion": firstEmotion ?? "",
+                                                                                                               "second_emotion": secondEmotion ?? ""],
                                                                                                   encoding: URLEncoding.queryString)
         case .getNoSecondEmoRecords:                                    return .requestPlain
         case .postSecondEmotion(_, let param):                          return .requestJSONEncodable(param)
