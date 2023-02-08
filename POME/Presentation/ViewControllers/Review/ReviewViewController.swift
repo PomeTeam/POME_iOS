@@ -168,7 +168,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].goalNameBinding
     
-        currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isEnd)
+        currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         
         return cell
     }
@@ -188,7 +188,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
         if(currentGoal == 0 && indexPath.row != 0){
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
-            cell.setUnselectState(with: goals[indexPath.row].isEnd)
+            cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         }
         currentGoal = indexPath.row
         cell.setSelectState()
@@ -196,7 +196,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
-        cell.setUnselectState(with: goals[indexPath.row].isEnd)
+        cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
     }
 }
 

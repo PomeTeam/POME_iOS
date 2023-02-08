@@ -11,6 +11,7 @@ struct GoalResponseModel: Decodable {
     let endDate: String
     let goalCategoryResponse: GoalCategoryResponseModel
     let id: Int
+    let isEnd: Bool
     let isPublic: Bool
     let nickname: String
     let oneLineMind: String
@@ -45,7 +46,7 @@ extension GoalResponseModel{
         return "· \(result)원"
     }
     
-    var isEnd: Bool{
+    var isGoalEnd: Bool{
         PomeDateFormatter.isDateEnd(self.endDate)
     }
 }
