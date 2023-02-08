@@ -32,7 +32,7 @@ struct FriendReactionResponseModel: Decodable{
 
 extension RecordResponseModel{
     
-    var goalPromiseBinding: String{
+    var friendGoalMindBinding: String{
         "· \(self.oneLineMind)"
     }
     
