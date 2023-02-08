@@ -132,7 +132,7 @@ extension RecordEmotionViewController {
             case .success(let data):
 //                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
                 
-                self.noSecondEmotionRecord = data
+                self.noSecondEmotionRecord = data.content
                 self.recordEmotionView.recordEmotionTableView.reloadData()
 
                 break

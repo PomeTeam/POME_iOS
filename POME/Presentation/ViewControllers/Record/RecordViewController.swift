@@ -166,7 +166,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.goalCategoryLabel.text = categories[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if isGoalDateEnd(goalContent[itemIdx]) {cell.setInactivateState()} // 기한이 지난 목표일 때
+        else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
         else {cell.setUnselectState()}
         
         return cell
@@ -257,7 +257,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             // MARK: 기간이 지난 목표 셀
-            if isGoalDateEnd(goalContent[self.categorySelectedIdx]) {
+            if goalContent[self.categorySelectedIdx].isGoalEnd {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
                 finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
@@ -365,7 +365,7 @@ extension RecordViewController {
             case .success(let data):
 //                print("LOG: 씀씀이 조회", data)
                 // Paging 때문에 append하는 방식으로 작업
-                for recordData in data {
+                for recordData in data.content {
                     self.recordsOfGoal.append(recordData)
                 }
                 self.getNoSecondEmotionRecords(id: id)
@@ -392,7 +392,7 @@ extension RecordViewController {
             case .success(let data):
 //                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
                 
-                self.noSecondEmotionRecords = data
+                self.noSecondEmotionRecords = data.content
                 self.recordView.recordTableView.reloadData()
 
                 break
@@ -401,9 +401,5 @@ extension RecordViewController {
                 break
             }
         }
-    }
-    // MARK: 종료 날짜가 오늘보다 이전인 지 확인
-    private func isGoalDateEnd(_ data: GoalResponseModel) -> Bool {
-        PomeDateFormatter.isDateEnd(data.endDate)
     }
 }
