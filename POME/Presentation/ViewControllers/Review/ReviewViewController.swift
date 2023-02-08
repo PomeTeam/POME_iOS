@@ -19,8 +19,13 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var isPaging: Bool = false
     var hasNextPage: Bool = false
     
-    let filterInitialState = -1
-    var filterController: (Int, Int)!
+    var filterController: (Int?, Int?) = (nil, nil){
+        didSet{
+            page = 0
+            hasNextPage = false
+            requestGetRecords()
+        }
+    }
     var currentEmotionSelectCardIndex: Int?
     var currentGoal: Int = 0{
         didSet{
@@ -66,8 +71,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
         mainView.tableView.separatorStyle = .none
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
-        
-        filterController = (filterInitialState, filterInitialState)
     }
     
     override func topBtnDidClicked() {
@@ -111,7 +114,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
                     let emotion = EmotionTag(rawValue: emotion) else { return }
             
             filterView.setFilterSelectState(emotion: emotion)
-            self.filterRecordsByEmotion()
         }
         
         _ = sheet.loadAndShowBottomSheet(in: self)
@@ -121,23 +123,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
         guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
         cell.firstEmotionFilter.setFilterDefaultState()
         cell.secondEmotionFilter.setFilterDefaultState()
-        filterController = (filterInitialState, filterInitialState)
-    }
-    
-    private func filterRecordsByEmotion(){
-        
-        var filter = records
-        
-        if(filterController.0 != filterInitialState){
-            filter = filter.filter({
-                $0.emotionResponse.firstEmotion == filterController.0
-            })
-        }
-        if(filterController.1 != filterInitialState){
-            filter = filter.filter({
-                $0.emotionResponse.secondEmotion == filterController.1
-            })
-        }
+        filterController = (nil, nil)
     }
 }
 
@@ -182,7 +168,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
         cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].goalNameBinding
     
-        currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState()
+        currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         
         return cell
     }
@@ -202,7 +188,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
         if(currentGoal == 0 && indexPath.row != 0){
             guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
-            cell.setUnselectState()
+            cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         }
         currentGoal = indexPath.row
         cell.setSelectState()
@@ -210,7 +196,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
-        cell.setUnselectState()
+        cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
     }
 }
 
@@ -355,7 +341,10 @@ extension ReviewViewController{
 
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
-        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, pageable: PageableModel(page: page)){ response in
+        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
+                                                         firstEmotion: filterController.0,
+                                                         secondEmotion: filterController.1,
+                                                         pageable: PageableModel(page: page)){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)

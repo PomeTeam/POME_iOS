@@ -72,10 +72,7 @@ class GoalDetailTableViewCell: BaseTableViewCell{
     
     func bindingData(goal: GoalResponseModel){
         goal.isPublic ? goalIsPublicLabel.setPublicState() : goalIsPublicLabel.setLockState()
-        
         goalTitleLabel.text = goal.oneLineMind
-        
-        //TODO: 시간 계산 메서드 생성 및 데이터 바인딩
         goalRemainDateLabel.setRemainDate(diff: goal.remainDateBinding)
     }
 }

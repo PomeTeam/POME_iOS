@@ -21,23 +21,10 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     }
     
     //MARK: - LifeCycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setUnselectState()
+    override func prepareForReuse() {
+        goalCategoryLabel.text = ""
+        setInactivateState()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-//    override var isSelected: Bool {
-//        didSet {
-//            if isSelected {self.setSelectState()}
-//            else {self.setUnselectState()}
-//        }
-//    }
     
     //MARK: - Method
     
@@ -49,6 +36,11 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     func setUnselectState(){
         goalCategoryView.backgroundColor = .white
         goalCategoryLabel.textColor = Color.grey5
+    }
+    
+    func setUnselectState(with isEnd: Bool){
+        goalCategoryView.backgroundColor = .white
+        goalCategoryLabel.textColor = isEnd ? Color.grey3 : Color.grey5
     }
     
     func setInactivateState(){

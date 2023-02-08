@@ -45,13 +45,13 @@ extension FriendService{
         }
     }
     
-    func getFriendRecord(id: String, pageable: PageableModel, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+    func getFriendRecord(id: String, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
         requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable)){ response in
             completion(response)
         }
     }
     
-    func getAllFriendsRecord(pageable: PageableModel, completion: @escaping (NetworkResult<[RecordResponseModel]>) -> Void) {
+    func getAllFriendsRecord(pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
         requestDecoded(FriendRouter.getAllFriendsRecord(pageable: pageable)){ response in
             completion(response)
         }
