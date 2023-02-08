@@ -45,10 +45,37 @@ class DeleteUserDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     @objc func deleteUserDidTap() {
-        print("탈퇴 완료")
-        self.dismiss(animated: false)
-        
-        // TODO: 탈퇴 프로세스 추가 + 탈퇴 완료 후 온보딩으로 이동
+        deleteUser()
     }
 
+}
+
+// MARK: - API
+extension DeleteUserDetailViewController {
+    func deleteUser() {
+        UserService.shared.logout { result in
+            switch result{
+            case .success(let data):
+                if data.self {
+                    print("탈퇴 완료")
+                    self.dismiss(animated: false)
+                    
+                    // 유저 정보 삭제
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.token)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.userId)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.nickName)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.profileImg)
+                    UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNum)
+                    
+                    self.navigationController?.pushViewController(OnboardingViewController(), animated: true)
+                    self.dismiss(animated: false)
+                }
+                
+                break
+            default:
+                print(result)
+                break
+            }
+        }
+    }
 }

@@ -65,6 +65,7 @@ enum HTTPMethodURL {
         static let goal = HTTPMethodURL.goalsURL
         static let friend = HTTPMethodURL.friendURL
         static let goalCategory = HTTPMethodURL.goalCategoryURL
+        static let deleteUser = HTTPMethodURL.userURL
     }
     
     

@@ -13,6 +13,8 @@ enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
     case signIn(param: SignInRequestModel)
     case logout
+    case deleteUser
+    
     case sendSMS(param: PhoneNumRequestModel)
     case checkNickName(param: CheckNicknameRequestModel)
     case checkUser(param: PhoneNumRequestModel)
@@ -47,6 +49,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.checkUser
         case .logout:
             return HTTPMethodURL.POST.logout
+        case .deleteUser:
+            return HTTPMethodURL.DELETE.deleteUser
         default:
             return ""
         }
@@ -68,6 +72,8 @@ extension UserRouter{
             return .post
         case .logout:
             return .post
+        case .deleteUser:
+            return .delete
         }
     }
     
@@ -85,14 +91,14 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .getPresignedURLServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .logout:
+        case .logout, .deleteUser:
             return .requestPlain
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .logout:
+        case .logout, .deleteUser:
             let token = UserManager.token ?? ""
             let header = [
                 "Content-Type": "application/json",
