@@ -9,8 +9,6 @@ import Foundation
 
 class GoalTagsTableViewCell: BaseTableViewCell{
     
-    static let cellIdentifier = "GoalTagsTableViewCell"
-    
     let tagCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.minimumInteritemSpacing = 8
@@ -18,6 +16,7 @@ class GoalTagsTableViewCell: BaseTableViewCell{
             $0.scrollDirection = .horizontal
         }
         
+        $0.backgroundColor = Color.transparent
         $0.collectionViewLayout = flowLayout
         $0.showsHorizontalScrollIndicator = false
         $0.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
