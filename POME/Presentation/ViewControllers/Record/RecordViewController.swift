@@ -317,6 +317,7 @@ extension RecordViewController {
         GoalService.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
+                print("success goal:", data.content)
                 for x in data.content {
                     if !x.isEnd {
                         self.goalContent.append(x)

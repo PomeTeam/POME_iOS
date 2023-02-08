@@ -68,7 +68,7 @@ extension GoalRouter{
         case .deleteGoal:
             return .requestPlain
         case .getGoals:
-            return .requestPlain
+            return .requestParameters(parameters: ["sort": "endDate,desc"], encoding: URLEncoding.queryString)
         case .finishGoal(_, let param):
             return .requestJSONEncodable(param)
         case .getFinishedGoals:
