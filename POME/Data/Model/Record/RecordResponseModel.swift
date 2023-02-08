@@ -22,7 +22,7 @@ struct EmotionResponseModel: Decodable{
     let firstEmotion: Int
     let secondEmotion: Int?
     var myEmotion: Int?
-    let friendEmotions: [FriendReactionResponseModel]?
+    let friendEmotions: [FriendReactionResponseModel]
 }
 
 struct FriendReactionResponseModel: Decodable{
@@ -51,7 +51,7 @@ extension RecordResponseModel{
     }
     
     var firstEmotionBinding: EmotionTag{
-        EmotionTag(rawValue: self.emotionResponse.firstEmotion ?? 0) ?? .default
+        EmotionTag(rawValue: self.emotionResponse.firstEmotion) ?? .default
     }
     
     var secondEmotionBinding: EmotionTag{
@@ -66,15 +66,15 @@ extension RecordResponseModel{
     }
     
     var othersThumbnailReactionBinding: Reaction{
-        Reaction(rawValue: self.emotionResponse.friendEmotions?.first!.emotionId ?? 1) ?? .happy
+        Reaction(rawValue: self.emotionResponse.friendEmotions.first!.emotionId) ?? .happy
     }
     
     var othersReactionCountBinding: Int{
-        self.emotionResponse.friendEmotions!.count ?? 0
+        self.emotionResponse.friendEmotions.count
     }
     
     var friendReactions: [FriendReactionResponseModel]{
-        self.emotionResponse.friendEmotions ?? []
+        self.emotionResponse.friendEmotions
     }
 }
 
