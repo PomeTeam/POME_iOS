@@ -160,7 +160,7 @@ class ReviewDetailView: BaseView {
     
     func dataBinding(with record: RecordResponseModel){
 
-        tagLabel.text = record.goalPromiseBinding
+        tagLabel.text = record.oneLineMind
         timeLabel.text = record.timeBinding
         priceLabel.text = record.priceBinding
         memoLabel.text = record.useComment

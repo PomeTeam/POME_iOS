@@ -61,11 +61,17 @@ extension RecordRouter{
         case .getRecordsOfGoalByUserAtReviewTab(_, let firstEmotion,
                                                 let secondEmotion ,
                                                 let pageable):
-                                                                        return .requestParameters(parameters: ["page" : pageable.page,
-                                                                                                               "size" : pageable.size,
-                                                                                                               "sort" : pageable.sort,
-                                                                                                               "firstEmotion": firstEmotion ?? "",
-                                                                                                               "secondEmotion": secondEmotion ?? ""],
+            
+            var parameter: [String: Any] = ["page" : pageable.page,
+                                            "size" : pageable.size,
+                                            "sort" : pageable.sort]
+            if(firstEmotion != nil){
+                parameter["first_emotion"] = firstEmotion
+            }
+            if(secondEmotion != nil){
+                parameter["second_emotion"] = firstEmotion
+            }
+                                                                        return .requestParameters(parameters: parameter,
                                                                                                   encoding: URLEncoding.queryString)
         case .getNoSecondEmoRecords:                                    return .requestPlain
         case .postSecondEmotion(_, let param):                          return .requestJSONEncodable(param)
