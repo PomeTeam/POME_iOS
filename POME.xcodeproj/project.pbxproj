@@ -187,6 +187,7 @@
 		EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */; };
 		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
+		EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */; };
 		EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D0298799DB00077B28 /* PageableResponseModel.swift */; };
@@ -431,6 +432,7 @@
 		EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
+		EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileImageManager.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyContentViewController.swift; sourceTree = "<group>"; };
 		EE9505D0298799DB00077B28 /* PageableResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableResponseModel.swift; sourceTree = "<group>"; };
@@ -1261,6 +1263,7 @@
 		57C481E4296ABE46008731D9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EE79C29D29937C85006A9AA2 /* Friend */,
 				57397FBD296E780A0088B5F4 /* Record */,
 				57C481E5296ABE55008731D9 /* Goal */,
 			);
@@ -1444,6 +1447,14 @@
 				2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE79C29D29937C85006A9AA2 /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */,
+			);
+			path = Friend;
 			sourceTree = "<group>";
 		};
 		EE98F0B92980DEA6007BFCCD /* Repositories */ = {
@@ -1863,6 +1874,7 @@
 				57CCA78D292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift in Sources */,
 				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				EE98F0C92980E126007BFCCD /* UserDefault.swift in Sources */,
+				EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */,
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				EEE5F5EE2981276600ECD31B /* GoalRegisterRequestModel.swift in Sources */,
 				232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */,

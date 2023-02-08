@@ -9,14 +9,12 @@ import UIKit
 
 class FriendDetailViewController: BaseViewController {
     
-    let image: String
     var record: RecordResponseModel
     
     var emoijiFloatingView: EmojiFloatingView!
     let mainView = FriendDetailView()
     
-    init(image: String?, record: RecordResponseModel){
-        self.image = image ?? ""
+    init(record: RecordResponseModel){
         self.record = record
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,7 +32,7 @@ class FriendDetailViewController: BaseViewController {
         mainView.myReactionBtn.addTarget(self, action: #selector(presentEmojiFloatingView), for: .touchUpInside)
         mainView.othersReactionButton.addTarget(self, action: #selector(presentReactionSheet), for: .touchUpInside)
         mainView.moreButton.addTarget(self, action: #selector(presentEtcActionSheet), for: .touchUpInside)
-        mainView.dataBinding(image: image, with: record)
+        mainView.dataBinding(with: record)
     }
     
     override func layout() {

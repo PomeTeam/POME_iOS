@@ -12,6 +12,8 @@ class FriendDetailView: BaseView {
     
     //MARK: - UI
     
+    let profileImageManager = FriendProfileImageManager.shared
+    
     let marginView = UIView()
     
     let profileImage = UIImageView().then{
@@ -102,11 +104,13 @@ class FriendDetailView: BaseView {
     
     //MARK: - Method
     
-    func dataBinding(image: String?, with record: RecordResponseModel){
+    func dataBinding(with record: RecordResponseModel){
         
-        profileImage.kf.setImage(with: URL(string: image ?? ""), placeholder: Image.photoDefault)
+        let imageUrl = profileImageManager.getProfileImage(nickname: record.nickname)
+        
+        profileImage.kf.setImage(with: URL(string: imageUrl), placeholder: Image.photoDefault)
         nameLabel.text = record.nickname
-        goalPromiseLabel.text = record.goalPromiseBinding
+        goalPromiseLabel.text = record.friendGoalMindBinding
         timeLabel.text = record.timeBinding
         priceLabel.text = record.priceBinding
         memoLabel.text = record.useComment

@@ -35,7 +35,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
             if let friendsCell = friendView.tableView.cellForRow(at: [0,0], cellType: FriendListTableViewCell.self){
                 friendsCell.collectionView.reloadData()
             }
-            constructImageData()
+            friendImageManager.construct(by: friends)
         }
     }
     var records = [RecordResponseModel](){
@@ -46,12 +46,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
         }
     }
     
-    var friendsImage = [String : String]()
-    private func constructImageData(){
-        friends.forEach{
-            friendsImage[$0.friendNickName] = $0.imageKey
-        }
-    }
+    let friendImageManager = FriendProfileImageManager.shared
     
     //MARK: - UI
     
@@ -313,7 +308,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         let record = records[cardIndex]
     
         cell.delegate = self
-        cell.mainView.dataBinding(image: friendsImage[record.nickname], with: record)
+        cell.mainView.dataBinding(with: record)
                 
         return cell
     }
@@ -321,7 +316,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataIndex = dataIndexBy(indexPath)
         let record = records[dataIndex]
-        let vc = FriendDetailViewController(image: friendsImage[record.nickname], record: record)
+        let vc = FriendDetailViewController(record: record)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
