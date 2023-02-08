@@ -15,6 +15,9 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     //MARK: - UI
     let profileImage = UIImageView().then{
         $0.image = Image.photoDefault
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 48/2
+        $0.contentMode = .scaleAspectFill
     }
     
     let nameLabel = UILabel().then{
