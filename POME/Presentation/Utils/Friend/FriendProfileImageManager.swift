@@ -9,7 +9,19 @@ import Foundation
 
 class FriendProfileImageManager{
     
+    private var friendsImage = [String : String]()
+    
     static let shared = FriendProfileImageManager()
     
     private init() {}
+    
+    func construct(by friends: [FriendsResponseModel]){
+        friends.forEach{
+            friendsImage[$0.friendNickName] = $0.imageKey
+        }
+    }
+    
+    func getProfileImage(nickname: String) -> String{
+        friendsImage[nickname] ?? ""
+    }
 }
