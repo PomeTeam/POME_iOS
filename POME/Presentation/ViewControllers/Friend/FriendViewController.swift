@@ -148,16 +148,7 @@ extension FriendViewController{
             switch response {
             case .success(let data):
                 print("LOG: success requestGetAllFriendsRecords", data)
-                if(data.isEmpty){
-                    self.recordRequestIsEmpty()
-                    return
-                }
-                if(self.page == 0){
-                    self.records = data
-                }else{
-                    self.records.append(contentsOf: data)
-                }
-                self.hasNextPage = true
+                self.processResponseGetRecords(data: data)
                 return
             default:
                 break
@@ -176,16 +167,7 @@ extension FriendViewController{
             switch result{
             case .success(let data):
                 print("LOG: success requestGetFriendCards", data)
-                if(data.isEmpty){
-                    self.recordRequestIsEmpty()
-                    return
-                }
-                if(self.page == 0){
-                    self.records = data
-                }else{
-                    self.records.append(contentsOf: data)
-                }
-                self.hasNextPage = true
+                self.processResponseGetRecords(data: data)
                 break
             default:
                 break
@@ -193,9 +175,23 @@ extension FriendViewController{
         }
     }
     
+    private func processResponseGetRecords(data: PageableResponseModel<RecordResponseModel>){
+        
+        hasNextPage = !data.last
+        
+        if(page == 0){
+            records = data.content
+        }else{
+            records.append(contentsOf: data.content)
+        }
+        
+        if(data.empty){
+            recordRequestIsEmpty()
+        }
+    }
+    
     func recordRequestIsEmpty() {
         isPaging = false
-        hasNextPage = false
         friendView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
     }
     

@@ -11,17 +11,18 @@ struct GoalResponseModel: Decodable {
     let endDate: String
     let goalCategoryResponse: GoalCategoryResponseModel
     let id: Int
+    let isEnd: Bool
     let isPublic: Bool
     let nickname: String
     let oneLineMind: String
     let price: Int
     let startDate: String
-    let isEnd: Bool
     let usePrice: Int
     let oneLineComment: String?
 }
 
 extension GoalResponseModel{
+    
     static let numberFormatter = NumberFormatter().then{
         $0.numberStyle = .decimal
     }
@@ -36,14 +37,16 @@ extension GoalResponseModel{
     
     var usePriceBinding: String{
         // 가격 콤마 표시
-        var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.usePrice)) ?? ""
-        
+        let result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.usePrice)) ?? ""
         return "\(result)원"
     }
     var priceBinding: String {
         // 가격 콤마 표시
-        var result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.price)) ?? ""
-        
+        let result = GoalResponseModel.numberFormatter.string(from: NSNumber(value: self.price)) ?? ""
         return "· \(result)원"
+    }
+    
+    var isGoalEnd: Bool{
+        PomeDateFormatter.isDateEnd(self.endDate)
     }
 }
