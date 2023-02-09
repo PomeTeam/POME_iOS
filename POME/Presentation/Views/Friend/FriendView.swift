@@ -53,8 +53,6 @@ extension FriendView{
     
     class FriendListTableViewCell: BaseTableViewCell{
         
-        static let cellIdentifier = "FriendListTableViewCell"
-        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
             
             let flowLayout = UICollectionViewFlowLayout().then{
@@ -66,7 +64,7 @@ extension FriendView{
             
             $0.collectionViewLayout = flowLayout
             $0.showsHorizontalScrollIndicator = false
-            $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 16)
+            $0.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             
             $0.register(FriendCollectionViewCell.self, forCellWithReuseIdentifier: FriendCollectionViewCell.cellIdentifier)
             

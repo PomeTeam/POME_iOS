@@ -10,6 +10,11 @@ import RxSwift
 
 class GoalContentViewController: BaseViewController {
     
+    enum GoalError: String{
+        case duplicateGoal = "G0004" //Goal 생성 시, 이미 등록된 Goal-Category 명으로 등록한 경우
+        case `default`
+    }
+    
     private let mainView = GoalContentView()
     private let viewModel = GoalContentRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
     private var goalDataManager = GoalRegisterRequestManager.shared
@@ -95,7 +100,6 @@ class GoalContentViewController: BaseViewController {
     private func closeButtonDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
-            self.goalDataManager.initialize()
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -147,21 +151,42 @@ extension GoalContentViewController{
             case .success:
                 print("LOG: success requestGenerateGoal")
                 self.processResponseGenerateGoal()
-                break
-                //TODO: - 실패 케이스별 로직 처리
-            case.invalidSuccess(let code):
-                print(code)
-                break
+                return
+            case.invalidSuccess(let code, let message):
+                print("LOG: invalidSuccess requestGenerateGoal", message)
+                self.checkErrorCode(code){ error in
+                    switch error{
+                    case .duplicateGoal:
+                        self.processResponseDuplicateGoal()
+                        return
+                    default:
+                        break
+                    }
+                }
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateGoal()
+                }
                 break
             }
         }
     }
     
     private func processResponseGenerateGoal(){
-        goalDataManager.initialize()
         let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func checkErrorCode(_ code: String, closure: (GoalError) -> Void){
+        let error = GoalError(rawValue: code) ?? .default
+        closure(error)
+    }
+    
+    private func processResponseDuplicateGoal(){
+        let sheet = RecordBottomSheetViewController(Image.flagMint,
+                                                    "이미 동일한 목표가 있어요",
+                                                    "새로운 목표를 만들어 기록을 작성해보세요!")
+        _ = sheet.loadAndShowBottomSheet(in: self)
     }
 }
