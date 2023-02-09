@@ -100,7 +100,6 @@ class GoalContentViewController: BaseViewController {
     private func closeButtonDidClicked(){
         let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
         dialog.completion = {
-            self.goalDataManager.initialize()
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -152,19 +151,18 @@ extension GoalContentViewController{
             case .success:
                 print("LOG: success requestGenerateGoal")
                 self.processResponseGenerateGoal()
-                break
-                //TODO: - 실패 케이스별 로직 처리
+                return
             case.invalidSuccess(let code, let message):
                 print("LOG: invalidSuccess requestGenerateGoal", message)
                 self.checkInvalidationCode(code){ error in
                     switch error{
                     case .G0004:
                         self.processResponseDuplicateGoal()
+                        return
                     default:
                         break
                     }
                 }
-                break
             default:
                 print(result)
                 break
@@ -173,7 +171,6 @@ extension GoalContentViewController{
     }
     
     private func processResponseGenerateGoal(){
-        goalDataManager.initialize()
         let vc = RegisterSuccessViewController(type: .goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }

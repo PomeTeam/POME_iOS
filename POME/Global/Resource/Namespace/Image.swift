@@ -121,6 +121,9 @@ enum Image{
     public static let addComplete = UIImage(named: "addComplete")!
     
     // MARK: - Record
+    
+    public static let error = UIImage(named: "error")!
+    
     public static let alarm = UIImage(named: "alarm")!
 
     public static let writingBtn = UIImage(named: "btn_writing")!

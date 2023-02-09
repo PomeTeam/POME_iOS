@@ -20,6 +20,10 @@ class GoalDateViewController: BaseViewController {
     
     //MARK: - Override
     
+    override func viewWillAppear(_ animated: Bool) {
+        goalDataManager.initialize()
+    }
+    
     override func layout() {
         
         super.layout()

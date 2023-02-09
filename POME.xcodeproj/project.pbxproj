@@ -212,6 +212,7 @@
 		EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E72980F043007BFCCD /* FriendService.swift */; };
 		EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E929810212007BFCCD /* BaseReqestModel.swift */; };
 		EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0EB2981024D007BFCCD /* PageableModel.swift */; };
+		EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */; };
 		EEB13B6F297F96FE001A8DD9 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */; };
 		EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */; };
 		EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */; };
@@ -457,6 +458,7 @@
 		EE98F0E72980F043007BFCCD /* FriendService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendService.swift; sourceTree = "<group>"; };
 		EE98F0E929810212007BFCCD /* BaseReqestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReqestModel.swift; sourceTree = "<group>"; };
 		EE98F0EB2981024D007BFCCD /* PageableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableModel.swift; sourceTree = "<group>"; };
+		EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorAlertViewController.swift; sourceTree = "<group>"; };
 		EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 		EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestModel.swift; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 			children = (
 				574E615F29718ADE002BCDAF /* AlertInfo.swift */,
 				2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */,
+				EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */,
 				235B3972292D6288003ACA01 /* TextPopUpViewController.swift */,
 				23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */,
 			);
@@ -1907,6 +1910,7 @@
 				EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
+				EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */,
 				575DE96E2976CC7500E61B8F /* FriendViewModel.swift in Sources */,
 				57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */,
 				232C1C922990CE850087B81A /* DeleteUserTableViewCell.swift in Sources */,

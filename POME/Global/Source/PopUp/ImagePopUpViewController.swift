@@ -38,20 +38,8 @@ class ImagePopUpViewController: UIViewController {
     }
     var cancelBtn: UIButton!
     var okBtn: UIButton!
+    
     // MARK: - Life Cycles
-//    convenience init(imageValue: UIImage? = nil,
-//                     titleText: String? = nil,
-//                     messageText: String? = nil,
-//                     greenBtnText: String? = nil,
-//                     grayBtnText: String? = nil) {
-//        self.init()
-//
-//        self.imageValue = imageValue
-//        self.titleText = titleText
-//        self.messageText = messageText
-//        self.greenBtnText = greenBtnText
-//        self.grayBtnText = grayBtnText
-//    }
     
     init(imageValue: UIImage,
          titleText: String,
@@ -133,7 +121,7 @@ class ImagePopUpViewController: UIViewController {
         popupView.addSubview(cancelBtn)
         popupView.addSubview(okBtn)
     }
-    private func setUpConstraint() {
+    func setUpConstraint() {
         popupView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(24)
             make.height.greaterThanOrEqualTo(148)
