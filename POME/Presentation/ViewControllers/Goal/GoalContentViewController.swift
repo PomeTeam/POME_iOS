@@ -11,7 +11,7 @@ import RxSwift
 class GoalContentViewController: BaseViewController {
     
     enum GoalError: String{
-        case G0004 //Goal 생성 시, 이미 등록된 Goal-Category 명으로 등록한 경우
+        case duplicateGoal = "G0004" //Goal 생성 시, 이미 등록된 Goal-Category 명으로 등록한 경우
         case `default`
     }
     
@@ -154,9 +154,9 @@ extension GoalContentViewController{
                 return
             case.invalidSuccess(let code, let message):
                 print("LOG: invalidSuccess requestGenerateGoal", message)
-                self.checkInvalidationCode(code){ error in
+                self.checkErrorCode(code){ error in
                     switch error{
-                    case .G0004:
+                    case .duplicateGoal:
                         self.processResponseDuplicateGoal()
                         return
                     default:
@@ -165,6 +165,9 @@ extension GoalContentViewController{
                 }
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateGoal()
+                }
                 break
             }
         }
@@ -175,7 +178,7 @@ extension GoalContentViewController{
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    private func checkInvalidationCode(_ code: String, closure: (GoalError) -> Void){
+    private func checkErrorCode(_ code: String, closure: (GoalError) -> Void){
         let error = GoalError(rawValue: code) ?? .default
         closure(error)
     }
