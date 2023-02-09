@@ -26,6 +26,18 @@ extension UserService{
         }
     }
     
+    func logout(completion: @escaping (NetworkResult<Bool>) -> Void) {
+        requestDecoded(UserRouter.logout){ response in
+            completion(response)
+        }
+    }
+    
+    func deleteUser(completion: @escaping (NetworkResult<Bool>) -> Void) {
+        requestDecoded(UserRouter.deleteUser){ response in
+            completion(response)
+        }
+    }
+    
     func sendSMS(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
         requestDecoded(UserRouter.sendSMS(param: model)) { response in
             completion(response)
