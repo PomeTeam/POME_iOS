@@ -149,7 +149,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             LinkManager(self, .report)
         case 6:
             // TODO: 약관 및 정책
-            print("")
+            LinkManager(self, .privacyAndServiceUse)
         case 7:
             // TODO: 오픈소스 라이센스
             print("")

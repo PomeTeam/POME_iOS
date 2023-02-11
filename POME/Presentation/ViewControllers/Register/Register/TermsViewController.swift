@@ -59,8 +59,7 @@ class TermsViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func userTermButtonDidTap(sender: UITapGestureRecognizer) {
-        // TODO: 개인정보 동의 노션 페이지 랜딩
-        self.navigationController?.pushViewController(TermDetailViewController(), animated: true)
+        LinkManager(self, .serviceUse)
     }
     @objc func privTermButtonDidTap(sender: UITapGestureRecognizer) {
         LinkManager(self, .privacyTerm)

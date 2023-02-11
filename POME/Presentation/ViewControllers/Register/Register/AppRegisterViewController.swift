@@ -76,6 +76,11 @@ class AppRegisterViewController: BaseViewController {
             .bind {self.codeSendButtonDidTap()}
             .disposed(by: disposeBag)
         
+        // 인증번호가 오지 않나요?
+        appRegisterView.notSendedButton.rx.tap
+            .bind {LinkManager(self, .codeError)}
+            .disposed(by: disposeBag)
+        
         // 동의하고 시작하기 버튼
         appRegisterView.nextButton.rx.tap
             .bind {self.nextButtonDidTap()}
