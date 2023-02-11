@@ -86,6 +86,9 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
+        page = 0
+        hasNextPage = false
+        
         let sheet: EmotionFilterSheetViewController!
         var emotionTime: EmotionTime!
         
@@ -341,6 +344,7 @@ extension ReviewViewController{
 
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
+        print(filterController.0, filterController.1, "request")
         RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
                                                          firstEmotion: filterController.0,
                                                          secondEmotion: filterController.1,
