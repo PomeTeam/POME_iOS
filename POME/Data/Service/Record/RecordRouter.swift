@@ -69,7 +69,7 @@ extension RecordRouter{
                 parameter["first_emotion"] = firstEmotion
             }
             if(secondEmotion != nil){
-                parameter["second_emotion"] = firstEmotion
+                parameter["second_emotion"] = secondEmotion
             }
                                                                         return .requestParameters(parameters: parameter,
                                                                                                   encoding: URLEncoding.queryString)
