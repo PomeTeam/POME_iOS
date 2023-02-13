@@ -79,8 +79,9 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                 completion(.failure(error))
             }
         }
-        
+
         LoadingView.hide()
+        print("LOG: LoadingView HIDE")
     }
 
 //    //TODO: - WILL DELETE
@@ -146,6 +147,7 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
             }
         }
         LoadingView.hide()
+        print("LOG: LoadingView HIDE")
     }
     
     func requestWithProgress<T: BaseRouter>(_ target: T,
