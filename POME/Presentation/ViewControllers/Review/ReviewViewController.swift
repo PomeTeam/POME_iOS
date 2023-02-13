@@ -45,8 +45,13 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
             }
         }
     }
-    var records = [RecordResponseModel](){
+    
+    private var willDelete = false
+    private var records = [RecordResponseModel](){
         didSet{
+            if(willDelete){
+                return
+            }
             isPaging = false
             isTableViewEmpty()
             mainView.tableView.reloadData()
@@ -91,7 +96,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
         page = 0
-//        hasNextPage = false
         
         let sheet: EmotionFilterSheetViewController!
         var emotionTime: EmotionTime!
@@ -314,7 +318,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
             alert.dismiss(animated: true)
             let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
             alert.completion = {
-                self.requestDeleteRecord(index: recordIndex)
+                self.requestDeleteRecord(indexPath: indexPath)
             }
         }
         
@@ -405,12 +409,13 @@ extension ReviewViewController{
         }
     }
     
-    func requestDeleteRecord(index: Int){
+    func requestDeleteRecord(indexPath: IndexPath){
+        let index = dataIndexBy(indexPath)
         let record = records[index]
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
-                self.records.remove(at: index)
+                self.processResponseDeleteRecord(indexPath: indexPath)
                 print("LOG: success requestDeleteRecord")
                 break
             default:
@@ -418,5 +423,13 @@ extension ReviewViewController{
                 break
             }
         }
+    }
+    
+    private func processResponseDeleteRecord(indexPath: IndexPath){
+        self.willDelete = true
+        let recordIndex = dataIndexBy(indexPath)
+        self.records.remove(at: recordIndex)
+        self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
+        self.willDelete = false
     }
 }
