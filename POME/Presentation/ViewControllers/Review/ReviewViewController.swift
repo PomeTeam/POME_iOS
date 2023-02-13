@@ -61,7 +61,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     let mainView = ReviewView()
     var emoijiFloatingView: EmojiFloatingView!
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         requestGetGoals()
     }
     
@@ -409,7 +410,7 @@ extension ReviewViewController{
         }
     }
     
-    func requestDeleteRecord(indexPath: IndexPath){
+    private func requestDeleteRecord(indexPath: IndexPath){
         let index = dataIndexBy(indexPath)
         let record = records[index]
         RecordService.shared.deleteRecord(id: record.id){ response in
@@ -424,7 +425,6 @@ extension ReviewViewController{
             }
         }
     }
-    
     private func processResponseDeleteRecord(indexPath: IndexPath){
         self.willDelete = true
         let recordIndex = dataIndexBy(indexPath)
