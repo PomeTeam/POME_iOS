@@ -231,37 +231,37 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if(indexPath.section == 1){
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
-            cell.startLoading()
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self).then{
+                $0.startLoading()
+            }
             return cell
         }
         
         switch indexPath.row{
         case 0:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self)
-            cell.tagCollectionView.delegate = self
-            cell.tagCollectionView.dataSource = self
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self).then{
+                $0.tagCollectionView.delegate = self
+                $0.tagCollectionView.dataSource = self
+            }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self)
             goals.isEmpty ? cell.bindingEmptyData() : cell.bindingData(goal: goals[currentGoal])
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self)
-            cell.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-            cell.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-            cell.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self).then{
+                $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+                $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+                $0.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
+            }
             return cell
         default:
-            //TODO: 기록 데이터 바인딩
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self)
-            
             let cardIndex = dataIndexBy(indexPath)
             let record = records[cardIndex]
-            
-            cell.delegate = self
-            cell.mainView.dataBinding(with: record)
-        
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+                $0.delegate = self
+                $0.mainView.dataBinding(with: record)
+            }
             return cell
         }
     }
@@ -271,7 +271,9 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: records[dataIndex])
+        let vc = ReviewDetailViewController(recordIndex: dataIndex, goal: goals[currentGoal], record: records[dataIndex]).then{
+            $0.delegate = self
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -432,5 +434,16 @@ extension ReviewViewController{
         self.records.remove(at: recordIndex)
         self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
         self.willDelete = false
+    }
+}
+
+extension ReviewViewController: ReviewDetailEditable{
+    
+    func processResponseModifyRecordInDetail(index: Int, record: RecordResponseModel){
+        records[index] = record
+    }
+    
+    func processResponseDeleteRecordInDetail(index: Int){
+        records.remove(at: index)
     }
 }

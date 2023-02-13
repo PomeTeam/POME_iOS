@@ -7,15 +7,29 @@
 
 import UIKit
 
+protocol ReviewDetailEditable{
+    func processResponseModifyRecordInDetail(index: Int, record: RecordResponseModel)
+    func processResponseDeleteRecordInDetail(index: Int)
+}
+
 class ReviewDetailViewController: BaseViewController {
     
-    let goal: GoalResponseModel
-    var record: RecordResponseModel
+    var delegate: ReviewDetailEditable!
     
-    var emoijiFloatingView: EmojiFloatingView!
-    let mainView = ReviewDetailView()
+    private let goal: GoalResponseModel
+    private var record: RecordResponseModel{
+        didSet{
+            mainView.dataBinding(with: record)
+        }
+    }
+    private let recordIndex: Int
     
-    init(goal: GoalResponseModel, record: RecordResponseModel){
+    private var emoijiFloatingView: EmojiFloatingView!
+    private let mainView = ReviewDetailView()
+    
+    
+    init(recordIndex: Int, goal: GoalResponseModel, record: RecordResponseModel){
+        self.recordIndex = recordIndex
         self.goal = goal
         self.record = record
         super.init(nibName: nil, bundle: nil)
@@ -106,11 +120,11 @@ extension ReviewDetailViewController{
         FriendService.shared.generateFriendEmotion(id: record.id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.record.emotionResponse.myEmotion = reactionIndex
-                self.mainView.myReactionButton.setImage(reaction.defaultImage, for: .normal)
+            case .success(let data):
+                self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                self.delegate.processResponseModifyRecordInDetail(index: self.recordIndex, record: self.record)
                 break
             default:
                 break
@@ -122,6 +136,7 @@ extension ReviewDetailViewController{
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
+                self.delegate.processResponseDeleteRecordInDetail(index: self.recordIndex)
                 self.navigationController?.popViewController(animated: true)
                 print("LOG: success requestDeleteRecord")
                 break
