@@ -64,9 +64,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var emoijiFloatingView: EmojiFloatingView!
     
     //MARK: - Override
-
-    override func viewWillAppear(_ animated: Bool) {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         requestGetFriends()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         print(UserManager.token, UserManager.userId)
     }
     
