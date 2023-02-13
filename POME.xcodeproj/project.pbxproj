@@ -213,6 +213,7 @@
 		EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0E929810212007BFCCD /* BaseReqestModel.swift */; };
 		EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE98F0EB2981024D007BFCCD /* PageableModel.swift */; };
 		EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */; };
+		EEA30A1B2999DCB7009E30F7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA30A1A2999DCB7009E30F7 /* LoadingView.swift */; };
 		EEB13B6F297F96FE001A8DD9 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */; };
 		EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */; };
 		EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */; };
@@ -459,6 +460,7 @@
 		EE98F0E929810212007BFCCD /* BaseReqestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseReqestModel.swift; sourceTree = "<group>"; };
 		EE98F0EB2981024D007BFCCD /* PageableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableModel.swift; sourceTree = "<group>"; };
 		EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorAlertViewController.swift; sourceTree = "<group>"; };
+		EEA30A1A2999DCB7009E30F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
 		EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestModel.swift; sourceTree = "<group>"; };
@@ -862,6 +864,7 @@
 				57CCA7CA292EF937007E22D1 /* Register */,
 				57CCA77229286E9F007E22D1 /* Sheet */,
 				57B16851295941BD00639A15 /* Toast */,
+				EEA30A192999DC9C009E30F7 /* Loading */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -1573,6 +1576,14 @@
 			path = Friend;
 			sourceTree = "<group>";
 		};
+		EEA30A192999DC9C009E30F7 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				EEA30A1A2999DCB7009E30F7 /* LoadingView.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		EEE5F5E4298126AD00ECD31B /* Record */ = {
 			isa = PBXGroup;
 			children = (
@@ -1917,6 +1928,7 @@
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */,
 				5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */,
+				EEA30A1B2999DCB7009E30F7 /* LoadingView.swift in Sources */,
 				57C481E3296ABD27008731D9 /* GoalContentRegisterViewModel.swift in Sources */,
 				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */,
