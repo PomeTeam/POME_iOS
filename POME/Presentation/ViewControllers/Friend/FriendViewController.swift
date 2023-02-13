@@ -140,7 +140,7 @@ extension FriendViewController{
 extension FriendViewController{
     
     private func requestGetFriends(){
-        FriendService.shared.getFriends(pageable: PageableModel(page: 1)){ result in
+        FriendService.shared.getFriends(pageable: PageableModel(page: page)){ result in
             switch result{
             case .success(let data):
                     print("LOG: 'success' requestGetFriends", data)
@@ -218,8 +218,8 @@ extension FriendViewController{
         FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+            case .success(let data):
+                self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
