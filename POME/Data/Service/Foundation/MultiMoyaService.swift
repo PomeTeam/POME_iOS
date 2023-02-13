@@ -54,8 +54,37 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
             }
         }
     }
+    
+    func requestDecoded<T: BaseRouter, L: Decodable>(_ target: T, animate: Bool, completion: @escaping ((NetworkResult<L>) -> Void)) {
+        addObserver()
+        if(animate){
+            LoadingView.show()
+        }
+        request(MultiTarget(target)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let body = try JSONDecoder().decode(BaseResponseModel<L>.self, from: response.data)
+                    if(body.success){
+                        if let data = body.data{
+                            completion(.success(data))
+                        }
+                    }else{
+                        completion(.invalidSuccess(body.errorCode ?? "", body.message ))
+                    }
+                } catch let error {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
 
-    //TODO: - WILL DELETE
+        LoadingView.hide()
+        print("LOG: LoadingView HIDE")
+    }
+
+//    //TODO: - WILL DELETE
     func requestNoResultAPI<T: BaseRouter>(_ target: T,
                                                completion: @escaping (Result<Int, Error>) -> Void) {
         addObserver()
@@ -90,6 +119,35 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func requestNoResultAPI<T: BaseRouter>(_ target: T,
+                                           animate: Bool,
+                                           completion: @escaping (NetworkResult<Any>) -> Void) {
+        addObserver()
+        if(animate){
+            LoadingView.show()
+        }
+        request = request(MultiTarget(target)) { result in
+            switch result {
+            case .success(let response):
+                do {
+                    let body = try JSONDecoder().decode(StatusResponseModel.self, from: response.data)
+                    if(body.success){
+                        completion(.success(body.success))
+                    }else{
+                        completion(.invalidSuccess(body.errorCode ?? "", body.message))
+                    }
+                } catch let error {
+                    completion(.failure(error))
+                }
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+        LoadingView.hide()
+        print("LOG: LoadingView HIDE")
     }
     
     func requestWithProgress<T: BaseRouter>(_ target: T,

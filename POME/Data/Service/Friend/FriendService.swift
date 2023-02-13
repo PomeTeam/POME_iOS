@@ -15,7 +15,7 @@ final class FriendService: MultiMoyaService{
 extension FriendService{
     
     func generateFriendEmotion(id: Int, emotion: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(FriendRouter.postEmotion(id: id, emotion: emotion)){ response in
+        requestNoResultAPI(FriendRouter.postEmotion(id: id, emotion: emotion), animate: true){ response in
             completion(response)
         }
     }
@@ -39,20 +39,20 @@ extension FriendService{
     }
     
     func getFriends(pageable: PageableModel, completion: @escaping (NetworkResult<[FriendsResponseModel]>) -> Void) {
-        requestDecoded(FriendRouter.getFriends(pageable: pageable)){
+        requestDecoded(FriendRouter.getFriends(pageable: pageable), animate: true){
             response in
             completion(response)
         }
     }
     
-    func getFriendRecord(id: String, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable)){ response in
+    func getFriendRecord(id: String, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable), animate: animate){ response in
             completion(response)
         }
     }
     
-    func getAllFriendsRecord(pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(FriendRouter.getAllFriendsRecord(pageable: pageable)){ response in
+    func getAllFriendsRecord(pageable: PageableModel, animate: Bool, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        requestDecoded(FriendRouter.getAllFriendsRecord(pageable: pageable), animate: animate){ response in
             completion(response)
         }
     }

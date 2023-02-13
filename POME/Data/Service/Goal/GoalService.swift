@@ -15,8 +15,7 @@ final class GoalService: MultiMoyaService{
 extension GoalService{
     
     func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        
-        requestNoResultAPI(GoalRouter.postGoal(request: request)){ response in
+        requestNoResultAPI(GoalRouter.postGoal(request: request), animate: true){ response in
             completion(response)
         }
     }
@@ -40,7 +39,7 @@ extension GoalService{
     }
     
     func getUserGoals(completion: @escaping (NetworkResult<PageableResponseModel<GoalResponseModel>>) -> Void) {
-        requestDecoded(GoalRouter.getGoals){ response in
+        requestDecoded(GoalRouter.getGoals, animate: true){ response in
             completion(response)
         }
     }

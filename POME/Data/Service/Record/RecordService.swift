@@ -15,25 +15,31 @@ final class RecordService: MultiMoyaService{
 extension RecordService{
     
     func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.patchRecord(id: id, request: request)){ response in
+        requestNoResultAPI(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
             completion(response)
         }
     }
     
     func deleteRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.deleteRecord(id: id)){ response in
+        requestNoResultAPI(RecordRouter.deleteRecord(id: id), animate: true){ response in
             completion(response)
         }
     }
     
     func generateRecord(request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.postRecord(request: request)){ response in
+        requestNoResultAPI(RecordRouter.postRecord(request: request), animate: true){ response in
             completion(response)
         }
     }
     
-    func getRecordsOfGoal(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, pageable: pageable)) { response in
+//    func getRecordsOfGoal(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+//        requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, pageable: pageable)) { response in
+//            completion(response)
+//        }
+//    }
+    
+    func getRecordsOfGoal(id: Int, pageable: PageableModel, animate: Bool, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, pageable: pageable), animate: animate) { response in
             completion(response)
         }
     }
@@ -44,8 +50,8 @@ extension RecordService{
         }
     }
     
-    func getRecordsOfGoalAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable)) { response in
+    func getRecordsOfGoalAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable), animate: animate) { response in
             completion(response)
         }
     }
