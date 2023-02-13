@@ -398,8 +398,9 @@ extension ReviewViewController{
         FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+            case .success(let data):
+                print("LOG: SUCCESS requestGenerateFriendCardEmotion", data)
+                self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
