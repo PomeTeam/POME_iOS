@@ -15,14 +15,19 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
         return indexPath.row - 3
     }
     
-    var page = 0
+    var page = 0{
+        didSet{
+            if(page == 0){
+                hasNextPage = false
+            }
+        }
+    }
     var isPaging: Bool = false
     var hasNextPage: Bool = false
-    
+
     var filterController: (Int?, Int?) = (nil, nil){
         didSet{
             page = 0
-            hasNextPage = false
             requestGetRecords()
         }
     }
@@ -30,7 +35,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var currentGoal: Int = 0{
         didSet{
             page = 0
-            hasNextPage = false
             requestGetRecords()
         }
     }
@@ -87,7 +91,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
         page = 0
-        hasNextPage = false
+//        hasNextPage = false
         
         let sheet: EmotionFilterSheetViewController!
         var emotionTime: EmotionTime!
@@ -344,11 +348,12 @@ extension ReviewViewController{
 
     private func requestGetRecords(){
         let goalId = goals[currentGoal].id
-        print(filterController.0, filterController.1, "request")
+        let loadingViewAnimate = page == 0 ? true : false
         RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
                                                          firstEmotion: filterController.0,
                                                          secondEmotion: filterController.1,
-                                                         pageable: PageableModel(page: page)){ response in
+                                                         pageable: PageableModel(page: page),
+                                                         animate: loadingViewAnimate){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetRecords", data)
