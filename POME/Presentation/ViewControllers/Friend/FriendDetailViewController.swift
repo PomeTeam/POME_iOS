@@ -7,14 +7,25 @@
 
 import UIKit
 
+protocol FriendDetailEditable{
+    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel)
+}
+
 class FriendDetailViewController: BaseViewController {
     
-    var record: RecordResponseModel
+    var delegate: FriendDetailEditable!
+    private let recordIndex: Int
+    private var record: RecordResponseModel{
+        didSet{
+            mainView.dataBinding(with: record)
+        }
+    }
     
-    var emoijiFloatingView: EmojiFloatingView!
-    let mainView = FriendDetailView()
+    private var emoijiFloatingView: EmojiFloatingView!
+    private let mainView = FriendDetailView()
     
-    init(record: RecordResponseModel){
+    init(recordIndex: Int, record: RecordResponseModel){
+        self.recordIndex = recordIndex
         self.record = record
         super.init(nibName: nil, bundle: nil)
     }
@@ -82,11 +93,11 @@ extension FriendDetailViewController{
         FriendService.shared.generateFriendEmotion(id: record.id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.record.emotionResponse.myEmotion = reactionIndex
-                self.mainView.myReactionBtn.setImage(reaction.defaultImage, for: .normal)
+            case .success(let data):
+                self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                self.delegate.processResponseModifyReactionInDetail(index: self.recordIndex, record: self.record)
                 break
             default:
                 break

@@ -324,9 +324,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataIndex = dataIndexBy(indexPath)
-        let record = records[dataIndex]
-        let vc = FriendDetailViewController(record: record)
+        let recordIndex = dataIndexBy(indexPath)
+        let record = records[recordIndex]
+        let vc = FriendDetailViewController(recordIndex: recordIndex, record: record).then{
+            $0.delegate = self
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -373,5 +375,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
+    }
+}
+
+extension FriendViewController: FriendDetailEditable{
+    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel) {
+        records[index] = record
     }
 }
