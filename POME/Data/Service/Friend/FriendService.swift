@@ -14,8 +14,8 @@ final class FriendService: MultiMoyaService{
 
 extension FriendService{
     
-    func generateFriendEmotion(id: Int, emotion: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(FriendRouter.postEmotion(id: id, emotion: emotion), animate: true){ response in
+    func generateFriendEmotion(id: Int, emotion: Int, completion: @escaping (NetworkResult<BaseResponseModel<RecordResponseModel>>) -> Void) {
+        requestDecoded(FriendRouter.postEmotion(id: id, emotion: emotion), animate: true){ response in
             completion(response)
         }
     }
