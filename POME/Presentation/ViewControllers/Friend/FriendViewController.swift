@@ -16,14 +16,22 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     //MARK: - Property
     
-    var page: Int = 0
+    var page: Int = 0{
+        didSet{
+            if(page == 0){
+                hasNextPage = false
+            }
+        }
+    }
     var isPaging: Bool = false
     var hasNextPage: Bool = false
+    private var willLoadingViewAnimate: Bool{
+        page == 0 ? true : false
+    }
     
     var currentFriendIndex: Int = 0{
         didSet{
             page = 0
-            hasNextPage = false
             currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
         }
     }
@@ -148,7 +156,8 @@ extension FriendViewController{
     }
     
     private func requestGetAllFriendsRecords(){
-        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: page)){ response in
+        FriendService.shared.getAllFriendsRecord(pageable: PageableModel(page: page),
+                                                 animate: willLoadingViewAnimate){ response in
             switch response {
             case .success(let data):
                 print("LOG: success requestGetAllFriendsRecords", data)
@@ -167,7 +176,8 @@ extension FriendViewController{
         let friendId = friends[friendIndex].friendUserId
         
         FriendService.shared.getFriendRecord(id: friendId,
-                                             pageable: PageableModel(page: page)){ result in
+                                             pageable: PageableModel(page: page),
+                                             animate: willLoadingViewAnimate){ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGetFriendCards", data)
