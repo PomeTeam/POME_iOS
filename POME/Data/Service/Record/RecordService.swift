@@ -14,8 +14,8 @@ final class RecordService: MultiMoyaService{
 
 extension RecordService{
     
-    func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
+    func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
+        requestDecoded(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
             completion(response)
         }
     }

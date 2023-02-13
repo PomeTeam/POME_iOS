@@ -9,12 +9,14 @@ import Foundation
 
 class RecordModifyContentViewController: RecordRegisterContentViewController{
     
-    let goal: GoalResponseModel
-    let record: RecordResponseModel!
+    private let goal: GoalResponseModel
+    private let record: RecordResponseModel!
+    private let completion: (RecordResponseModel) -> Void
     
-    init(goal: GoalResponseModel, record: RecordResponseModel){
+    init(goal: GoalResponseModel, record: RecordResponseModel, completion: @escaping (RecordResponseModel) -> Void){
         self.goal = goal
         self.record = record
+        self.completion = completion
         super.init(mainView: RecordContentView())
     }
     
@@ -64,7 +66,8 @@ extension RecordModifyContentViewController{
         RecordService.shared.modifyRecord(id: recordManager.recordId,
                                           request: request){ response in
             switch response{
-            case .success:
+            case .success(let data):
+                self.completion(data)
                 self.navigationController?.popViewController(animated: true)
                 break
             default:

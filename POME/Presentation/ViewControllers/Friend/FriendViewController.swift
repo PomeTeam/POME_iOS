@@ -64,9 +64,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var emoijiFloatingView: EmojiFloatingView!
     
     //MARK: - Override
-
-    override func viewWillAppear(_ animated: Bool) {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         requestGetFriends()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         print(UserManager.token, UserManager.userId)
     }
     
@@ -140,7 +144,7 @@ extension FriendViewController{
 extension FriendViewController{
     
     private func requestGetFriends(){
-        FriendService.shared.getFriends(pageable: PageableModel(page: 1)){ result in
+        FriendService.shared.getFriends(pageable: PageableModel(page: page)){ result in
             switch result{
             case .success(let data):
                     print("LOG: 'success' requestGetFriends", data)
@@ -218,8 +222,8 @@ extension FriendViewController{
         FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+            case .success(let data):
+                self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
@@ -324,9 +328,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataIndex = dataIndexBy(indexPath)
-        let record = records[dataIndex]
-        let vc = FriendDetailViewController(record: record)
+        let recordIndex = dataIndexBy(indexPath)
+        let record = records[recordIndex]
+        let vc = FriendDetailViewController(recordIndex: recordIndex, record: record).then{
+            $0.delegate = self
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -373,5 +379,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
+    }
+}
+
+extension FriendViewController: FriendDetailEditable{
+    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel) {
+        records[index] = record
     }
 }

@@ -45,8 +45,13 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
             }
         }
     }
-    var records = [RecordResponseModel](){
+    
+    private var willDelete = false
+    private var records = [RecordResponseModel](){
         didSet{
+            if(willDelete){
+                return
+            }
             isPaging = false
             isTableViewEmpty()
             mainView.tableView.reloadData()
@@ -56,7 +61,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     let mainView = ReviewView()
     var emoijiFloatingView: EmojiFloatingView!
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         requestGetGoals()
     }
     
@@ -91,7 +97,6 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     @objc func filterButtonDidClicked(_ sender: UIButton){
         
         page = 0
-//        hasNextPage = false
         
         let sheet: EmotionFilterSheetViewController!
         var emotionTime: EmotionTime!
@@ -226,37 +231,37 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if(indexPath.section == 1){
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self)
-            cell.startLoading()
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self).then{
+                $0.startLoading()
+            }
             return cell
         }
         
         switch indexPath.row{
         case 0:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self)
-            cell.tagCollectionView.delegate = self
-            cell.tagCollectionView.dataSource = self
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self).then{
+                $0.tagCollectionView.delegate = self
+                $0.tagCollectionView.dataSource = self
+            }
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self)
             goals.isEmpty ? cell.bindingEmptyData() : cell.bindingData(goal: goals[currentGoal])
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self)
-            cell.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-            cell.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-            cell.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self).then{
+                $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+                $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
+                $0.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
+            }
             return cell
         default:
-            //TODO: 기록 데이터 바인딩
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self)
-            
             let cardIndex = dataIndexBy(indexPath)
             let record = records[cardIndex]
-            
-            cell.delegate = self
-            cell.mainView.dataBinding(with: record)
-        
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+                $0.delegate = self
+                $0.mainView.dataBinding(with: record)
+            }
             return cell
         }
     }
@@ -266,7 +271,9 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(goal: goals[currentGoal], record: records[dataIndex])
+        let vc = ReviewDetailViewController(recordIndex: dataIndex, goal: goals[currentGoal], record: records[dataIndex]).then{
+            $0.delegate = self
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -306,7 +313,9 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goals[self.currentGoal],
-                                                       record: self.records[recordIndex])
+                                                       record: self.records[recordIndex]){
+                self.records[recordIndex] = $0
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
@@ -314,7 +323,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
             alert.dismiss(animated: true)
             let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
             alert.completion = {
-                self.requestDeleteRecord(index: recordIndex)
+                self.requestDeleteRecord(indexPath: indexPath)
             }
         }
         
@@ -393,8 +402,9 @@ extension ReviewViewController{
         FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
                                                    emotion: reactionIndex){ result in
             switch result{
-            case .success:
-                self.records[cellIndex].emotionResponse.myEmotion = reactionIndex
+            case .success(let data):
+                print("LOG: SUCCESS requestGenerateFriendCardEmotion", data)
+                self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
@@ -405,12 +415,13 @@ extension ReviewViewController{
         }
     }
     
-    func requestDeleteRecord(index: Int){
+    private func requestDeleteRecord(indexPath: IndexPath){
+        let index = dataIndexBy(indexPath)
         let record = records[index]
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
-                self.records.remove(at: index)
+                self.processResponseDeleteRecord(indexPath: indexPath)
                 print("LOG: success requestDeleteRecord")
                 break
             default:
@@ -418,5 +429,23 @@ extension ReviewViewController{
                 break
             }
         }
+    }
+    private func processResponseDeleteRecord(indexPath: IndexPath){
+        self.willDelete = true
+        let recordIndex = dataIndexBy(indexPath)
+        self.records.remove(at: recordIndex)
+        self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
+        self.willDelete = false
+    }
+}
+
+extension ReviewViewController: ReviewDetailEditable{
+    
+    func processResponseModifyRecordInDetail(index: Int, record: RecordResponseModel){
+        records[index] = record
+    }
+    
+    func processResponseDeleteRecordInDetail(index: Int){
+        records.remove(at: index)
     }
 }
