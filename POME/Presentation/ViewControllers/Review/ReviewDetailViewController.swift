@@ -87,7 +87,10 @@ extension ReviewDetailViewController: RecordCellWithEmojiDelegate{
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
             let vc = RecordModifyContentViewController(goal: self.goal,
-                                                       record: self.record)
+                                                       record: self.record){
+                self.record = $0
+                self.delegate.processResponseModifyRecordInDetail(index: self.recordIndex, record: self.record)
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
 
