@@ -178,17 +178,16 @@ extension UILabel {
 extension UITextView{
     
     func setTypoStyleWithMultiLine(typoStyle: TypoStyle) {
-        
-        if(self.text == nil){
+
+        if(self.text.isEmpty){
             self.text = " "
         }
         
         let font = typoStyle.font
         let kernValue = typoStyle.labelDescription.kern
         let lineSpacing = typoStyle.labelDescription.lineHeight
-
+        
         if let labelText = text, labelText.count > 0, let attributedText = self.attributedText {
-
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.maximumLineHeight = lineSpacing
             paragraphStyle.minimumLineHeight = lineSpacing
@@ -198,7 +197,7 @@ extension UITextView{
             attributedString.addAttributes([.font:font,
                                             .kern:kernValue,
                                             .paragraphStyle: paragraphStyle,
-                                            .baselineOffset: (lineSpacing - font.lineHeight) / 4
+                                            .baselineOffset: (lineSpacing - font.lineHeight) / 2 // / 4
             ], range: NSRange(location: 0,
                               length: attributedString.length))
             

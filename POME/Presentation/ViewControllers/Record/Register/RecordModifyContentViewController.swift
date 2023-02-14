@@ -35,11 +35,10 @@ class RecordModifyContentViewController: RecordRegisterContentViewController{
         mainView.completeButton.setTitle("수정했어요", for: .normal)
     }
     
-    //TODO: TextView placeholder 색상말고 텍스트 색상으로 띄우기
     override func bindingData(){
         mainView.dateField.infoTextField.text = record.useDate
         mainView.priceField.infoTextField.text = String(record.usePrice)
-        mainView.contentTextView.recordTextView.text = record.useComment
+        mainView.contentTextView.bindingData(record.useComment)
         mainView.goalField.infoTextField.text = goal.goalNameBinding
     }
     

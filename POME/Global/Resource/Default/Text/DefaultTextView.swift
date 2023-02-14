@@ -63,19 +63,24 @@ class CharactersCountTextView: BaseView{
         }
         
         charactersCountLabel.text = countString
+        charactersCountLabel.textColor = count != countLimit ? Color.body : Color.red
     }
     
     func setTextViewTextEmptyMode(){
-
-        charactersCountLabel.textColor = UIColor(red: 173/255, green: 184/255, blue: 205/255, alpha: 1)
-        
         recordTextView.setEmptyMode()
         updateCharactersCount(count: 0)
+        charactersCountLabel.textColor = Color.textViewCountGrey
     }
     
     func setTextViewTextEditingMode(){
         charactersCountLabel.textColor = Color.body
         recordTextView.setEditingMode()
+    }
+    
+    func bindingData(_ comment: String){
+        setTextViewTextEditingMode()
+        recordTextView.text = comment
+        updateCharactersCount(count: comment.count)
     }
 }
 
@@ -96,6 +101,7 @@ class DefaultTextView: UITextView{
     private func style(){
         self.setTypoStyleWithMultiLine(typoStyle: .body2)
         self.backgroundColor = Color.transparent
+        self.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) 
     }
     
     

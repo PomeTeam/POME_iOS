@@ -46,6 +46,8 @@ enum Color{
     
     static let grey9 = UIColor(red: 41/255, green: 42/255, blue: 43/255, alpha: 1)
     
+    static let textViewCountGrey =  UIColor(red: 173/255, green: 184/255, blue: 205/255, alpha: 1)
+    
     //MARK: - Etc
     
     static let title = UIColor(red: 55/255, green: 58/255, blue: 60/255, alpha: 1)
