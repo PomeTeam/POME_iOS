@@ -94,12 +94,17 @@ extension FriendDetailViewController{
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success(let data):
+                print("LOG: success requestGenerateFriendCardEmotion", data)
                 self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 self.delegate.processResponseModifyReactionInDetail(index: self.recordIndex, record: self.record)
                 break
             default:
+                print("LOG: fail requestGenerateFriendCardEmotion", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
                 break
             }
         }

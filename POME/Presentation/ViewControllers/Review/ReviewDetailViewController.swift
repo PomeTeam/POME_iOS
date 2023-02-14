@@ -119,17 +119,21 @@ extension ReviewDetailViewController{
     internal func requestGenerateFriendCardEmotion(reactionIndex: Int){
         guard let reaction = Reaction(rawValue: reactionIndex) else { return }
         
-        //MARK: - 결과로 데이터 재정의하는 걸로 변경하기.
         FriendService.shared.generateFriendEmotion(id: record.id,
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success(let data):
+                print("LOG: SUCCESS requestGenerateFriendCardEmotion", data)
                 self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 self.delegate.processResponseModifyRecordInDetail(index: self.recordIndex, record: self.record)
                 break
             default:
+                print("LOG: fail requestGenerateFriendCardEmotion")
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
                 break
             }
         }
@@ -139,12 +143,15 @@ extension ReviewDetailViewController{
         RecordService.shared.deleteRecord(id: record.id){ response in
             switch response {
             case .success:
+                print("LOG: success requestDeleteRecord")
                 self.delegate.processResponseDeleteRecordInDetail(index: self.recordIndex)
                 self.navigationController?.popViewController(animated: true)
-                print("LOG: success requestDeleteRecord")
                 break
             default:
                 print("LOG: fail requestGetRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestDeleteRecord()
+                }
                 break
             }
         }

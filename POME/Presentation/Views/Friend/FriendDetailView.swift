@@ -24,7 +24,6 @@ class FriendDetailView: BaseView {
     }
     
     //user stackView
-    
     let topStackView = UIStackView().then{
         $0.spacing = 2
         $0.axis = .horizontal
@@ -32,17 +31,17 @@ class FriendDetailView: BaseView {
     
     let nameLabel = UILabel().then{
         $0.textColor = Color.body
-        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)
     }
     
     let goalPromiseLabel = PaddingLabel().then{
         $0.textColor = Color.grey5
-        $0.setTypoStyleWithMultiLine(typoStyle: .body3)
+        $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
     
     let timeLabel = UILabel().then{
         $0.textColor = Color.grey5
-        $0.setTypoStyleWithMultiLine(typoStyle: .body3)
+        $0.setTypoStyleWithSingleLine(typoStyle: .body3)
     }
 
     //
@@ -64,7 +63,7 @@ class FriendDetailView: BaseView {
     //
     let priceLabel = UILabel().then{
         $0.textColor = Color.title
-        $0.setTypoStyleWithMultiLine(typoStyle: .title3)
+        $0.setTypoStyleWithSingleLine(typoStyle: .title3)
     }
     let memoLabel = UILabel().then{
         $0.textColor = Color.title

@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkAlert{
-    static func show(in viewController: BaseViewController, completion: @escaping () -> Void){
+    static func show(in viewController: UIViewController, completion: @escaping () -> Void){
         let alert = NetworkErrorAlertViewController().then{
             $0.loadViewIfNeeded()
             $0.modalPresentationStyle = .overFullScreen

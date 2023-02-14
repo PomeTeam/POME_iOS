@@ -144,7 +144,7 @@ class RecordRegisterContentViewController: BaseViewController {
         let sheet = CategorySelectSheetViewController(data: goals).loadAndShowBottomSheet(in: self)
         sheet.completion = { selectIndex in
             let goal = self.goals[selectIndex]
-            self.recordManager.goalId =  goal.id//TODO: - GOAL id값으로 넣어주기
+            self.recordManager.goalId = goal.id
             self.mainView.goalField.infoTextField.text = goal.goalNameBinding
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
@@ -244,6 +244,9 @@ extension RecordRegisterContentViewController{
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetGoals()
+                }
                 break
             }
         }
