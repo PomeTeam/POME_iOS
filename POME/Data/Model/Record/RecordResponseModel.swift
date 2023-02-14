@@ -82,16 +82,14 @@ extension RecordResponseModel{
 
 extension RecordResponseModel{
     
-    // "createdAt": "2023-01-27 20:11:04.000000"
+    // "createdAt": "2023-02-14T14:47:31.470725"
     // "useDate": "2023.02.23"
     private var isTodayWritten: Bool{
-        let createTimeReplace = createdAt.replacingOccurrences(of: "-", with: ".")
-        let createTime = createTimeReplace.split(separator: "T")[0]
-        return createTime == self.useDate
+        return PomeDateFormatter.getTodayDate() == self.useDate
     }
     
     private func manufactureTimeData() -> String{
-        let rawCreateTime = String(createdAt.split(separator: ".")[0])
+        let rawCreateTime = String(createdAt.replacingOccurrences(of: "T", with: " ").split(separator: ".")[0])
         let createTimeFormatter = DateFormatter().then{
             $0.dateFormat = "yyyy-MM-dd HH:mm:ss"
         }
