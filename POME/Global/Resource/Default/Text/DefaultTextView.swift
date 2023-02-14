@@ -63,6 +63,7 @@ class CharactersCountTextView: BaseView{
         }
         
         charactersCountLabel.text = countString
+        charactersCountLabel.textColor = count != countLimit ? Color.body : Color.red
     }
     
     func setTextViewTextEmptyMode(){
