@@ -350,6 +350,9 @@ extension ReviewViewController{
                 break
             default:
                 print("LOG: fail requestGetGoals", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetGoals()
+                }
                 break
             }
         }
@@ -370,6 +373,9 @@ extension ReviewViewController{
                 return
             default:
                 print("LOG: fail requestGetRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetRecords()
+                }
                 break
             }
         }
@@ -409,7 +415,10 @@ extension ReviewViewController{
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
             default:
-                print(result)
+                print("LOG: fail requestGenerateFriendCardEmotion", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
                 break
             }
         }
@@ -426,6 +435,9 @@ extension ReviewViewController{
                 break
             default:
                 print("LOG: fail requestGetRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestDeleteRecord(indexPath: indexPath)
+                }
                 break
             }
         }
