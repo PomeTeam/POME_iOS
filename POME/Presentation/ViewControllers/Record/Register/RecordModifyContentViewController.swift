@@ -63,13 +63,17 @@ extension RecordModifyContentViewController{
         print(request)
         
         RecordService.shared.modifyRecord(id: recordManager.recordId,
-                                          request: request){ response in
-            switch response{
+                                          request: request){ result in
+            switch result{
             case .success(let data):
                 self.completion(data)
                 self.navigationController?.popViewController(animated: true)
                 break
             default:
+                print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestModifyRecord()
+                }
                 break
             }
             
