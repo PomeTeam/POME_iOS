@@ -67,11 +67,9 @@ class CharactersCountTextView: BaseView{
     }
     
     func setTextViewTextEmptyMode(){
-
-        charactersCountLabel.textColor = UIColor(red: 173/255, green: 184/255, blue: 205/255, alpha: 1)
-        
         recordTextView.setEmptyMode()
         updateCharactersCount(count: 0)
+        charactersCountLabel.textColor = Color.textViewCountGrey
     }
     
     func setTextViewTextEditingMode(){
@@ -82,6 +80,7 @@ class CharactersCountTextView: BaseView{
     func bindingData(_ comment: String){
         setTextViewTextEditingMode()
         recordTextView.text = comment
+        updateCharactersCount(count: comment.count)
     }
 }
 
