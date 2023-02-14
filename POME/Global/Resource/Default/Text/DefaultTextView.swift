@@ -100,8 +100,8 @@ class DefaultTextView: UITextView{
     
     private func style(){
         self.setTypoStyleWithMultiLine(typoStyle: .body2)
-        self.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         self.backgroundColor = Color.transparent
+        self.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) 
     }
     
     

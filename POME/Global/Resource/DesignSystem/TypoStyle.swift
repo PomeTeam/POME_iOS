@@ -197,7 +197,7 @@ extension UITextView{
             attributedString.addAttributes([.font:font,
                                             .kern:kernValue,
                                             .paragraphStyle: paragraphStyle,
-                                            .baselineOffset: (lineSpacing - font.lineHeight) / 4
+                                            .baselineOffset: (lineSpacing - font.lineHeight) / 2 // / 4
             ], range: NSRange(location: 0,
                               length: attributedString.length))
             
