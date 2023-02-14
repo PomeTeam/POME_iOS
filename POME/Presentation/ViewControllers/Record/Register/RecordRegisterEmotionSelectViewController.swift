@@ -140,6 +140,9 @@ extension RecordRegisterEmotionSelectViewController{
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateRecord()
+                }
                 break
             }
         }
