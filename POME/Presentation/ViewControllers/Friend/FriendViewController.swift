@@ -152,8 +152,10 @@ extension FriendViewController{
                     self.requestGetAllFriendsRecords()
                 break
             default:
-                print("LOG: 'fail' requestGetFriends")
-                print(result)
+                print("LOG: 'fail' requestGetFriends", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetFriends()
+                }
                 break
             }
         }
@@ -168,6 +170,10 @@ extension FriendViewController{
                 self.processResponseGetRecords(data: data)
                 return
             default:
+                print("LOG: fail requestGetAllFriendsRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetAllFriendsRecords()
+                }
                 break
             }
         }
@@ -188,6 +194,10 @@ extension FriendViewController{
                 self.processResponseGetRecords(data: data)
                 break
             default:
+                print("LOG: fail requestGetFriendCards", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetFriendCards()
+                }
                 break
             }
         }
@@ -223,12 +233,16 @@ extension FriendViewController{
                                                    emotion: reactionIndex){ result in
             switch result{
             case .success(let data):
+                print("LOG: success requestGenerateFriendCardEmotion", data)
                 self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
                 break
             default:
-                print(result)
+                print("LOG: fail requestGenerateFriendCardEmotion", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
                 break
             }
         }
