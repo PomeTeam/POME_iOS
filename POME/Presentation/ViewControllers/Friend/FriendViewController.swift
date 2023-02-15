@@ -352,19 +352,38 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
 
-        self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
-        
-        emoijiFloatingView = EmojiFloatingView().then{
-            $0.delegate = self
-            $0.completion = {
-                print("LOG: emoijiFloatingView completion closure called")
-                self.currentEmotionSelectCardIndex = nil
-                self.emoijiFloatingView = nil
+        isSufficientToShowFloatingView(indexPath: indexPath){
+            
+            currentEmotionSelectCardIndex = dataIndexBy(indexPath)
+            emoijiFloatingView = EmojiFloatingView().then{
+                $0.delegate = self
+                $0.completion = {
+                    print("LOG: emoijiFloatingView completion closure called")
+                    self.currentEmotionSelectCardIndex = nil
+                    self.emoijiFloatingView = nil
+                }
             }
-        }
 
-        guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        emoijiFloatingView.show(in: self, standard: cell)
+            guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
+            emoijiFloatingView.show(in: self, standard: cell)
+        }
+    }
+    
+    private func isSufficientToShowFloatingView(indexPath: IndexPath, closure: () -> Void){
+        
+        let rectOfCellInTableView = friendView.tableView.rectForRow(at: indexPath) //5번째 셀의 좌표 값
+        let rectOfCellInSuperview = friendView.tableView.convert(rectOfCellInTableView, to: self.view)
+
+        let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
+                                   y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
+        
+        if(Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom >= 74){
+            print("LOG: EMOJI FLOATING VIEW TEST true")
+            closure()
+        }else{
+            print("LOG: EMOJI FLOATING VIEW TEST falase")
+            return
+        }
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
