@@ -281,20 +281,40 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
 extension ReviewViewController: RecordCellWithEmojiDelegate{
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
-
-        self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
         
-        emoijiFloatingView = EmojiFloatingView().then{
-            $0.delegate = self
-            $0.completion = {
-                print("LOG: emoijiFloatingView completion closure called")
-                self.currentEmotionSelectCardIndex = nil
-                self.emoijiFloatingView = nil
+        isSufficientToShowFloatingView(indexPath: indexPath){
+            
+            self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
+            
+            emoijiFloatingView = EmojiFloatingView().then{
+                $0.delegate = self
+                $0.completion = {
+                    print("LOG: emoijiFloatingView completion closure called")
+                    self.currentEmotionSelectCardIndex = nil
+                    self.emoijiFloatingView = nil
+                }
             }
+            
+            guard let cell = mainView.tableView.cellForRow(at: indexPath) as? ConsumeReviewTableViewCell else { return }
+            emoijiFloatingView.show(in: self, standard: cell)
         }
+    }
+    
+    private func isSufficientToShowFloatingView(indexPath: IndexPath, closure: () -> Void){
+        
+        let rectOfCellInTableView = mainView.tableView.rectForRow(at: indexPath) //5번째 셀의 좌표 값
+        let rectOfCellInSuperview = mainView.tableView.convert(rectOfCellInTableView, to: self.view)
 
-        guard let cell = mainView.tableView.cellForRow(at: indexPath) as? ConsumeReviewTableViewCell else { return }
-        emoijiFloatingView.show(in: self, standard: cell)
+        let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
+                                   y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
+        
+        if(Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom >= 74){
+            print("LOG: EMOJI FLOATING VIEW TEST true")
+            closure()
+        }else{
+            print("LOG: EMOJI FLOATING VIEW TEST falase")
+            return
+        }
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
