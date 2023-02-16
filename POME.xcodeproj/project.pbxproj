@@ -185,6 +185,7 @@
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
 		EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */; };
+		EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D5721299E208E00758683 /* UINavigationController.swift */; };
 		EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */; };
 		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
@@ -433,6 +434,7 @@
 		99A020A78BC79702AA87A558 /* Pods-POMETests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POMETests.debug.xcconfig"; path = "Target Support Files/Pods-POMETests/Pods-POMETests.debug.xcconfig"; sourceTree = "<group>"; };
 		BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POMETests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE168C8E2990C8670020D5CE /* EndDateCalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndDateCalendarSheetViewController.swift; sourceTree = "<group>"; };
+		EE1D5721299E208E00758683 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
@@ -972,7 +974,7 @@
 				232B2BDE292B80EB00FFDF8B /* UILabel.swift */,
 				570304C12978192100AAC56D /* UICollectionView.swift */,
 				570304C32978193E00AAC56D /* UITableView.swift */,
-				2323CBC8299E70A7005C177B /* Bundle.swift */,
+				EE1D5721299E208E00758683 /* UINavigationController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1881,6 +1883,7 @@
 				EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
+				EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,

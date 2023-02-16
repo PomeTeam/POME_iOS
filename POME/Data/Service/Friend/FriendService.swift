@@ -56,4 +56,12 @@ extension FriendService{
             completion(response)
         }
     }
+    
+    func hideFriendRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        requestNoResultAPI(FriendRouter.deleteFriendRecord(id: id), animate: true){ response in
+            completion(response)
+        }
+    }
 }
+
+

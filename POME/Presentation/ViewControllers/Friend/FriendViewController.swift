@@ -46,8 +46,12 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
             friendImageManager.construct(by: friends)
         }
     }
+    private var willDelete = false
     var records = [RecordResponseModel](){
         didSet{
+            if(willDelete){
+                return
+            }
             isPaging = false
             isTableViewEmpty()
             friendView.tableView.reloadData()
@@ -247,6 +251,36 @@ extension FriendViewController{
             }
         }
     }
+    
+    
+    private func requestHideFriendRecord(indexPath: IndexPath){
+
+        let index = dataIndexBy(indexPath)
+        let record = records[index]
+        
+        FriendService.shared.hideFriendRecord(id: record.id){ result in
+            switch result{
+            case .success:
+                print("LOG: success requestHideFriendRecord")
+                self.processResponseHideFriendRecord(indexPath: indexPath)
+                break
+            default:
+                print("LOG: fail requestHideFriendRecord", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestHideFriendRecord(indexPath: indexPath)
+                }
+                break
+            }
+        }
+    }
+    func processResponseHideFriendRecord(indexPath: IndexPath){
+        willDelete = true
+        let recordIndex = dataIndexBy(indexPath)
+        records.remove(at: recordIndex)
+        friendView.tableView.deleteRows(at: [indexPath], with: .fade)
+        ToastMessageView.generateHideToastView().show(in: self)
+        willDelete = false
+    }
 }
 
 //MARK: - CollectionView Delegate
@@ -344,7 +378,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recordIndex = dataIndexBy(indexPath)
         let record = records[recordIndex]
-        let vc = FriendDetailViewController(recordIndex: recordIndex, record: record).then{
+        let vc = FriendDetailViewController(recordCellIndexPath: indexPath, record: record).then{
             $0.delegate = self
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -388,7 +422,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     
     func presentReactionSheet(indexPath: IndexPath) {
         let data = records[dataIndexBy(indexPath)].friendReactions
-        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
@@ -398,11 +432,11 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         
         let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
-            ToastMessageView.generateHideToastView().show(in: self)
+            self.requestHideFriendRecord(indexPath: indexPath)
         }
 
         let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
-            LinkManager(self, .report)
+            _ = LinkManager(self, .report)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -416,7 +450,8 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
 }
 
 extension FriendViewController: FriendDetailEditable{
-    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel) {
+    func processResponseModifyReactionInDetail(indexPath: IndexPath, record: RecordResponseModel) {
+        let index = dataIndexBy(indexPath)
         records[index] = record
     }
 }

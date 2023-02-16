@@ -16,6 +16,7 @@ enum FriendRouter: BaseRouter{
     case getFriends(pageable: PageableModel)
     case getFriendRecord(id: String, pageable: PageableModel)
     case getAllFriendsRecord(pageable: PageableModel)
+    case deleteFriendRecord(id: Int)
 }
 
 extension FriendRouter{
@@ -36,6 +37,8 @@ extension FriendRouter{
             return HTTPMethodURL.GET.recordOfFriend + "/\(id)"
         case .getAllFriendsRecord:
             return HTTPMethodURL.GET.recordsOfAllFriend
+        case .deleteFriendRecord(let id):
+            return HTTPMethodURL.DELETE.friendRecord + "/\(id)"
         }
     }
     
@@ -55,6 +58,8 @@ extension FriendRouter{
             return  .get
         case .getAllFriendsRecord:
             return .get
+        case .deleteFriendRecord:
+            return .delete
         }
     }
     
@@ -82,6 +87,8 @@ extension FriendRouter{
             return .requestParameters(parameters: ["page" : pageable.page,
                                                    "size" : pageable.size,
                                                    "sort" : pageable.sort], encoding: URLEncoding.queryString)
+        case .deleteFriendRecord:
+            return .requestPlain
         }
     }
 }

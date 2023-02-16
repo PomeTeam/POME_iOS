@@ -8,13 +8,14 @@
 import UIKit
 
 protocol FriendDetailEditable{
-    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel)
+    func processResponseModifyReactionInDetail(indexPath: IndexPath, record: RecordResponseModel)
+    func processResponseHideFriendRecord(indexPath: IndexPath)
 }
 
 class FriendDetailViewController: BaseViewController {
     
     var delegate: FriendDetailEditable!
-    private let recordIndex: Int
+    private let recordCellIndexPath: IndexPath
     private var record: RecordResponseModel{
         didSet{
             mainView.dataBinding(with: record)
@@ -24,8 +25,8 @@ class FriendDetailViewController: BaseViewController {
     private var emoijiFloatingView: EmojiFloatingView!
     private let mainView = FriendDetailView()
     
-    init(recordIndex: Int, record: RecordResponseModel){
-        self.recordIndex = recordIndex
+    init(recordCellIndexPath: IndexPath, record: RecordResponseModel){
+        self.recordCellIndexPath = recordCellIndexPath
         self.record = record
         super.init(nibName: nil, bundle: nil)
     }
@@ -76,16 +77,36 @@ extension FriendDetailViewController: RecordCellWithEmojiDelegate{
     
     @objc func presentReactionSheet() {
         let data = record.friendReactions
-        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
     @objc func presentEtcActionSheet() {
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
         
+        let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            self.requestHideRecord()
+        }
+
+        let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
+            _ = LinkManager(self, .report)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(hideAction)
+        alert.addAction(declarationAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
     }
 }
 
 //MARK: - API
 extension FriendDetailViewController{
+    
     func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
         guard let reaction = Reaction(rawValue: reactionIndex) else { return }
@@ -98,12 +119,31 @@ extension FriendDetailViewController{
                 self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-                self.delegate.processResponseModifyReactionInDetail(index: self.recordIndex, record: self.record)
+                self.delegate.processResponseModifyReactionInDetail(indexPath: self.recordCellIndexPath, record: self.record)
                 break
             default:
                 print("LOG: fail requestGenerateFriendCardEmotion", result)
                 NetworkAlert.show(in: self){ [weak self] in
                     self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
+                break
+            }
+        }
+    }
+    
+    private func requestHideRecord(){
+        FriendService.shared.hideFriendRecord(id: record.id){ response in
+            switch response {
+            case .success:
+                print("LOG: success requestDeleteRecord")
+                self.navigationController?.popViewController(animated: true){
+                    self.delegate.processResponseHideFriendRecord(indexPath: self.recordCellIndexPath)
+                }
+                break
+            default:
+                print("LOG: fail requestGetRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestHideRecord()
                 }
                 break
             }

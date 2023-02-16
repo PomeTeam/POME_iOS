@@ -93,7 +93,7 @@ class GoalDateViewController: BaseViewController {
         guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
    
         let sheet: CalendarSheetViewController = dateField == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
-        _ = sheet.loadAndShowBottomSheet(in: self)
+        sheet.loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
             let dateString = PomeDateFormatter.getDateString(date)
             if(dateField == self.mainView.startDateField){
