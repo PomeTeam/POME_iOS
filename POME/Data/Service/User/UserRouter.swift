@@ -13,7 +13,7 @@ enum UserRouter: BaseRouter{
     case signUp(param: SignUpRequestModel)
     case signIn(param: SignInRequestModel)
     case logout
-    case deleteUser
+    case deleteUser(reason: String)
     
     case sendSMS(param: PhoneNumRequestModel)
     case checkNickName(param: CheckNicknameRequestModel)
@@ -49,8 +49,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.checkUser
         case .logout:
             return HTTPMethodURL.POST.logout
-        case .deleteUser:
-            return HTTPMethodURL.DELETE.deleteUser
+        case .deleteUser(let reason):
+            return HTTPMethodURL.DELETE.deleteUser + "/\(reason)"
         default:
             return ""
         }

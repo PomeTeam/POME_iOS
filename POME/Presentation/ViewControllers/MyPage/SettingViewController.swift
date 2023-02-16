@@ -72,7 +72,7 @@ class SettingViewController: BaseViewController {
 // MARK: - TableView delegate
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.settingTitleArray.count ?? 0
+        return self.settingTitleArray.count + 1 ?? 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row

@@ -41,7 +41,9 @@ class DeleteUserViewController: BaseViewController {
         
         deleteUserView.completeButton.rx.tap
             .bind {
-                self.navigationController?.pushViewController(DeleteUserDetailViewController(), animated: true)
+                let vc = DeleteUserDetailViewController()
+                vc.deleteReason = self.cellTitleArray[self.selectedIdx ?? 0]
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
     }
