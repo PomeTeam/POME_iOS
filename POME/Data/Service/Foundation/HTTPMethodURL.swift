@@ -62,6 +62,7 @@ enum HTTPMethodURL {
     
     struct DELETE {
         static let record = HTTPMethodURL.recordsURL
+        static let friendRecord = HTTPMethodURL.recordsURL + "/hide"
         static let goal = HTTPMethodURL.goalsURL
         static let friend = HTTPMethodURL.friendURL
         static let goalCategory = HTTPMethodURL.goalCategoryURL
