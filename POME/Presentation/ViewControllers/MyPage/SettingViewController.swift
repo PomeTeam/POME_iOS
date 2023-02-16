@@ -96,7 +96,12 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             // Version
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
-            cell.setUpTitle("\(settingTitleArray[tag - 1]) \(Bundle.appVersion)")
+            
+            if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                cell.setUpTitle("\(settingTitleArray[tag - 1]) \(appVersion)")
+            } else {
+                cell.setUpTitle("\(settingTitleArray[tag - 1])")
+            }
             cell.arrow.isHidden = true
             return cell
         case 9:
