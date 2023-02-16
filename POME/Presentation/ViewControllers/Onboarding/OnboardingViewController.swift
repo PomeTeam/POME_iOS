@@ -85,6 +85,9 @@ extension OnboardingViewController {
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.signIn(phoneNum)
+                }
                 break
             }
         }

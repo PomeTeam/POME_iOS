@@ -226,6 +226,9 @@ extension RegisterViewController {
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.getPresignedURL()
+                }
                 break
             }
         }
@@ -269,6 +272,9 @@ extension RegisterViewController {
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.signUp()
+                }
                 break
             }
         }

@@ -138,6 +138,9 @@ extension RecordEmotionViewController {
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.getNoSecondEmotionRecords(id: id)
+                }
                 break
             }
         }

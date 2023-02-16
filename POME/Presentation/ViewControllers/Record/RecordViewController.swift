@@ -338,6 +338,9 @@ extension RecordViewController {
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetGoals()
+                }
                 break
             }
         }
@@ -375,6 +378,9 @@ extension RecordViewController {
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.getRecordsOfGoal(id: id)
+                }
                 break
             }
 
