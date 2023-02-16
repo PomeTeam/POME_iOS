@@ -402,7 +402,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         }
 
         let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
-            LinkManager(self, .report)
+            _ = LinkManager(self, .report)
         }
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)

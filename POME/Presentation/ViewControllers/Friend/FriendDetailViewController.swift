@@ -80,7 +80,26 @@ extension FriendDetailViewController: RecordCellWithEmojiDelegate{
     }
     
     @objc func presentEtcActionSheet() {
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
         
+        let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            ToastMessageView.generateHideToastView().show(in: self)
+        }
+
+        let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
+            _ = LinkManager(self, .report)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(hideAction)
+        alert.addAction(declarationAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
     }
 }
 
