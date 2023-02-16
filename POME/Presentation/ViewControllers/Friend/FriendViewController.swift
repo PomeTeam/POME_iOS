@@ -262,7 +262,7 @@ extension FriendViewController{
             switch result{
             case .success:
                 print("LOG: success requestHideFriendRecord")
-                self.processResponseHideRecord(indexPath: indexPath)
+                self.processResponseHideFriendRecord(indexPath: indexPath)
                 break
             default:
                 print("LOG: fail requestHideFriendRecord", result)
@@ -273,13 +273,12 @@ extension FriendViewController{
             }
         }
     }
-    private func processResponseHideRecord(indexPath: IndexPath){
+    func processResponseHideFriendRecord(indexPath: IndexPath){
         willDelete = true
         let recordIndex = dataIndexBy(indexPath)
         records.remove(at: recordIndex)
-        ToastMessageView.generateHideToastView().show(in: self)
         friendView.tableView.deleteRows(at: [indexPath], with: .fade)
-//        ToastMessageView.generateHideToastView().show(in: self)
+        ToastMessageView.generateHideToastView().show(in: self)
         willDelete = false
     }
 }
@@ -379,7 +378,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let recordIndex = dataIndexBy(indexPath)
         let record = records[recordIndex]
-        let vc = FriendDetailViewController(recordIndex: recordIndex, record: record).then{
+        let vc = FriendDetailViewController(recordCellIndexPath: indexPath, record: record).then{
             $0.delegate = self
         }
         self.navigationController?.pushViewController(vc, animated: true)
@@ -451,7 +450,8 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
 }
 
 extension FriendViewController: FriendDetailEditable{
-    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel) {
+    func processResponseModifyReactionInDetail(indexPath: IndexPath, record: RecordResponseModel) {
+        let index = dataIndexBy(indexPath)
         records[index] = record
     }
 }

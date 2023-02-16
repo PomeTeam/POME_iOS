@@ -8,13 +8,14 @@
 import UIKit
 
 protocol FriendDetailEditable{
-    func processResponseModifyReactionInDetail(index: Int, record: RecordResponseModel)
+    func processResponseModifyReactionInDetail(indexPath: IndexPath, record: RecordResponseModel)
+    func processResponseHideFriendRecord(indexPath: IndexPath)
 }
 
 class FriendDetailViewController: BaseViewController {
     
     var delegate: FriendDetailEditable!
-    private let recordIndex: Int
+    private let recordCellIndexPath: IndexPath
     private var record: RecordResponseModel{
         didSet{
             mainView.dataBinding(with: record)
@@ -24,8 +25,8 @@ class FriendDetailViewController: BaseViewController {
     private var emoijiFloatingView: EmojiFloatingView!
     private let mainView = FriendDetailView()
     
-    init(recordIndex: Int, record: RecordResponseModel){
-        self.recordIndex = recordIndex
+    init(recordCellIndexPath: IndexPath, record: RecordResponseModel){
+        self.recordCellIndexPath = recordCellIndexPath
         self.record = record
         super.init(nibName: nil, bundle: nil)
     }
@@ -86,7 +87,7 @@ extension FriendDetailViewController: RecordCellWithEmojiDelegate{
         
         let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
-            ToastMessageView.generateHideToastView().show(in: self)
+            self.requestHideRecord()
         }
 
         let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
@@ -105,6 +106,7 @@ extension FriendDetailViewController: RecordCellWithEmojiDelegate{
 
 //MARK: - API
 extension FriendDetailViewController{
+    
     func requestGenerateFriendCardEmotion(reactionIndex: Int){
         
         guard let reaction = Reaction(rawValue: reactionIndex) else { return }
@@ -117,12 +119,31 @@ extension FriendDetailViewController{
                 self.record = data
                 self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-                self.delegate.processResponseModifyReactionInDetail(index: self.recordIndex, record: self.record)
+                self.delegate.processResponseModifyReactionInDetail(indexPath: self.recordCellIndexPath, record: self.record)
                 break
             default:
                 print("LOG: fail requestGenerateFriendCardEmotion", result)
                 NetworkAlert.show(in: self){ [weak self] in
                     self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                }
+                break
+            }
+        }
+    }
+    
+    private func requestHideRecord(){
+        FriendService.shared.hideFriendRecord(id: record.id){ response in
+            switch response {
+            case .success:
+                print("LOG: success requestDeleteRecord")
+                self.navigationController?.popViewController(animated: true){
+                    self.delegate.processResponseHideFriendRecord(indexPath: self.recordCellIndexPath)
+                }
+                break
+            default:
+                print("LOG: fail requestGetRecords", response)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestHideRecord()
                 }
                 break
             }
