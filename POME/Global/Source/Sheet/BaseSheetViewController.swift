@@ -69,6 +69,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         }
     }
     
+    @discardableResult
     func loadAndShowBottomSheet(in viewController: UIViewController) -> Self{
         self.loadViewIfNeeded()
         viewController.present(self, animated: true)
