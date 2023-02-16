@@ -46,8 +46,12 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
             friendImageManager.construct(by: friends)
         }
     }
+    private var willDelete = false
     var records = [RecordResponseModel](){
         didSet{
+            if(willDelete){
+                return
+            }
             isPaging = false
             isTableViewEmpty()
             friendView.tableView.reloadData()
@@ -247,6 +251,37 @@ extension FriendViewController{
             }
         }
     }
+    
+    
+    private func requestHideFriendRecord(indexPath: IndexPath){
+
+        let index = dataIndexBy(indexPath)
+        let record = records[index]
+        
+        FriendService.shared.hideFriendRecord(id: record.id){ result in
+            switch result{
+            case .success:
+                print("LOG: success requestHideFriendRecord")
+                self.processResponseHideRecord(indexPath: indexPath)
+                break
+            default:
+                print("LOG: fail requestHideFriendRecord", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestHideFriendRecord(indexPath: indexPath)
+                }
+                break
+            }
+        }
+    }
+    private func processResponseHideRecord(indexPath: IndexPath){
+        willDelete = true
+        let recordIndex = dataIndexBy(indexPath)
+        records.remove(at: recordIndex)
+        ToastMessageView.generateHideToastView().show(in: self)
+        friendView.tableView.deleteRows(at: [indexPath], with: .fade)
+//        ToastMessageView.generateHideToastView().show(in: self)
+        willDelete = false
+    }
 }
 
 //MARK: - CollectionView Delegate
@@ -398,7 +433,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         
         let hideAction = UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
-            ToastMessageView.generateHideToastView().show(in: self)
+            self.requestHideFriendRecord(indexPath: indexPath)
         }
 
         let declarationAction = UIAlertAction(title: "신고하기", style: .default) { _ in
