@@ -51,8 +51,9 @@ class RecordViewController: BaseTabViewController {
         recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
     }
     // MARK: - Actions
+    // 알림 페이지 연결 제거
     override func topBtnDidClicked() {
-        self.navigationController?.pushViewController(NotificationViewController(), animated: true)
+//        self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
         if self.goalContent.isEmpty {

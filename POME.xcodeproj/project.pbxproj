@@ -17,6 +17,7 @@
 		23061244292B51F200662007 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061243292B51F200662007 /* DefaultTextField.swift */; };
 		230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD70E298626FA0043F6DA /* StatusResponseModel.swift */; };
 		230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD7102986279A0043F6DA /* GoalResponseModel.swift */; };
+		2323CBC9299E70A7005C177B /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2323CBC8299E70A7005C177B /* Bundle.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C1C892990CCEA0087B81A /* DeleteUserViewController.swift */; };
@@ -254,6 +255,7 @@
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		230FD70E298626FA0043F6DA /* StatusResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponseModel.swift; sourceTree = "<group>"; };
 		230FD7102986279A0043F6DA /* GoalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalResponseModel.swift; sourceTree = "<group>"; };
+		2323CBC8299E70A7005C177B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
 		232C1C892990CCEA0087B81A /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
@@ -970,6 +972,7 @@
 				232B2BDE292B80EB00FFDF8B /* UILabel.swift */,
 				570304C12978192100AAC56D /* UICollectionView.swift */,
 				570304C32978193E00AAC56D /* UITableView.swift */,
+				2323CBC8299E70A7005C177B /* Bundle.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2027,6 +2030,7 @@
 				233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				570304C42978193E00AAC56D /* UITableView.swift in Sources */,
+				2323CBC9299E70A7005C177B /* Bundle.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				EE98F0D52980EFC0007BFCCD /* GoalRouter.swift in Sources */,
 				23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */,

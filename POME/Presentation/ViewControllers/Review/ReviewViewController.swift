@@ -82,10 +82,10 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
     }
-    
+    // 알람 페이지 연결 제거
     override func topBtnDidClicked() {
-        let vc = NotificationViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = NotificationViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: - Method

@@ -9,7 +9,8 @@ import UIKit
 
 class SettingViewController: BaseViewController {
 
-    let settingTitleArray = ["친구 관리", "문의 하기", "알림 설정", "신고하기", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃", "탈퇴하기"]
+    // TODO: 알림 설정 제거
+    let settingTitleArray = ["친구 관리", "문의 하기", "신고하기", "서비스", "약관 및 정책", "오픈소스 라이센스", "버전 정보", "로그아웃", "탈퇴하기"]
     var settingTableView: UITableView!
 
     // MARK: - Life Cycles
@@ -71,7 +72,7 @@ class SettingViewController: BaseViewController {
 // MARK: - TableView delegate
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 11
+        return self.settingTitleArray.count ?? 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
@@ -81,17 +82,24 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setUpData()
             cell.selectionStyle = .none
             return cell
-        case 1, 2, 3, 4:
+        case 1, 2, 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingWithSeparatorTableViewCell", for: indexPath) as? SettingWithSeparatorTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setUpTitle(settingTitleArray[tag - 1])
             return cell
-        case 6, 7, 8, 9:
+        case 5, 6, 8:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.setUpTitle(settingTitleArray[tag - 1])
             return cell
-        case 10:
+        case 7:
+            // Version
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
+            cell.setUpTitle("\(settingTitleArray[tag - 1]) \(Bundle.appVersion)")
+            cell.arrow.isHidden = true
+            return cell
+        case 9:
             let cell = UITableViewCell()
             cell.backgroundColor = Color.grey0
             cell.textLabel?.then{
@@ -124,9 +132,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let tag = indexPath.row
         switch tag {
-        case 0, 1, 2, 3, 4:
+        case 0, 1, 2, 3:
             return 71
-        case 6, 7, 8, 9, 10:
+        case 5, 6, 7, 8, 9:
             return 59
         default:
             return 32
@@ -142,27 +150,23 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             // 문의하기
             LinkManager(self, .contact)
         case 3:
-            // 알림 설정
-            self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
-        case 4:
             // 신고하기
             LinkManager(self, .report)
-        case 6:
-            // TODO: 약관 및 정책
+//            // 알림 설정
+//            self.navigationController?.pushViewController(AlarmSettingViewController(), animated: true)
+        case 5:
             LinkManager(self, .privacyAndServiceUse)
-        case 7:
+        case 6:
             // TODO: 오픈소스 라이센스
             print("")
         case 8:
-            // TODO: 버전 정보
-            print("")
-        case 9:
             // 로그아웃
             showLogoutDialog()
-        case 10:
+        case 9:
             // 탈퇴하기
             self.navigationController?.pushViewController(DeleteUserViewController(), animated: true)
         default:
+            // 버전정보는 클릭 시 아무 동작 안 함.
             print("")
         }
         tableView.deselectRow(at: indexPath, animated: true)
