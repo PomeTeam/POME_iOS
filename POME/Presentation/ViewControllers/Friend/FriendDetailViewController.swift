@@ -77,7 +77,7 @@ extension FriendDetailViewController: RecordCellWithEmojiDelegate{
     
     @objc func presentReactionSheet() {
         let data = record.friendReactions
-        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
     @objc func presentEtcActionSheet() {

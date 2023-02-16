@@ -128,7 +128,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
             filterView.setFilterSelectState(emotion: emotion)
         }
         
-        _ = sheet.loadAndShowBottomSheet(in: self)
+        sheet.loadAndShowBottomSheet(in: self)
     }
     
     @objc func filterInitializeButtonDidClicked(){
@@ -319,7 +319,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
     
     func presentReactionSheet(indexPath: IndexPath) {
         let data = records[dataIndexBy(indexPath)].friendReactions
-        _ = FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

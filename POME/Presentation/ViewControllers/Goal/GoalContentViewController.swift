@@ -184,9 +184,8 @@ extension GoalContentViewController{
     }
     
     private func processResponseDuplicateGoal(){
-        let sheet = RecordBottomSheetViewController(Image.flagMint,
-                                                    "이미 동일한 목표가 있어요",
-                                                    "새로운 목표를 만들어 기록을 작성해보세요!")
-        _ = sheet.loadAndShowBottomSheet(in: self)
+        RecordBottomSheetViewController(Image.flagMint,
+                                        "이미 동일한 목표가 있어요",
+                                        "새로운 목표를 만들어 기록을 작성해보세요!").loadAndShowBottomSheet(in: self)
     }
 }
