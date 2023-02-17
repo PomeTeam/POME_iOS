@@ -38,6 +38,12 @@ extension UserService{
         }
     }
     
+    func getMarshmallow(completion: @escaping (NetworkResult<MarshmallowResponseModel>) -> Void) {
+        requestDecoded(UserRouter.getMarshmallow){ response in
+            completion(response)
+        }
+    }
+    
     func sendSMS(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
         requestDecoded(UserRouter.sendSMS(param: model)) { response in
             completion(response)

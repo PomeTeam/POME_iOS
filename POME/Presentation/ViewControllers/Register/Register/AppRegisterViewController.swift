@@ -108,6 +108,9 @@ class AppRegisterViewController: BaseViewController {
             print("보내진 인증코드와 입력한 코드번호가 맞지 않습니다.")
         }
     }
+    @objc func goBack() {
+        self.dismiss(animated: false)
+    }
 }
 extension AppRegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -123,6 +126,11 @@ extension AppRegisterViewController: UITextFieldDelegate {
 //MARK: - API
 extension AppRegisterViewController {
     private func sendSMS(){
+//        var txtPop = TextInfoPopUpViewController(titleText: "문자 전송 API 호출", greenBtnText: "ok")
+//        txtPop.modalPresentationStyle = .overFullScreen
+//        self.present(txtPop, animated: false, completion: nil)
+//        txtPop.okBtn.addTarget(self, action: #selector(self.goBack), for: .touchUpInside)
+        
         let sendSMSRequestModel = PhoneNumRequestModel(phoneNum: self.phone.value)
         UserService.shared.sendSMS(model: sendSMSRequestModel) { result in
             switch result {
@@ -131,11 +139,25 @@ extension AppRegisterViewController {
                     guard let authCode = data.data?.value else {return}
                     self.authCode = authCode
                     print("인증코드:", self.authCode)
+                
+                let txtPop = TextInfoPopUpViewController(titleText: "문자가 전송되었습니다.", greenBtnText: "ok")
+                txtPop.modalPresentationStyle = .overFullScreen
+                self.present(txtPop, animated: false, completion: nil)
+                txtPop.okBtn.addTarget(self, action: #selector(self.goBack), for: .touchUpInside)
+                
                     break
                 case .failure(let err):
+                let txtPop = TextInfoPopUpViewController(titleText: "문자 전송이 실패되었습니다.", greenBtnText: "ok")
+                txtPop.modalPresentationStyle = .overFullScreen
+                self.present(txtPop, animated: false, completion: nil)
+                txtPop.okBtn.addTarget(self, action: #selector(self.goBack), for: .touchUpInside)
+                
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.sendSMS()
+                }
                 break
             }
         }

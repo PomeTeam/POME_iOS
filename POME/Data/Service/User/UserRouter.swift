@@ -15,6 +15,8 @@ enum UserRouter: BaseRouter{
     case logout
     case deleteUser(reason: String)
     
+    case getMarshmallow
+    
     case sendSMS(param: PhoneNumRequestModel)
     case checkNickName(param: CheckNicknameRequestModel)
     case checkUser(param: PhoneNumRequestModel)
@@ -51,6 +53,8 @@ extension UserRouter{
             return HTTPMethodURL.POST.logout
         case .deleteUser(let reason):
             return HTTPMethodURL.DELETE.deleteUser + "/\(reason)"
+        case .getMarshmallow:
+            return HTTPMethodURL.marshmallow
         default:
             return ""
         }
@@ -74,6 +78,8 @@ extension UserRouter{
             return .post
         case .deleteUser:
             return .delete
+        case .getMarshmallow:
+            return .get
         }
     }
     
@@ -91,14 +97,14 @@ extension UserRouter{
             return .requestJSONEncodable(param)
         case .getPresignedURLServer(let id):
             return .requestParameters(parameters: ["id": id], encoding: URLEncoding.queryString)
-        case .logout, .deleteUser:
+        case .logout, .deleteUser, .getMarshmallow:
             return .requestPlain
         }
     }
     
     var headers: [String: String]? {
         switch self {
-        case .logout, .deleteUser:
+        case .logout, .deleteUser, .getMarshmallow:
             let token = UserManager.token ?? ""
             let header = [
                 "Content-Type": "application/json",

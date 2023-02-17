@@ -28,5 +28,74 @@ class PaddingLabel: UILabel {
 
         return contentSize
     }
+    
+    // MARK: Level Set
+    func setLevelLabel(_ type: MarshmallowType, _ level: Int) {
+        self.then{
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 12
+            $0.setTypoStyleWithSingleLine(typoStyle: .title5)
+            $0.textAlignment = .center
+        }
+            
+        switch type {
+        case .emotion:
+            self.text = "기록말랑"
+        case .growth:
+            self.text = "공감말랑"
+        case .honest:
+            self.text = "발전말랑"
+        case .record:
+            self.text = "솔직말랑"
+        }
+        
+        switch level {
+        case 1:
+            self.textColor = Color.grey5
+            self.backgroundColor = Color.grey1
+        case 2:
+            self.textColor = Color.pink100
+            self.backgroundColor = Color.pink30
+        case 3:
+            self.textColor = Color.pink100
+            self.backgroundColor = Color.pink30
+        case 4:
+            self.textColor = Color.pink100
+            self.backgroundColor = Color.pink30
+        default:
+            self.textColor = Color.grey5
+            self.backgroundColor = Color.grey1
+        }
+    }
+    
+    func setLevelIcon(_ level: Int) {
+        self.then{
+            $0.text = "Lv.\(level + 1)"
+            $0.setTypoStyleWithSingleLine(typoStyle: .title6)
+            $0.textAlignment = .center
+            
+            $0.clipsToBounds = true
+            $0.layer.borderWidth = 1
+            $0.layer.cornerRadius = 12
+        }
+        
+        switch level {
+        case 1:
+            self.textColor = Color.grey4
+            self.layer.borderColor = Color.grey4.cgColor
+        case 2:
+            self.textColor = Color.pink100
+            self.layer.borderColor = Color.pink100.cgColor
+        case 3:
+            self.textColor = Color.pink100
+            self.layer.borderColor = Color.pink100.cgColor
+        case 4:
+            self.textColor = Color.pink100
+            self.layer.borderColor = Color.pink100.cgColor
+        default:
+            self.textColor = Color.grey4
+            self.layer.borderColor = Color.grey4.cgColor
+        }
+    }
 
 }

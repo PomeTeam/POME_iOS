@@ -10,6 +10,12 @@ import UIKit
 class MyPageViewController: BaseTabViewController {
     var mypageTableView: UITableView!
     var completedGoalCount = 0
+    
+    // MARK: Marshmallow
+    var recordLevel: Int = -1
+    var emotionLevel: Int = -1
+    var growthLevel: Int = -1
+    var honestLevel: Int = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +24,7 @@ class MyPageViewController: BaseTabViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         getFinishedGoalCounts()
+        getMarshmallow()
     }
     
     override func style() {
@@ -81,6 +88,7 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageMarshmallowTableViewCell", for: indexPath) as? MypageMarshmallowTableViewCell else { return UITableViewCell() }
             cell.marshmallowCollectionView.delegate = self
             cell.marshmallowCollectionView.dataSource = self
+            cell.marshmallowCollectionView.reloadData()
             cell.selectionStyle = .none
             return cell
         }
@@ -111,13 +119,13 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let tag = indexPath.row
         switch tag {
         case 0:
-            cell.setUpMarshmallow(4, Image.marshmallowLevel4Pink)
+            cell.setUpMarshmallow(.record, self.recordLevel)
         case 1:
-            cell.setUpMarshmallow(1, Image.marshmallowLock)
+            cell.setUpMarshmallow(.emotion, self.emotionLevel)
         case 2:
-            cell.setUpMarshmallow(4, Image.marshmallowLevel2Yellow)
+            cell.setUpMarshmallow(.growth, self.growthLevel)
         default:
-            cell.setUpMarshmallow(4, Image.marshmallowLevel4Mint)
+            cell.setUpMarshmallow(.honest, self.honestLevel)
         }
         
         return cell
@@ -146,6 +154,26 @@ extension MyPageViewController {
                 break
             default:
                 print(result)
+                break
+            }
+        }
+    }
+    private func getMarshmallow() {
+        UserService.shared.getMarshmallow { result in
+            switch result{
+            case .success(let data):
+                self.recordLevel = data.recordMarshmelloLv
+                self.emotionLevel = data.emotionMarshmelloLv
+                self.growthLevel = data.growthMarshmelloLv
+                self.honestLevel = data.honestMarshmelloLv
+                
+                self.mypageTableView.reloadData()
+                break
+            default:
+                print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.getMarshmallow()
+                }
                 break
             }
         }
