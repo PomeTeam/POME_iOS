@@ -32,8 +32,8 @@ extension UserService{
         }
     }
     
-    func deleteUser(completion: @escaping (NetworkResult<Bool>) -> Void) {
-        requestDecoded(UserRouter.deleteUser){ response in
+    func deleteUser(reason: String, completion: @escaping (NetworkResult<Bool>) -> Void) {
+        requestDecoded(UserRouter.deleteUser(reason: reason)){ response in
             completion(response)
         }
     }

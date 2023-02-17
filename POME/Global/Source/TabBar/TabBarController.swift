@@ -28,8 +28,8 @@ class TabBarController: UITabBarController {
     
     func setTabBarItems(){
         
-        let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: Image.alarmActivate)),
-                    UINavigationController(rootViewController: ReviewViewController(btnImage: Image.alarmActivate)),
+        let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: UIImage())),
+                    UINavigationController(rootViewController: ReviewViewController(btnImage: UIImage())),
                     UINavigationController(rootViewController: FriendViewController(btnImage: Image.addPeople)),
                     UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
         

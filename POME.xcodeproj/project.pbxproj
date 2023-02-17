@@ -255,6 +255,7 @@
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
 		230FD70E298626FA0043F6DA /* StatusResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponseModel.swift; sourceTree = "<group>"; };
 		230FD7102986279A0043F6DA /* GoalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalResponseModel.swift; sourceTree = "<group>"; };
+		2323CBC8299E70A7005C177B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
 		232C1C892990CCEA0087B81A /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
@@ -500,6 +501,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		230490CD299E7D7F00600CC0 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2323CBC8299E70A7005C177B /* Bundle.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		2306122D292B48B700662007 /* Record */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,6 +785,7 @@
 				5724EBE429100C8500DC529B /* Products */,
 				9985C6C62AA2A9B10BEA041F /* Pods */,
 				624F1339817CBA845EC82A7A /* Frameworks */,
+				230490CD299E7D7F00600CC0 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

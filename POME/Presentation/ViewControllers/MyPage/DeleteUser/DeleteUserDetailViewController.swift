@@ -9,11 +9,13 @@ import UIKit
 
 class DeleteUserDetailViewController: BaseViewController {
     var deleteUserDetailView: DeleteUserDetailView!
+    var deleteReason: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print(self.deleteReason)
     }
     
 
@@ -45,15 +47,15 @@ class DeleteUserDetailViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     @objc func deleteUserDidTap() {
-        deleteUser()
+        deleteUser(self.deleteReason)
     }
 
 }
 
 // MARK: - API
 extension DeleteUserDetailViewController {
-    func deleteUser() {
-        UserService.shared.logout { result in
+    func deleteUser(_ reason: String) {
+        UserService.shared.deleteUser(reason: reason) { result in
             switch result{
             case .success(let data):
                 if data.self {
@@ -74,6 +76,9 @@ extension DeleteUserDetailViewController {
                 break
             default:
                 print(result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.deleteUser(reason)
+                }
                 break
             }
         }
