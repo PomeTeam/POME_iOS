@@ -18,16 +18,11 @@ class MarshmallowCollectionViewCell: BaseCollectionViewCell {
         $0.axis = .horizontal
         $0.spacing = 6
     }
-    let levelIcon = UIImageView().then{
-        $0.image = Image.level4
+    let levelIcon = PaddingLabel(padding: UIEdgeInsets(top: 6, left: 2.5, bottom: 6, right: 2.5)).then{
+        $0.setLevelIcon(1)
     }
     let levelLabel = PaddingLabel(padding: UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8)).then{
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 12
-        $0.text = "기록말랑"
-        $0.setTypoStyleWithSingleLine(typoStyle: .title5)
-        $0.textColor = Color.pink100
-        $0.backgroundColor = Color.pink30
+        $0.setLevelLabel(.record, 1)
     }
     let marshmallowImg = UIImageView().then{
         $0.image = Image.marshmallowLevel1Pink
@@ -74,12 +69,19 @@ class MarshmallowCollectionViewCell: BaseCollectionViewCell {
             make.centerX.equalToSuperview()
         }
     }
-    func setUpMarshmallow(_ level: Int, _ marshmallowImg: UIImage) {
-        if level == 1 {
-            levelIcon.image = Image.level1
-            levelLabel.textColor = Color.grey5
-            levelLabel.backgroundColor = Color.grey1
-        }
-        self.marshmallowImg.image = marshmallowImg
+    
+    // MARK: set API
+    func setUpMarshmallow(_ type: MarshmallowType, _ level: Int) {
+        self.marshmallowImg.setMarshmallowImage(type, level)
+        self.levelIcon.setLevelIcon(level)
+        self.levelLabel.setLevelLabel(type, level)
     }
+}
+
+
+enum MarshmallowType {
+    case record
+    case emotion
+    case growth
+    case honest
 }

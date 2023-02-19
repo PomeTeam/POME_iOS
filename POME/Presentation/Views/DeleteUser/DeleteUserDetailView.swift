@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class DeleteUserDetailView: BaseView {
+    let contentArray = ["모든 목표 및 소비기록이 삭제돼요.", "친구정보, 획득한 마시멜로 등 모든 활동 정보가 삭제돼요.", "계정이 삭제된 후에는 계정을 다시 살릴 수 없어요.", "회원 탈퇴 후 7일간 재가입할 수 없어요."]
     // MARK: - Views
     let titleLabel = UILabel().then{
         let nickname = UserManager.nickName ?? ""
@@ -17,11 +18,9 @@ class DeleteUserDetailView: BaseView {
         $0.setTypoStyleWithMultiLine(typoStyle: .title1)
         $0.textColor = Color.title
     }
-    let stack = UIStackView().then{
-        $0.axis = .vertical
-        $0.spacing = 12
+    let contentLabel = UILabel().then{
+        $0.numberOfLines = 0
     }
-    
     let completeButton = DefaultButton(titleStr: "탈퇴하기").then{
         $0.activateButton()
     }
@@ -30,6 +29,7 @@ class DeleteUserDetailView: BaseView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        contentLabel.setBulletPointList(strings: contentArray)
     }
     
     required init?(coder: NSCoder) {
@@ -44,12 +44,7 @@ class DeleteUserDetailView: BaseView {
         super.hierarchy()
         
         addSubview(titleLabel)
-        addSubview(stack)
-        
-        setUpStack("모든 게시글 및 채팅방이 삭제돼요.")
-        setUpStack("계정이 삭제 된 후에는 계정을 다시 살릴 수 없어요")
-        setUpStack("회원 탈퇴 후 7일간 재가입할 수 없어요.")
-        setUpStack("매너온도, 관심, 거래 후기 등 모든 활동 정보가 삭제되고 2줄 이상 시 이렇게 적혀요.")
+        addSubview(contentLabel)
         
         addSubview(completeButton)
     }
@@ -61,7 +56,7 @@ class DeleteUserDetailView: BaseView {
             make.top.equalToSuperview().offset(12)
             make.leading.equalToSuperview().offset(20)
         }
-        stack.snp.makeConstraints { make in
+        contentLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(20)
             make.leading.equalTo(titleLabel)
             make.trailing.equalToSuperview().offset(-20)
@@ -71,14 +66,5 @@ class DeleteUserDetailView: BaseView {
             make.bottom.equalToSuperview().offset(-35)
             make.height.equalTo(52)
         }
-    }
-    func setUpStack(_ contentStr: String) {
-        let contentLabel = UILabel().then{
-            $0.text = "·  " + contentStr
-            $0.numberOfLines = 0
-            $0.setTypoStyleWithMultiLine(typoStyle: .body1)
-            $0.textColor = Color.body
-        }
-        stack.addArrangedSubview(contentLabel)
     }
 }

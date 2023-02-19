@@ -25,3 +25,9 @@ struct PresignedURLResponseModel: Decodable {
     let presignedUrl: String
 }
 
+struct MarshmallowResponseModel: Decodable {
+    let emotionMarshmelloLv: Int
+    let growthMarshmelloLv: Int
+    let honestMarshmelloLv: Int
+    let recordMarshmelloLv: Int
+}

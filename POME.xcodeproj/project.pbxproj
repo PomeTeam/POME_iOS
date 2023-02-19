@@ -55,6 +55,7 @@
 		2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CC292C5274003A62EA /* RecordEmotionView.swift */; };
 		2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */; };
 		2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8D0292C58F9003A62EA /* EmptyView.swift */; };
+		238AA432299FD7DD00036922 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AA431299FD7DD00036922 /* UIImageView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		239E1F3F2976E3C400A69AF1 /* AppRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239E1F3E2976E3C400A69AF1 /* AppRegisterViewModel.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
@@ -294,6 +295,7 @@
 		2385A8CC292C5274003A62EA /* RecordEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionView.swift; sourceTree = "<group>"; };
 		2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionTableViewCell.swift; sourceTree = "<group>"; };
 		2385A8D0292C58F9003A62EA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		238AA431299FD7DD00036922 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		239E1F3E2976E3C400A69AF1 /* AppRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterViewModel.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				570304C12978192100AAC56D /* UICollectionView.swift */,
 				570304C32978193E00AAC56D /* UITableView.swift */,
 				EE1D5721299E208E00758683 /* UINavigationController.swift */,
+				238AA431299FD7DD00036922 /* UIImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1908,6 +1911,7 @@
 				232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */,
 				EEE5F5F02981278900ECD31B /* FriendsResponseModel.swift in Sources */,
 				EE2628D1299231230013137C /* Pageable.swift in Sources */,
+				238AA432299FD7DD00036922 /* UIImageView.swift in Sources */,
 				EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */,
 				57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */,
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,
@@ -2268,6 +2272,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
@@ -2287,6 +2292,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -2300,6 +2306,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
@@ -2319,6 +2326,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

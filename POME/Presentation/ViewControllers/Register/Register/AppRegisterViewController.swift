@@ -108,6 +108,9 @@ class AppRegisterViewController: BaseViewController {
             print("보내진 인증코드와 입력한 코드번호가 맞지 않습니다.")
         }
     }
+    @objc func goBack() {
+        self.dismiss(animated: false)
+    }
 }
 extension AppRegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -136,6 +139,9 @@ extension AppRegisterViewController {
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.sendSMS()
+                }
                 break
             }
         }
@@ -148,12 +154,14 @@ extension AppRegisterViewController {
                     guard let isUser = data.data else {return}
                     self.isUser = isUser
                     print("유저 확인:", isUser)
-                    
                     break
                 case .failure(let err):
                     print(err.localizedDescription)
                     break
             default:
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.checkUser()
+                }
                 break
             }
         }

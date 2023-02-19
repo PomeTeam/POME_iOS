@@ -15,6 +15,8 @@ enum HTTPMethodURL {
     static let friendURL = "/users/friend"
     static let goalCategoryURL = "/goal-category"
     
+    static let marshmallow = "/marshmello"
+    
     struct GET {
         static let records = HTTPMethodURL.recordsURL
         static let recordOfGoal = HTTPMethodURL.recordsURL + "/goal" //기록 페이징 조회
