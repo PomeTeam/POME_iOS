@@ -41,4 +41,24 @@ extension UILabel {
         // 총 Height에서 한 줄의 Line Height를 나누면 현재 총 Line 수
         return Int(ceil(labelTextSize.height / font.lineHeight))
     }
+    // Bullet List - 탈퇴 시
+    func setBulletPointList(strings: [String]) {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.headIndent = 15
+        paragraphStyle.lineHeightMultiple = 1.33
+        paragraphStyle.lineSpacing = 12
+        paragraphStyle.maximumLineHeight = 25.6
+        paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: 15)]
+
+        let stringAttributes = [
+            NSAttributedString.Key.font: UIFont.pretendard(size: 16, family: .Regular),
+            NSAttributedString.Key.foregroundColor: Color.body,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+        ]
+        
+        let string = strings.map { "•\t\($0)" }.joined(separator: "\n")
+
+        attributedText = NSAttributedString(string: string,
+                                            attributes: stringAttributes)
+    }
 }
