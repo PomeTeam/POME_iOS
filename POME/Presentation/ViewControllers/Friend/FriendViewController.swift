@@ -151,9 +151,9 @@ extension FriendViewController{
         FriendService.shared.getFriends(pageable: PageableModel(page: page)){ result in
             switch result{
             case .success(let data):
-                    print("LOG: 'success' requestGetFriends", data)
-                    self.friends = data
-                    self.requestGetAllFriendsRecords()
+                print("LOG: 'success' requestGetFriends", data)
+                self.friends = data
+                self.requestGetAllFriendsRecords()
                 break
             default:
                 print("LOG: 'fail' requestGetFriends", result)

@@ -22,8 +22,8 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     
     let nameLabel = UILabel().then{
         $0.textColor = Color.grey5
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)
         $0.numberOfLines = 1
-        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
         $0.textAlignment = .center
     }
     
