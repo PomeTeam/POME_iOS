@@ -47,13 +47,22 @@ class RecordEmotionViewController: BaseViewController {
     }
     
     // MARK: - Actions
-    @objc func alertRecordMenuButtonDidTap() {
+    @objc func alertRecordMenuButtonDidTap(_ sender: RecordTapGesture) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
-            print("click modify")
+            guard let goalData = self.goalContent else {return}
+            guard let recordData = sender.data else {return}
+            let vc = RecordModifyContentViewController(goal: goalData,
+                                                       record: recordData){_ in
+                print("click modify")
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
             let dialog = ImageAlert.deleteRecord.generateAndShow(in: self)
+            dialog.completion = {
+                self.deleteRecord(id: sender.data?.id ?? 0)
+            }
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
         
@@ -98,7 +107,9 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
             }
             
             // Alert Menu
-            cell.menuButton.addTarget(self, action: #selector(alertRecordMenuButtonDidTap), for: .touchUpInside)
+            let tapRecordMenuGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
+            tapRecordMenuGesture.data = self.noSecondEmotionRecord[indexPath.item - 1]
+            cell.menuButton.addGestureRecognizer(tapRecordMenuGesture)
             // 더보기 버튼 클릭 Gesture
             let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
             viewMoreGesture.data = indexPath
@@ -143,6 +154,13 @@ extension RecordEmotionViewController {
                 }
                 break
             }
+        }
+    }
+    // MARK: 기록 삭제 API
+    private func deleteRecord(id: Int) {
+        RecordService.shared.deleteRecord(id: id) { result in
+            print("기록 삭제 성공")
+            self.getNoSecondEmotionRecords(id: self.goalContent?.id ?? 0)
         }
     }
 }
