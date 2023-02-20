@@ -76,7 +76,7 @@ class RecordViewController: BaseTabViewController {
         if !self.recordsOfGoal.isEmpty || !self.noSecondEmotionRecords.isEmpty {
             showNoSecondEmotionWarning()
         } else {
-            let vc = AllRecordsViewController()
+            let vc = AllRecordsViewController(self)
             vc.goalContent = sender.data
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -108,7 +108,12 @@ class RecordViewController: BaseTabViewController {
     @objc func alertRecordMenuButtonDidTap(_ sender: RecordTapGesture) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
-            print("click modify")
+            guard let recordData = sender.data else {return}
+            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
+                                                       record: recordData){_ in
+                print("click modify")
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
             let dialog = ImageAlert.deleteRecord.generateAndShow(in: self)
@@ -279,9 +284,9 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
                 let itemIdx = indexPath.item - 3
                 cell.setUpData(self.recordsOfGoal[itemIdx])
                 // Alert Menu
-                let deleteRecordGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
-                deleteRecordGesture.data = self.recordsOfGoal[itemIdx]
-                cell.menuButton.addGestureRecognizer(deleteRecordGesture)
+                let tapRecordMenuGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
+                tapRecordMenuGesture.data = self.recordsOfGoal[itemIdx]
+                cell.menuButton.addGestureRecognizer(tapRecordMenuGesture)
                 // 더보기 버튼 클릭 Gesture
                 let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
                 viewMoreGesture.data = indexPath
