@@ -115,6 +115,7 @@ extension MypageFriendViewController {
                     if data.success {
                         print("친구 삭제 성공")
                         // 친구 목록 다시 불러오기
+                        FriendListChangeManager.shared.isChange = true
                         self.getFriends()
                     }
                     break
