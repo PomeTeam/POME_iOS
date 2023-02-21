@@ -18,6 +18,9 @@ class FriendSearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tap = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     override func viewDidAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
@@ -107,17 +110,20 @@ class FriendSearchViewController: BaseViewController {
         self.friendSearchView.searchTextField.text = currName
         return currName
     }
-}
-// MARK: - TableView delegate
-extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func setFriendSearchEmptyView() {
         let count = self.friendData.count ?? 0
+        print("count:", count)
         if count == 0 {
             EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
         } else {
             EmptyView(self.friendSearchView.searchTableView).hideEmptyView()
         }
-
+    }
+}
+// MARK: - TableView delegate
+extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let count = self.friendData.count ?? 0
         return count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -140,6 +146,12 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
 //MARK: - API
 extension FriendSearchViewController {
     private func searchFriend(id: String){
+        if id.isEmpty {
+            self.friendData.removeAll()
+            self.friendSearchView.searchTableView.reloadData()
+            self.friendSearchView.searchTableView.backgroundView?.isHidden = true
+            return
+        }
         FriendService.shared.getFriendSearch(id: id) { result in
             switch result {
                 case .success(let data):
@@ -147,6 +159,7 @@ extension FriendSearchViewController {
                     print(data.data)
                 
                     self.friendData = data.data ?? []
+                    self.setFriendSearchEmptyView()
                     self.friendSearchView.searchTableView.reloadData()
                 
                     break
