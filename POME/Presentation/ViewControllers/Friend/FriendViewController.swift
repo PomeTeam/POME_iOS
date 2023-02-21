@@ -89,10 +89,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
         
         super.layout()
         
+        let tabBarHeight = self.tabBarController?.tabBar.frame.height
+        
         self.view.addSubview(friendView)
         friendView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
         }
     }
     
@@ -435,7 +438,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
                                    y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
         
-        if(Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom >= 74){
+        if(Device.HEIGHT - viewPosition.y - self.view.safeAreaInsets.bottom >= 74){ //Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom
             print("LOG: EMOJI FLOATING VIEW TEST true")
             closure()
         }else{
