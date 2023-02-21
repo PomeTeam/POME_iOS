@@ -70,7 +70,6 @@ class FriendSearchViewController: BaseViewController {
                 
         self.name.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
-                self.setFriendSearchEmptyView()
                 self.searchFriend(id: newValue)
 //                print("name changed : \(newValue) ")
             })
@@ -113,6 +112,7 @@ class FriendSearchViewController: BaseViewController {
     }
     func setFriendSearchEmptyView() {
         let count = self.friendData.count ?? 0
+        print("count:", count)
         if count == 0 {
             EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
         } else {
@@ -146,6 +146,12 @@ extension FriendSearchViewController: UITableViewDelegate, UITableViewDataSource
 //MARK: - API
 extension FriendSearchViewController {
     private func searchFriend(id: String){
+        if id.isEmpty {
+            self.friendData.removeAll()
+            self.friendSearchView.searchTableView.reloadData()
+            self.friendSearchView.searchTableView.backgroundView?.isHidden = true
+            return
+        }
         FriendService.shared.getFriendSearch(id: id) { result in
             switch result {
                 case .success(let data):
@@ -153,6 +159,7 @@ extension FriendSearchViewController {
                     print(data.data)
                 
                     self.friendData = data.data ?? []
+                    self.setFriendSearchEmptyView()
                     self.friendSearchView.searchTableView.reloadData()
                 
                     break
