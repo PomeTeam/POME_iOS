@@ -16,13 +16,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     //MARK: - Property
     
-    var page: Int = 0{
-        willSet{
-            if(newValue == 0){
-                hasNextPage = false
-            }
-        }
-    }
+    var page: Int = 0
     var isPaging: Bool = false
     var hasNextPage: Bool = false
     private var willLoadingViewAnimate: Bool{
@@ -32,7 +26,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var currentFriendIndex: Int = 0{
         didSet{
             page = 0
-            currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
+            hasNextPage = false
         }
     }
     var currentEmotionSelectCardIndex: Int?
@@ -164,6 +158,7 @@ extension FriendViewController{
             case .success(let data):
                 print("LOG: 'success' requestGetFriends", data)
                 self.friends = data
+                self.requestGetAllFriendsRecords()
                 break
             default:
                 print("LOG: 'fail' requestGetFriends", result)
@@ -348,6 +343,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
         cell.setSelectState(row: indexPath.row)
         currentFriendIndex = indexPath.row
+        currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
