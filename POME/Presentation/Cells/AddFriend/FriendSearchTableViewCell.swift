@@ -96,6 +96,7 @@ class FriendSearchTableViewCell: BaseTableViewCell {
     }
     private func generateNewFriend(id: String){
         FriendService.shared.generateNewFriend(id: id) { result in
+            FriendListChangeManager.shared.isChange = true
             print("\(id) - 친구 추가")
         }
     }
