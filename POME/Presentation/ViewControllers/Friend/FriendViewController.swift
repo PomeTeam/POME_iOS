@@ -59,6 +59,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     }
     
     let friendImageManager = FriendProfileImageManager.shared
+    let friendsChangeManager = FriendListChangeManager.shared
     
     //MARK: - UI
     
@@ -71,10 +72,16 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestGetFriends()
+        requestGetFriendsInitialize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if(friendsChangeManager.isChange){
+            requestGetFriendsInitialize()
+            friendsChangeManager.initialize()
+            return
+        }
+        requestGetFriends()
         print(UserManager.token, UserManager.userId)
     }
     
@@ -147,13 +154,30 @@ extension FriendViewController{
 //MARK: - API
 extension FriendViewController{
     
+    private func requestGetFriendsInitialize(){
+        currentFriendIndex = 0
+        FriendService.shared.getFriends(pageable: PageableModel(page: page)){ result in
+            switch result{
+            case .success(let data):
+                print("LOG: 'success' requestGetFriends", data)
+                self.friends = data
+                break
+            default:
+                print("LOG: 'fail' requestGetFriends", result)
+                NetworkAlert.show(in: self){ [weak self] in
+                    self?.requestGetFriendsInitialize()
+                }
+                break
+            }
+        }
+    }
+    
     private func requestGetFriends(){
         FriendService.shared.getFriends(pageable: PageableModel(page: page)){ result in
             switch result{
             case .success(let data):
                 print("LOG: 'success' requestGetFriends", data)
                 self.friends = data
-                self.requestGetAllFriendsRecords()
                 break
             default:
                 print("LOG: 'fail' requestGetFriends", result)
