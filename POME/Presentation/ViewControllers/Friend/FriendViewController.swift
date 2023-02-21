@@ -17,8 +17,8 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     //MARK: - Property
     
     var page: Int = 0{
-        didSet{
-            if(page == 0){
+        willSet{
+            if(newValue == 0){
                 hasNextPage = false
             }
         }
