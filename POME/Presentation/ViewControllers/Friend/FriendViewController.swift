@@ -71,6 +71,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     override func viewWillAppear(_ animated: Bool) {
         if(friendsChangeManager.isChange){
+            friendView.tableView.scrollToRow(at: [0,0], at: .top, animated: false)
             requestGetFriendsInitialize()
             friendsChangeManager.initialize()
             return
