@@ -16,13 +16,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     //MARK: - Property
     
-    var page: Int = 0{
-        willSet{
-            if(newValue == 0){
-                hasNextPage = false
-            }
-        }
-    }
+    var page: Int = 0
     var isPaging: Bool = false
     var hasNextPage: Bool = false
     private var willLoadingViewAnimate: Bool{
@@ -32,7 +26,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     var currentFriendIndex: Int = 0{
         didSet{
             page = 0
-            currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
+            hasNextPage = false
         }
     }
     var currentEmotionSelectCardIndex: Int?
@@ -77,6 +71,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     
     override func viewWillAppear(_ animated: Bool) {
         if(friendsChangeManager.isChange){
+            friendView.tableView.scrollToRow(at: [0,0], at: .top, animated: false)
             requestGetFriendsInitialize()
             friendsChangeManager.initialize()
             return
@@ -89,10 +84,13 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
         
         super.layout()
         
+        let tabBarHeight = self.tabBarController?.tabBar.frame.height
+        
         self.view.addSubview(friendView)
         friendView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-tabBarHeight!)
         }
     }
     
@@ -161,6 +159,7 @@ extension FriendViewController{
             case .success(let data):
                 print("LOG: 'success' requestGetFriends", data)
                 self.friends = data
+                self.requestGetAllFriendsRecords()
                 break
             default:
                 print("LOG: 'fail' requestGetFriends", result)
@@ -345,6 +344,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
         cell.setSelectState(row: indexPath.row)
         currentFriendIndex = indexPath.row
+        currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -435,7 +435,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
                                    y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
         
-        if(Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom >= 74){
+        if(Device.HEIGHT - viewPosition.y - self.view.safeAreaInsets.bottom >= 74){ //Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom
             print("LOG: EMOJI FLOATING VIEW TEST true")
             closure()
         }else{

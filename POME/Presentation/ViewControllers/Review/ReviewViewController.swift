@@ -308,7 +308,7 @@ extension ReviewViewController: RecordCellWithEmojiDelegate{
         let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
                                    y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
         
-        if(Device.HEIGHT - viewPosition.y - Device.tabBarHeight - self.view.safeAreaInsets.bottom >= 74){
+        if(Device.HEIGHT - viewPosition.y - self.view.safeAreaInsets.bottom >= 74){
             print("LOG: EMOJI FLOATING VIEW TEST true")
             closure()
         }else{
