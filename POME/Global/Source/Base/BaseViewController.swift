@@ -103,8 +103,6 @@ class BaseViewController: UIViewController {
             $0.centerY.equalToSuperview()
         }
     }
-
-
 }
 
 extension BaseViewController: UITextFieldDelegate{

@@ -111,7 +111,7 @@ class GoalContentViewController: BaseViewController {
 
 //MARK: - UITextFieldDelegate
 
-extension GoalContentViewController: UITextFieldDelegate{
+extension GoalContentViewController{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         
