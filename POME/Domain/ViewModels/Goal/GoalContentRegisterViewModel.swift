@@ -14,15 +14,21 @@ class GoalContentRegisterViewModel{
     private let goalUseCase: CreateGoalUseCase
     
     struct Input{
-        let categoryTextField: Observable<String>
-        let promiseTextField: Observable<String>
-        let priceTextField: Observable<String>
+        let categoryText: Observable<String>
+        let promiseText: Observable<String>
+        let priceText: Observable<String>
+//        let categoryTextFieldIsFocusing: Binder<Bool>
+//        let promiseTextFieldIsFocusing: Binder<Bool>
+//        let priceTextFieldIsFocusing: Binder<Bool>
     }
     
     struct Output{
-        let category: Driver<String>
-        let promise: Driver<String>
-        let price: Driver<String>
+        let categoryText: Driver<String>
+        let promiseText: Driver<String>
+        let priceText: Driver<String>
+//        let cateogryIsFocus: Driver<Bool>
+//        let promiseIsFocus: Driver<Bool>
+//        let priceIsFocus: Driver<Bool>
         let canMoveNext: Driver<Bool>
     }
     
@@ -32,31 +38,45 @@ class GoalContentRegisterViewModel{
     
     func transform(input: Input) -> Output {
         
-        let requestObservable = Observable.combineLatest(input.categoryTextField,
-                                                         input.promiseTextField,
-                                                         input.priceTextField)
+        let requestObservable = Observable.combineLatest(input.categoryText,
+                                                         input.promiseText,
+                                                         input.priceText)
         
         
-        let category = input.categoryTextField
+        let category = input.categoryText
             .map{ $0 }
             .asDriver(onErrorJustReturn: "")
         
-        let promise = input.promiseTextField
+        let promise = input.promiseText
             .map{ $0 }
             .asDriver(onErrorJustReturn: "")
         
-        let price = input.priceTextField
+        let price = input.priceText
             .map{ $0 }
             .asDriver(onErrorJustReturn: "")
+        
+//        let cateogryIsFocus = input.categoryTextFieldIsFocusing
+//            .asDriver(onErrorJustReturn: false)
+//
+//        let promiseIsFocus = input.categoryTextFieldIsFocusing
+//            .map{ $0 }
+//            .asDriver(onErrorJustReturn: false)
+//
+//        let priceIsFocus = input.categoryTextFieldIsFocusing
+//            .map{ $0 }
+//            .asDriver(onErrorJustReturn: false)
         
         let canMoveNext = requestObservable
             .map { category, promise, price in
                 return !category.isEmpty && !promise.isEmpty && !price.isEmpty
             }.asDriver(onErrorJustReturn: false)
 
-        return Output(category: category,
-                      promise: promise,
-                      price: price,
+        return Output(categoryText: category,
+                      promiseText: promise,
+                      priceText: price,
+//                      cateogryIsFocus: cateogryIsFocus,
+//                      promiseIsFocus: promiseIsFocus,
+//                      priceIsFocus: priceIsFocus,
                       canMoveNext: canMoveNext)
     }
 }

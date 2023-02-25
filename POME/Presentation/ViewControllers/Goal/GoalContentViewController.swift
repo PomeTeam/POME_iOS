@@ -50,24 +50,24 @@ class GoalContentViewController: BaseViewController {
     }
     
     override func bind(){
-        
-        let input = GoalContentRegisterViewModel.Input(categoryTextField: mainView.categoryField.infoTextField.rx.text.orEmpty.asObservable(),
-                                                       promiseTextField: mainView.promiseField.infoTextField.rx.text.orEmpty.asObservable(),
-                                                       priceTextField: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable())
+
+        let input = GoalContentRegisterViewModel.Input(categoryText: mainView.categoryField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                       promiseText: mainView.promiseField.infoTextField.rx.text.orEmpty.asObservable(),
+                                                       priceText: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable())
         
         let output = viewModel.transform(input: input)
         
-        output.category
+        output.categoryText
             .drive(onNext: {
                 self.goalDataManager.name = $0
             }).disposed(by: disposeBag)
         
-        output.promise
+        output.promiseText
             .drive(onNext: {
                 self.goalDataManager.oneLineMind = $0
             }).disposed(by: disposeBag)
 
-        output.price
+        output.priceText
             .drive(onNext: {
                 self.goalDataManager.price = $0
             }).disposed(by: disposeBag)
