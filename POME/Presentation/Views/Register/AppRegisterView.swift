@@ -33,7 +33,9 @@ class AppRegisterView: BaseView {
         $0.isHidden = true
     }
     
-    let notSendedButton = DefaultButton(titleStr: "인증번호가 오지 않나요?", typo: .subtitle2, backgroundColor: .white, titleColor: Color.grey5)
+    let notSendedButton = DefaultButton(titleStr: "인증번호가 오지 않나요?", typo: .subtitle2, backgroundColor: .white, titleColor: Color.grey5).then{
+        $0.setUnderLine()
+    }
     let nextButton = DefaultButton(titleStr: "동의하고 시작하기").then{
         $0.isActivate(false)
     }
