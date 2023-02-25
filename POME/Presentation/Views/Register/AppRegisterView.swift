@@ -27,6 +27,7 @@ class AppRegisterView: BaseView {
         $0.keyboardType = .numberPad
     }
     let errorMessageLabel = UILabel().then{
+        $0.text = "인증 번호가 일치하지 않아요"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.red
         $0.isHidden = true
