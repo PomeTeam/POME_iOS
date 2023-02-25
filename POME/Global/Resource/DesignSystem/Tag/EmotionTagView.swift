@@ -74,4 +74,10 @@ class EmotionTagView: BaseView {
         emotionImage.image = when == .first ? state.firstEmotionImage : state.secondEmotionImage
         emotionLabel.text = state.message
     }
+    
+    func initialize(){
+        emotionLabel.textColor = Color.body
+        emotionLabel.text = ""
+        emotionImage.image = EmotionTag.default.firstEmotionImage
+    }
 }
