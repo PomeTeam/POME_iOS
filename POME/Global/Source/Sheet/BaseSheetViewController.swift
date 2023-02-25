@@ -12,6 +12,10 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     //MARK: - Properties
     
     private final let type: SheetType!
+    private var viewController: UIViewController?
+    private var dimmedView = UIView().then{
+        $0.backgroundColor = Color.popUpBackground
+    }
     
     init(type: SheetType){
         self.type = type
@@ -34,7 +38,7 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         
         let controller: UISheetPresentationController = .init(presentedViewController: presented, presenting: presenting)
-        
+
         let constant = getDetentSize()
         
         let detent: UISheetPresentationController.Detent = ._detent(withIdentifier: "Detent1", constant: constant)//type.rawValue * Const.Device.HEIGHT / 812
@@ -42,6 +46,8 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
         controller.detents = [detent]
         controller.preferredCornerRadius = 16
         controller.prefersGrabberVisible = false
+        controller.containerView?.backgroundColor = Color.popUpBackground
+
         
         return controller
     }
@@ -72,8 +78,22 @@ class BaseSheetViewController: UIViewController, UIViewControllerTransitioningDe
     @discardableResult
     func loadAndShowBottomSheet(in viewController: UIViewController) -> Self{
         self.loadViewIfNeeded()
+        self.viewController = viewController
         viewController.present(self, animated: true)
         return self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if(viewController == nil){
+            return
+        }
+        viewController?.view.addSubview(dimmedView)
+        dimmedView.snp.makeConstraints{
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        dimmedView.removeFromSuperview()
+    }
 }
