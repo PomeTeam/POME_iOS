@@ -180,7 +180,7 @@ class RecordRegisterContentViewController: BaseViewController {
     }
 }
 
-extension RecordRegisterContentViewController: UITextFieldDelegate{
+extension RecordRegisterContentViewController{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("textFieldShouldReturn Execute")
@@ -188,11 +188,12 @@ extension RecordRegisterContentViewController: UITextFieldDelegate{
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    override func textFieldDidEndEditing(_ textField: UITextField) {
         if(textField == mainView.priceField.infoTextField){
             guard let text = textField.text else { return }
             recordManager.price = text
         }
+        super.textFieldDidEndEditing(textField)
     }
 }
 
