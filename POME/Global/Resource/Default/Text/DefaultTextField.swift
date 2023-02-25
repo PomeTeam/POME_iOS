@@ -11,6 +11,11 @@ import UIKit
 class DefaultTextField: UITextField {
     
     var countLimit: Int?
+    var isFocusState: Bool = false{ //true false 설정해주면 됩니다
+        didSet{
+            backgroundColor = isFocusState ? Color.grey1 : Color.grey0
+        }
+    }
     
     init() {
         

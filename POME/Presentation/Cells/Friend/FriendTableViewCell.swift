@@ -37,8 +37,8 @@ class FriendTableViewCell: BaseTableViewCell {
         mainView.memoLabel.text = ""
         mainView.othersReactionCountLabel.text = ""
         
-        mainView.firstEmotionTag.setTagInfo(when: .first, state: .default)
-        mainView.secondEmotionTag.setTagInfo(when: .second, state: .default)
+        mainView.firstEmotionTag.initialize()
+        mainView.secondEmotionTag.initialize()
         
         mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
         mainView.othersReactionButton.setImage(.none, for: .normal)
