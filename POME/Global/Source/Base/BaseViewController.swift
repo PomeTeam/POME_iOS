@@ -103,7 +103,15 @@ class BaseViewController: UIViewController {
             $0.centerY.equalToSuperview()
         }
     }
+}
 
-
+extension BaseViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        (textField as? DefaultTextField)?.isFocusState = true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        (textField as? DefaultTextField)?.isFocusState = false
+    }
 }
 

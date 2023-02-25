@@ -112,7 +112,7 @@ class AppRegisterViewController: BaseViewController {
         self.dismiss(animated: false)
     }
 }
-extension AppRegisterViewController: UITextFieldDelegate {
+extension AppRegisterViewController {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
