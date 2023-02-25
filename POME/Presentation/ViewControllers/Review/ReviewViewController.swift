@@ -186,14 +186,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let testLabel = UILabel().then{
-            $0.text = goals.isEmpty ? "···" : goals[indexPath.row].goalNameBinding
-            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-        }
-        
-        let width = testLabel.intrinsicContentSize.width + 12 * 2
-        return CGSize(width: width, height: 30)
+        goals.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].goalNameBinding)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

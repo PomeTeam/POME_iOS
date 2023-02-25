@@ -51,11 +51,8 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     //MARK: - Override
     
     override func hierarchy() {
-        
         super.hierarchy()
-        
-        self.baseView.addSubview(goalCategoryView)
-        
+        baseView.addSubview(goalCategoryView)
         goalCategoryView.addSubview(goalCategoryLabel)
     }
     
@@ -66,11 +63,30 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
         goalCategoryView.snp.makeConstraints{
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
-        
         goalCategoryLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(12)
             $0.centerX.centerY.equalToSuperview()
         }
+    }
+    
+    static func estimatedSize() -> CGSize{
+        let testLabel = UILabel().then{
+            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+            $0.textAlignment = .center
+            $0.text = "···"
+        }
+        let width = testLabel.intrinsicContentSize.width + 12 * 2
+        return CGSize(width: width, height: 30)
+    }
+    
+    static func estimatedSize(title: String) -> CGSize{
+        let testLabel = UILabel().then{
+            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+            $0.textAlignment = .center
+            $0.text = title
+        }
+        let width = testLabel.intrinsicContentSize.width + 12 * 2
+        return CGSize(width: width, height: 30)
     }
 }
