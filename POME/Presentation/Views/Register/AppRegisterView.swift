@@ -25,6 +25,7 @@ class AppRegisterView: BaseView {
     }
     let codeTextField = DefaultTextField(placeholderStr: "인증번호를 입력해주세요").then{
         $0.keyboardType = .numberPad
+        $0.setClearButton(mode: .whileEditing)
     }
     let errorMessageLabel = UILabel().then{
         $0.text = "인증 번호가 일치하지 않아요"

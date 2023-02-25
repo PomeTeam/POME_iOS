@@ -120,6 +120,8 @@ enum Image{
     
     public static let addComplete = UIImage(named: "addComplete")!
     
+    public static let textFieldClearButton = UIImage(named: "textfield_right_button")!
+    
     // MARK: - Record
     
     public static let error = UIImage(named: "error")!

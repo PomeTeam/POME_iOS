@@ -10,7 +10,9 @@ import UIKit
 
 class FriendSearchView: BaseView {
     // MARK: - Views
-    let searchTextField = DefaultTextField("친구의 닉네임을 검색해보세요", 50, 16)
+    let searchTextField = DefaultTextField("친구의 닉네임을 검색해보세요", 50, 16).then{
+        $0.setClearButton(mode: .whileEditing)
+    }
     let searchButton = UIButton().then{
         $0.setImage(Image.search, for: .normal)
     }
