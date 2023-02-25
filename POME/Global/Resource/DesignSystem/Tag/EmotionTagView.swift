@@ -68,9 +68,10 @@ class EmotionTagView: BaseView {
     //MARK: - Method
     
     func setTagInfo(when: EmotionTime, state: EmotionTag){
-        
+        if(state == .default){
+            emotionLabel.textColor = Color.grey5
+        }
         emotionImage.image = when == .first ? state.firstEmotionImage : state.secondEmotionImage
-        
         emotionLabel.text = state.message
     }
 }
