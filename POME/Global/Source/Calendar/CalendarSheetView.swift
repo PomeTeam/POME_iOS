@@ -31,7 +31,7 @@ class CalendarSheetView: BaseView {
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.itemSize = CGSize(width: CalendarSheetCollectionViewCell.cellSize, height: CalendarSheetCollectionViewCell.cellSize)
             $0.minimumLineSpacing = 4
-            $0.minimumInteritemSpacing = 9.17
+            $0.minimumInteritemSpacing = 5
         }
         
         $0.collectionViewLayout = flowLayout
