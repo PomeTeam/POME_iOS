@@ -62,4 +62,30 @@ class DefaultTextField: UITextField {
         
         self.layer.cornerRadius = 6
     }
+    
+    // MARK: Clear button Custom
+    func setClearButton(mode: UITextField.ViewMode) {
+        let clearButton = UIButton(type: .custom)
+        clearButton.setImage(Image.textFieldClearButton, for: .normal)
+        clearButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        clearButton.contentMode = .scaleAspectFit
+        clearButton.addTarget(self, action: #selector(DefaultTextField.clear(sender:)), for: .touchUpInside)
+        
+        self.addTarget(self, action: #selector(DefaultTextField.displayClearButtonIfNeeded), for: .editingDidBegin)
+        self.addTarget(self, action: #selector(DefaultTextField.displayClearButtonIfNeeded), for: .editingChanged)
+        
+        self.rightView = clearButton
+        self.rightViewMode = mode
+    }
+    @objc private func displayClearButtonIfNeeded() {
+        self.rightView?.isHidden = (self.text?.isEmpty) ?? true
+    }
+    @objc private func clear(sender: AnyObject) {
+        self.text = ""
+    }
+    // clear button position
+    override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        let rect = super.rightViewRect(forBounds: bounds)
+        return rect.offsetBy(dx: -13, dy: 0)
+    }
 }

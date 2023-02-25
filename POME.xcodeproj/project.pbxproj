@@ -39,6 +39,7 @@
 		2345E1CA2981947A003185E0 /* UserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C92981947A003185E0 /* UserResponseModel.swift */; };
 		235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235B3972292D6288003ACA01 /* TextPopUpViewController.swift */; };
 		2360903F298FBD8D00523727 /* LinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2360903E298FBD8D00523727 /* LinkManager.swift */; };
+		2365150A29AA626E00A4AFD1 /* UITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2365150929AA626E00A4AFD1 /* UITabBar.swift */; };
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
 		2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */; };
@@ -280,6 +281,7 @@
 		2345E1C92981947A003185E0 /* UserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseModel.swift; sourceTree = "<group>"; };
 		235B3972292D6288003ACA01 /* TextPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPopUpViewController.swift; sourceTree = "<group>"; };
 		2360903E298FBD8D00523727 /* LinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkManager.swift; sourceTree = "<group>"; };
+		2365150929AA626E00A4AFD1 /* UITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBar.swift; sourceTree = "<group>"; };
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
@@ -1066,6 +1068,7 @@
 				5724EC6129177BF000DC529B /* TabBarItem.swift */,
 				5724EC502917680A00DC529B /* TabBarController.swift */,
 				5724EC522917682400DC529B /* BaseTabViewController.swift */,
+				2365150929AA626E00A4AFD1 /* UITabBar.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -1897,6 +1900,7 @@
 				EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
+				2365150A29AA626E00A4AFD1 /* UITabBar.swift in Sources */,
 				EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,

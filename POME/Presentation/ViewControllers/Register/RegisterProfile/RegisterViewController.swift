@@ -105,7 +105,7 @@ class RegisterViewController: UIViewController {
     }
     func setValidName(_ nameStr: String) -> String {
         var currName = nameStr
-        if nameStr.count <= 10 {
+        if nameStr.count <= 8 {
             currName = nameStr.filter {!($0.isWhitespace)}
         } else {
             currName = self.name.value

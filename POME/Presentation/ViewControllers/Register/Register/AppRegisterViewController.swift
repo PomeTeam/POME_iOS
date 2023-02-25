@@ -68,6 +68,11 @@ class AppRegisterViewController: BaseViewController {
                             .distinctUntilChanged()
                             .bind(to: self.inputCode)
                             .disposed(by: disposeBag)
+        self.inputCode.skip(1).distinctUntilChanged()
+            .subscribe( onNext: { newValue in
+                self.appRegisterView.errorMessageLabel.isHidden = true
+            })
+            .disposed(by: disposeBag)
     }
     // Buttons
     func initButton() {

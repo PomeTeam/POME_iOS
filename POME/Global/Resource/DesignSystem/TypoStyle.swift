@@ -38,7 +38,7 @@ enum TypoStyle: Int, CaseIterable {
     
     case subtitle1          // 16pt / medium / -0.48 / 19.2
     case subtitle2          // 14pt / medium / -0.42 / 19.6
-    case subtitle3          // 12pt / medium / -0.36 / 14.4
+    case subtitle3          // 12pt / medium / -0.36 / 18
     
     case body1              // 16pt / regular / -0.48 / 25.6
     case body2              // 14pt / regular / -0.42 / 22.4
@@ -82,7 +82,7 @@ extension TypoStyle {
         
         case .subtitle1:    return LabelDescription(kern: -0.48, lineHeight: 19.2)
         case .subtitle2:    return LabelDescription(kern: -0.42, lineHeight: 19.6)
-        case .subtitle3:    return LabelDescription(kern: -0.36, lineHeight: 14.4)
+        case .subtitle3:    return LabelDescription(kern: -0.36, lineHeight: 18)
         
         case .body1:        return LabelDescription(kern: -0.48, lineHeight: 25.6)
         case .body2:        return LabelDescription(kern: -0.42, lineHeight: 22.4)

@@ -25,14 +25,18 @@ class AppRegisterView: BaseView {
     }
     let codeTextField = DefaultTextField(placeholderStr: "인증번호를 입력해주세요").then{
         $0.keyboardType = .numberPad
+        $0.setClearButton(mode: .whileEditing)
     }
     let errorMessageLabel = UILabel().then{
+        $0.text = "인증 번호가 일치하지 않아요"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.red
         $0.isHidden = true
     }
     
-    let notSendedButton = DefaultButton(titleStr: "인증번호가 오지 않나요?", typo: .subtitle2, backgroundColor: .white, titleColor: Color.grey5)
+    let notSendedButton = DefaultButton(titleStr: "인증번호가 오지 않나요?", typo: .subtitle2, backgroundColor: .white, titleColor: Color.grey5).then{
+        $0.setUnderLine()
+    }
     let nextButton = DefaultButton(titleStr: "동의하고 시작하기").then{
         $0.isActivate(false)
     }
