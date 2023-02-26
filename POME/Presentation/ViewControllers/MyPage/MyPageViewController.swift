@@ -130,13 +130,7 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         return cell
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
-        let width = ((bounds.size.width - 32) / 2) - 5.5
-        
-        return CGSize(width: width, height: 180)
-        
-    }
+   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         guard let cell = collectionView.cellForItem(at: indexPath) as? MarshmallowCollectionViewCell else { fatalError() }
         cell.isSelected = true
