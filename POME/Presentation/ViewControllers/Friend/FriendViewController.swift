@@ -394,18 +394,9 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         let record = records[cardIndex]
     
         cell.delegate = self
-        cell.mainView.dataBinding(with: record)
+        cell.bindingData(record)
                 
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let recordIndex = dataIndexBy(indexPath)
-        let record = records[recordIndex]
-        let vc = FriendDetailViewController(recordCellIndexPath: indexPath, record: record).then{
-            $0.delegate = self
-        }
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func presentEmojiFloatingView(indexPath: IndexPath) {
@@ -470,12 +461,5 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Reco
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
-    }
-}
-
-extension FriendViewController: FriendDetailEditable{
-    func processResponseModifyReactionInDetail(indexPath: IndexPath, record: RecordResponseModel) {
-        let index = dataIndexBy(indexPath)
-        records[index] = record
     }
 }

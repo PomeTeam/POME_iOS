@@ -11,43 +11,34 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     
     var delegate: RecordCellWithEmojiDelegate?
     
-    let shadowView = UIView().then{
+    private let shadowView = UIView().then{
         $0.layer.borderWidth = 1
         $0.layer.borderColor = Color.grey2.cgColor
         $0.setShadowStyle(type: .card)
     }
-    let mainView = ReviewDetailView().then{
-        $0.myReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
-        $0.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
-        $0.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
-        
-        $0.memoLabel.numberOfLines = 2
-    }
+    private let mainView = ReviewDetailView()
     
     override func prepareForReuse() {
         mainView.tagLabel.text = ""
         mainView.timeLabel.text = ""
         mainView.priceLabel.text = ""
         mainView.memoLabel.text = ""
-        mainView.othersReactionCountLabel.text = ""
+        mainView.rightReactionCountLabel.text = ""
         
         mainView.firstEmotionTag.initialize()
         mainView.secondEmotionTag.initialize()
         
-        mainView.myReactionButton.setImage(Image.emojiAdd, for: .normal)
-        mainView.othersReactionButton.setImage(.none, for: .normal)
-    }
-    
-    override func setting(){
-        super.setting()
-        self.selectedBackgroundView = UIView()
+        mainView.leftReactionButton.setImage(.none, for: .normal)
+        mainView.rightReactionButton.setImage(.none, for: .normal)
+        
+        mainView.rightReactionCountLabel.isHidden = true
     }
     
     override func hierarchy(){
         
         super.hierarchy()
         
-        self.baseView.addSubview(shadowView)
+        baseView.addSubview(shadowView)
         shadowView.addSubview(mainView)
     }
     
@@ -68,26 +59,33 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
         }
     }
     
+    override func initialize() {
+        mainView.leftReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.rightReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
+        mainView.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
+    }
+    
     //MARK: - Action
     
-    @objc func myReactionBtnDidClicked(){
-
-        guard let index = getCellIndex() else { return }
-
-        delegate?.presentEmojiFloatingView!(indexPath: index)
+    @objc private func myReactionBtnDidClicked(){
+        if let index = getCellIndex(){
+            delegate?.presentEmojiFloatingView!(indexPath: index)
+        }
     }
     
-    @objc func othersReactionBtnDidClicked(){
-        
-        guard let index = getCellIndex() else { return }
-
-        delegate?.presentReactionSheet!(indexPath: index)
+    @objc private func othersReactionBtnDidClicked(){
+        if let index = getCellIndex(){
+            delegate?.presentReactionSheet!(indexPath: index)
+        }
     }
     
-    @objc func moreButtonDidClicked(){
-        
-        guard let index = getCellIndex() else { return }
-        
-        delegate?.presentEtcActionSheet!(indexPath: index)
+    @objc private func moreButtonDidClicked(){
+        if let index = getCellIndex(){
+            delegate?.presentEtcActionSheet!(indexPath: index)
+        }
+    }
+    
+    func bindingData(with: RecordResponseModel){
+        mainView.dataBinding(with: with)
     }
 }

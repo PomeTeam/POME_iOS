@@ -253,21 +253,10 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             let record = records[cardIndex]
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
                 $0.delegate = self
-                $0.mainView.dataBinding(with: record)
+                $0.bindingData(with: record)
             }
             return cell
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if(indexPath.row < 3){
-            return
-        }
-        let dataIndex = dataIndexBy(indexPath)
-        let vc = ReviewDetailViewController(recordIndex: dataIndex, goal: goals[currentGoal], record: records[dataIndex]).then{
-            $0.delegate = self
-        }
-        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -461,16 +450,5 @@ extension ReviewViewController{
         self.records.remove(at: recordIndex)
         self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
         self.willDelete = false
-    }
-}
-
-extension ReviewViewController: ReviewDetailEditable{
-    
-    func processResponseModifyRecordInDetail(index: Int, record: RecordResponseModel){
-        records[index] = record
-    }
-    
-    func processResponseDeleteRecordInDetail(index: Int){
-        records.remove(at: index)
     }
 }

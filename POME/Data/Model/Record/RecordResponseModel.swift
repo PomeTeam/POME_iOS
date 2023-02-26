@@ -60,6 +60,11 @@ extension RecordResponseModel{
         EmotionTag(rawValue: self.emotionResponse.secondEmotion ?? Const.default) ?? .default
     }
     
+    var friendReactions: [FriendReactionResponseModel]{
+        self.emotionResponse.friendEmotions
+    }
+    
+    //친구탭
     var myReactionBinding: UIImage{
         guard let reaction = self.emotionResponse.myEmotion else {
             return Image.emojiAdd
@@ -75,8 +80,17 @@ extension RecordResponseModel{
         self.emotionResponse.friendEmotions.count
     }
     
-    var friendReactions: [FriendReactionResponseModel]{
-        self.emotionResponse.friendEmotions
+    //회고탭
+    var firstFriendReaction: Reaction{
+        Reaction(rawValue: self.emotionResponse.friendEmotions.first!.emotionId) ?? .happy
+    }
+    
+    var secondFriendReaction: Reaction{
+        Reaction(rawValue: self.emotionResponse.friendEmotions[1].emotionId) ?? .happy
+    }
+    
+    var othersReactionCountBindingInReview: Int{
+        self.emotionResponse.friendEmotions.count - 1
     }
 }
 

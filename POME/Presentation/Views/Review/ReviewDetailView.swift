@@ -9,6 +9,8 @@ import UIKit
 
 class ReviewDetailView: BaseView {
     
+    private var record: RecordResponseModel!
+    
     //MARK: - Properties
     let emotionStackView = UIStackView().then{
         $0.spacing = 2
@@ -49,14 +51,16 @@ class ReviewDetailView: BaseView {
         $0.spacing = -6
         $0.axis = .horizontal
     }
-    lazy var myReactionButton = UIButton().then{
+    lazy var leftReactionButton = UIButton().then{
         $0.setImage(Image.emojiAdd, for: .normal)
     }
-    lazy var othersReactionButton = UIButton()
-    lazy var othersReactionCountLabel = UILabel().then{
-        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
+    lazy var rightReactionButton = UIButton()
+    lazy var rightReactionCountLabel = UILabel().then{
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)
         $0.textColor = .white
+        $0.textAlignment = .center
         $0.isUserInteractionEnabled = false
+        $0.isHidden = true
     }
     lazy var moreButton = UIButton().then{
         $0.setImage(Image.moreHorizontal, for: .normal)
@@ -82,10 +86,11 @@ class ReviewDetailView: BaseView {
         
         tagArrowBackgroundView.addSubview(tagArrowImage)
 
-        reactionStackView.insertArrangedSubview(othersReactionButton, at: 0)
-        reactionStackView.insertArrangedSubview(myReactionButton, at: 0)
+        reactionStackView.insertArrangedSubview(rightReactionButton, at: 0)
+        reactionStackView.insertArrangedSubview(leftReactionButton, at: 0)
+        
+        rightReactionButton.addSubview(rightReactionCountLabel)
     }
-
 
     override func layout() {
         
@@ -141,12 +146,15 @@ class ReviewDetailView: BaseView {
             $0.leading.bottom.equalToSuperview()
         }
         
-        myReactionButton.snp.makeConstraints{
+        leftReactionButton.snp.makeConstraints{
             $0.width.height.equalTo(28)
         }
         
-        othersReactionButton.snp.makeConstraints{
+        rightReactionButton.snp.makeConstraints{
             $0.width.height.equalTo(28)
+        }
+        rightReactionCountLabel.snp.makeConstraints{
+            $0.top.leading.trailing.bottom.equalToSuperview()
         }
         
         moreButton.snp.makeConstraints{
@@ -160,6 +168,8 @@ class ReviewDetailView: BaseView {
     
     func dataBinding(with record: RecordResponseModel){
 
+        self.record = record
+        
         tagLabel.text = record.oneLineMind
         timeLabel.text = record.timeBinding
         priceLabel.text = record.priceBinding
@@ -167,41 +177,35 @@ class ReviewDetailView: BaseView {
         
         firstEmotionTag.setTagInfo(when: .first, state: record.firstEmotionBinding)
         secondEmotionTag.setTagInfo(when: .second, state: record.secondEmotionBinding)
-        myReactionButton.setImage(record.myReactionBinding, for: .normal)
 
-        record.othersReactionCountBinding == 0 ? setOthersReactionEmpty() : setOthersReaction(thumbnail: record.othersThumbnailReactionBinding, count: record.othersReactionCountBinding)
-    }
-    
-    func setOthersReactionEmpty(){
-        othersReactionButton.setImage(.none, for: .normal)
-        othersReactionButton.isEnabled = false
-    }
-    
-    func setOthersReaction(thumbnail: Reaction, count: Int){
-        
-        othersReactionButton.isEnabled = true
-        
-        if(count == 1){
-            othersReactionButton.setImage(thumbnail.defaultImage, for: .normal)
-            return
-        }
-        
-        //count > 1인 경우 아래 코드 실행
-        self.othersReactionButton.addSubview(othersReactionCountLabel)
-        othersReactionCountLabel.snp.makeConstraints{
-            $0.leading.top.equalToSuperview().offset(6)
-            $0.centerX.centerY.equalToSuperview()
-        }
-        
-        let countString: String!
-        
-        if(count < 10){
-            countString = "+\(count)"
+        if(record.othersReactionCountBinding == 0){
+            setFriendsReactionEmpty()
+        }else if(record.othersReactionCountBinding == 1){
+            setFriendsReactionCountOne()
         }else{
-            countString = "9+"
+            setFriendsReactionWithCountLabel()
         }
-        
-        othersReactionCountLabel.text = countString
-        othersReactionButton.setImage(thumbnail.blurImage, for: .normal)
+    }
+    
+    private func setFriendsReactionEmpty(){
+        leftReactionButton.setImage(.none, for: .normal)
+        rightReactionButton.setImage(.none, for: .normal)
+    }
+    
+    private func setFriendsReactionCountOne(){
+        leftReactionButton.setImage(record.firstFriendReaction.defaultImage, for: .normal)
+        rightReactionButton.setImage(.none, for: .normal)
+    }
+    
+    private func setFriendsReactionWithCountLabel(){
+        leftReactionButton.setImage(record.firstFriendReaction.defaultImage, for: .normal)
+        rightReactionButton.setImage(record.secondFriendReaction.blurImage, for: .normal)
+        setReactionCount()
+    }
+    
+    private func setReactionCount(){
+        let count = record.othersReactionCountBindingInReview
+        rightReactionCountLabel.isHidden = false
+        rightReactionCountLabel.text = count < 10 ? "+\(count)" : "+\(9)"
     }
 }
