@@ -23,6 +23,7 @@ class GoalDateRegisterViewModel{
         let isHighlightStartDateIcon: Driver<Bool>
         let isHighlightEndDateIcon: Driver<Bool>
         let canSelectEndDate: Driver<Bool>
+        let willShowInvalidationLabel: Driver<Bool>
         let canMoveNext: Driver<Bool>
     }
     
@@ -46,14 +47,41 @@ class GoalDateRegisterViewModel{
             .map{ !$0.isEmpty }
             .asDriver(onErrorJustReturn: false)
         
-        let canMoveNext = requestObservable
-            .map { startDate, endDate in
-                return !startDate.isEmpty && !endDate.isEmpty
-            }.asDriver(onErrorJustReturn: false)
+        let isValidation = requestObservable
+            .map{ startDate, endDate in
+                if(startDate.isEmpty || endDate.isEmpty){
+                    return false
+                }
+                
+                let start = PomeDateFormatter.getDateType(from: startDate)
+                let validateEndDate = Calendar.current.date(byAdding: .day, value: 31, to: start) ?? Date()
+                let validateEndDateString = PomeDateFormatter.getDateString(validateEndDate)
+                
+                return endDate <= validateEndDateString && endDate > startDate ? true : false
+            }.share()
+        
+        let willShowInvalidationLabel = requestObservable
+            .map{ startDate, endDate in
+                if(startDate.isEmpty || endDate.isEmpty){
+                    return true
+                }
+                let start = PomeDateFormatter.getDateType(from: startDate)
+                let validateEndDate = Calendar.current.date(byAdding: .day, value: 31, to: start) ?? Date()
+                let validateEndDateString = PomeDateFormatter.getDateString(validateEndDate)
+                
+                return endDate <= validateEndDateString && endDate > startDate ? true : false
+            }
+            .asDriver(onErrorJustReturn: false)
+        
+        let canMoveNext = isValidation
+            .map { $0 }
+            .asDriver(onErrorJustReturn: false)
 
         return Output(isHighlightStartDateIcon: isHighlightStartDateIcon,
                       isHighlightEndDateIcon: isHighlightEndDateIcon,
                       canSelectEndDate: canSelectEndDate,
-                      canMoveNext: canMoveNext)
+                      willShowInvalidationLabel: willShowInvalidationLabel,
+                      canMoveNext: canMoveNext
+        )
     }
 }
