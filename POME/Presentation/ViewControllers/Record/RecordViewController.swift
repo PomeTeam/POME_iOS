@@ -9,11 +9,9 @@ import CloudKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
-    // Goal Category
-    var categories: [GoalCategoryResponseModel] = []
-    var categorySelectedIdx = 0
     // Goal Content
     var goalContent: [GoalResponseModel] = []
+    var categorySelectedIdx = 0
     // Records
     var recordsOfGoal: [RecordResponseModel] = []
     var noSecondEmotionRecords: [RecordResponseModel] = []
@@ -160,7 +158,7 @@ class RecordViewController: BaseTabViewController {
 extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = self.categories.count ?? 0
+        let count = self.goalContent.count ?? 0
         return count
     }
     
@@ -169,7 +167,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 as? GoalTagCollectionViewCell else { fatalError() }
         
         let itemIdx = indexPath.row
-        cell.goalCategoryLabel.text = categories[itemIdx].name
+        cell.goalCategoryLabel.text = goalContent[itemIdx].goalNameBinding
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
         else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
@@ -197,7 +195,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: categories[indexPath.item].name.size(withAttributes: [NSAttributedString.Key.font : UIFont.autoPretendard(type: .sb_14)]).width + 32, height: 29)
+        goalContent.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goalContent[indexPath.row].goalNameBinding)
     }
     
 }
@@ -256,7 +254,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             
             // MARK: 목표가 존재하지 않을 때
-            if self.categories.count == 0 {
+            if self.goalContent.count == 0 {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyGoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
                 cell.makeGoalButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
                 return cell
@@ -319,7 +317,6 @@ extension RecordViewController {
     private func requestGetGoals(){
         // api 호출할 때마다 Goal 배열 초기화
         self.goalContent.removeAll()
-        self.categories.removeAll()
         GoalService.shared.getUserGoals{ result in
             switch result{
             case .success(let data):
@@ -327,7 +324,6 @@ extension RecordViewController {
                 for x in data.content {
                     if !x.isEnd {
                         self.goalContent.append(x)
-                        self.categories.append(x.goalCategoryResponse)
                     }
                 }
                 // 목표에 맞는 기록들 조회
