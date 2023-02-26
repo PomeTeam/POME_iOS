@@ -23,13 +23,15 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
         mainView.timeLabel.text = ""
         mainView.priceLabel.text = ""
         mainView.memoLabel.text = ""
-        mainView.othersReactionCountLabel.text = ""
+        mainView.rightReactionCountLabel.text = ""
         
         mainView.firstEmotionTag.initialize()
         mainView.secondEmotionTag.initialize()
         
-        mainView.myReactionButton.setImage(Image.emojiAdd, for: .normal)
-        mainView.othersReactionButton.setImage(.none, for: .normal)
+        mainView.leftReactionButton.setImage(.none, for: .normal)
+        mainView.rightReactionButton.setImage(.none, for: .normal)
+        
+        mainView.rightReactionCountLabel.isHidden = true
     }
     
     override func hierarchy(){
@@ -58,8 +60,8 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     }
     
     override func initialize() {
-        mainView.myReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
-        mainView.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
+        mainView.leftReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.rightReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
         mainView.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
     }
     
