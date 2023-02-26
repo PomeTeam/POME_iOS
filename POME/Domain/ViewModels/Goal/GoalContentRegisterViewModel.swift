@@ -17,18 +17,12 @@ class GoalContentRegisterViewModel{
         let categoryText: Observable<String>
         let promiseText: Observable<String>
         let priceText: Observable<String>
-//        let categoryTextFieldIsFocusing: Binder<Bool>
-//        let promiseTextFieldIsFocusing: Binder<Bool>
-//        let priceTextFieldIsFocusing: Binder<Bool>
     }
     
     struct Output{
         let categoryText: Driver<String>
         let promiseText: Driver<String>
         let priceText: Driver<String>
-//        let cateogryIsFocus: Driver<Bool>
-//        let promiseIsFocus: Driver<Bool>
-//        let priceIsFocus: Driver<Bool>
         let canMoveNext: Driver<Bool>
     }
     
@@ -52,19 +46,8 @@ class GoalContentRegisterViewModel{
             .asDriver(onErrorJustReturn: "")
         
         let price = input.priceText
-            .map{ $0 }
+            .map{ $0.replacingOccurrences(of: ",", with: "") }
             .asDriver(onErrorJustReturn: "")
-        
-//        let cateogryIsFocus = input.categoryTextFieldIsFocusing
-//            .asDriver(onErrorJustReturn: false)
-//
-//        let promiseIsFocus = input.categoryTextFieldIsFocusing
-//            .map{ $0 }
-//            .asDriver(onErrorJustReturn: false)
-//
-//        let priceIsFocus = input.categoryTextFieldIsFocusing
-//            .map{ $0 }
-//            .asDriver(onErrorJustReturn: false)
         
         let canMoveNext = requestObservable
             .map { category, promise, price in
@@ -74,9 +57,6 @@ class GoalContentRegisterViewModel{
         return Output(categoryText: category,
                       promiseText: promise,
                       priceText: price,
-//                      cateogryIsFocus: cateogryIsFocus,
-//                      promiseIsFocus: promiseIsFocus,
-//                      priceIsFocus: priceIsFocus,
                       canMoveNext: canMoveNext)
     }
 }
