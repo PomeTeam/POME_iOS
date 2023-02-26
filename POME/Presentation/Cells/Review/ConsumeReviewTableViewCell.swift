@@ -60,20 +60,22 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     }
     
     override func initialize() {
-        mainView.leftReactionButton.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
-        mainView.rightReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
+        mainView.leftReactionButton.addTarget(self, action: #selector(firstFriendReactionButtonDidTapped), for: .touchUpInside)
+        mainView.rightReactionButton.addTarget(self, action: #selector(othersFriendReactionButtonDidTapped), for: .touchUpInside)
         mainView.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - Action
     
-    @objc private func myReactionBtnDidClicked(){
+    @objc private func firstFriendReactionButtonDidTapped(){
+        /*
         if let index = getCellIndex(){
             delegate?.presentEmojiFloatingView!(indexPath: index)
         }
+         */
     }
     
-    @objc private func othersReactionBtnDidClicked(){
+    @objc private func othersFriendReactionButtonDidTapped(){
         if let index = getCellIndex(){
             delegate?.presentReactionSheet!(indexPath: index)
         }

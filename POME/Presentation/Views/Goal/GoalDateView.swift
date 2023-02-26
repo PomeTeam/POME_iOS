@@ -17,6 +17,13 @@ class GoalDateView: BaseView {
         $0.isUserInteractionEnabled = false
     }
     
+    let invalidationDateRangeLabel = UILabel().then{
+        $0.isHidden = true
+        $0.text = "목표 기간은 한 달 이내로 설정할 수 있어요!"
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
+        $0.textColor = Color.red
+    }
+    
     lazy var completButton = DefaultButton(titleStr: "선택했어요").then{
         $0.isActivate(false)
     }
@@ -25,6 +32,7 @@ class GoalDateView: BaseView {
         self.addSubview(titleView)
         self.addSubview(startDateField)
         self.addSubview(endDateField)
+        self.addSubview(invalidationDateRangeLabel)
         self.addSubview(completButton)
     }
     
@@ -42,6 +50,11 @@ class GoalDateView: BaseView {
         endDateField.snp.makeConstraints{
             $0.top.equalTo(startDateField.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+        }
+        
+        invalidationDateRangeLabel.snp.makeConstraints{
+            $0.top.equalTo(endDateField.infoTextField.snp.bottom).offset(14)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         completButton.snp.makeConstraints{
