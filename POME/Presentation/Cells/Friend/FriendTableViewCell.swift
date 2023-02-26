@@ -13,18 +13,9 @@ class FriendTableViewCell: BaseTableViewCell {
     
     var delegate: RecordCellWithEmojiDelegate?
     
-    let mainView = FriendDetailView().then{
-        $0.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
-        $0.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
-        $0.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
-        
-        $0.memoLabel.numberOfLines = 2
-    }
-    
-    //
-    let separatorLine = UIView().then{
+    private let mainView = FriendDetailView()
+    private let separatorLine = UIView().then{
         $0.backgroundColor = Color.grey2
-        
     }
     
     //MARK: - LifeCycle
@@ -47,24 +38,21 @@ class FriendTableViewCell: BaseTableViewCell {
     //MARK: - Action
     
     @objc func myReactionBtnDidClicked(){
-        
-        guard let index = getCellIndex() else { return }
-
-        delegate?.presentEmojiFloatingView!(indexPath: index)
+        if let index = getCellIndex(){
+            delegate?.presentEmojiFloatingView!(indexPath: index)
+        }
     }
     
     @objc func othersReactionBtnDidClicked(){
-        
-        guard let index = getCellIndex() else { return }
-
-        delegate?.presentReactionSheet!(indexPath: index)
+        if let index = getCellIndex(){
+            delegate?.presentReactionSheet!(indexPath: index)
+        }
     }
     
     @objc func moreButtonDidClicked(){
-        
-        guard let index = getCellIndex() else { return }
-        
-        delegate?.presentEtcActionSheet!(indexPath: index)
+        if let index = getCellIndex(){
+            delegate?.presentEtcActionSheet!(indexPath: index)
+        }
     }
     
     //MARK: - Override
@@ -73,8 +61,8 @@ class FriendTableViewCell: BaseTableViewCell {
         
         super.hierarchy()
         
-        self.baseView.addSubview(mainView)
-        self.baseView.addSubview(separatorLine)
+        baseView.addSubview(mainView)
+        baseView.addSubview(separatorLine)
     }
     
     override func layout() {
@@ -87,11 +75,20 @@ class FriendTableViewCell: BaseTableViewCell {
             $0.trailing.equalToSuperview().offset(-24)
             $0.bottom.equalToSuperview().offset(-20)
         }
-        
         separatorLine.snp.makeConstraints{
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
+    }
+    
+    override func initialize() {
+        mainView.myReactionBtn.addTarget(self, action: #selector(myReactionBtnDidClicked), for: .touchUpInside)
+        mainView.othersReactionButton.addTarget(self, action: #selector(othersReactionBtnDidClicked), for: .touchUpInside)
+        mainView.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
+    }
+    
+    func bindingData(_ data: RecordResponseModel){
+        mainView.dataBinding(with: data)
     }
 
 }
