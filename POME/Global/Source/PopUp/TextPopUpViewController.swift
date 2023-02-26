@@ -96,15 +96,15 @@ class TextPopUpViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         cancelBtn.snp.makeConstraints { make in
-            make.width.equalTo(124.5)
             make.height.equalTo(38)
             make.leading.equalToSuperview().offset(16)
+            make.trailing.equalTo(popupView.snp.centerX).offset(-5)
             make.bottom.equalToSuperview().offset(-20)
             make.top.equalTo(titleLabel.snp.bottom).offset(24)
         }
         okBtn.snp.makeConstraints { make in
-            make.width.equalTo(124.5)
             make.height.equalTo(38)
+            make.leading.equalTo(popupView.snp.centerX).offset(5)
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalTo(cancelBtn)
             make.top.equalTo(cancelBtn)
