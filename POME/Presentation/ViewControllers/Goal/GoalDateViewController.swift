@@ -62,6 +62,10 @@ class GoalDateViewController: BaseViewController {
                 self.calendarSheetWillShow(sender)
             }).disposed(by: disposeBag)
         
+        output.willShowInvalidationLabel
+            .drive(mainView.invalidationDateRangeLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
         output.canMoveNext
             .drive(mainView.completButton.rx.isActivate)
             .disposed(by: disposeBag)
