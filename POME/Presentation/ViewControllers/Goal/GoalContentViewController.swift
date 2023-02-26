@@ -117,6 +117,38 @@ extension GoalContentViewController{
         
         guard let textField = textField as? DefaultTextField else { return false }
         
+        if(textField == mainView.priceField.infoTextField){
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal // 1,000,000
+            formatter.locale = Locale.current
+            formatter.maximumFractionDigits = 0 // 허용하는 소숫점 자리수
+
+            if let removeAllSeprator = textField.text?.replacingOccurrences(of: formatter.groupingSeparator, with: ""){
+                var beforeForemattedString = removeAllSeprator + string
+                if formatter.number(from: string) != nil {
+                    if let formattedNumber = formatter.number(from: beforeForemattedString), let formattedString = formatter.string(from: formattedNumber){
+                        textField.text = formattedString
+                        return false
+                    }
+                }else{ // 숫자가 아닐 때먽
+                    if string == "" { // 백스페이스일때
+                        let lastIndex = beforeForemattedString.index(beforeForemattedString.endIndex, offsetBy: -1)
+                        beforeForemattedString = String(beforeForemattedString[..<lastIndex])
+                        if let formattedNumber = formatter.number(from: beforeForemattedString), let formattedString = formatter.string(from: formattedNumber){
+                            textField.text = formattedString
+                            return false
+                        }
+                    }else{ // 문자일 때
+                        return false
+                    }
+                }
+
+            }
+            
+            return true
+        }
+        
         guard let oldString = textField.text, let textCountLimit = textField.countLimit else { return true }
         
         if(oldString.count < textCountLimit){
