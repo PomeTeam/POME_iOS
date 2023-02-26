@@ -27,8 +27,12 @@ final class ProgressBarView: UIView {
     }
     var ratio: CGFloat = 0.0 {
         didSet {
+            // 100% 넘겼을 땐 '초과'
             if !self.ratio.isLess(than: 1.0) {self.overProgressView()}
-            else {self.commonProgressView()}
+            // 70% 아래일 땐 초록색
+            else if self.ratio.isLess(than: 0.7) {self.commonProgressView()}
+            // 70% 이상 100% 아래일 땐 핑크
+            else {self.over70ProgressView()}
             numLabel.then{
                 let num = Double(ratio) * 100
                 if !self.ratio.isLess(than: 1.0) {$0.text = "초과"}
@@ -45,7 +49,7 @@ final class ProgressBarView: UIView {
                 // 초과 또는 0% 일 때 바 길이 조절
                 if !self.ratio.isLess(than: 1.0) {
                     $0.width.equalToSuperview().multipliedBy(0.95)
-                } else if self.ratio.isZero {
+                } else if self.ratio.isLess(than: 0.05) {
                     $0.width.equalToSuperview().multipliedBy(0.05)
                 }
                 else {
@@ -91,6 +95,12 @@ final class ProgressBarView: UIView {
         self.progressBarView.backgroundColor = Color.mint100
         self.numLabel.then{
             $0.backgroundColor = Color.mint100
+        }
+    }
+    func over70ProgressView() {
+        self.progressBarView.backgroundColor = Color.pink100
+        self.numLabel.then{
+            $0.backgroundColor = Color.pink100
         }
     }
 }

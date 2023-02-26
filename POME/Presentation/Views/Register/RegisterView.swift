@@ -26,14 +26,11 @@ class RegisterView: BaseView {
     let profileButton = UIButton().then{
         $0.setImage(Image.plus, for: .normal)
     }
-    let nameTextField = UITextField().then{
+    let nameTextField = DefaultTextField("영어, 한국어 최대 8자 이내 입력", 16, 13).then{
         $0.backgroundColor = Color.grey0
-        $0.placeholder = "영어, 한국어 최대 10자 이내 입력"
-        $0.clearButtonMode = .always
         $0.font = UIFont.autoPretendard(type: .r_14)
         $0.textColor = Color.title
-        $0.layer.cornerRadius = 6
-        $0.addLeftPadding(16)
+        $0.setClearButton(mode: .always)
     }
     let messageLabel = UILabel().then{
         $0.text = "멋진 닉네임이네요!"
