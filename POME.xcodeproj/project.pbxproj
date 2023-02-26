@@ -149,7 +149,6 @@
 		57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
-		57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */; };
 		57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionStyle.swift */; };
 		57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */; };
 		57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76A292867D6007E22D1 /* EmotionTagView.swift */; };
@@ -162,7 +161,6 @@
 		57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA784292B0A37007E22D1 /* ReviewEmptyView.swift */; };
 		57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA786292B0A4B007E22D1 /* ReviewView.swift */; };
 		57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA788292B0A61007E22D1 /* ReviewDetailView.swift */; };
-		57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */; };
 		57CCA78D292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78C292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift */; };
 		57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA78E292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift */; };
 		57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */; };
@@ -398,7 +396,6 @@
 		57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterRequestManager.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
-		57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailViewController.swift; sourceTree = "<group>"; };
 		57CCA76429265924007E22D1 /* ReactionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionStyle.swift; sourceTree = "<group>"; };
 		57CCA7682928679E007E22D1 /* EmotionTagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagInfo.swift; sourceTree = "<group>"; };
 		57CCA76A292867D6007E22D1 /* EmotionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTagView.swift; sourceTree = "<group>"; };
@@ -412,7 +409,6 @@
 		57CCA784292B0A37007E22D1 /* ReviewEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEmptyView.swift; sourceTree = "<group>"; };
 		57CCA786292B0A4B007E22D1 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		57CCA788292B0A61007E22D1 /* ReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailView.swift; sourceTree = "<group>"; };
-		57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDetailViewController.swift; sourceTree = "<group>"; };
 		57CCA78C292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTagCollectionViewCell.swift; sourceTree = "<group>"; };
 		57CCA78E292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetCollectionViewCell.swift; sourceTree = "<group>"; };
 		57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetViewController.swift; sourceTree = "<group>"; };
@@ -1032,7 +1028,6 @@
 			isa = PBXGroup;
 			children = (
 				5724EC5A2917735300DC529B /* ReviewViewController.swift */,
-				57CCA78A292B0A6F007E22D1 /* ReviewDetailViewController.swift */,
 				57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */,
 			);
 			path = Review;
@@ -1043,7 +1038,6 @@
 			children = (
 				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
 				5724EC5C2917735B00DC529B /* FriendViewController.swift */,
-				57CCA7602925AF43007E22D1 /* FriendDetailViewController.swift */,
 				57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */,
 			);
 			path = Friend;
@@ -1922,7 +1916,6 @@
 				EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */,
 				57CCA7BE292EEA01007E22D1 /* RecordRegisterContentViewController.swift in Sources */,
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,
-				57CCA7612925AF43007E22D1 /* FriendDetailViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
@@ -2067,7 +2060,6 @@
 				57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */,
 				23816883292ED65C00579DD4 /* CommentView.swift in Sources */,
 				57CCA789292B0A61007E22D1 /* ReviewDetailView.swift in Sources */,
-				57CCA78B292B0A6F007E22D1 /* ReviewDetailViewController.swift in Sources */,
 				238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */,
 				5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */,
 				57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */,
