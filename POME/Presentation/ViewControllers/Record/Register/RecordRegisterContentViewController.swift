@@ -201,7 +201,8 @@ extension RecordRegisterContentViewController{
         if(textField != mainView.priceField.infoTextField){
             return false
         }
-            
+           
+        
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal // 1,000,000
         formatter.locale = Locale.current
