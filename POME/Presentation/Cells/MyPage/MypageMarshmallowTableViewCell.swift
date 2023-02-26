@@ -13,6 +13,16 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
         $0.setTypoStyleWithSingleLine(typoStyle: .title2)
         $0.textColor = Color.grey9
     }
+    let marshmallowToolTipLabel = PaddingLabel(padding: UIEdgeInsets(top: 5, left: 8, bottom: 5, right: 8)).then{
+        $0.text = "마시멜로란?"
+        $0.setTypoStyleWithSingleLine(typoStyle: .title5)
+        $0.textAlignment = .center
+        $0.textColor = Color.grey5
+        $0.backgroundColor = Color.grey1
+        
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 12
+    }
     var marshmallowCollectionView: UICollectionView!
 
     //MARK: - LifeCycle
@@ -35,6 +45,7 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
         super.hierarchy()
         
         self.contentView.addSubview(titleLabel)
+        self.contentView.addSubview(marshmallowToolTipLabel)
         self.contentView.addSubview(marshmallowCollectionView)
     }
     override func layout() {
@@ -43,6 +54,10 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(12)
             make.leading.equalToSuperview().offset(20)
+        }
+        marshmallowToolTipLabel.snp.makeConstraints { make in
+            make.leading.equalTo(titleLabel.snp.trailing).offset(8)
+            make.top.bottom.equalTo(titleLabel)
         }
         marshmallowCollectionView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
