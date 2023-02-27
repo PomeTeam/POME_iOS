@@ -68,6 +68,7 @@ class CommentViewController: BaseViewController {
 // MARK: - TextView delegate
 extension CommentViewController : UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        commentView.textViewBackView.backgroundColor = Color.grey1
         if textView.text == textViewPlaceHolder {
             textView.text = nil
             textView.textColor = Color.body
@@ -81,6 +82,7 @@ extension CommentViewController : UITextViewDelegate {
         commentView.countLabel.text = "\(textView.text.count)/150"
     }
     func textViewDidEndEditing(_ textView: UITextView) {
+        commentView.textViewBackView.backgroundColor = Color.grey0
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = Color.grey5

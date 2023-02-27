@@ -111,7 +111,15 @@ class GoalContentViewController: BaseViewController {
 
 //MARK: - UITextFieldDelegate
 
-extension GoalContentViewController{
+extension GoalContentViewController: UITextFieldDelegate{
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.setFocusState()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.setUnfocusState()
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         

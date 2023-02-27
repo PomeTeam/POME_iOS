@@ -180,7 +180,7 @@ class RecordRegisterContentViewController: BaseViewController {
     }
 }
 
-extension RecordRegisterContentViewController{
+extension RecordRegisterContentViewController: UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("textFieldShouldReturn Execute")
@@ -188,12 +188,16 @@ extension RecordRegisterContentViewController{
         return true
     }
     
-    override func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.setFocusState()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
         if(textField == mainView.priceField.infoTextField){
             guard let text = textField.text else { return }
             recordManager.price = text.replacingOccurrences(of: ",", with: "")
         }
-        super.textFieldDidEndEditing(textField)
+        textField.setUnfocusState()
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
@@ -251,6 +255,7 @@ extension RecordRegisterContentViewController: UITextViewDelegate{
         if text.isEmpty {
             contentView.setTextViewTextEmptyMode()
         }
+        contentView.setTextViewUnfocusState()
         recordManager.detail = text
     }
     
