@@ -30,7 +30,7 @@ class CommentView: BaseView {
         $0.text = "목표에 대한 한줄 코멘트를 남겨보세요"
         $0.font = UIFont.autoPretendard(type: .r_14)
         $0.textColor = Color.grey5
-        $0.backgroundColor = Color.grey0
+        $0.backgroundColor = Color.transparent
     }
     let countLabel = UILabel().then{
         $0.text = "00/150"
