@@ -131,7 +131,6 @@
 		57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */; };
 		57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B792951BF3700A409E3 /* CalendarSheetView.swift */; };
 		57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */; };
-		57556A952960380800B67369 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57556A942960380800B67369 /* Protocol.swift */; };
 		575DE96E2976CC7500E61B8F /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575DE96D2976CC7500E61B8F /* FriendViewModel.swift */; };
 		575DE9712976CCB900E61B8F /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575DE9702976CCB900E61B8F /* ReviewViewModel.swift */; };
 		5799DB762977D474001137EA /* GoalTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799DB752977D474001137EA /* GoalTagsTableViewCell.swift */; };
@@ -377,7 +376,6 @@
 		57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetViewController.swift; sourceTree = "<group>"; };
 		57543B792951BF3700A409E3 /* CalendarSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetView.swift; sourceTree = "<group>"; };
 		57543B7B2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetCollectionViewCell.swift; sourceTree = "<group>"; };
-		57556A942960380800B67369 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		575DE96D2976CC7500E61B8F /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		575DE9702976CCB900E61B8F /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		5799DB752977D474001137EA /* GoalTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTagsTableViewCell.swift; sourceTree = "<group>"; };
@@ -1114,7 +1112,6 @@
 			isa = PBXGroup;
 			children = (
 				5724EC88291B7B7B00DC529B /* Delegate.swift */,
-				57556A942960380800B67369 /* Protocol.swift */,
 				570304BF297818ED00AAC56D /* CellReuse.swift */,
 				EE9505D229879C0C00077B28 /* ControlIndexPath.swift */,
 				EE2628D0299231230013137C /* Pageable.swift */,
@@ -1983,7 +1980,6 @@
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
 				23F14C192990D72600630AB2 /* TextInfoPopUpViewController.swift in Sources */,
 				EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */,
-				57556A952960380800B67369 /* Protocol.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				575DE9712976CCB900E61B8F /* ReviewViewModel.swift in Sources */,
 				572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */,
