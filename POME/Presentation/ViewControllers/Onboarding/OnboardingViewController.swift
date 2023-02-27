@@ -67,7 +67,7 @@ extension OnboardingViewController {
                     if data.success {
                         print("로그인 성공")
                         // 기록탭으로 이동
-                        self.navigationController?.pushViewController(TabBarController(), animated: true)
+                        
                         // 유저 정보 저장
                         let token = data.data?.accessToken ?? ""
                         let userId = data.data?.userId ?? ""
@@ -78,6 +78,13 @@ extension OnboardingViewController {
                         UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
                         UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
                         UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
+                        
+                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                        guard let delegate = sceneDelegate else {
+                            // 에러 알림
+                            return
+                        }
+                        delegate.window?.rootViewController = TabBarController()
                     }
                     
                     break
