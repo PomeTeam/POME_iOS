@@ -89,3 +89,13 @@ class DefaultTextField: UITextField {
         return rect.offsetBy(dx: -13, dy: 0)
     }
 }
+
+extension UITextField{
+    func setUnfocusState(){
+        (self as? DefaultTextField)?.isFocusState = false
+    }
+    
+    func setFocusState(){
+        (self as? DefaultTextField)?.isFocusState = true
+    }
+}
