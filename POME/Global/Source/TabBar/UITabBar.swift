@@ -20,7 +20,7 @@ extension CALayer {
         shadowColor = color.cgColor
         shadowOpacity = alpha
         shadowOffset = CGSize(width: x, height: y)
-        shadowRadius = blur / 2.0
+        shadowRadius = blur
     }
 }
 
