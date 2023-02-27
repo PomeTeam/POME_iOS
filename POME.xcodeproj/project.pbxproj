@@ -893,7 +893,7 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		5724EC1C2910131500DC529B /* ViewModels */ = {
+		5724EC1C2910131500DC529B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				239E1F3D2976E39A00A69AF1 /* Register */,
@@ -902,8 +902,8 @@
 				57C481DF296ABD03008731D9 /* Goal */,
 				575DE96C2976CC3F00E61B8F /* Friend */,
 			);
-			name = ViewModels;
-			path = ../Domain/ViewModels;
+			name = ViewModel;
+			path = ../Domain/ViewModel;
 			sourceTree = "<group>";
 		};
 		5724EC1D2910131B00DC529B /* Views */ = {
@@ -1409,7 +1409,7 @@
 			children = (
 				57C481E4296ABE46008731D9 /* Utils */,
 				5724EC1D2910131B00DC529B /* Views */,
-				5724EC1C2910131500DC529B /* ViewModels */,
+				5724EC1C2910131500DC529B /* ViewModel */,
 				5724EC1E2910132800DC529B /* ViewControllers */,
 				5724EC212910134600DC529B /* Cells */,
 			);

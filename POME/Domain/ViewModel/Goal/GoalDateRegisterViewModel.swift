@@ -47,7 +47,7 @@ class GoalDateRegisterViewModel{
             .map{ !$0.isEmpty }
             .asDriver(onErrorJustReturn: false)
         
-        let isValidation = requestObservable
+        let isValidation: Observable<Bool> = requestObservable
             .map{ startDate, endDate in
                 if(startDate.isEmpty || endDate.isEmpty){
                     return false
