@@ -9,6 +9,11 @@ import Foundation
 
 class CharactersCountTextView: BaseView{
     
+    var isFocusState: Bool = false{
+        didSet{
+            backgroundColor = isFocusState ? Color.grey1 : Color.grey0
+        }
+    }
     let countLimit: Int
     let recordTextView: DefaultTextView
     
@@ -66,6 +71,10 @@ class CharactersCountTextView: BaseView{
         charactersCountLabel.textColor = count != countLimit ? Color.body : Color.red
     }
     
+    func setTextViewUnfocusState(){
+        isFocusState = false
+    }
+    
     func setTextViewTextEmptyMode(){
         recordTextView.setEmptyMode()
         updateCharactersCount(count: 0)
@@ -73,6 +82,7 @@ class CharactersCountTextView: BaseView{
     }
     
     func setTextViewTextEditingMode(){
+        isFocusState = true
         charactersCountLabel.textColor = Color.body
         recordTextView.setEditingMode()
     }
