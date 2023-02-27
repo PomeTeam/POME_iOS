@@ -58,4 +58,12 @@ extension RegisterViewController: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.setFocusState()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.setUnfocusState()
+    }
+    
 }
