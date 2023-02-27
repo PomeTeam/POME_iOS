@@ -9,16 +9,15 @@ import Foundation
 
 struct GoalResponseModel: Decodable {
     let endDate: String
-    let goalCategoryResponse: GoalCategoryResponseModel
     let id: Int
     let isEnd: Bool
     let isPublic: Bool
+    let name: String
     let nickname: String
     let oneLineMind: String
     let price: Int
     let startDate: String
     let usePrice: Int
-    let oneLineComment: String?
 }
 
 extension GoalResponseModel{
@@ -27,9 +26,6 @@ extension GoalResponseModel{
         $0.numberStyle = .decimal
     }
     
-    var goalNameBinding: String{
-        self.goalCategoryResponse.name
-    }
     var remainDateBinding: Int {
         let diff = PomeDateFormatter.getRemainDate(self.endDate)
         return diff

@@ -17,7 +17,7 @@ class TabBarController: UITabBarController {
         setTabBarAppearance()
         setTabBarItems()
     }
-    
+
     func setupShadow() {
         UITabBar.clearShadow()
         tabBar.layer.applyShadow(color: Color.tabBarShadow, alpha: 0.3, x: 0, y: -10, blur: 14)

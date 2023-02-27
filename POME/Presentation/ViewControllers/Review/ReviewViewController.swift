@@ -178,7 +178,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
 
-        cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].goalNameBinding
+        cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].name
     
         currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         
@@ -186,7 +186,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goals.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].goalNameBinding)
+        goals.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].name)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -48,15 +48,17 @@ class BaseViewController: UIViewController {
     */
     
     func style() {
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.isHidden = true
-        self.tabBarController?.tabBar.isHidden = true
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        tabBarController?.tabBar.isHidden = true
+        
     }
     
     func layout() {
         
-        self.view.addSubview(navigationView)
-        self.navigationView.addSubview(backBtn)
+        view.addSubview(navigationView)
+        navigationView.addSubview(backBtn)
         
         navigationView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview()
@@ -77,7 +79,7 @@ class BaseViewController: UIViewController {
     func bind() { }
     
     @objc func backBtnDidClicked(){
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     func setNavigationTitleLabel(title: String){
@@ -115,3 +117,8 @@ extension BaseViewController: UITextFieldDelegate{
     }
 }
 
+extension BaseViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count ?? 0 > 1
+    }
+}

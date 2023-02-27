@@ -61,7 +61,7 @@ extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDat
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordCategoryTableViewCell.cellIdentifier, for: indexPath) as? RecordCategoryTableViewCell else { return UITableViewCell() }
         
-        cell.nameLabel.text = goals[indexPath.row].goalNameBinding
+        cell.nameLabel.text = goals[indexPath.row].name
         
         return cell
     }
