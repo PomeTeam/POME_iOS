@@ -72,7 +72,7 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     func bindingData(){
-        mainView.goalField.infoTextField.text = baseGoal.goalNameBinding
+        mainView.goalField.infoTextField.text = baseGoal.name
     }
     
     override func bind(){
@@ -145,7 +145,7 @@ class RecordRegisterContentViewController: BaseViewController {
         sheet.completion = { selectIndex in
             let goal = self.goals[selectIndex]
             self.recordManager.goalId = goal.id
-            self.mainView.goalField.infoTextField.text = goal.goalNameBinding
+            self.mainView.goalField.infoTextField.text = goal.name
             self.mainView.goalField.infoTextField.sendActions(for: .valueChanged)
         }
     }

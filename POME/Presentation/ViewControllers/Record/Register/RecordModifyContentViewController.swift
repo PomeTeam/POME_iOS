@@ -39,7 +39,7 @@ class RecordModifyContentViewController: RecordRegisterContentViewController{
         mainView.dateField.infoTextField.text = record.useDate
         mainView.priceField.infoTextField.text = String(record.usePrice)
         mainView.contentTextView.bindingData(record.useComment)
-        mainView.goalField.infoTextField.text = goal.goalNameBinding
+        mainView.goalField.infoTextField.text = goal.name
     }
     
     override func completeButtonDidClicked() {
