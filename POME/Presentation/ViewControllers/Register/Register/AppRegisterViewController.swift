@@ -117,7 +117,7 @@ class AppRegisterViewController: BaseViewController {
         self.dismiss(animated: false)
     }
 }
-extension AppRegisterViewController {
+extension AppRegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -126,6 +126,14 @@ extension AppRegisterViewController {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.setFocusState()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.setUnfocusState()
     }
 }
 //MARK: - API
