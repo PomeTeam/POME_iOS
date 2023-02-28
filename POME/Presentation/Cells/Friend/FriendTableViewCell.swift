@@ -33,6 +33,8 @@ class FriendTableViewCell: BaseTableViewCell {
         
         mainView.myReactionBtn.setImage(Image.emojiAdd, for: .normal)
         mainView.othersReactionButton.setImage(.none, for: .normal)
+        
+        mainView.othersReactionCountLabel.isHidden = true
     }
     
     //MARK: - Action

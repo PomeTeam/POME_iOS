@@ -84,9 +84,11 @@ class FriendDetailView: BaseView {
     lazy var othersReactionButton = UIButton()
     
     lazy var othersReactionCountLabel = UILabel().then{
-        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
+        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle3)
         $0.textColor = .white
+        $0.textAlignment = .center
         $0.isUserInteractionEnabled = false
+        $0.isHidden = true
     }
     
     lazy var moreButton = UIButton().then{
@@ -122,25 +124,15 @@ class FriendDetailView: BaseView {
     }
     
     func setOthersReactionEmpty(){
+        othersReactionCountLabel.isHidden = true
         othersReactionButton.setImage(.none, for: .normal)
         othersReactionButton.isEnabled = false
     }
     
     func setOthersReaction(thumbnail: Reaction, count: Int){
         
+        othersReactionCountLabel.isHidden = false
         othersReactionButton.isEnabled = true
-        
-        if(count == 1){
-            othersReactionButton.setImage(thumbnail.defaultImage, for: .normal)
-            return
-        }
-        
-        //count > 1인 경우 아래 코드 실행
-        self.othersReactionButton.addSubview(othersReactionCountLabel)
-        othersReactionCountLabel.snp.makeConstraints{
-            $0.leading.top.equalToSuperview().offset(6)
-            $0.centerX.centerY.equalToSuperview()
-        }
         
         let countString: String!
         
@@ -181,6 +173,8 @@ class FriendDetailView: BaseView {
 
         reactionStackView.insertArrangedSubview(othersReactionButton, at: 0)
         reactionStackView.insertArrangedSubview(myReactionBtn, at: 0)
+        
+        othersReactionButton.addSubview(othersReactionCountLabel)
     }
 
 
@@ -256,6 +250,11 @@ class FriendDetailView: BaseView {
         
         othersReactionButton.snp.makeConstraints{
             $0.width.height.equalTo(28)
+        }
+        othersReactionCountLabel.snp.makeConstraints{
+            $0.leading.trailing.top.bottom.equalToSuperview()
+//            $0.leading.top.equalToSuperview().offset(6)
+//            $0.centerX.centerY.equalToSuperview()
         }
         
         moreButton.snp.makeConstraints{
