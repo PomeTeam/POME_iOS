@@ -275,7 +275,6 @@ extension FriendViewController{
         }
     }
     
-    
     private func requestHideFriendRecord(indexPath: IndexPath){
 
         let index = dataIndexBy(indexPath)
