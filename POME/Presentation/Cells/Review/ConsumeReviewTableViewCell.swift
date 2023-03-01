@@ -9,7 +9,7 @@ import UIKit
 
 class ConsumeReviewTableViewCell: BaseTableViewCell {
     
-    var delegate: RecordCellWithEmojiDelegate?
+    var delegate: RecordCellDelegate?
     
     private let shadowView = UIView().then{
         $0.layer.borderWidth = 1
@@ -68,22 +68,18 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     //MARK: - Action
     
     @objc private func firstFriendReactionButtonDidTapped(){
-        /*
-        if let index = getCellIndex(){
-            delegate?.presentEmojiFloatingView!(indexPath: index)
-        }
-         */
+        delegate?.presentCannotReactionToastMessageView()
     }
     
     @objc private func othersFriendReactionButtonDidTapped(){
         if let index = getCellIndex(){
-            delegate?.presentReactionSheet!(indexPath: index)
+            delegate?.presentReactionSheet(indexPath: index)
         }
     }
     
     @objc private func moreButtonDidClicked(){
         if let index = getCellIndex(){
-            delegate?.presentEtcActionSheet!(indexPath: index)
+            delegate?.presentEtcActionSheet(indexPath: index)
         }
     }
     
