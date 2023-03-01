@@ -357,7 +357,7 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 }
 
 //MARK: - TableView Delegate
-extension FriendViewController: UITableViewDelegate, UITableViewDataSource, RecordCellWithEmojiDelegate{
+extension FriendViewController: UITableViewDelegate, UITableViewDataSource, FriendRecordCellDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
         2

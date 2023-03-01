@@ -11,7 +11,7 @@ class FriendTableViewCell: BaseTableViewCell {
     
     //MARK: - Properties
     
-    var delegate: RecordCellWithEmojiDelegate?
+    var delegate: FriendRecordCellDelegate?
     
     private let mainView = FriendDetailView()
     private let separatorLine = UIView().then{
@@ -41,19 +41,19 @@ class FriendTableViewCell: BaseTableViewCell {
     
     @objc func myReactionBtnDidClicked(){
         if let index = getCellIndex(){
-            delegate?.presentEmojiFloatingView!(indexPath: index)
+            delegate?.presentEmojiFloatingView(indexPath: index)
         }
     }
     
     @objc func othersReactionBtnDidClicked(){
         if let index = getCellIndex(){
-            delegate?.presentReactionSheet!(indexPath: index)
+            delegate?.presentReactionSheet(indexPath: index)
         }
     }
     
     @objc func moreButtonDidClicked(){
         if let index = getCellIndex(){
-            delegate?.presentEtcActionSheet!(indexPath: index)
+            delegate?.presentEtcActionSheet(indexPath: index)
         }
     }
     

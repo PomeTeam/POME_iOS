@@ -40,6 +40,10 @@ class ToastMessageView: BaseView {
         return ToastMessageView(image: Image.toast, message: type.toastMessage)
     }
     
+    static func generateReactionWarningToastView() -> ToastMessageView{
+        return ToastMessageView(image: Image.toastWarning, message: "나의 소비에는 공감할 수 없어요")
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -260,43 +260,10 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-extension ReviewViewController: RecordCellWithEmojiDelegate{
+extension ReviewViewController: RecordCellDelegate{
     
-    func presentEmojiFloatingView(indexPath: IndexPath) {
-        
-        isSufficientToShowFloatingView(indexPath: indexPath){
-            
-            self.currentEmotionSelectCardIndex = dataIndexBy(indexPath)
-            
-            emoijiFloatingView = EmojiFloatingView().then{
-                $0.delegate = self
-                $0.completion = {
-                    print("LOG: emoijiFloatingView completion closure called")
-                    self.currentEmotionSelectCardIndex = nil
-                    self.emoijiFloatingView = nil
-                }
-            }
-            
-            guard let cell = mainView.tableView.cellForRow(at: indexPath) as? ConsumeReviewTableViewCell else { return }
-            emoijiFloatingView.show(in: self, standard: cell)
-        }
-    }
-    
-    private func isSufficientToShowFloatingView(indexPath: IndexPath, closure: () -> Void){
-        
-        let rectOfCellInTableView = mainView.tableView.rectForRow(at: indexPath) //5번째 셀의 좌표 값
-        let rectOfCellInSuperview = mainView.tableView.convert(rectOfCellInTableView, to: self.view)
-
-        let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
-                                   y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
-        
-        if(Device.HEIGHT - viewPosition.y - self.view.safeAreaInsets.bottom >= 74){
-            print("LOG: EMOJI FLOATING VIEW TEST true")
-            closure()
-        }else{
-            print("LOG: EMOJI FLOATING VIEW TEST falase")
-            return
-        }
+    func presentCannotReactionToastMessageView() {
+        ToastMessageView.generateReactionWarningToastView().show(in: self)
     }
     
     func presentReactionSheet(indexPath: IndexPath) {
@@ -401,29 +368,6 @@ extension ReviewViewController{
     func recordRequestIsEmpty() {
         isPaging = false
         mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-    }
-    
-    func requestGenerateFriendCardEmotion(reactionIndex: Int) {
-        guard let cellIndex = self.currentEmotionSelectCardIndex,
-                let reaction = Reaction(rawValue: reactionIndex) else { return }
-        
-        FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
-                                                   emotion: reactionIndex){ result in
-            switch result{
-            case .success(let data):
-                print("LOG: SUCCESS requestGenerateFriendCardEmotion", data)
-                self.records[cellIndex] = data
-                self.emoijiFloatingView?.dismiss()
-                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
-                break
-            default:
-                print("LOG: fail requestGenerateFriendCardEmotion", result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
-                }
-                break
-            }
-        }
     }
     
     private func requestDeleteRecord(indexPath: IndexPath){
