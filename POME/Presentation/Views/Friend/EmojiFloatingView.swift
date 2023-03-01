@@ -9,7 +9,7 @@ import UIKit
 
 final class EmojiFloatingView: BaseView {
     
-    var delegate: RecordCellWithEmojiDelegate!
+    var delegate: FriendRecordCellDelegate!
     var completion: (() -> ())!
     
     let containerView = UIView().then{
