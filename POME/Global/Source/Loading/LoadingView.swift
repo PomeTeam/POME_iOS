@@ -24,7 +24,7 @@ class LoadingView: NSObject {
         }
     }
 
-    class func show() {
+    class func show(backgroundColor: UIColor = Color.popUpBackground) {
         
         let backgroundView = UIView()
         let popupView = UIImageView()
@@ -44,7 +44,7 @@ class LoadingView: NSObject {
             backgroundView.addSubview(popupView)
             
             backgroundView.frame = CGRect(x: 0, y: 0, width: window.frame.maxX, height: window.frame.maxY)
-            backgroundView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+            backgroundView.backgroundColor = backgroundColor
             
             popupView.snp.makeConstraints{
                 $0.width.height.equalTo(72)
