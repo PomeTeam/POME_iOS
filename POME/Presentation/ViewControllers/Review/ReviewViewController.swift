@@ -261,11 +261,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 extension ReviewViewController: RecordCellDelegate{
-    
-    func presentCannotReactionToastMessageView() {
-        ToastMessageView.generateReactionWarningToastView().show(in: self)
-    }
-    
+
     func presentReactionSheet(indexPath: IndexPath) {
         let data = records[dataIndexBy(indexPath)].friendReactions
         FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)

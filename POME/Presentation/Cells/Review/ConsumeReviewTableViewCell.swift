@@ -60,16 +60,11 @@ class ConsumeReviewTableViewCell: BaseTableViewCell {
     }
     
     override func initialize() {
-        mainView.leftReactionButton.addTarget(self, action: #selector(firstFriendReactionButtonDidTapped), for: .touchUpInside)
         mainView.rightReactionButton.addTarget(self, action: #selector(othersFriendReactionButtonDidTapped), for: .touchUpInside)
         mainView.moreButton.addTarget(self, action: #selector(moreButtonDidClicked), for: .touchUpInside)
     }
     
     //MARK: - Action
-    
-    @objc private func firstFriendReactionButtonDidTapped(){
-        delegate?.presentCannotReactionToastMessageView()
-    }
     
     @objc private func othersFriendReactionButtonDidTapped(){
         if let index = getCellIndex(){
