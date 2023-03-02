@@ -219,6 +219,7 @@
 		EEC5CAF429B0AC5F00FF4C26 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF329B0AC5F00FF4C26 /* AuthRouter.swift */; };
 		EEC5CAF629B0AC6500FF4C26 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF529B0AC6500FF4C26 /* AuthService.swift */; };
 		EEC5CAF929B0AD0F00FF4C26 /* RenewRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */; };
+		EEC5CAFB29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAFA29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift */; };
 		EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */; };
 		EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */; };
 		EEE5F5E9298126E000ECD31B /* RecordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E8298126E000ECD31B /* RecordResponseModel.swift */; };
@@ -471,6 +472,7 @@
 		EEC5CAF329B0AC5F00FF4C26 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		EEC5CAF529B0AC6500FF4C26 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewRequestModel.swift; sourceTree = "<group>"; };
+		EEC5CAFA29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestModel.swift; sourceTree = "<group>"; };
 		EEE5F5E8298126E000ECD31B /* RecordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponseModel.swift; sourceTree = "<group>"; };
@@ -1529,6 +1531,7 @@
 				EE98F0BF2980DF08007BFCCD /* BaseRouter.swift */,
 				EE98F0C12980DF14007BFCCD /* MultiMoyaService.swift */,
 				EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */,
+				EEC5CAFA29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1931,6 +1934,7 @@
 				EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */,
 				23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */,
 				EEE5F5EE2981276600ECD31B /* GoalRegisterRequestModel.swift in Sources */,
+				EEC5CAFB29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift in Sources */,
 				232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */,
 				EEE5F5F02981278900ECD31B /* FriendsResponseModel.swift in Sources */,
 				EE2628D1299231230013137C /* Pageable.swift in Sources */,
