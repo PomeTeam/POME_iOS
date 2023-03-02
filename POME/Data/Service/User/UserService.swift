@@ -6,64 +6,66 @@
 //
 
 import Foundation
+import Moya
 
-final class UserService: MultiMoyaService{
+final class UserService{
     static let shared = UserService()
     private init() { }
+    let provider = MultiMoyaService(plugins: [MoyaLoggerPlugin()])
 }
 
 extension UserService{
     
     func signUp(model: SignUpRequestModel, completion: @escaping (Result<BaseResponseModel<UserModel>, Error>) -> Void) {
-        requestDecoded(UserRouter.signUp(param: model)){ response in
+        provider.requestDecoded(UserRouter.signUp(param: model)){ response in
             completion(response)
         }
     }
     
     func signIn(model: SignInRequestModel, completion: @escaping (Result<BaseResponseModel<UserModel>, Error>) -> Void) {
-        requestDecoded(UserRouter.signIn(param: model)){ response in
+        provider.requestDecoded(UserRouter.signIn(param: model)){ response in
             completion(response)
         }
     }
     
     func logout(completion: @escaping (NetworkResult<Bool>) -> Void) {
-        requestDecoded(UserRouter.logout){ response in
+        provider.requestDecoded(UserRouter.logout){ response in
             completion(response)
         }
     }
     
     func deleteUser(reason: String, completion: @escaping (NetworkResult<Bool>) -> Void) {
-        requestDecoded(UserRouter.deleteUser(reason: reason)){ response in
+        provider.requestDecoded(UserRouter.deleteUser(reason: reason)){ response in
             completion(response)
         }
     }
     
     func getMarshmallow(completion: @escaping (NetworkResult<MarshmallowResponseModel>) -> Void) {
-        requestDecoded(UserRouter.getMarshmallow){ response in
+        provider.requestDecoded(UserRouter.getMarshmallow){ response in
             completion(response)
         }
     }
     
     func sendSMS(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
-        requestDecoded(UserRouter.sendSMS(param: model)) { response in
+        provider.requestDecoded(UserRouter.sendSMS(param: model)) { response in
             completion(response)
         }
     }
     
     func checkNickName(model: CheckNicknameRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
-        requestDecoded(UserRouter.checkNickName(param: model)) { response in
+        provider.requestDecoded(UserRouter.checkNickName(param: model)) { response in
             completion(response)
         }
     }
     
     func checkUser(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
-        requestDecoded(UserRouter.checkUser(param: model)) { response in
+        provider.requestDecoded(UserRouter.checkUser(param: model)) { response in
             completion(response)
         }
     }
     
     func getPresignedURL(id: String, completion: @escaping (Result<PresignedURLResponseModel, Error>) -> Void) {
-        requestDecoded(UserRouter.getPresignedURLServer(id: id)) { response in
+        provider.requestDecoded(UserRouter.getPresignedURLServer(id: id)) { response in
             completion(response)
         }
     }
