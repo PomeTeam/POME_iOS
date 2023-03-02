@@ -6,59 +6,61 @@
 //
 
 import Foundation
+import Moya
 
 final class FriendService: MultiMoyaService{
     static let shared = FriendService()
     private init() { }
+    let provider = MultiMoyaService(plugins: [MoyaLoggerPlugin()])
 }
 
 extension FriendService{
     
     func generateFriendEmotion(id: Int, emotion: Int, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
-        requestDecoded(FriendRouter.postEmotion(id: id, emotion: emotion), animate: true){ response in
+        provider.requestDecoded(FriendRouter.postEmotion(id: id, emotion: emotion), animate: true){ response in
             completion(response)
         }
     }
     
     func getFriendSearch(id: String, completion: @escaping (Result<BaseResponseModel<[FriendsResponseModel]>, Error>) -> Void) {
-        requestDecoded(FriendRouter.getFriendSearch(id: id)) { response in
+        provider.requestDecoded(FriendRouter.getFriendSearch(id: id)) { response in
             completion(response)
         }
     }
     
     func generateNewFriend(id: String, completion: @escaping (Result<Int, Error>) -> Void) {
-        requestNoResultAPI(FriendRouter.postFriend(id: id)){ response in
+        provider.requestNoResultAPI(FriendRouter.postFriend(id: id)){ response in
             completion(response)
         }
     }
     
     func deleteFriend(id: String, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
-        requestDecoded(FriendRouter.deleteFriend(id: id)){ response in
+        provider.requestDecoded(FriendRouter.deleteFriend(id: id)){ response in
             completion(response)
         }
     }
     
     func getFriends(pageable: PageableModel, completion: @escaping (NetworkResult<[FriendsResponseModel]>) -> Void) {
-        requestDecoded(FriendRouter.getFriends(pageable: pageable), animate: true){
+        provider.requestDecoded(FriendRouter.getFriends(pageable: pageable), animate: true){
             response in
             completion(response)
         }
     }
     
     func getFriendRecord(id: String, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable), animate: animate){ response in
+        provider.requestDecoded(FriendRouter.getFriendRecord(id: id, pageable: pageable), animate: animate){ response in
             completion(response)
         }
     }
     
     func getAllFriendsRecord(pageable: PageableModel, animate: Bool, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(FriendRouter.getAllFriendsRecord(pageable: pageable), animate: animate){ response in
+        provider.requestDecoded(FriendRouter.getAllFriendsRecord(pageable: pageable), animate: animate){ response in
             completion(response)
         }
     }
     
     func hideFriendRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(FriendRouter.deleteFriendRecord(id: id), animate: true){ response in
+        provider.requestNoResultAPI(FriendRouter.deleteFriendRecord(id: id), animate: true){ response in
             completion(response)
         }
     }

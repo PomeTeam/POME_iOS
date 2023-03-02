@@ -6,28 +6,30 @@
 //
 
 import Foundation
+import Moya
 
-final class RecordService: MultiMoyaService{
+final class RecordService{
     static let shared = RecordService()
     private init() { }
+    let provider = MultiMoyaService(plugins: [MoyaLoggerPlugin()])
 }
 
 extension RecordService{
     
     func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
-        requestDecoded(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
+        provider.requestDecoded(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
             completion(response)
         }
     }
     
     func deleteRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.deleteRecord(id: id), animate: true){ response in
+        provider.requestNoResultAPI(RecordRouter.deleteRecord(id: id), animate: true){ response in
             completion(response)
         }
     }
     
     func generateRecord(request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.postRecord(request: request), animate: true){ response in
+        provider.requestNoResultAPI(RecordRouter.postRecord(request: request), animate: true){ response in
             completion(response)
         }
     }
@@ -39,32 +41,32 @@ extension RecordService{
 //    }
     
     func getRecordsOfGoal(id: Int, pageable: PageableModel, animate: Bool, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, pageable: pageable), animate: animate) { response in
+        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUser(id: id, pageable: pageable), animate: animate) { response in
             completion(response)
         }
     }
     
     func getRecordsOfGoalAtRecordTab(id: Int, pageable: PageableModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtRecordTab(id: id, pageable: pageable), animate: true) { response in
+        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUserAtRecordTab(id: id, pageable: pageable), animate: true) { response in
             completion(response)
         }
     }
     
     func getRecordsOfGoalAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable), animate: animate) { response in
+        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable), animate: animate) { response in
             completion(response)
         }
     }
     
     
     func postSecondEmotion(id: Int, param: RecordSecondEmotionRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
-        requestNoResultAPI(RecordRouter.postSecondEmotion(id: id, param: param)){ response in
+        provider.requestNoResultAPI(RecordRouter.postSecondEmotion(id: id, param: param)){ response in
             completion(response)
         }
     }
     
     func getNoSecondEmotionRecords(id: Int, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        requestDecoded(RecordRouter.getNoSecondEmoRecords(id: id), animate: true) { response in
+        provider.requestDecoded(RecordRouter.getNoSecondEmoRecords(id: id), animate: true) { response in
             completion(response)
         }
     }

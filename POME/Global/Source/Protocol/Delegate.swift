@@ -10,7 +10,6 @@ import Foundation
 protocol RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath)
     func presentEtcActionSheet(indexPath: IndexPath)
-    func presentCannotReactionToastMessageView()
 }
 
 protocol FriendRecordCellDelegate{
