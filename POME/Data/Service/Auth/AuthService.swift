@@ -6,15 +6,17 @@
 //
 
 import Foundation
+import Moya
 
-final class AuthService: MultiMoyaService{
+final class AuthService{
     static let shared = AuthService()
     private init() { }
+    let provider = MultiMoyaService(plugins: [MoyaLoggerPlugin()])
 }
 
 extension AuthService{
     func generateAccessToken(completion: @escaping (NetworkResult<String>) -> Void) {
-        requestDecoded(AuthRouter.renewAccessToken, animate: true){ response in
+        provider.requestDecoded(AuthRouter.renewAccessToken, animate: true){ response in
             completion(response)
         }
     }
