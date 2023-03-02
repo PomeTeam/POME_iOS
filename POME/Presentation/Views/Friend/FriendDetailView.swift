@@ -131,18 +131,10 @@ class FriendDetailView: BaseView {
     
     func setOthersReaction(thumbnail: Reaction, count: Int){
         
-        othersReactionCountLabel.isHidden = false
         othersReactionButton.isEnabled = true
+        othersReactionCountLabel.isHidden = false
         
-        let countString: String!
-        
-        if(count < 10){
-            countString = "+\(count)"
-        }else{
-            countString = "9+"
-        }
-        
-        othersReactionCountLabel.text = countString
+        othersReactionCountLabel.text = count < 10 ? "+\(count)" : "9+"
         othersReactionButton.setImage(thumbnail.blurImage, for: .normal)
     }
     
