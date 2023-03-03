@@ -64,33 +64,28 @@ extension OnboardingViewController {
         UserService.shared.signIn(model: signInRequestModel) { result in
             switch result {
                 case .success(let data):
-                    if data.success {
-                        print("로그인 성공")
-                        // 기록탭으로 이동
-                        
-                        // 유저 정보 저장
-                        let token = data.data?.accessToken ?? ""
-                        let userId = data.data?.userId ?? ""
-                        let nickName = data.data?.nickName ?? ""
-                        let profileImg = data.data?.imageURL ?? ""
-                        
-                        UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
-                        UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
-                        UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
-                        UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
-                        
-                        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                        guard let delegate = sceneDelegate else {
-                            // 에러 알림
-                            return
-                        }
-                        delegate.window?.rootViewController = TabBarController()
-                    }
-                    
-                    break
-                case .failure(let err):
-                    print(err.localizedDescription)
-                    break
+                print("로그인 성공")
+                // 기록탭으로 이동
+                
+                // 유저 정보 저장
+                let token = data.accessToken ?? ""
+                let userId = data.userId ?? ""
+                let nickName = data.nickName ?? ""
+                let profileImg = data.imageURL ?? ""
+                
+                UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
+                UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
+                UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
+                UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
+                
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                guard let delegate = sceneDelegate else {
+                    // 에러 알림
+                    return
+                }
+                delegate.window?.rootViewController = TabBarController()
+                
+                break
             default:
                 NetworkAlert.show(in: self){ [weak self] in
                     self?.signIn(phoneNum)
