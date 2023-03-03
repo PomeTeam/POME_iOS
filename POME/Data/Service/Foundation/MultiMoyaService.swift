@@ -70,7 +70,12 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                             completion(.success(data))
                         }
                     }else{
-                        completion(.invalidSuccess(body.errorCode ?? "", body.message ))
+                        if(body.httpCode == 406 || body.httpCode == 403){
+                            self.requestGenerateAccessToken()
+                            return
+                        }else{
+                            completion(.invalidSuccess(body.errorCode ?? "", body.message ))
+                        }
                     }
                 } catch let error {
                     completion(.failure(error))
@@ -136,7 +141,11 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                     if(body.success){
                         completion(.success(body.success))
                     }else{
-                        completion(.invalidSuccess(body.errorCode ?? "", body.message))
+                        if(body.httpCode == 406 || body.httpCode == 403){
+                            self.requestGenerateAccessToken()
+                        }else{
+                            completion(.invalidSuccess(body.errorCode ?? "", body.message ))
+                        }
                     }
                 } catch let error {
                     completion(.failure(error))
@@ -181,6 +190,20 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
                 }
             case .failure(let error):
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    func requestGenerateAccessToken(){
+        AuthService.shared.generateAccessToken{ response in
+            switch response{
+            case .success(let token):
+                print("LOG: SUCCESS requestGenerateAccessToken", token)
+                UserManager.token = token
+                break
+            default:
+                print("LOG: INVALID SUCCESS requestGenerateAccessToken")
+                self.requestGenerateAccessToken()
             }
         }
     }
