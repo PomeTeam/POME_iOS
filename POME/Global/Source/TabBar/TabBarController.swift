@@ -8,14 +8,31 @@
 import UIKit
 
 class TabBarController: UITabBarController {
-
-
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
+
+        generateAccessToken()
         
+        super.viewDidLoad()
+
         setupShadow()
         setTabBarAppearance()
         setTabBarItems()
+    }
+    
+    private func generateAccessToken(){
+        
+        UserService.shared.signIn(model: SignInRequestModel(phoneNum: UserManager.phoneNum ?? "" )){ result in
+            switch result{
+            case .success(let data):
+                print("LOG: SUCCESS GENERATE TOKEN")
+                UserManager.token = data.accessToken
+                break
+            default:
+                print("LOG: FAIL GENERATE TOKEN")
+                UserManager.token = ""
+            }
+        }
     }
 
     func setupShadow() {
