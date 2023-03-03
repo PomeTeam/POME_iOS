@@ -22,8 +22,8 @@ extension UserService{
         }
     }
     
-    func signIn(model: SignInRequestModel, completion: @escaping (Result<BaseResponseModel<UserModel>, Error>) -> Void) {
-        provider.requestDecoded(UserRouter.signIn(param: model)){ response in
+    func signIn(model: SignInRequestModel, completion: @escaping (NetworkResult<UserModel>) -> Void) {
+        provider.requestDecoded(UserRouter.signIn(param: model), animate: true){ response in
             completion(response)
         }
     }
