@@ -27,6 +27,8 @@ enum Link: String {
     
     //TODO: 오픈소스 라이센스
     case openSourceLicense = ""
+    // 마시멜로 툴팁
+    case marshmallowToolTip = "https://few-horse-2aa.notion.site/a4a1084333f94e20a30077526be73411"
 }
 
 class LinkManager {

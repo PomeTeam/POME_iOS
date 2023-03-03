@@ -65,6 +65,10 @@ class MyPageViewController: BaseTabViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
+    // MARK: - Actions
+    @objc func marshmallowToolTopDidTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        LinkManager(self, .marshmallowToolTip)
+    }
 }
 // MARK: - TableView delegate
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -90,6 +94,10 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
             cell.marshmallowCollectionView.dataSource = self
             cell.marshmallowCollectionView.reloadData()
             cell.selectionStyle = .none
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(marshmallowToolTopDidTap(tapGestureRecognizer:)))
+            cell.marshmallowToolTipLabel.addGestureRecognizer(tapGesture)
+            
             return cell
         }
         
