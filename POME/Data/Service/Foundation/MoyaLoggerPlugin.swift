@@ -55,14 +55,6 @@ final class MoyaLoggerPlugin: PluginType {
         }
         log.append("------------------- END HTTP (\(response.data.count)-byte body) -------------------")
         print(log)
-
-        // 🔥 401 인 경우 리프레쉬 토큰 + 액세스 토큰 을 가지고 갱신 시도.
-        switch statusCode {
-        case 403:
-            requestGenerateAccessToken()
-        default:
-            return
-        }
     }
 
     func onFail(_ error: MoyaError, target: TargetType) {
@@ -75,26 +67,5 @@ final class MoyaLoggerPlugin: PluginType {
         log.append("\(error.failureReason ?? error.errorDescription ?? "unknown error")\n")
         log.append("<-- END HTTP")
         print(log)
-    }
-}
-
-// 🔥 Network.
-extension MoyaLoggerPlugin {
-    func requestGenerateAccessToken(){
-        AuthService.shared.generateAccessToken{ response in
-            switch response{
-            case .success(let token):
-                print("LOG: SUCCESS requestGenerateAccessToken", token)
-                UserManager.token = token
-                break
-            default:
-                print("LOG: INVALID SUCCESS requestGenerateAccessToken")
-                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                guard let delegate = sceneDelegate else {
-                    return
-                }
-                delegate.window?.rootViewController = OnboardingViewController()
-            }
-        }
     }
 }
