@@ -145,8 +145,30 @@ class RegisterViewController: UIViewController {
             
             self.present(alert, animated: true)
         } else {
-            self.imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true, completion: nil)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let cameraAction =  UIAlertAction(title: "카메라", style: UIAlertAction.Style.default){(_) in
+                // 카메라
+                let camera = UIImagePickerController()
+                camera.sourceType = .camera
+                camera.allowsEditing = true
+                camera.cameraDevice = .rear
+                camera.cameraCaptureMode = .photo
+                camera.delegate = self
+                self.present(camera, animated: true, completion: nil)
+            }
+            let albumAction =  UIAlertAction(title: "사진 앨범", style: UIAlertAction.Style.default){(_) in
+                let album = UIImagePickerController()
+                album.delegate = self
+                album.sourceType = .photoLibrary
+                self.present(album, animated: true, completion: nil)
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+            
+            alert.addAction(cameraAction)
+            alert.addAction(albumAction)
+            alert.addAction(cancelAction)
+            
+            self.present(alert, animated: true)
         }
     }
 }
@@ -155,10 +177,16 @@ extension RegisterViewController : UIImagePickerControllerDelegate, UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         self.selectedPhoto = UIImage()
         
+        // 앨범에서 사진 선택 시
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.selectedPhoto = image
             self.registerView.profileImage.image = image
         }
+        // 카메라에서 사진 찍은 경우
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            self.selectedPhoto = image
+        }
+        
         // imageKey - 날짜 형식
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "yyyyMMdd"

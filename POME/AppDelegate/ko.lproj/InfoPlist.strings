@@ -6,3 +6,5 @@
   
 */
 "CFBundleDisplayName" = "포미";
+NSPhotoLibraryUsageDescription = "'포미'이(가) 사용자의 사진에 접근하려고 합니다.\n회원가입 시 사용합니다.";
+NSCameraUsageDescription = "'포미'이(가) 사용자의 카메라에 접근하려고 합니다.\n회원가입 시 사용합니다.";

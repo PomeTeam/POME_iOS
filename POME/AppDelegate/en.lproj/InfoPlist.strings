@@ -6,3 +6,5 @@
   
 */
 "CFBundleDisplayName" = "POME";
+NSPhotoLibraryUsageDescription = "This app is trying to access your photos.\nIt is used for registration.";
+NSCameraUsageDescription = "This app is trying to access your camera.\nIt is used for registration.";
