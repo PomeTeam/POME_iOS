@@ -14,6 +14,7 @@ class PaddingLabel: UILabel {
     convenience init(padding: UIEdgeInsets) {
         self.init()
         self.padding = padding
+        self.isUserInteractionEnabled = true
     }
 
     override func drawText(in rect: CGRect) {
