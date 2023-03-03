@@ -183,28 +183,22 @@ extension AppRegisterViewController {
         let signInRequestModel = SignInRequestModel(phoneNum: self.phone.value)
         UserService.shared.signIn(model: signInRequestModel) { result in
             switch result {
-                case .success(let data):
-                    if data.success {
-                        // 기록탭으로 이동
-                        self.navigationController?.pushViewController(TabBarController(), animated: true)
-                        // 유저 정보 저장
-                        let token = data.data?.accessToken ?? ""
-                        let userId = data.data?.userId ?? ""
-                        let nickName = data.data?.nickName ?? ""
-                        let profileImg = data.data?.imageURL ?? ""
-                        
-                        UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
-                        UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
-                        UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
-                        UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
-                        // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
-                        UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
-                    }
-                    
-                    break
-                case .failure(let err):
-                    print(err.localizedDescription)
-                    break
+            case .success(let data):
+                // 기록탭으로 이동
+                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                // 유저 정보 저장
+                let token = data.accessToken ?? ""
+                let userId = data.userId ?? ""
+                let nickName = data.nickName ?? ""
+                let profileImg = data.imageURL ?? ""
+                
+                UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
+                UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
+                UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
+                UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
+                // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
+                UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
+                break
             default:
                 break
             }

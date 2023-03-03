@@ -8,7 +8,6 @@
 import Foundation
 
 @propertyWrapper
-
 struct UserDefault<T> {
     
     let key: String
@@ -22,5 +21,4 @@ struct UserDefault<T> {
             UserDefaults.standard.set(newValue, forKey: self.key)
         }
     }
-    
 }
