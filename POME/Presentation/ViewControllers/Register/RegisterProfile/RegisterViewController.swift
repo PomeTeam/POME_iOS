@@ -105,7 +105,7 @@ class RegisterViewController: UIViewController {
     }
     func setValidName(_ nameStr: String) -> String {
         var currName = nameStr
-        if nameStr.count <= 8 {
+        if nameStr.count <= 10 {
             currName = nameStr.filter {!($0.isWhitespace)}
         } else {
             currName = self.name.value
@@ -202,6 +202,12 @@ extension RegisterViewController : UIImagePickerControllerDelegate, UINavigation
 extension RegisterViewController {
     // 닉네임 중복 체크 (실시간)
     private func checkNickName(_ nickname: String) {
+        if nickname == "" {
+            self.registerView.messageLabel.isHidden = true
+            self.registerView.completeButton.isActivate(false)
+            return
+        }
+        
         let checkNicknameRequestModel = CheckNicknameRequestModel(nickName: nickname)
         UserService.shared.checkNickName(model: checkNicknameRequestModel) { result in
             switch result {

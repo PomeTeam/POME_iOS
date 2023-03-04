@@ -26,7 +26,7 @@ class RegisterView: BaseView {
     let profileButton = UIButton().then{
         $0.setImage(Image.plus, for: .normal)
     }
-    let nameTextField = DefaultTextField("영어, 한국어 최대 8자 이내 입력", 16, 13).then{
+    let nameTextField = DefaultTextField("영문/한글 최대 10자 이내", 16, 13).then{
         $0.backgroundColor = Color.grey0
         $0.font = UIFont.autoPretendard(type: .r_14)
         $0.textColor = Color.title

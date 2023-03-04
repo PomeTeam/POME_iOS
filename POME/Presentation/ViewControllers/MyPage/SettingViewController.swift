@@ -162,8 +162,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case 5:
             LinkManager(self, .privacyAndServiceUse)
         case 6:
-            // TODO: 오픈소스 라이센스
-            print("")
+            // 오픈소스 라이센스
+            self.navigationController?.pushViewController(OpenSourceLicenseViewController(), animated: true)
         case 8:
             // 로그아웃
             showLogoutDialog()
@@ -171,7 +171,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             // 탈퇴하기
             self.navigationController?.pushViewController(DeleteUserViewController(), animated: true)
         default:
-            // 버전정보는 클릭 시 아무 동작 안 함.
+            // 버전정보
+            LinkToAppStore(self)
             print("")
         }
         tableView.deselectRow(at: indexPath, animated: true)

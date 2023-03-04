@@ -15,6 +15,9 @@
 		23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306123F292B51A600662007 /* AppRegisterViewController.swift */; };
 		23061242292B51C800662007 /* AppRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061241292B51C800662007 /* AppRegisterView.swift */; };
 		23061244292B51F200662007 /* DefaultTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061243292B51F200662007 /* DefaultTextField.swift */; };
+		2308C5BB29B385500046A76C /* LinkToAppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2308C5BA29B385500046A76C /* LinkToAppStore.swift */; };
+		2308C5BD29B38ABD0046A76C /* pome_ios_opensource.html in Resources */ = {isa = PBXBuildFile; fileRef = 2308C5BC29B38ABD0046A76C /* pome_ios_opensource.html */; };
+		2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2308C5BE29B38B4D0046A76C /* OpenSourceLicenseViewController.swift */; };
 		230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD70E298626FA0043F6DA /* StatusResponseModel.swift */; };
 		230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD7102986279A0043F6DA /* GoalResponseModel.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
@@ -257,6 +260,9 @@
 		2306123F292B51A600662007 /* AppRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterViewController.swift; sourceTree = "<group>"; };
 		23061241292B51C800662007 /* AppRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRegisterView.swift; sourceTree = "<group>"; };
 		23061243292B51F200662007 /* DefaultTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextField.swift; sourceTree = "<group>"; };
+		2308C5BA29B385500046A76C /* LinkToAppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToAppStore.swift; sourceTree = "<group>"; };
+		2308C5BC29B38ABD0046A76C /* pome_ios_opensource.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = pome_ios_opensource.html; sourceTree = "<group>"; };
+		2308C5BE29B38B4D0046A76C /* OpenSourceLicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceLicenseViewController.swift; sourceTree = "<group>"; };
 		230FD70E298626FA0043F6DA /* StatusResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponseModel.swift; sourceTree = "<group>"; };
 		230FD7102986279A0043F6DA /* GoalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalResponseModel.swift; sourceTree = "<group>"; };
 		2323CBC8299E70A7005C177B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
@@ -622,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				2360903E298FBD8D00523727 /* LinkManager.swift */,
+				2308C5BA29B385500046A76C /* LinkToAppStore.swift */,
 			);
 			path = LinkManager;
 			sourceTree = "<group>";
@@ -787,6 +794,7 @@
 		5724EBDA29100C8500DC529B = {
 			isa = PBXGroup;
 			children = (
+				2308C5BC29B38ABD0046A76C /* pome_ios_opensource.html */,
 				5724EBE529100C8500DC529B /* POME */,
 				5724EBFC29100C8800DC529B /* POMETests */,
 				5724EC0629100C8800DC529B /* POMEUITests */,
@@ -1058,6 +1066,7 @@
 				23F57833292D5460002DD28E /* SettingViewController.swift */,
 				232F3FD5292D5E0A009F2EE5 /* AlarmSettingViewController.swift */,
 				232FD9D1293436950072E9D5 /* MypageFriendViewController.swift */,
+				2308C5BE29B38B4D0046A76C /* OpenSourceLicenseViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1771,6 +1780,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5724EBF329100C8700DC529B /* LaunchScreen.storyboard in Resources */,
+				2308C5BD29B38ABD0046A76C /* pome_ios_opensource.html in Resources */,
 				5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */,
 				5724EC2529160D7A00DC529B /* gomin.storyboard in Resources */,
 				5724EC4229162F2300DC529B /* Pretendard-SemiBold.otf in Resources */,
@@ -1911,6 +1921,7 @@
 				57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */,
 				57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
+				2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
@@ -1980,6 +1991,7 @@
 				2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */,
 				EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
+				2308C5BB29B385500046A76C /* LinkToAppStore.swift in Sources */,
 				23816885292EDE5100579DD4 /* SubmitViewController.swift in Sources */,
 				23B3B7DC29319411008CB960 /* SecondEmotionViewController.swift in Sources */,
 				2345E1CA2981947A003185E0 /* UserResponseModel.swift in Sources */,
@@ -2306,6 +2318,8 @@
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -2340,6 +2354,8 @@
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = NSPhotoLibraryUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

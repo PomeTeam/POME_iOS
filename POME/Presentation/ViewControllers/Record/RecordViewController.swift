@@ -9,6 +9,15 @@ import CloudKit
 
 class RecordViewController: BaseTabViewController {
     var recordView = RecordView()
+    var dataIndexBy: (IndexPath) -> Int = { indexPath in
+        return indexPath.row - 3
+    }
+    // TOKEN
+    var token: String = "" {
+        didSet {
+            requestGetGoals()
+        }
+    }
     // Goal Content
     var goalContent: [GoalResponseModel] = []
     var categorySelectedIdx = 0
@@ -26,7 +35,7 @@ class RecordViewController: BaseTabViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        requestGetGoals()
+        self.token = UserManager.token ?? ""
     }
     override func style() {
         super.style()
@@ -102,36 +111,12 @@ class RecordViewController: BaseTabViewController {
         
         self.present(alert, animated: true)
     }
-    @objc func alertRecordMenuButtonDidTap(_ sender: RecordTapGesture) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
-            guard let recordData = sender.data else {return}
-            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
-                                                       record: recordData){_ in
-                print("click modify")
-            }
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImageAlert.deleteRecord.generateAndShow(in: self)
-            dialog.completion = {
-                self.deleteRecord(id: sender.data?.id ?? 0)
-            }
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alert.addAction(modifyAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true)
-    }
-    // MARK: 더보기 버튼 - Dynamic Cell Height Method
-    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
-        let content = expendingCellContent
-        content.expanded = !content.expanded
-        self.recordView.recordTableView.reloadRows(at: [sender.data], with: .automatic)
-    }
+//    // MARK: 더보기 버튼 - Dynamic Cell Height Method
+//    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
+//        let content = expendingCellContent
+//        content.expanded = !content.expanded
+//        self.recordView.recordTableView.reloadRows(at: [sender.data], with: .automatic)
+//    }
     
     // MARK: - Warning Sheets
     func showNoSecondEmotionWarning() {
@@ -269,24 +254,12 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
-            
-            if !self.recordsOfGoal.isEmpty {
-                let itemIdx = indexPath.item - 3
-                cell.setUpData(self.recordsOfGoal[itemIdx])
-                // Alert Menu
-                let tapRecordMenuGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
-                tapRecordMenuGesture.data = self.recordsOfGoal[itemIdx]
-                cell.menuButton.addGestureRecognizer(tapRecordMenuGesture)
-                // 더보기 버튼 클릭 Gesture
-                let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
-                viewMoreGesture.data = indexPath
-                cell.viewMoreButton.addGestureRecognizer(viewMoreGesture)
+            let cardIndex = dataIndexBy(indexPath)
+            let record = self.recordsOfGoal[cardIndex]
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+                $0.delegate = self
+                $0.bindingData(with: record)
             }
-            // Cell Height Set
-            cell.settingHeight(isClicked: expendingCellContent)
-            
-            cell.selectionStyle = .none
             return cell
         }
        
@@ -302,6 +275,44 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+// MARK: - Record Cell delegate
+extension RecordViewController: RecordCellDelegate{
+    func presentReactionSheet(indexPath: IndexPath) {
+        let data = recordsOfGoal[dataIndexBy(indexPath)].friendReactions
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+    }
+    
+    func presentEtcActionSheet(indexPath: IndexPath) {
+        let recordIndex = dataIndexBy(indexPath)
+
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
+                                                       record: self.recordsOfGoal[recordIndex]){
+                self.recordsOfGoal[recordIndex] = $0
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
+            alert.completion = {
+                self.deleteRecord(id: self.recordsOfGoal[recordIndex].id)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(editAction)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
     }
 }
 //MARK: - API
