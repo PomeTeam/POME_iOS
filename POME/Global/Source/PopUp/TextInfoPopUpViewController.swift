@@ -40,6 +40,7 @@ class TextInfoPopUpViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = Color.popUpBackground
 
+        okBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
