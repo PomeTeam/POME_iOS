@@ -25,8 +25,6 @@ enum Link: String {
     // 인증번호 오류
     case codeError = "https://few-horse-2aa.notion.site/3b12466e1ff14690b5c2d05c273fb2cf"
     
-    //TODO: 오픈소스 라이센스
-    case openSourceLicense = ""
     // 마시멜로 툴팁
     case marshmallowToolTip = "https://few-horse-2aa.notion.site/a4a1084333f94e20a30077526be73411"
 }

@@ -12,6 +12,12 @@ class RecordViewController: BaseTabViewController {
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 3
     }
+    // TOKEN
+    var token: String = "" {
+        didSet {
+            requestGetGoals()
+        }
+    }
     // Goal Content
     var goalContent: [GoalResponseModel] = []
     var categorySelectedIdx = 0
@@ -29,7 +35,7 @@ class RecordViewController: BaseTabViewController {
         
     }
     override func viewDidAppear(_ animated: Bool) {
-        requestGetGoals()
+        self.token = UserManager.token ?? ""
     }
     override func style() {
         super.style()
