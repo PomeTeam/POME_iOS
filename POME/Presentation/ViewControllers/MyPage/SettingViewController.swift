@@ -162,8 +162,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case 5:
             LinkManager(self, .privacyAndServiceUse)
         case 6:
-            // TODO: 오픈소스 라이센스
-            print("")
+            // 오픈소스 라이센스
+            self.navigationController?.pushViewController(OpenSourceLicenseViewController(), animated: true)
         case 8:
             // 로그아웃
             showLogoutDialog()
