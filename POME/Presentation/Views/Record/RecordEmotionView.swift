@@ -41,9 +41,9 @@ class RecordEmotionView: BaseView {
     }
     func setTableView() {
         recordEmotionTableView = UITableView().then{
-            $0.register(RecordEmotionTableViewCell.self, forCellReuseIdentifier: "RecordEmotionTableViewCell")
+            $0.register(cellType: RecordEmotionTableViewCell.self)
             // 기록 카드
-            $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
+            $0.register(cellType: ConsumeReviewTableViewCell.self)
             
             // autoHeight
             $0.rowHeight = UITableView.automaticDimension

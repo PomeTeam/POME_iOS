@@ -9,6 +9,9 @@ import UIKit
 
 class RecordEmotionViewController: BaseViewController {
     var recordEmotionView = RecordEmotionView()
+    var dataIndexBy: (IndexPath) -> Int = { indexPath in
+        return indexPath.row - 1
+    }
     var goalContent: GoalResponseModel?
     var noSecondEmotionRecord: [RecordResponseModel] = []
     // Cell Height
@@ -46,38 +49,12 @@ class RecordEmotionViewController: BaseViewController {
         super.initialize()
     }
     
-    // MARK: - Actions
-    @objc func alertRecordMenuButtonDidTap(_ sender: RecordTapGesture) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
-            guard let goalData = self.goalContent else {return}
-            guard let recordData = sender.data else {return}
-            let vc = RecordModifyContentViewController(goal: goalData,
-                                                       record: recordData){_ in
-                print("click modify")
-            }
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
-            let dialog = ImageAlert.deleteRecord.generateAndShow(in: self)
-            dialog.completion = {
-                self.deleteRecord(id: sender.data?.id ?? 0)
-            }
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
-        
-        alert.addAction(modifyAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-        
-        self.present(alert, animated: true)
-    }
-    // MARK: 더보기 버튼 - Dynamic Cell Height Method
-    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
-        let content = expendingCellContent
-        content.expanded = !content.expanded
-        self.recordEmotionView.recordEmotionTableView.reloadRows(at: [sender.data], with: .automatic)
-    }
+//    // MARK: 더보기 버튼 - Dynamic Cell Height Method
+//    @objc func viewMoreButtonDidTap(_ sender: IndexPathTapGesture) {
+//        let content = expendingCellContent
+//        content.expanded = !content.expanded
+//        self.recordEmotionView.recordEmotionTableView.reloadRows(at: [sender.data], with: .automatic)
+//    }
 }
 // MARK: - TableView delegate
 extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSource {
@@ -99,26 +76,23 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
             
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecordCardTableViewCell", for: indexPath) as? RecordCardTableViewCell else { return UITableViewCell() }
-            
-            if !self.noSecondEmotionRecord.isEmpty {
-                let itemIdx = indexPath.item - 1
-                cell.setUpData(self.noSecondEmotionRecord[itemIdx])
+            let cardIndex = dataIndexBy(indexPath)
+            let record = self.noSecondEmotionRecord[cardIndex]
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+                $0.delegate = self
+                $0.bindingData(with: record)
             }
-            
-            // Alert Menu
-            let tapRecordMenuGesture = RecordTapGesture(target: self, action: #selector(alertRecordMenuButtonDidTap(_:)))
-            tapRecordMenuGesture.data = self.noSecondEmotionRecord[indexPath.item - 1]
-            cell.menuButton.addGestureRecognizer(tapRecordMenuGesture)
-            // 더보기 버튼 클릭 Gesture
-            let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
-            viewMoreGesture.data = indexPath
-            cell.viewMoreButton.addGestureRecognizer(viewMoreGesture)
-            // Cell Height Set
-            cell.settingHeight(isClicked: expendingCellContent)
-            
-            cell.selectionStyle = .none
             return cell
+            
+//            // 더보기 버튼 클릭 Gesture
+//            let viewMoreGesture = IndexPathTapGesture(target: self, action: #selector(viewMoreButtonDidTap(_:)))
+//            viewMoreGesture.data = indexPath
+//            cell.viewMoreButton.addGestureRecognizer(viewMoreGesture)
+//            // Cell Height Set
+//            cell.settingHeight(isClicked: expendingCellContent)
+//
+//            cell.selectionStyle = .none
+//            return cell
         }
        
     }
@@ -133,7 +107,46 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
+// MARK: - Record Cell delegate
+extension RecordEmotionViewController: RecordCellDelegate{
+    func presentReactionSheet(indexPath: IndexPath) {
+        let data = noSecondEmotionRecord[dataIndexBy(indexPath)].friendReactions
+        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+    }
+    
+    func presentEtcActionSheet(indexPath: IndexPath) {
+        let recordIndex = dataIndexBy(indexPath)
 
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            
+            guard let goalContent = self.goalContent else {return}
+            let vc = RecordModifyContentViewController(goal: goalContent,
+                                                       record: self.noSecondEmotionRecord[recordIndex]){
+                self.noSecondEmotionRecord[recordIndex] = $0
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
+            alert.completion = {
+                self.deleteRecord(id: self.noSecondEmotionRecord[recordIndex].id)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(editAction)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+             
+        self.present(alert, animated: true)
+    }
+}
 // MARK: - API
 extension RecordEmotionViewController {
     // MARK: 일주일이 지났고, 두 번째 감정이 없는 기록 조회 API

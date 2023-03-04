@@ -64,7 +64,8 @@ class RecordView: BaseView {
             // 감정 남기기
             $0.register(GoEmotionBannerTableViewCell.self, forCellReuseIdentifier: "GoEmotionBannerTableViewCell")
             // 기록 카드
-            $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
+            $0.register(cellType: ConsumeReviewTableViewCell.self)
+//            $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
             
             // autoHeight
             $0.rowHeight = UITableView.automaticDimension
