@@ -64,8 +64,9 @@ class MarshmallowCollectionViewCell: BaseCollectionViewCell {
             make.width.height.equalTo(24)
         }
         marshmallowImg.snp.makeConstraints { make in
-            make.width.height.equalTo(120)
+            make.leading.trailing.equalToSuperview().inset(23)
             make.top.equalTo(levelStack.snp.bottom).offset(6)
+            make.bottom.greaterThanOrEqualToSuperview().offset(-14)
             make.centerX.equalToSuperview()
         }
     }

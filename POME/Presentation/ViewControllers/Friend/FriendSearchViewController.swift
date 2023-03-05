@@ -51,15 +51,7 @@ class FriendSearchViewController: BaseViewController {
         initButton()
     }
     func initNameTextField() {
-        // editingChanged 이벤트가 발생 했을 때
-        friendSearchView.searchTextField.rx.controlEvent([.editingChanged])
-            .asObservable()
-            .subscribe(onNext: { _ in
-                
-//                print("editingChanged : \(self.friendSearchView.searchTextField.text ?? "")")
-            }).disposed(by: disposeBag)
-        
-        // textField.rx.text의 변경이 있을 때
+        //  textField.rx.text의 변경이 있을 때
         self.friendSearchView.searchTextField.rx.text.orEmpty
                     .distinctUntilChanged()
                     .map({ name in
@@ -71,7 +63,6 @@ class FriendSearchViewController: BaseViewController {
         self.name.skip(1).distinctUntilChanged()
             .subscribe( onNext: { newValue in
                 self.searchFriend(id: newValue)
-//                print("name changed : \(newValue) ")
             })
             .disposed(by: disposeBag)
     }
@@ -112,7 +103,6 @@ class FriendSearchViewController: BaseViewController {
     }
     func setFriendSearchEmptyView() {
         let count = self.friendData.count ?? 0
-        print("count:", count)
         if count == 0 {
             EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
         } else {

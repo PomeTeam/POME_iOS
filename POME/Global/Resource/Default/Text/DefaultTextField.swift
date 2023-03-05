@@ -82,6 +82,7 @@ class DefaultTextField: UITextField {
     }
     @objc private func clear(sender: AnyObject) {
         self.text = ""
+        sendActions(for: .editingChanged)
     }
     // clear button position
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {

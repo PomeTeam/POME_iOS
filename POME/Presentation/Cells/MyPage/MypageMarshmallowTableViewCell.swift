@@ -61,9 +61,9 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
             make.top.bottom.equalTo(titleLabel)
         }
         marshmallowCollectionView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.height.equalTo(500)        // 임시...
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.greaterThanOrEqualTo(500)        // 임시...
             make.bottom.equalToSuperview()
         }
     }
@@ -76,13 +76,14 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
                 
                 let bounds = UIScreen.main.bounds
                 let width = ((bounds.size.width - 32) / 2) - 5.5
+                let height = width * 1.0844
                 
-                $0.itemSize = CGSize(width: width, height: 180)
+                $0.itemSize = CGSize(width: width, height: height)
             }
             
             $0.collectionViewLayout = flowLayout
             $0.showsHorizontalScrollIndicator = false
-            $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            $0.contentInset = UIEdgeInsets(top: 49, left: 16, bottom: 10, right: 16)
             
             $0.backgroundColor = Color.transparent
             
