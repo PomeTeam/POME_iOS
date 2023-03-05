@@ -103,7 +103,6 @@ class FriendSearchViewController: BaseViewController {
     }
     func setFriendSearchEmptyView() {
         let count = self.friendData.count ?? 0
-        print("count:", count)
         if count == 0 {
             EmptyView(self.friendSearchView.searchTableView).setCenterEmptyView(Image.warning, "검색 결과가 없어요\n다른 닉네임으로 검색해볼까요?")
         } else {
