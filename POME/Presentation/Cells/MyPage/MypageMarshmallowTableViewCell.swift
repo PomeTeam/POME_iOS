@@ -76,8 +76,9 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
                 
                 let bounds = UIScreen.main.bounds
                 let width = ((bounds.size.width - 32) / 2) - 5.5
+                let height = width * 1.0844
                 
-                $0.itemSize = CGSize(width: width, height: 180)
+                $0.itemSize = CGSize(width: width, height: height)
             }
             
             $0.collectionViewLayout = flowLayout
