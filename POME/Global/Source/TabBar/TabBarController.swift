@@ -9,6 +9,8 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
+    private var recordViewController = RecordViewController(btnImage: UIImage())
+    
     override func viewDidLoad() {
 
         generateAccessToken()
@@ -26,6 +28,7 @@ class TabBarController: UITabBarController {
             switch result{
             case .success(let data):
                 print("LOG: SUCCESS GENERATE TOKEN")
+                self.recordViewController.token = data.accessToken ?? "" 
                 UserManager.token = data.accessToken
                 break
             default:
@@ -51,7 +54,7 @@ class TabBarController: UITabBarController {
     
     func setTabBarItems(){
         
-        let tabs = [UINavigationController(rootViewController: RecordViewController(btnImage: UIImage())),
+        let tabs = [UINavigationController(rootViewController: recordViewController),
                     UINavigationController(rootViewController: ReviewViewController(btnImage: UIImage())),
                     UINavigationController(rootViewController: FriendViewController(btnImage: Image.addPeople)),
                     UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
