@@ -12,12 +12,8 @@ class RecordViewController: BaseTabViewController {
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 3
     }
-    // TOKEN
-    var token: String = "" {
-        didSet {
-            requestGetGoals()
-        }
-    }
+    // GetGoal control
+    private var isFirstLoad = true
     // Goal Content
     var goalContent: [GoalResponseModel] = []
     var categorySelectedIdx = 0
@@ -31,11 +27,11 @@ class RecordViewController: BaseTabViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
-    override func viewDidAppear(_ animated: Bool) {
-        self.token = UserManager.token ?? ""
+    override func viewWillAppear(_ animated: Bool) {
+        if(!isFirstLoad){
+            requestGetGoals()
+        }
     }
     override func style() {
         super.style()
@@ -318,10 +314,13 @@ extension RecordViewController: RecordCellDelegate{
 //MARK: - API
 extension RecordViewController {
     // MARK: 목표 리스트 조회 API
-    private func requestGetGoals(){
+    func requestGetGoals(){
         // api 호출할 때마다 Goal 배열 초기화
         self.goalContent.removeAll()
         GoalService.shared.getUserGoals{ result in
+            defer{
+                self.isFirstLoad = false
+            }
             switch result{
             case .success(let data):
                 print("success goal:", data.content)
@@ -337,9 +336,10 @@ extension RecordViewController {
                     self.recordsOfGoal.removeAll()
                     self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
                 } else {
-                    self.recordView.recordTableView.reloadData()
-                    guard let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell else { return }
-                    cell.goalCollectionView.reloadData()
+                    if let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell {
+                        cell.goalCollectionView.reloadData()
+                        self.recordView.recordTableView.reloadData()
+                    }
                 }
                 
                 break
