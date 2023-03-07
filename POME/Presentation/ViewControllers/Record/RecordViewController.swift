@@ -32,6 +32,7 @@ class RecordViewController: BaseTabViewController {
         if(!isFirstLoad){
             requestGetGoals()
         }
+        
     }
     override func style() {
         super.style()
@@ -41,6 +42,15 @@ class RecordViewController: BaseTabViewController {
     }
     override func layout() {
         super.layout()
+        
+        let tabBarHeight = self.tabBarController?.tabBar.frame.size.height ?? 83
+        var writeButtonLoc = -(tabBarHeight + 16)
+        
+        recordView.writeButton.snp.makeConstraints { make in
+            make.width.height.equalTo(52)
+            make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(writeButtonLoc)
+        }
         
         self.view.addSubview(recordView)
         recordView.snp.makeConstraints { make in

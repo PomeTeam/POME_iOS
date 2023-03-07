@@ -50,7 +50,7 @@ class RecordView: BaseView {
         writeButton.snp.makeConstraints { make in
             make.width.height.equalTo(52)
             make.trailing.equalToSuperview().offset(-16)
-            make.bottom.equalTo(super.safeAreaLayoutGuide).offset(-16)
+            make.bottom.equalToSuperview().offset(-83-16)
         }
     }
     
