@@ -53,6 +53,7 @@ class RecordView: BaseView {
             make.bottom.equalTo(super.safeAreaLayoutGuide).offset(-16)
         }
     }
+    
     func setTableView() {
         recordTableView = UITableView().then{
             // 목표 카테고리 바
@@ -65,7 +66,6 @@ class RecordView: BaseView {
             $0.register(GoEmotionBannerTableViewCell.self, forCellReuseIdentifier: "GoEmotionBannerTableViewCell")
             // 기록 카드
             $0.register(cellType: ConsumeReviewTableViewCell.self)
-//            $0.register(RecordCardTableViewCell.self, forCellReuseIdentifier: "RecordCardTableViewCell")
             
             // autoHeight
             $0.rowHeight = UITableView.automaticDimension

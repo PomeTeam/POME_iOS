@@ -335,11 +335,11 @@ extension RecordViewController {
                     self.recordPage = 0
                     self.recordsOfGoal.removeAll()
                     self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
-                } else {
-                    if let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell {
-                        cell.goalCollectionView.reloadData()
-                        self.recordView.recordTableView.reloadData()
-                    }
+                }
+                
+                if let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell {
+                    cell.goalCollectionView.reloadData()
+                    self.recordView.recordTableView.reloadData()
                 }
                 
                 break
