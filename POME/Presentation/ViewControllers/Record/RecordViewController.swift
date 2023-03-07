@@ -338,6 +338,8 @@ extension RecordViewController {
                     self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
                 } else {
                     self.recordView.recordTableView.reloadData()
+                    guard let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell else { return }
+                    cell.goalCollectionView.reloadData()
                 }
                 
                 break
