@@ -23,6 +23,7 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     //MARK: - LifeCycle
     override func prepareForReuse() {
         goalCategoryLabel.text = ""
+        goalCategoryLabel.textColor = .white
         setInactivateState()
     }
     

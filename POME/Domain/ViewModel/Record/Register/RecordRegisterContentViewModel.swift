@@ -45,7 +45,7 @@ class RecordRegisterContentViewModel{
         let canMoveNext = requestObservable
             .map{ category, date, price, detail in
                 return !category.isEmpty && !date.isEmpty
-                && !price.isEmpty
+                && !price.isEmpty && Int(price.replacingOccurrences(of: ",", with: ""))! > 0
                 && detail != input.detailTextViewplaceholder
                 && !detail.isEmpty
             }.asDriver(onErrorJustReturn: false)

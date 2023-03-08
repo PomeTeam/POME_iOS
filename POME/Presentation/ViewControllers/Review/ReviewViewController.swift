@@ -61,8 +61,8 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     let mainView = ReviewView()
     var emoijiFloatingView: EmojiFloatingView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        page = 0
         requestGetGoals()
     }
     
@@ -188,20 +188,21 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         goals.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].name)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let willDeselctCell = collectionView.cellForItem(at: [0, currentGoal]) as? GoalTagCollectionViewCell{
+            willDeselctCell.setUnselectState(with: goals[currentGoal].isGoalEnd)
+        }
+        
         guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
         if(currentGoal == 0 && indexPath.row != 0){
-            guard let cell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
-            cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
+            guard let initialCell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
+            initialCell.setUnselectState(with: goals[0].isGoalEnd)
         }
+
         currentGoal = indexPath.row
         cell.setSelectState()
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
-        cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
     }
 }
 
@@ -310,7 +311,7 @@ extension ReviewViewController{
             switch response{
             case .success(let data):
                 print("LOG: success requestGetGoals", data)
-                goals = data.content
+                goals = data.content.filter{ !$0.isEnd }
                 requestGetRecords()
                 break
             default:

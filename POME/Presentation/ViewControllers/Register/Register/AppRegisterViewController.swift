@@ -184,8 +184,6 @@ extension AppRegisterViewController {
         UserService.shared.signIn(model: signInRequestModel) { result in
             switch result {
             case .success(let data):
-                // 기록탭으로 이동
-                self.navigationController?.pushViewController(TabBarController(), animated: true)
                 // 유저 정보 저장
                 let token = data.accessToken ?? ""
                 let userId = data.userId ?? ""
@@ -198,6 +196,9 @@ extension AppRegisterViewController {
                 UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
                 // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
                 UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
+                
+                // 기록탭으로 이동
+                self.navigationController?.pushViewController(TabBarController(), animated: true)
                 break
             default:
                 break

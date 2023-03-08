@@ -51,7 +51,7 @@ class GoalContentRegisterViewModel{
         
         let canMoveNext = requestObservable
             .map { category, promise, price in
-                return !category.isEmpty && !promise.isEmpty && !price.isEmpty
+                return !category.isEmpty && !promise.isEmpty && !price.isEmpty && Int(price.replacingOccurrences(of: ",", with: ""))! > 0
             }.asDriver(onErrorJustReturn: false)
 
         return Output(categoryText: category,
