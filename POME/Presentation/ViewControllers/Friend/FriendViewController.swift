@@ -334,6 +334,10 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         
+        if let willDeselctCell = collectionView.cellForItem(at: [0, currentFriendIndex]) as? FriendCollectionViewCell{
+            willDeselctCell.setUnselectState(row: currentFriendIndex)
+        }
+        
         if(currentFriendIndex == 0 && indexPath.row != 0){
             guard let friendListCell = friendView.tableView.cellForRow(at: [0,0]) as? FriendListTableViewCell,
                     let cell = friendListCell.collectionView.cellForItem(at: [0,0]) as? FriendCollectionViewCell else { return }
@@ -344,11 +348,6 @@ extension FriendViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.setSelectState(row: indexPath.row)
         currentFriendIndex = indexPath.row
         currentFriendIndex == 0 ? requestGetAllFriendsRecords() : requestGetFriendCards()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? FriendCollectionViewCell else { return }
-        cell.setUnselectState(row: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
