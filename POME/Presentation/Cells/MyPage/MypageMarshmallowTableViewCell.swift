@@ -46,8 +46,8 @@ class MypageMarshmallowTableViewCell: BaseTableViewCell {
         super.hierarchy()
         
         self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(marshmallowToolTipLabel)
         self.contentView.addSubview(marshmallowCollectionView)
+        self.contentView.addSubview(marshmallowToolTipLabel)
     }
     override func layout() {
         super.layout()
