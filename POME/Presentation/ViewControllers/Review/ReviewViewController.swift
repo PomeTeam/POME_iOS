@@ -310,7 +310,7 @@ extension ReviewViewController{
             switch response{
             case .success(let data):
                 print("LOG: success requestGetGoals", data)
-                goals = data.content
+                goals = data.content.filter{ !$0.isEnd }
                 requestGetRecords()
                 break
             default:
