@@ -285,7 +285,7 @@ extension RecordRegisterContentViewController{
             switch result{
             case .success(let data):
                 print("LOG: success requestGetGoals", data.content)
-                self.goals = data.content
+                self.goals = data.content.filter{ !$0.isEnd }
                 break
             default:
                 print(result)
