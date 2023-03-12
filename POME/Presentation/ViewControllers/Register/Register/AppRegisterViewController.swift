@@ -198,7 +198,11 @@ extension AppRegisterViewController {
                 UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
                 
                 // 기록탭으로 이동
-                self.navigationController?.pushViewController(TabBarController(), animated: true)
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                guard let delegate = sceneDelegate else {
+                    return
+                }
+                delegate.window?.rootViewController = TabBarController()
                 break
             default:
                 break

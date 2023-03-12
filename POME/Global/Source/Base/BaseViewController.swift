@@ -109,6 +109,7 @@ class BaseViewController: UIViewController {
 
 extension BaseViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
+        print("LOG: BaseViewController navigationController COUNT",navigationController?.viewControllers.count)
+        return navigationController?.viewControllers.count ?? 0 > 1
     }
 }
