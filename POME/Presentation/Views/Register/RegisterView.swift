@@ -30,7 +30,7 @@ class RegisterView: BaseView {
         $0.backgroundColor = Color.grey0
         $0.font = UIFont.autoPretendard(type: .r_14)
         $0.textColor = Color.title
-        $0.setClearButton(mode: .always)
+        $0.setClearButton(mode: .whileEditing)
     }
     let messageLabel = UILabel().then{
         $0.text = "멋진 닉네임이네요!"

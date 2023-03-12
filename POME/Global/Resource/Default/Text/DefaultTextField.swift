@@ -65,6 +65,8 @@ class DefaultTextField: UITextField {
     
     // MARK: Clear button Custom
     func setClearButton(mode: UITextField.ViewMode) {
+        self.clearButtonMode = .never
+        
         let clearButton = UIButton(type: .custom)
         clearButton.setImage(Image.textFieldClearButton, for: .normal)
         clearButton.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
