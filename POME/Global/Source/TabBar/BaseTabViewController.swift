@@ -40,8 +40,9 @@ class BaseTabViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     func style() {
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     func layout() {
@@ -67,4 +68,10 @@ class BaseTabViewController: UIViewController {
     
     @objc func topBtnDidClicked() {} //각 TabVC에서 topBtnDidClicked를 override해서 event 기능 구현하면 됩니다.
 
+}
+
+extension BaseTabViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
 }
