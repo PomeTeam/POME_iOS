@@ -23,9 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         var startViewController: UIViewController
-        
+
         startViewController = UserManager.token == nil ? UINavigationController(rootViewController: OnboardingViewController()) : TabBarController()
-        
+
         window?.rootViewController = startViewController
         window?.makeKeyAndVisible()
     }

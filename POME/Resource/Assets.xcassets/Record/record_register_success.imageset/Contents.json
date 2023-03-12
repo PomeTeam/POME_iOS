@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "paper_pink_270.svg",
+      "filename" : "paper_pink_270.pdf",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
   }
 }
