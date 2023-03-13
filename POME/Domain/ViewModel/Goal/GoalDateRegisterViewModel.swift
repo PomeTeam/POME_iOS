@@ -47,35 +47,32 @@ class GoalDateRegisterViewModel{
             .map{ !$0.isEmpty }
             .asDriver(onErrorJustReturn: false)
         
-        let isValidation: Observable<Bool> = requestObservable
+        let isDateEmpty: Observable<Bool> = requestObservable
             .map{ startDate, endDate in
-                if(startDate.isEmpty || endDate.isEmpty){
-                    return false
-                }
-                
-                let start = PomeDateFormatter.getDateType(from: startDate)
-                let validateEndDate = Calendar.current.date(byAdding: .day, value: 31, to: start) ?? Date()
-                let validateEndDateString = PomeDateFormatter.getDateString(validateEndDate)
-                
-                return endDate <= validateEndDateString && endDate > startDate ? true : false
-            }.share()
+                startDate.isEmpty || endDate.isEmpty
+            }
         
-        let willShowInvalidationLabel = requestObservable
+        let isDateValidate: Observable<Bool> = requestObservable
             .map{ startDate, endDate in
-                if(startDate.isEmpty || endDate.isEmpty){
-                    return true
-                }
                 let start = PomeDateFormatter.getDateType(from: startDate)
                 let validateEndDate = Calendar.current.date(byAdding: .day, value: 31, to: start) ?? Date()
                 let validateEndDateString = PomeDateFormatter.getDateString(validateEndDate)
-                
                 return endDate <= validateEndDateString && endDate > startDate ? true : false
             }
-            .asDriver(onErrorJustReturn: false)
         
-        let canMoveNext = isValidation
-            .map { $0 }
-            .asDriver(onErrorJustReturn: false)
+        let dateValidationObservable = Observable.zip(isDateEmpty, isDateValidate)
+        
+        let willShowInvalidationLabel = dateValidationObservable
+            .map{ isEmpty, isValidate in
+                print("willShowInvalidationLabel")
+                return isEmpty ? true : isValidate
+            }.asDriver(onErrorJustReturn: false)
+        
+        let canMoveNext = dateValidationObservable
+            .map{ isEmpty, isValidate in
+                print("canMoveNext")
+                return isEmpty ? false : isValidate
+            }.asDriver(onErrorJustReturn: false)
 
         return Output(isHighlightStartDateIcon: isHighlightStartDateIcon,
                       isHighlightEndDateIcon: isHighlightEndDateIcon,
