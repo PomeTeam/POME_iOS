@@ -14,7 +14,7 @@ class RecordRegisterEmotionSelectView: BaseView {
                                          subtitle: "포미는 순간의 감정에 집중해 \n한번 기록된 감정은 바꿀 수 없어요")
     
     let emotionStackView = UIStackView().then{
-        $0.spacing = 40
+        $0.spacing = Device.isSmallDevice ? 32 : 40
         $0.axis = .vertical
     }
     
@@ -38,9 +38,9 @@ class RecordRegisterEmotionSelectView: BaseView {
         
         super.hierarchy()
         
-        self.addSubview(titleView)
-        self.addSubview(emotionStackView)
-        self.addSubview(completeButton)
+        addSubview(titleView)
+        addSubview(emotionStackView)
+        addSubview(completeButton)
         
         emotionStackView.addArrangedSubview(happyEmotionView)
         emotionStackView.addArrangedSubview(whatEmotionView)
@@ -50,17 +50,17 @@ class RecordRegisterEmotionSelectView: BaseView {
     override func layout() {
         
         titleView.snp.makeConstraints{
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         emotionStackView.snp.makeConstraints{
             $0.top.equalTo(titleView.snp.bottom).offset(41)
             $0.leading.equalToSuperview().offset(89)
+//            $0.bottom.lessThanOrEqualTo(completeButton.snp.top).inset(10)
         }
         
         completeButton.snp.makeConstraints{
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(35)
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(52)
@@ -76,7 +76,8 @@ extension RecordRegisterEmotionSelectView{
         var emotion: EmotionTag!
         
         private let imageBackView = UIView().then{
-            $0.layer.cornerRadius = 110 / 2
+            let imageSize: CGFloat = Device.isSmallDevice ? 90 : 110
+            $0.layer.cornerRadius = imageSize / 2
         }
         
         private let emotionImageView = UIImageView()
@@ -115,7 +116,8 @@ extension RecordRegisterEmotionSelectView{
         
         override func layout() {
             imageBackView.snp.makeConstraints{
-                $0.width.height.equalTo(110)
+                let size = Device.isSmallDevice ? 90 : 110
+                $0.width.height.equalTo(size)
                 $0.top.bottom.leading.equalToSuperview()
             }
             
