@@ -68,7 +68,7 @@ class RecordContentView: BaseView{
         }
         
         completeButton.snp.makeConstraints{
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(35)
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(52)
@@ -100,8 +100,7 @@ class RecordRegisterContentView: RecordContentView {
     
     override func setTopConstriant() {
         titleView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(12)
-            $0.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
         }
         
         goalField.snp.makeConstraints{
