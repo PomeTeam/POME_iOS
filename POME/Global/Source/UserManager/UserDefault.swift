@@ -15,4 +15,6 @@ struct UserDefaultKey{
     static let phoneNum = "phoneNum"
     
     static let imageServer = "imageServer"
+    
+    static let buildVersion = "buildVersion"
 }

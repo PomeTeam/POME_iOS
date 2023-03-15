@@ -25,5 +25,8 @@ class UserManager {
     
     @UserDefault(key: UserDefaultKey.imageServer, defaultValue: nil)
     static var imageServer: String?
+    
+    @UserDefault(key: UserDefaultKey.buildVersion, defaultValue: nil)
+    static var buildVersion: String?
 }
 
