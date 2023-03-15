@@ -1681,7 +1681,6 @@
 				5724EBE029100C8500DC529B /* Frameworks */,
 				5724EBE129100C8500DC529B /* Resources */,
 				73F2698F7C13DAA071A1329B /* [CP] Embed Pods Frameworks */,
-				23F5092D29C1DC2A00EAF223 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1812,24 +1811,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		23F5092D29C1DC2A00EAF223 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ncd \"${PROJECT_DIR}\" ; agvtool bump\n";
-		};
 		3D38A9EC4E24FCBE62B20026 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2358,6 +2339,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -2394,6 +2376,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/Sheet/POME-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};
