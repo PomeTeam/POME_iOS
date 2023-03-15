@@ -63,8 +63,7 @@ class CalendarSheetViewController: BaseSheetViewController {
     override func layout() {
         self.view.addSubview(mainView)
         mainView.snp.makeConstraints{
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.leading.trailing.bottom.equalToSuperview()
         }
     }
     
