@@ -29,9 +29,8 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
         
         self.view.addSubview(mainView)
         mainView.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
     }
     

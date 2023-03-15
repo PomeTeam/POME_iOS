@@ -58,7 +58,7 @@ class GoalDateView: BaseView {
         }
         
         completButton.snp.makeConstraints{
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(35)
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(52)

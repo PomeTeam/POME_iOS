@@ -16,6 +16,7 @@ struct Const{
 struct Device{
     static let WIDTH: CGFloat = UIScreen.main.bounds.size.width
     static let HEIGHT: CGFloat = UIScreen.main.bounds.size.height
+    static let isSmallDevice: Bool = Device.HEIGHT <= 736
 }
 
 struct Offset{

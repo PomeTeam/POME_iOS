@@ -86,9 +86,10 @@ class CalendarSheetView: BaseView {
         }
         
         completeButton.snp.makeConstraints{
-            $0.bottom.centerX.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.leading.equalToSuperview().offset(20)
             $0.height.equalTo(52)
+            $0.bottom.equalToSuperview().inset(35)
         }
     }
 }
