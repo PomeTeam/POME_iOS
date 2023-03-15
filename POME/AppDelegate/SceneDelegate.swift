@@ -23,8 +23,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         var startViewController: UIViewController
-
-        startViewController = UserManager.token == nil ? UINavigationController(rootViewController: OnboardingViewController()) : TabBarController()
+        
+        // BuildVersion 비교 후 로그아웃
+        guard let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {return}
+        let preBuildVersion = UserManager.buildVersion ?? ""
+        
+        startViewController = UIViewController()
+        if buildVersion == preBuildVersion {
+            startViewController = UserManager.token == nil ? UINavigationController(rootViewController: OnboardingViewController()) : TabBarController()
+        } else {
+            UserManager.buildVersion = buildVersion
+            // 유저 정보 삭제
+            UserDefaults.standard.removeObject(forKey: UserDefaultKey.token)
+            UserDefaults.standard.removeObject(forKey: UserDefaultKey.userId)
+            UserDefaults.standard.removeObject(forKey: UserDefaultKey.nickName)
+            UserDefaults.standard.removeObject(forKey: UserDefaultKey.profileImg)
+            UserDefaults.standard.removeObject(forKey: UserDefaultKey.phoneNum)
+            
+            startViewController = UINavigationController(rootViewController: OnboardingViewController())
+        }
 
         window?.rootViewController = startViewController
         window?.makeKeyAndVisible()
