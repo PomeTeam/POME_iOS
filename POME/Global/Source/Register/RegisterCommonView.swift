@@ -27,7 +27,7 @@ class RegisterCommonTitleView: BaseView{
     
     init(title: String, subtitle: String){
         super.init(frame: .zero)
-        
+
         self.titleLabel.text = title
         self.subtitleLabel.text = subtitle
     }
@@ -42,7 +42,6 @@ class RegisterCommonTitleView: BaseView{
     }
     
     override func layout() {
-        
         titleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(12)
             $0.leading.equalToSuperview().offset(20)
