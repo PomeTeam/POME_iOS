@@ -86,6 +86,7 @@ class GoalContentView: BaseView {
         priceField.snp.makeConstraints{
             $0.top.equalTo(promiseField.snp.bottom)
             $0.leading.trailing.equalToSuperview()
+            $0.bottom.lessThanOrEqualTo(goalMakePublicView.snp.top).offset(10)
         }
         
         goalMakePublicView.snp.makeConstraints{
@@ -112,7 +113,7 @@ class GoalContentView: BaseView {
         completeButton.snp.makeConstraints{
             $0.leading.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(35)
             $0.height.equalTo(52)
         }
     }
