@@ -24,7 +24,7 @@ class SecondEmotionView: BaseView {
     }
     let emojiStack = UIStackView().then{
         $0.axis = .vertical
-        $0.spacing = 40
+        $0.spacing = Device.isSmallDevice ? 32 : 40
     }
     let happyEmoji = SecondEmoji(Image.reviewHappy, "행복해요")
     let whatEmoji = SecondEmoji(Image.reviewWhat, "모르겠어요")
@@ -89,7 +89,9 @@ class SecondEmotionView: BaseView {
 class SecondEmoji: UIStackView {
     let imgBackView = UIView().then{
         $0.backgroundColor = Color.grey0
-        $0.layer.cornerRadius = 55
+        
+        let imageSize: CGFloat = Device.isSmallDevice ? 90 : 110
+        $0.layer.cornerRadius = imageSize / 2
     }
     let emojiImage = UIImageView().then{
         $0.image = Image.reviewHappy
@@ -131,10 +133,11 @@ class SecondEmoji: UIStackView {
         self.addArrangedSubview(emoLabel)
         
         imgBackView.snp.makeConstraints { make in
-            make.width.height.equalTo(110)
+            let size = Device.isSmallDevice ? 90 : 110
+            make.width.height.equalTo(size)
         }
         emojiImage.snp.makeConstraints { make in
-            make.width.height.equalTo(68)
+            make.top.leading.equalToSuperview().offset(21)
             make.centerX.centerY.equalToSuperview()
         }
     }
