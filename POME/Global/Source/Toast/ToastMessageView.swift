@@ -32,16 +32,16 @@ class ToastMessageView: BaseView {
         self.messageLabel.text = message
     }
     
-    static func generateHideToastView() -> ToastMessageView{
+    static func generateHideCompleteMessage() -> ToastMessageView{
         return ToastMessageView(image: Image.hide, message: "해당 게시글을 숨겼어요")
     }
     
-    static func generateReactionToastView(type: Reaction) -> ToastMessageView{
+    static func generateReactionMessage(type: Reaction) -> ToastMessageView{
         return ToastMessageView(image: Image.toast, message: type.toastMessage)
     }
     
-    static func generateReactionWarningToastView() -> ToastMessageView{
-        return ToastMessageView(image: Image.toastWarning, message: "나의 소비에는 공감할 수 없어요")
+    static func generateMakeSufficientSpaceMessage() -> ToastMessageView{
+        return ToastMessageView(image: Image.toastSufficientSpace, message: "스크롤을 올리면 이모지를 남길 수 있어요!")
     }
     
     required init?(coder: NSCoder) {

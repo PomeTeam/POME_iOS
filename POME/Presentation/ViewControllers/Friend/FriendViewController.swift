@@ -263,7 +263,7 @@ extension FriendViewController{
                 print("LOG: success requestGenerateFriendCardEmotion", data)
                 self.records[cellIndex] = data
                 self.emoijiFloatingView?.dismiss()
-                ToastMessageView.generateReactionToastView(type: reaction).show(in: self)
+                ToastMessageView.generateReactionMessage(type: reaction).show(in: self)
                 break
             default:
                 print("LOG: fail requestGenerateFriendCardEmotion", result)
@@ -300,7 +300,7 @@ extension FriendViewController{
         let recordIndex = dataIndexBy(indexPath)
         records.remove(at: recordIndex)
         friendView.tableView.deleteRows(at: [indexPath], with: .fade)
-        ToastMessageView.generateHideToastView().show(in: self)
+        ToastMessageView.generateHideCompleteMessage().show(in: self)
         willDelete = false
     }
 }
@@ -428,6 +428,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
             print("LOG: EMOJI FLOATING VIEW TEST true")
             closure()
         }else{
+            ToastMessageView.generateMakeSufficientSpaceMessage().show(in: self)
             print("LOG: EMOJI FLOATING VIEW TEST falase")
             return
         }
