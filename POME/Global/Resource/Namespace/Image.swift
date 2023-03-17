@@ -179,7 +179,7 @@ enum Image{
     
     public static let hide = UIImage(named: "hide")!
     
-    public static let toastWarning = UIImage(named: "toast_warning")!
+    public static let toastSufficientSpace = UIImage(named: "toast_sufficient_space")!
     
     //MARK: - Onboarding
     public static let splashImage = UIImage(named: "splash_image")
