@@ -8,7 +8,7 @@ import UIKit
 import CloudKit
 
 class RecordViewController: BaseTabViewController {
-    var recordView = RecordView()
+    var recordView: RecordView!
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 3
     }
@@ -37,6 +37,7 @@ class RecordViewController: BaseTabViewController {
     override func style() {
         super.style()
         
+        recordView = RecordView()
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
     }
