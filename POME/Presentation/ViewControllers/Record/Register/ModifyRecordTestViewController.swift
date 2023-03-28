@@ -33,6 +33,9 @@ class ModifyRecordTestViewController: Recordable{
     }
     
     override func bind() {
+        
+        super.bind()
+        
         let input = ModifyRecordViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
                                                 consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
         
