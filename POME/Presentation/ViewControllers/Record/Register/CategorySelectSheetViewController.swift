@@ -11,17 +11,20 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
-    var completion: ((Int) -> ())!
+    var completion: ((Int) -> ())! //TODO: WILL DELETE
     
-    private let goals: [GoalResponseModel]
-    private let mainView = CategorySelectSheetView().then{
-        $0.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
-    }
-    
+    private var goals: [GoalResponseModel]!
+    private let mainView = CategorySelectSheetView()
+    private var viewModel: GoalSelectViewModel!
     //MARK: - LifeCycle
     
-    init(data goals: [GoalResponseModel]){
+    init(data goals: [GoalResponseModel]){ //TODO: WILL DELETE
         self.goals = goals
+        super.init(type: .category)
+    }
+    
+    init(viewModel: RecordableViewModel){
+        self.viewModel = viewModel
         super.init(type: .category)
     }
     
@@ -30,50 +33,46 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     }
     
     override func initialize(){
-        
         super.initialize()
-        
-        mainView.categoryTableView.delegate = self
-        mainView.categoryTableView.dataSource = self
+        mainView.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
+        setTableViewDelegate()
+    }
+    
+    private func setTableViewDelegate(){
+        mainView.categoryTableView.do{
+            $0.delegate = self
+            $0.dataSource = self
+        }
     }
     
     override func layout(){
-        
-        self.view.addSubview(mainView)
+        view.addSubview(mainView)
         mainView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
     @objc func exitButtonDidClicked(){
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }
 
 extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        goals.count
+        viewModel.getGoalCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RecordCategoryTableViewCell.cellIdentifier, for: indexPath) as? RecordCategoryTableViewCell else { return UITableViewCell() }
-        
-        cell.nameLabel.text = goals[indexPath.row].name
-        
-        return cell
+        return tableView.dequeueReusableCell(for: indexPath, cellType: RecordCategoryTableViewCell.self).then{
+            $0.nameLabel.text = viewModel.getGoalTitle(at: indexPath.row)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        /*
-        guard let selectedCell = tableView.cellForRow(at: indexPath) as? RecordCategoryTableViewCell,
-                let categoryTitle = selectedCell.nameLabel.text else { return }
-        */
-        completion(indexPath.row)
-        self.dismiss(animated: true)
+        viewModel.selectGoal(at: indexPath.row)
+        dismiss(animated: true)
     }
     
 }
