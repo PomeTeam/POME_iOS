@@ -226,6 +226,7 @@
 		EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */; };
 		EEA30A1B2999DCB7009E30F7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA30A1A2999DCB7009E30F7 /* LoadingView.swift */; };
 		EEB13B6F297F96FE001A8DD9 /* AppKey.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */; };
+		EEC28CB429D30B770075CD4C /* KeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CB329D30B770075CD4C /* KeyboardController.swift */; };
 		EEC5CAF429B0AC5F00FF4C26 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF329B0AC5F00FF4C26 /* AuthRouter.swift */; };
 		EEC5CAF629B0AC6500FF4C26 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF529B0AC6500FF4C26 /* AuthService.swift */; };
 		EEC5CAF929B0AD0F00FF4C26 /* RenewRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */; };
@@ -489,6 +490,7 @@
 		EE9B052F2994B09D00068503 /* NetworkErrorAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorAlertViewController.swift; sourceTree = "<group>"; };
 		EEA30A1A2999DCB7009E30F7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		EEB13B6E297F96FE001A8DD9 /* AppKey.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppKey.xcconfig; sourceTree = "<group>"; };
+		EEC28CB329D30B770075CD4C /* KeyboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardController.swift; sourceTree = "<group>"; };
 		EEC5CAF329B0AC5F00FF4C26 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		EEC5CAF529B0AC6500FF4C26 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewRequestModel.swift; sourceTree = "<group>"; };
@@ -895,6 +897,7 @@
 			children = (
 				5724EC85291B4C9200DC529B /* Const.swift */,
 				EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */,
+				EEC28CB329D30B770075CD4C /* KeyboardController.swift */,
 				2360903D298FBD7F00523727 /* LinkManager */,
 				2338F4AA2989077F00F37EA1 /* TapGestures */,
 				EE98F0C72980DFD0007BFCCD /* UserManager */,
@@ -2002,6 +2005,7 @@
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */,
 				575DE96E2976CC7500E61B8F /* FriendViewModel.swift in Sources */,
+				EEC28CB429D30B770075CD4C /* KeyboardController.swift in Sources */,
 				57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */,
 				232C1C922990CE850087B81A /* DeleteUserTableViewCell.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
