@@ -191,6 +191,13 @@
 		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
+		EE635F4029D1CC5100573F66 /* Recordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F3F29D1CC5100573F66 /* Recordable.swift */; };
+		EE635F4229D1CD1C00573F66 /* GenerateRecordTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4129D1CD1C00573F66 /* GenerateRecordTestViewController.swift */; };
+		EE635F4429D1CD2800573F66 /* ModifyRecordTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4329D1CD2800573F66 /* ModifyRecordTestViewController.swift */; };
+		EE635F4629D1D0C800573F66 /* GenerateRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4529D1D0C800573F66 /* GenerateRecordViewModel.swift */; };
+		EE635F4829D1D0D100573F66 /* ModifyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4729D1D0D100573F66 /* ModifyRecordViewModel.swift */; };
+		EE635F4A29D1D0DF00573F66 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4929D1D0DF00573F66 /* BaseViewModel.swift */; };
+		EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4B29D1D11400573F66 /* ObservableBinding.swift */; };
 		EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE8C2BF8298F5DBE00BE52B4 /* RecordModifyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */; };
@@ -447,6 +454,13 @@
 		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
+		EE635F3F29D1CC5100573F66 /* Recordable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recordable.swift; sourceTree = "<group>"; };
+		EE635F4129D1CD1C00573F66 /* GenerateRecordTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecordTestViewController.swift; sourceTree = "<group>"; };
+		EE635F4329D1CD2800573F66 /* ModifyRecordTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecordTestViewController.swift; sourceTree = "<group>"; };
+		EE635F4529D1D0C800573F66 /* GenerateRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecordViewModel.swift; sourceTree = "<group>"; };
+		EE635F4729D1D0D100573F66 /* ModifyRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecordViewModel.swift; sourceTree = "<group>"; };
+		EE635F4929D1D0DF00573F66 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		EE635F4B29D1D11400573F66 /* ObservableBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableBinding.swift; sourceTree = "<group>"; };
 		EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileImageManager.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordModifyContentViewController.swift; sourceTree = "<group>"; };
@@ -1121,6 +1135,7 @@
 				5724EBEA29100C8500DC529B /* BaseViewController.swift */,
 				5724EC6F2918CFA100DC529B /* BaseTableViewCell.swift */,
 				5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */,
+				EE635F4929D1D0DF00573F66 /* BaseViewModel.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1132,6 +1147,7 @@
 				570304BF297818ED00AAC56D /* CellReuse.swift */,
 				EE9505D229879C0C00077B28 /* ControlIndexPath.swift */,
 				EE2628D0299231230013137C /* Pageable.swift */,
+				EE635F4B29D1D11400573F66 /* ObservableBinding.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1170,6 +1186,8 @@
 			children = (
 				57397FB6296E77920088B5F4 /* RecordRegisterContentViewModel.swift */,
 				57397FB8296E77A10088B5F4 /* RecordRegisterEmotionSelectViewModel.swift */,
+				EE635F4529D1D0C800573F66 /* GenerateRecordViewModel.swift */,
+				EE635F4729D1D0D100573F66 /* ModifyRecordViewModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1384,6 +1402,9 @@
 		57CCA7BC292EE9CF007E22D1 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				EE635F3F29D1CC5100573F66 /* Recordable.swift */,
+				EE635F4129D1CD1C00573F66 /* GenerateRecordTestViewController.swift */,
+				EE635F4329D1CD2800573F66 /* ModifyRecordTestViewController.swift */,
 				57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */,
 				57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */,
 				EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */,
@@ -1932,6 +1953,7 @@
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
 				2365150A29AA626E00A4AFD1 /* UITabBar.swift in Sources */,
 				EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */,
+				EE635F4429D1CD2800573F66 /* ModifyRecordTestViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
@@ -1958,6 +1980,7 @@
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
+				EE635F4829D1D0D100573F66 /* ModifyRecordViewModel.swift in Sources */,
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */,
 				EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */,
@@ -2044,6 +2067,7 @@
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
+				EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
 				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
@@ -2067,8 +2091,10 @@
 				23F14C172990D41C00630AB2 /* DeleteUserDetailView.swift in Sources */,
 				235B3973292D6288003ACA01 /* TextPopUpViewController.swift in Sources */,
 				EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */,
+				EE635F4229D1CD1C00573F66 /* GenerateRecordTestViewController.swift in Sources */,
 				57C481DD296ABCDB008731D9 /* Goal.swift in Sources */,
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
+				EE635F4629D1D0C800573F66 /* GenerateRecordViewModel.swift in Sources */,
 				57BBA425295D712400068019 /* DefaultTextInfo.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
@@ -2080,6 +2106,7 @@
 				EE98F0D72980EFC7007BFCCD /* GoalService.swift in Sources */,
 				23F57830292D4C73002DD28E /* CompletedGoalsViewController.swift in Sources */,
 				232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */,
+				EE635F4A29D1D0DF00573F66 /* BaseViewModel.swift in Sources */,
 				5724EC6E2918CEFC00DC529B /* FriendTableViewCell.swift in Sources */,
 				233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */,
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
@@ -2120,6 +2147,7 @@
 				EE98F0DF2980EFE7007BFCCD /* UserService.swift in Sources */,
 				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
+				EE635F4029D1CC5100573F66 /* Recordable.swift in Sources */,
 				EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
