@@ -15,4 +15,55 @@ struct TestData{
 
 class ModifyRecordTestViewController: Recordable{
     
+    private let record: RecordResponseModel
+    
+//    init(record: RecordResponseModel){
+//        self.record = record
+//    }
+    
+    init(){
+        self.record = TestData.testRecordData
+        super.init(recordType: .modify,
+                   viewModel: ModifyRecordViewModel(defaultGoal: TestData.testGoalData,
+                                                    defaultDate: TestData.testRecordData.useDate))
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func bind() {
+        let input = ModifyRecordViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
+                                                consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
+        
+        let output = viewModel.transform(input)
+        
+        output.goalBinding
+            .drive{ [weak self] in
+                self?.mainView.goalField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.dateBinding
+            .drive{ [weak self] in
+                self?.mainView.dateField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.priceBinding
+            .drive{ [weak self] in
+                self?.mainView.priceField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.commentBinding
+            .drive{ [weak self] in
+                self?.mainView.contentTextView.recordTextView.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.highlightCalendarIcon
+            .drive(mainView.dateField.rightImage.rx.isHighlighted)
+            .disposed(by: disposeBag)
+        
+        output.canMoveNext
+            .drive(mainView.completeButton.rx.isActivate)
+            .disposed(by: disposeBag)
+    }
 }
