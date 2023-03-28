@@ -14,7 +14,7 @@ class RecordRegisterContentViewController: BaseViewController {
     var goals = [GoalResponseModel]()
     
     let mainView: RecordContentView
-    let viewModel = RecordRegisterContentViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    let viewModel = RecordRegisterContentViewModel()
     var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override

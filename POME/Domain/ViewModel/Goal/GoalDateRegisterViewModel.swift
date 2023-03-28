@@ -11,7 +11,7 @@ import RxCocoa
 
 class GoalDateRegisterViewModel{
     
-    private let goalUseCase: CreateGoalUseCase
+    private let goalUseCase: GenerateGoalUseCase
     
     struct Input{
         let startDateTextField: Observable<String>
@@ -27,7 +27,7 @@ class GoalDateRegisterViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(goalUseCase: CreateGoalUseCase){
+    init(goalUseCase: GenerateGoalUseCase = GenerateGoalUseCase()){
         self.goalUseCase = goalUseCase
     }
     

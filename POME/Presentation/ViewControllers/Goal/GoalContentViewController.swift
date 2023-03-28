@@ -16,7 +16,7 @@ class GoalContentViewController: BaseViewController {
     }
     
     private let mainView = GoalContentView()
-    private let viewModel = GoalContentRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
+    private let viewModel = GoalContentRegisterViewModel()
     private var goalDataManager = GoalRegisterRequestManager.shared
     
     //MARK: - Override

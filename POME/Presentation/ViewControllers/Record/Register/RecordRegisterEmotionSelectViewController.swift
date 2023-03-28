@@ -13,7 +13,7 @@ import RxCocoa
 class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     private let mainView = RecordRegisterEmotionSelectView()
-    private let viewModel = RecordRegisterEmotionSelectViewModel(createRecordUseCase: DefaultCreateRecordUseCase())
+    private let viewModel = RecordRegisterEmotionSelectViewModel()
     private var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override

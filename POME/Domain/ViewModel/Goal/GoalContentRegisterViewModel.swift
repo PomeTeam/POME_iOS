@@ -11,7 +11,7 @@ import RxCocoa
 
 class GoalContentRegisterViewModel{
     
-    private let goalUseCase: CreateGoalUseCase
+    private let goalUseCase: GenerateGoalUseCase
     
     struct Input{
         let categoryText: Observable<String>
@@ -26,7 +26,7 @@ class GoalContentRegisterViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(goalUseCase: CreateGoalUseCase){
+    init(goalUseCase: GenerateGoalUseCase = GenerateGoalUseCase()){
         self.goalUseCase = goalUseCase
     }
     

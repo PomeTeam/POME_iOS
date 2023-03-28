@@ -12,7 +12,7 @@ import RxGesture
 
 class RecordRegisterEmotionSelectViewModel{
     
-    private let createRecorUseCase: CreateRecordUseCase
+    private let createRecorUseCase: GenerateRecordUseCase
     
     struct Input{
         let happyEmotionSelect: TapObservable
@@ -25,7 +25,7 @@ class RecordRegisterEmotionSelectViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(createRecordUseCase: CreateRecordUseCase){
+    init(createRecordUseCase: GenerateRecordUseCase = GenerateRecordUseCase()){
         self.createRecorUseCase = createRecordUseCase
     }
     
