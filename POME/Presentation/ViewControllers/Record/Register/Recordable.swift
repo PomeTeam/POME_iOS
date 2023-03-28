@@ -16,6 +16,8 @@ class Recordable: BaseViewController{
         case modify
     }
     
+    private lazy var keyboardController = KeyboardController(view: view, moveHeight: 52+10)
+    private lazy var categoryBottomSheet = CategorySelectSheetViewController(viewModel: viewModel)
     let mainView: RecordContentView
     let viewModel: RecordableViewModel
     
@@ -30,6 +32,15 @@ class Recordable: BaseViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.viewWillAppear()
+        keyboardController.addKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        keyboardController.removeKeyboardNotifications()
+    }
+    
     override func layout() {
         super.layout()
         view.addSubview(mainView)
@@ -37,6 +48,49 @@ class Recordable: BaseViewController{
             $0.top.equalTo(navigationView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    override func bind() {
+        
+        view.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        
+        //calendar
+        mainView.dateField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { [weak self] _ in
+                self?.calendarSheetWillShow()
+            }).disposed(by: disposeBag)
+        
+        //category
+        mainView.goalField.rx.tapGesture()
+            .when(.recognized)
+            .bind(onNext: { [weak self] _ in
+                self?.categorySheetWillShow()
+            }).disposed(by: disposeBag)
+    }
+    
+    override func backBtnDidClicked(){
+        ImageAlert.quitRecord.generateAndShow(in: self).do{
+            $0.completion = {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    private func calendarSheetWillShow(){
+        CalendarSheetViewController().loadAndShowBottomSheet(in: self).do{
+            $0.completionTest = { [weak self] in
+                self?.viewModel.selectConsumeDate($0)
+            }
+        }
+    }
+    
+    private func categorySheetWillShow(){
+        categoryBottomSheet.loadAndShowBottomSheet(in: self)
     }
 }
 
