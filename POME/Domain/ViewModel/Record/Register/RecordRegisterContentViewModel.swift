@@ -11,7 +11,7 @@ import RxCocoa
 
 class RecordRegisterContentViewModel{
     
-    private let createRecordUseCase: CreateRecordUseCase
+    private let createRecordUseCase: GenerateRecordUseCase
     
     struct Input{
         let cateogrySelect: Observable<String>
@@ -27,7 +27,7 @@ class RecordRegisterContentViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(createRecordUseCase: CreateRecordUseCase){
+    init(createRecordUseCase: GenerateRecordUseCase = GenerateRecordUseCase()){
         self.createRecordUseCase = createRecordUseCase
     }
     

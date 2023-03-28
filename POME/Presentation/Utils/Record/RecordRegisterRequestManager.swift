@@ -14,7 +14,7 @@ class RecordRegisterRequestManager{
     var recordId: Int = -1
     var goalId: Int = -1
     var consumeDate: String = PomeDateFormatter.getTodayDate()
-    var price: String = ""
+    var price: String = "" //int형 변경
     var detail: String = ""
     var emotion: Int = -1
     

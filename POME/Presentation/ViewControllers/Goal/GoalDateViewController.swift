@@ -15,7 +15,7 @@ class GoalDateViewController: BaseViewController {
     private var startDate: String!
     
     private let mainView = GoalDateView()
-    private let viewModel = GoalDateRegisterViewModel(goalUseCase: DefaultCreateGoalUseCase(repository: DefaultGoalRepository()))
+    private let viewModel = GoalDateRegisterViewModel()
     private var goalDataManager = GoalRegisterRequestManager.shared
     
     //MARK: - Override

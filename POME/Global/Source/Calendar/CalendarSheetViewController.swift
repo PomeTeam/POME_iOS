@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 struct CalendarSelectDate{
     var year: Int
@@ -13,7 +14,12 @@ struct CalendarSelectDate{
     var date: Int
 }
 
-class CalendarSheetViewController: BaseSheetViewController {
+@objc protocol CalendarViewModel{
+    @objc optional func selectConsumeDate(_ date: String)
+    @objc optional func selectConsumeDate(tag: Int, _ date: String)
+}
+
+class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
     
     struct CalendarInfo{
         var startDayOfTheWeek: Int
@@ -26,10 +32,41 @@ class CalendarSheetViewController: BaseSheetViewController {
         }
     }
     
+    private let dateSubject = PublishSubject<Int>()
+    var disposeBag = DisposeBag()
+    func bind() {
+        
+        let selectDate = dateSubject
+            .map{
+                let year = self.calendar.component(.year, from: self.calendarDate)
+                let month = self.calendar.component(.month, from: self.calendarDate)
+                return CalendarSelectDate(year: year, month: month, date: $0)
+            }
+        
+        dateSubject
+            .first()
+            .map{ _ in
+                true
+            }.asDriver(onErrorJustReturn: false)
+            .drive(mainView.completeButton.rx.isActivate)
+            .disposed(by: disposeBag)
+        
+        mainView.completeButton.rx.tap
+            .withLatestFrom(selectDate)
+            .map{
+                PomeDateFormatter.getDateString($0)
+            }.subscribe{ [weak self] in
+                self?.completionTest($0)
+                self?.dismiss(animated: true)
+            }.disposed(by: disposeBag)
+    }
+    
+    
     //MARK: - Properties
     
     var selectDate: CalendarSelectDate!
-    var completion: ((CalendarSelectDate) -> ())!
+    var completion: ((CalendarSelectDate) -> ())! //TODO: WILL DELETE
+    var completionTest: ((String) -> Void)!
     
     let calendar = Calendar.current
     var calendarDate: Date!{
@@ -58,6 +95,11 @@ class CalendarSheetViewController: BaseSheetViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bind()
+    }
+    
     //MARK: - Override
 
     override func layout() {
@@ -76,7 +118,7 @@ class CalendarSheetViewController: BaseSheetViewController {
         
         mainView.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
         mainView.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
-        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
+//        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
         initializeCalendarDate()
     }
@@ -91,10 +133,10 @@ class CalendarSheetViewController: BaseSheetViewController {
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
     
-    @objc private func completeButtonDidClicked(){
-        completion(selectDate)
-        self.dismiss(animated: true)
-    }
+//    @objc private func completeButtonDidClicked(){
+//        completion(selectDate)
+//        self.dismiss(animated: true)
+//    }
     
     //MARK: - Helper
     
@@ -142,6 +184,7 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: CalendarSheetCollectionViewCell.self)
 
+        //TODO: 다른 달 갔다가 다시 돌아오면 선택 해제되어 있음
         let index = indexPath.row
         if(index < 7){
             cell.setDayOfTheWeekText(index: index)
@@ -161,7 +204,8 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
               let text = cell.infoLabel.text, let date = Int(text) else { return }
         
         cell.changeViewAttributesByState(.selected)
-        storageSelectDateAndActivateCompleButton(date)
+//        storageSelectDateAndActivateCompleButton(date)
+        dateSubject.onNext(date)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
