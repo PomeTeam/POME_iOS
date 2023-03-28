@@ -7,6 +7,12 @@
 
 import Foundation
 
+struct TestData{
+    static let testRecordData = RecordResponseModel(id: 1076, nickname: "쑤야아아아아", usePrice: 1000, useDate: "2023.03.21", createdAt: "2023-03-21T14:17:04.939691", useComment: "반지 샀다ㅎ", oneLineMind: "목표를 달성하자", emotionResponse: EmotionResponseModel(firstEmotion: 0, secondEmotion: nil, friendEmotions: []))
+    
+    static let testGoalData = GoalResponseModel(endDate: "2023.04.06", id: 1075, isEnd: false, isPublic: true, name: "목표 설정", nickname: "쑤야아아아아", oneLineMind: "목표를 달성하자", price: 100000, startDate: "2023.03.31", usePrice: 1000)
+}
+
 class ModifyRecordTestViewController: Recordable{
     
 }
