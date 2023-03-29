@@ -24,8 +24,8 @@ class ModifyRecordTestViewController: Recordable{
     init(){
         self.record = TestData.testRecordData
         super.init(recordType: .modify,
-                   viewModel: ModifyRecordViewModel(defaultGoal: TestData.testGoalData,
-                                                    defaultDate: TestData.testRecordData.useDate))
+                   viewModel: RecordableViewModel(defaultGoal: TestData.testGoalData,
+                                                  defaultDate: TestData.testRecordData.useDate))
     }
     
     required init?(coder: NSCoder) {
