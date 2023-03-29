@@ -33,40 +33,20 @@ class ModifyRecordTestViewController: Recordable{
     }
     
     override func bind() {
+        input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
+                                          consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
         
         super.bind()
         
-        let input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
-                                                consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
-        
-        let output = viewModel.transform(input)
-        
-        output.goalBinding
-            .drive{ [weak self] in
-                self?.mainView.goalField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.dateBinding
-            .drive{ [weak self] in
-                self?.mainView.dateField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.priceBinding
-            .drive{ [weak self] in
-                self?.mainView.priceField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.commentBinding
-            .drive{ [weak self] in
-                self?.mainView.contentTextView.recordTextView.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.highlightCalendarIcon
-            .drive(mainView.dateField.rightImage.rx.isHighlighted)
-            .disposed(by: disposeBag)
-        
-        output.canMoveNext
-            .drive(mainView.completeButton.rx.isActivate)
-            .disposed(by: disposeBag)
+        mainView.completeButton.rx.tap
+            .bind(onNext: { [weak self] _ in
+                self?.viewModel.requestModifyRecord()
+            }).disposed(by: disposeBag)
+    }
+}
+
+fileprivate extension RecordableViewModel{
+    func requestModifyRecord(){
+//        let modifyRecordUseCase: modifyre
     }
 }
