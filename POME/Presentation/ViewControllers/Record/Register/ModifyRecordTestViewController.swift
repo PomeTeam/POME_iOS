@@ -36,7 +36,7 @@ class ModifyRecordTestViewController: Recordable{
         
         super.bind()
         
-        let input = ModifyRecordViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
+        let input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
                                                 consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
         
         let output = viewModel.transform(input)

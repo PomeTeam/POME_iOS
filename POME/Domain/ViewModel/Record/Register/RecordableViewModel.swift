@@ -17,8 +17,11 @@ protocol GoalSelectViewModel{
 
 class RecordableViewModel: BaseViewModel{
     
-    private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
     private var goals = [GoalResponseModel]()
+    
+    private let disposeBag = DisposeBag()
+    private let recordRequestManager = RecordRegisterRequestManager.shared
+    private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
     
     private let goalSubject: BehaviorSubject<GoalResponseModel>
     private let consumeDateSubject: BehaviorSubject<String>
@@ -123,6 +126,7 @@ class RecordableViewModel: BaseViewModel{
 extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
+        
         recordRequestManager.initialize()
         
         getGoalUseCase.execute()
