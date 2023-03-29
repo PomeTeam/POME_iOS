@@ -6,3 +6,21 @@
 //
 
 import Foundation
+import RxSwift
+
+protocol GetGoalUseCaseInterface {
+    func execute() -> Observable<[GoalResponseModel]>
+}
+
+final class GetGoalUseCase: GetGoalUseCaseInterface {
+
+    private let goalRepository: GoalRepositoryInterface
+
+    init(goalRepository: GoalRepositoryInterface = GoalRepository()) {
+        self.goalRepository = goalRepository
+    }
+
+    func execute() -> Observable<[GoalResponseModel]>{
+        return goalRepository.getGoals()
+    }
+}

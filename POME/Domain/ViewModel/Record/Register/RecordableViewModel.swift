@@ -22,11 +22,12 @@ class RecordableViewModel: BaseViewModel{
     
     private let goalSubject: BehaviorSubject<GoalResponseModel>
     private let consumeDateSubject: BehaviorSubject<String>
-    private let recordRequestManager = RecordRegisterRequestManager.shared
+    private let getGoalUseCase: GetGoalUseCaseInterface
     
-    init(defaultGoal: GoalResponseModel, defaultDate: String){
+    init(defaultGoal: GoalResponseModel, defaultDate: String, getGoalUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
         goalSubject = BehaviorSubject(value: defaultGoal)
         consumeDateSubject = BehaviorSubject(value: defaultDate)
+        self.getGoalUseCase = getGoalUseCase
     }
     
     struct Input{
@@ -123,10 +124,11 @@ extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
         recordRequestManager.initialize()
-    }
-    
-    func viewDidLoad(){
-        //goal 조회 API 연결
+        
+        getGoalUseCase.execute()
+            .subscribe{ [weak self] in
+                self?.goals = $0
+            }.disposed(by: disposeBag)
     }
     
     func getGoalCount() -> Int{
