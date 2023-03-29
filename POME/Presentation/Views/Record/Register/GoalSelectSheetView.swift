@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CategorySelectSheetView: BaseView {
+class GoalSelectSheetView: BaseView {
     
     let titleLabel = UILabel().then{
         $0.text = "목표"
@@ -19,8 +19,8 @@ class CategorySelectSheetView: BaseView {
         $0.setImage(Image.sheetCancel, for: .normal)
     }
     
-    let categoryTableView = UITableView().then{
-        $0.register(RecordCategoryTableViewCell.self, forCellReuseIdentifier: RecordCategoryTableViewCell.cellIdentifier)
+    let goalTableView = UITableView().then{
+        $0.register(cellType: RecordCategoryTableViewCell.self)
     }
     
     override init(frame: CGRect) {
@@ -32,30 +32,26 @@ class CategorySelectSheetView: BaseView {
     }
     
     override func style() {
-        categoryTableView.separatorStyle = .none
+        goalTableView.separatorStyle = .none
     }
     
     override func hierarchy() {
-        
-        self.addSubview(titleLabel)
-        self.addSubview(exitButton)
-        self.addSubview(categoryTableView)
+        addSubview(titleLabel)
+        addSubview(exitButton)
+        addSubview(goalTableView)
     }
     
     override func layout() {
-        
         titleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(19)
             $0.leading.equalToSuperview().offset(24)
         }
-        
         exitButton.snp.makeConstraints{
             $0.width.height.equalTo(24)
             $0.centerY.equalTo(titleLabel)
             $0.trailing.equalToSuperview().offset(-24)
         }
-        
-        categoryTableView.snp.makeConstraints{
+        goalTableView.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(19)
             $0.leading.trailing.bottom.equalToSuperview()
         }

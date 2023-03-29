@@ -177,8 +177,8 @@
 		57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */; };
 		57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */; };
 		57CCA7C5292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */; };
-		57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */; };
-		57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */; };
+		57CCA7C7292EEB81007E22D1 /* GoalSelectSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */; };
+		57CCA7C9292EEB96007E22D1 /* GoalSelectSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C8292EEB96007E22D1 /* GoalSelectSheetViewController.swift */; };
 		57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */; };
 		96CC3BB984ACAEF3CFEE1D59 /* Pods_POMETests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBADA360F64B55B3A1453232 /* Pods_POMETests.framework */; };
 		A327F9890E2682D681FA0D75 /* Pods_POME_POMEUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47547FEA22B2A0C8326E18A9 /* Pods_POME_POMEUITests.framework */; };
@@ -449,8 +449,8 @@
 		57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectViewController.swift; sourceTree = "<group>"; };
 		57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentView.swift; sourceTree = "<group>"; };
 		57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterEmotionSelectView.swift; sourceTree = "<group>"; };
-		57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetView.swift; sourceTree = "<group>"; };
-		57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectSheetViewController.swift; sourceTree = "<group>"; };
+		57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSelectSheetView.swift; sourceTree = "<group>"; };
+		57CCA7C8292EEB96007E22D1 /* GoalSelectSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSelectSheetViewController.swift; sourceTree = "<group>"; };
 		57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		75AB6D987E0698805BA3AA4D /* Pods-POME.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.debug.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.debug.xcconfig"; sourceTree = "<group>"; };
 		78FA92B87FC1F09A2996C54D /* Pods-POME-POMEUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.release.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1430,7 +1430,7 @@
 				57CCA7BD292EEA01007E22D1 /* RecordRegisterContentViewController.swift */,
 				57CCA7BF292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift */,
 				EE8C2BF7298F5DBE00BE52B4 /* RecordModifyContentViewController.swift */,
-				57CCA7C8292EEB96007E22D1 /* CategorySelectSheetViewController.swift */,
+				57CCA7C8292EEB96007E22D1 /* GoalSelectSheetViewController.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1440,7 +1440,7 @@
 			children = (
 				57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */,
 				57CCA7C4292EEB55007E22D1 /* RecordRegisterEmotionSelectView.swift */,
-				57CCA7C6292EEB81007E22D1 /* CategorySelectSheetView.swift */,
+				57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -1983,7 +1983,7 @@
 				EE635F4429D1CD2800573F66 /* ModifyRecordTestViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				EEC28CBA29D30C740075CD4C /* RecordRepository.swift in Sources */,
-				57CCA7C7292EEB81007E22D1 /* CategorySelectSheetView.swift in Sources */,
+				57CCA7C7292EEB81007E22D1 /* GoalSelectSheetView.swift in Sources */,
 				5724EBEB29100C8500DC529B /* BaseViewController.swift in Sources */,
 				2360903F298FBD8D00523727 /* LinkManager.swift in Sources */,
 				EEC28CCA29D30D440075CD4C /* DeleteRecordUseCase.swift in Sources */,
@@ -2064,7 +2064,7 @@
 				EEE5F5E9298126E000ECD31B /* RecordResponseModel.swift in Sources */,
 				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
 				239E1F3F2976E3C400A69AF1 /* AppRegisterViewModel.swift in Sources */,
-				57CCA7C9292EEB96007E22D1 /* CategorySelectSheetViewController.swift in Sources */,
+				57CCA7C9292EEB96007E22D1 /* GoalSelectSheetViewController.swift in Sources */,
 				57543B7A2951BF3700A409E3 /* CalendarSheetView.swift in Sources */,
 				5799DB762977D474001137EA /* GoalTagsTableViewCell.swift in Sources */,
 				230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */,

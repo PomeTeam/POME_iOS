@@ -17,7 +17,7 @@ class Recordable: BaseViewController{
     }
     
     private lazy var keyboardController = KeyboardController(view: view, moveHeight: 52+10)
-    private lazy var categoryBottomSheet = CategorySelectSheetViewController(viewModel: viewModel)
+    private lazy var categoryBottomSheet = GoalSelectSheetViewController(viewModel: viewModel)
     let mainView: RecordContentView
     let viewModel: RecordableViewModel
     
