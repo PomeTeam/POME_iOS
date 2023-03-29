@@ -7,14 +7,14 @@
 
 import UIKit
 
-class CategorySelectSheetViewController: BaseSheetViewController {
+class GoalSelectSheetViewController: BaseSheetViewController {
     
     //MARK: - Properties
     
     var completion: ((Int) -> ())! //TODO: WILL DELETE
     
     private var goals: [GoalResponseModel]!
-    private let mainView = CategorySelectSheetView()
+    private let mainView = GoalSelectSheetView()
     private var viewModel: GoalSelectViewModel!
     //MARK: - LifeCycle
     
@@ -32,6 +32,10 @@ class CategorySelectSheetViewController: BaseSheetViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        mainView.goalTableView.reloadData()
+    }
+    
     override func initialize(){
         super.initialize()
         mainView.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
@@ -39,7 +43,7 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     }
     
     private func setTableViewDelegate(){
-        mainView.categoryTableView.do{
+        mainView.goalTableView.do{
             $0.delegate = self
             $0.dataSource = self
         }
@@ -58,7 +62,7 @@ class CategorySelectSheetViewController: BaseSheetViewController {
     }
 }
 
-extension CategorySelectSheetViewController: UITableViewDelegate, UITableViewDataSource{
+extension GoalSelectSheetViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getGoalCount()
