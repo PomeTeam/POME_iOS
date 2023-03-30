@@ -16,12 +16,12 @@ final class RecordService{
 
 extension RecordService{
     
-    func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
+    func modifyRecord(id: Int, request: RecordDTO, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
         provider.requestDecoded(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
             completion(response)
         }
     }
-    
+
     func deleteRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         provider.requestNoResultAPI(RecordRouter.deleteRecord(id: id), animate: true){ response in
             completion(response)
