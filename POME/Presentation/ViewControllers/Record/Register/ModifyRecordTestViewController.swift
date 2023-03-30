@@ -17,15 +17,12 @@ class ModifyRecordTestViewController: Recordable{
     
     private let record: RecordResponseModel
     
-//    init(record: RecordResponseModel){
-//        self.record = record
-//    }
-    
-    init(){
-        self.record = TestData.testRecordData
+    init(record: RecordResponseModel){
+        self.record = record
         super.init(recordType: .modify,
-                   viewModel: RecordableViewModel(defaultGoal: TestData.testGoalData,
-                                                  defaultDate: TestData.testRecordData.useDate))
+                   viewModel: ModifyRecordViewModel(recordId: record.id,
+                                                    defaultGoal: TestData.testGoalData,
+                                                    defaultDate: TestData.testRecordData.useDate))
     }
     
     required init?(coder: NSCoder) {
@@ -33,20 +30,19 @@ class ModifyRecordTestViewController: Recordable{
     }
     
     override func bind() {
+        
+        guard let viewModel = viewModel as? ModifyRecordViewModel else { return }
+        
         input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
                                           consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
         
         super.bind()
         
-        mainView.completeButton.rx.tap
-            .bind(onNext: { [weak self] _ in
-                self?.viewModel.requestModifyRecord()
+        viewModel.controlEvent(mainView.completeButton.rx.tap)
+            .drive(onNext:{ [weak self] statusCode in
+                if(statusCode == 200){
+                    self?.navigationController?.popViewController(animated: true)
+                }
             }).disposed(by: disposeBag)
-    }
-}
-
-fileprivate extension RecordableViewModel{
-    func requestModifyRecord(){
-//        let modifyRecordUseCase: modifyre
     }
 }
