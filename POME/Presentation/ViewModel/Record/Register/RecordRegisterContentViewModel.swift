@@ -11,7 +11,7 @@ import RxCocoa
 
 class RecordRegisterContentViewModel{
     
-    private let createRecordUseCase: CreateRecordUseCase
+    private let createRecordUseCase: GenerateRecordUseCase
     
     struct Input{
         let cateogrySelect: Observable<String>
@@ -27,7 +27,7 @@ class RecordRegisterContentViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(createRecordUseCase: CreateRecordUseCase){
+    init(createRecordUseCase: GenerateRecordUseCase = GenerateRecordUseCase()){
         self.createRecordUseCase = createRecordUseCase
     }
     
@@ -45,7 +45,7 @@ class RecordRegisterContentViewModel{
         let canMoveNext = requestObservable
             .map{ category, date, price, detail in
                 return !category.isEmpty && !date.isEmpty
-                && !price.isEmpty
+                && !price.isEmpty && Int(price.replacingOccurrences(of: ",", with: ""))! > 0
                 && detail != input.detailTextViewplaceholder
                 && !detail.isEmpty
             }.asDriver(onErrorJustReturn: false)
