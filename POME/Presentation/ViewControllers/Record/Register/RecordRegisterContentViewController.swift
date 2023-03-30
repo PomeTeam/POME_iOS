@@ -140,7 +140,7 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     private func categorySheetWillShow(){
-        let sheet = CategorySelectSheetViewController(data: goals).loadAndShowBottomSheet(in: self)
+        let sheet = GoalSelectSheetViewController(data: goals).loadAndShowBottomSheet(in: self)
         sheet.completion = { selectIndex in
             let goal = self.goals[selectIndex]
             self.recordManager.goalId = goal.id

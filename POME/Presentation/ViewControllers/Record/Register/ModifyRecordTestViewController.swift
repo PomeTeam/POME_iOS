@@ -17,14 +17,11 @@ class ModifyRecordTestViewController: Recordable{
     
     private let record: RecordResponseModel
     
-//    init(record: RecordResponseModel){
-//        self.record = record
-//    }
-    
-    init(){
-        self.record = TestData.testRecordData
+    init(record: RecordResponseModel){
+        self.record = record
         super.init(recordType: .modify,
-                   viewModel: ModifyRecordViewModel(defaultGoal: TestData.testGoalData,
+                   viewModel: ModifyRecordViewModel(recordId: record.id,
+                                                    defaultGoal: TestData.testGoalData,
                                                     defaultDate: TestData.testRecordData.useDate))
     }
     
@@ -34,39 +31,18 @@ class ModifyRecordTestViewController: Recordable{
     
     override func bind() {
         
+        guard let viewModel = viewModel as? ModifyRecordViewModel else { return }
+        
+        input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
+                                          consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
+        
         super.bind()
         
-        let input = ModifyRecordViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
-                                                consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
-        
-        let output = viewModel.transform(input)
-        
-        output.goalBinding
-            .drive{ [weak self] in
-                self?.mainView.goalField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.dateBinding
-            .drive{ [weak self] in
-                self?.mainView.dateField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.priceBinding
-            .drive{ [weak self] in
-                self?.mainView.priceField.infoTextField.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.commentBinding
-            .drive{ [weak self] in
-                self?.mainView.contentTextView.recordTextView.text = $0
-            }.disposed(by: disposeBag)
-        
-        output.highlightCalendarIcon
-            .drive(mainView.dateField.rightImage.rx.isHighlighted)
-            .disposed(by: disposeBag)
-        
-        output.canMoveNext
-            .drive(mainView.completeButton.rx.isActivate)
-            .disposed(by: disposeBag)
+        viewModel.controlEvent(mainView.completeButton.rx.tap)
+            .drive(onNext:{ [weak self] statusCode in
+                if(statusCode == 200){
+                    self?.navigationController?.popViewController(animated: true)
+                }
+            }).disposed(by: disposeBag)
     }
 }

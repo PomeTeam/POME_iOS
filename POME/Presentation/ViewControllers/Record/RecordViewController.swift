@@ -300,10 +300,11 @@ extension RecordViewController: RecordCellDelegate{
         
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
-                                                       record: self.recordsOfGoal[recordIndex]){
-                self.recordsOfGoal[recordIndex] = $0
-            }
+            let vc = ModifyRecordTestViewController(record: self.recordsOfGoal[recordIndex])
+//            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
+//                                                       record: self.recordsOfGoal[recordIndex]){
+//                self.recordsOfGoal[recordIndex] = $0
+//            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in

@@ -17,7 +17,9 @@ class Recordable: BaseViewController{
     }
     
     private lazy var keyboardController = KeyboardController(view: view, moveHeight: 52+10)
-    private lazy var categoryBottomSheet = CategorySelectSheetViewController(viewModel: viewModel)
+    private lazy var categoryBottomSheet = GoalSelectSheetViewController(viewModel: viewModel)
+    
+    var input: RecordableViewModel.Input!
     let mainView: RecordContentView
     let viewModel: RecordableViewModel
     
@@ -51,6 +53,36 @@ class Recordable: BaseViewController{
     }
     
     override func bind() {
+        
+        let output = viewModel.transform(input)
+        
+        output.goalBinding
+            .drive{ [weak self] in
+                self?.mainView.goalField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.dateBinding
+            .drive{ [weak self] in
+                self?.mainView.dateField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.priceBinding
+            .drive{ [weak self] in
+                self?.mainView.priceField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.commentBinding
+            .drive{ [weak self] in
+                self?.mainView.contentTextView.recordTextView.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.highlightCalendarIcon
+            .drive(mainView.dateField.rightImage.rx.isHighlighted)
+            .disposed(by: disposeBag)
+        
+        output.canMoveNext
+            .drive(mainView.completeButton.rx.isActivate)
+            .disposed(by: disposeBag)
         
         view.rx.tapGesture()
             .when(.recognized)

@@ -11,7 +11,7 @@ import RxCocoa
 
 class GoalContentRegisterViewModel{
     
-    private let goalUseCase: CreateGoalUseCase
+    private let goalUseCase: GenerateGoalUseCase
     
     struct Input{
         let categoryText: Observable<String>
@@ -26,7 +26,7 @@ class GoalContentRegisterViewModel{
         let canMoveNext: Driver<Bool>
     }
     
-    init(goalUseCase: CreateGoalUseCase){
+    init(goalUseCase: GenerateGoalUseCase = GenerateGoalUseCase()){
         self.goalUseCase = goalUseCase
     }
     
@@ -51,7 +51,7 @@ class GoalContentRegisterViewModel{
         
         let canMoveNext = requestObservable
             .map { category, promise, price in
-                return !category.isEmpty && !promise.isEmpty && !price.isEmpty
+                return !category.isEmpty && !promise.isEmpty && !price.isEmpty && Int(price.replacingOccurrences(of: ",", with: ""))! > 0
             }.asDriver(onErrorJustReturn: false)
 
         return Output(categoryText: category,

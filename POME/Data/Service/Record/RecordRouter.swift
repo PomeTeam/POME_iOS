@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum RecordRouter: BaseRouter{
-    case patchRecord(id: Int, request: RecordRegisterRequestModel)
+    case patchRecord(id: Int, request: RecordDTO)
     case deleteRecord(id: Int)
     case postRecord(request: RecordRegisterRequestModel)
     case getRecordsOfGoalByUser(id: Int, pageable: PageableModel)

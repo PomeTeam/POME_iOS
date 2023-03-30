@@ -15,18 +15,27 @@ protocol GoalSelectViewModel{
     func getGoalTitle(at index: Int) -> String
 }
 
+protocol RecordButtonControl{
+    associatedtype Output
+    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output>
+}
+
 class RecordableViewModel: BaseViewModel{
     
-    private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
     private var goals = [GoalResponseModel]()
     
+    private let disposeBag = DisposeBag()
+    private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
+    
+    var requestObservable: Observable<(GoalResponseModel, String, Int, String)>!
     private let goalSubject: BehaviorSubject<GoalResponseModel>
     private let consumeDateSubject: BehaviorSubject<String>
-    private let recordRequestManager = RecordRegisterRequestManager.shared
+    private let getGoalUseCase: GetGoalUseCaseInterface
     
-    init(defaultGoal: GoalResponseModel, defaultDate: String){
+    init(defaultGoal: GoalResponseModel, defaultDate: String, getGoalUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
         goalSubject = BehaviorSubject(value: defaultGoal)
         consumeDateSubject = BehaviorSubject(value: defaultDate)
+        self.getGoalUseCase = getGoalUseCase
     }
     
     struct Input{
@@ -46,9 +55,7 @@ class RecordableViewModel: BaseViewModel{
     func transform(_ input: Input) -> Output {
             
         let goalBinding = goalSubject
-            .do{ [weak self] in
-                self?.recordRequestManager.goalId = $0.id
-            }.map{
+            .map{
                 $0.name
             }.asDriver(onErrorJustReturn: "")
         
@@ -59,31 +66,24 @@ class RecordableViewModel: BaseViewModel{
         let price = input.consumePrice
             .map{
                 Int($0.replacingOccurrences(of: ",", with: "")) ?? 0
-            }.do{ [weak self] in
-                self?.recordRequestManager.price = String($0) //나중에 requestmanager price type int로 바꾸기
             }
         
         let dateBinding = consumeDateSubject
-            .do{ [weak self] in
-                self?.recordRequestManager.consumeDate = $0
-            }.asDriver(onErrorJustReturn: PomeDateFormatter.getTodayDate())
+            .asDriver(onErrorJustReturn: PomeDateFormatter.getTodayDate())
         
         //TODO: 글자수 제한, placeholder 등 제한 필요
         let commentBinding = input.consumeComment
-            .do{ [weak self] in
-                self?.recordRequestManager.detail = $0
-            }.asDriver(onErrorJustReturn: "")
+            .asDriver(onErrorJustReturn: "")
             
         
         let highlightCalendarIcon = consumeDateSubject
             .map{ !$0.isEmpty }
             .asDriver(onErrorJustReturn: false)
         
-        let requestObservable = Observable.combineLatest(goalSubject,
-                                                         consumeDateSubject,
-                                                         price,
-                                                         input.consumeComment)
-
+        requestObservable = Observable.combineLatest(goalSubject,
+                                                     consumeDateSubject,
+                                                     price,
+                                                     input.consumeComment)
         
         let canMoveNext = requestObservable
             .map{ goal, date, price, comment in
@@ -92,14 +92,13 @@ class RecordableViewModel: BaseViewModel{
                         && comment != self.recordCommentPlaceholder
                         && !comment.isEmpty
             }.asDriver(onErrorJustReturn: false)
-        
+    
         return Output(highlightCalendarIcon: highlightCalendarIcon,
                       canMoveNext: canMoveNext,
                       goalBinding: goalBinding,
                       dateBinding: dateBinding,
                       priceBinding: priceBinding,
                       commentBinding: commentBinding)
-        
     }
     
     private func priceConvertToDecimalFormat(text: String) -> String{
@@ -122,11 +121,10 @@ class RecordableViewModel: BaseViewModel{
 extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
-        recordRequestManager.initialize()
-    }
-    
-    func viewDidLoad(){
-        //goal 조회 API 연결
+        getGoalUseCase.execute()
+            .subscribe{ [weak self] in
+                self?.goals = $0
+            }.disposed(by: disposeBag)
     }
     
     func getGoalCount() -> Int{

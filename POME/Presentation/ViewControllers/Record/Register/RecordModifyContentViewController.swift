@@ -52,32 +52,32 @@ class RecordModifyContentViewController: RecordRegisterContentViewController{
 extension RecordModifyContentViewController{
     
     private func requestModifyRecord(){
-        
-        guard let price = Int(recordManager.price) else { return }
-        let request = RecordRegisterRequestModel(goalId: recordManager.goalId,
-                                                 emotionId: recordManager.emotion,
-                                                 usePrice: price,
-                                                 useDate: recordManager.consumeDate,
-                                                 useComment: recordManager.detail)
-        
-        print(request)
-        
-        RecordService.shared.modifyRecord(id: recordManager.recordId,
-                                          request: request){ result in
-            switch result{
-            case .success(let data):
-                self.completion(data)
-                self.navigationController?.popViewController(animated: true)
-                break
-            default:
-                print(result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestModifyRecord()
-                }
-                break
-            }
-            
-        }
+
+//        guard let price = Int(recordManager.price) else { return }
+//        let request = RecordRegisterRequestModel(goalId: recordManager.goalId,
+//                                                 emotionId: recordManager.emotion,
+//                                                 usePrice: price,
+//                                                 useDate: recordManager.consumeDate,
+//                                                 useComment: recordManager.detail)
+//
+//        print(request)
+//
+//        RecordService.shared.modifyRecord(id: recordManager.recordId,
+//                                          request: request){ result in
+//            switch result{
+//            case .success(let data):
+//                self.completion(data)
+//                self.navigationController?.popViewController(animated: true)
+//                break
+//            default:
+//                print(result)
+//                NetworkAlert.show(in: self){ [weak self] in
+//                    self?.requestModifyRecord()
+//                }
+//                break
+//            }
+
+//        }
     }
 }
 
