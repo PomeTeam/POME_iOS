@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import RxSwift
+
+protocol RecordRepositoryInterface{
+    func modifyRecord(requestValue: ModifyRecordRequestValue) -> Observable<Int>
+    func generateRecord()
+    func deleteRecord()
+}
