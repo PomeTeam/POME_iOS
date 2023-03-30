@@ -17,12 +17,12 @@ class ModifyRecordTestViewController: Recordable{
     
     private let record: RecordResponseModel
     
-    init(record: RecordResponseModel){
+    init(goal: GoalResponseModel, record: RecordResponseModel){
         self.record = record
         super.init(recordType: .modify,
                    viewModel: ModifyRecordViewModel(recordId: record.id,
-                                                    defaultGoal: TestData.testGoalData,
-                                                    defaultDate: TestData.testRecordData.useDate))
+                                                    defaultGoal: goal,
+                                                    defaultDate: record.useDate))
     }
     
     required init?(coder: NSCoder) {
