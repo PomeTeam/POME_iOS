@@ -15,6 +15,11 @@ protocol GoalSelectViewModel{
     func getGoalTitle(at index: Int) -> String
 }
 
+protocol RecordButtonControl{
+    associatedtype Output
+    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output>
+}
+
 class RecordableViewModel: BaseViewModel{
     
     private var goals = [GoalResponseModel]()
@@ -23,6 +28,7 @@ class RecordableViewModel: BaseViewModel{
     private let recordRequestManager = RecordRegisterRequestManager.shared
     private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
     
+    var requestObservable: Observable<(GoalResponseModel, String, Int, String)>!
     private let goalSubject: BehaviorSubject<GoalResponseModel>
     private let consumeDateSubject: BehaviorSubject<String>
     private let getGoalUseCase: GetGoalUseCaseInterface
@@ -83,11 +89,10 @@ class RecordableViewModel: BaseViewModel{
             .map{ !$0.isEmpty }
             .asDriver(onErrorJustReturn: false)
         
-        let requestObservable = Observable.combineLatest(goalSubject,
-                                                         consumeDateSubject,
-                                                         price,
-                                                         input.consumeComment)
-
+        requestObservable = Observable.combineLatest(goalSubject,
+                                                     consumeDateSubject,
+                                                     price,
+                                                     input.consumeComment)
         
         let canMoveNext = requestObservable
             .map{ goal, date, price, comment in
@@ -96,14 +101,13 @@ class RecordableViewModel: BaseViewModel{
                         && comment != self.recordCommentPlaceholder
                         && !comment.isEmpty
             }.asDriver(onErrorJustReturn: false)
-        
+    
         return Output(highlightCalendarIcon: highlightCalendarIcon,
                       canMoveNext: canMoveNext,
                       goalBinding: goalBinding,
                       dateBinding: dateBinding,
                       priceBinding: priceBinding,
                       commentBinding: commentBinding)
-        
     }
     
     private func priceConvertToDecimalFormat(text: String) -> String{
