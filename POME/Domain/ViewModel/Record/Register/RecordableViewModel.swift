@@ -25,7 +25,6 @@ class RecordableViewModel: BaseViewModel{
     private var goals = [GoalResponseModel]()
     
     private let disposeBag = DisposeBag()
-    private let recordRequestManager = RecordRegisterRequestManager.shared
     private let recordCommentPlaceholder = "소비에 대한 감상을 적어주세요 (150자)"
     
     var requestObservable: Observable<(GoalResponseModel, String, Int, String)>!
@@ -56,9 +55,7 @@ class RecordableViewModel: BaseViewModel{
     func transform(_ input: Input) -> Output {
             
         let goalBinding = goalSubject
-            .do{ [weak self] in
-                self?.recordRequestManager.goalId = $0.id
-            }.map{
+            .map{
                 $0.name
             }.asDriver(onErrorJustReturn: "")
         
@@ -69,20 +66,14 @@ class RecordableViewModel: BaseViewModel{
         let price = input.consumePrice
             .map{
                 Int($0.replacingOccurrences(of: ",", with: "")) ?? 0
-            }.do{ [weak self] in
-                self?.recordRequestManager.price = String($0) //나중에 requestmanager price type int로 바꾸기
             }
         
         let dateBinding = consumeDateSubject
-            .do{ [weak self] in
-                self?.recordRequestManager.consumeDate = $0
-            }.asDriver(onErrorJustReturn: PomeDateFormatter.getTodayDate())
+            .asDriver(onErrorJustReturn: PomeDateFormatter.getTodayDate())
         
         //TODO: 글자수 제한, placeholder 등 제한 필요
         let commentBinding = input.consumeComment
-            .do{ [weak self] in
-                self?.recordRequestManager.detail = $0
-            }.asDriver(onErrorJustReturn: "")
+            .asDriver(onErrorJustReturn: "")
             
         
         let highlightCalendarIcon = consumeDateSubject
@@ -130,9 +121,6 @@ class RecordableViewModel: BaseViewModel{
 extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
-        
-        recordRequestManager.initialize()
-        
         getGoalUseCase.execute()
             .subscribe{ [weak self] in
                 self?.goals = $0
