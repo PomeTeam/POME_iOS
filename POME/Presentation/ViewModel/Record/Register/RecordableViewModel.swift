@@ -45,7 +45,7 @@ class RecordableViewModel: BaseViewModel{
     
     struct Output{
         let highlightCalendarIcon: Driver<Bool>
-        let canMoveNext: Driver<Bool>
+        let ctaButtonActivate: Driver<Bool>
         let goalBinding: Driver<String>
         let dateBinding: Driver<String>
         let priceBinding: Driver<String>
@@ -60,7 +60,9 @@ class RecordableViewModel: BaseViewModel{
             }.asDriver(onErrorJustReturn: "")
         
         let priceBinding = input.consumePrice
-            .map{ self.priceConvertToDecimalFormat(text: $0 )}
+            .filter{
+                !$0.isEmpty
+            }.map{ self.priceConvertToDecimalFormat(text: $0 )}
             .asDriver(onErrorJustReturn: "0")
         
         let price = input.consumePrice
@@ -94,7 +96,7 @@ class RecordableViewModel: BaseViewModel{
             }.asDriver(onErrorJustReturn: false)
     
         return Output(highlightCalendarIcon: highlightCalendarIcon,
-                      canMoveNext: canMoveNext,
+                      ctaButtonActivate: canMoveNext,
                       goalBinding: goalBinding,
                       dateBinding: dateBinding,
                       priceBinding: priceBinding,
@@ -122,7 +124,11 @@ extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
         getGoalUseCase.execute()
-            .subscribe{ [weak self] in
+            .map{
+                $0.filter{
+                    !$0.isEnd
+                }
+            }.subscribe{ [weak self] in
                 self?.goals = $0
             }.disposed(by: disposeBag)
     }

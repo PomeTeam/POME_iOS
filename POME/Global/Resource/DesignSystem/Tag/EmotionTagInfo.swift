@@ -33,6 +33,10 @@ private struct EmotionTagIcon{
 
 extension EmotionTag{
     
+    init?(tagValue: Int){
+        self.init(rawValue: (tagValue - 100) / 100)
+    }
+    
     var message: String{
         switch self{
         case .happy:    return "행복해요"
@@ -56,10 +60,14 @@ extension EmotionTag{
     }
     
     var firstEmotionImage: UIImage{
-        return self.iconDescription.firstEmotion
+        self.iconDescription.firstEmotion
     }
     
     var secondEmotionImage: UIImage{
-        return self.iconDescription.secondEmotion
+        self.iconDescription.secondEmotion
+    }
+    
+    var tagBinding: Int{
+        self.rawValue * 100 + 100
     }
 }

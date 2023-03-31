@@ -72,30 +72,22 @@ class RecordRegisterEmotionSelectView: BaseView {
 extension RecordRegisterEmotionSelectView{
     
     class FirstEmotionView: BaseView{
-        
-        var emotion: EmotionTag!
+    
+        private let emotion: EmotionTag
         
         private let imageBackView = UIView().then{
             let imageSize: CGFloat = Device.isSmallDevice ? 90 : 110
             $0.layer.cornerRadius = imageSize / 2
         }
-        
         private let emotionImageView = UIImageView()
-        
         private let titleLabel = UILabel().then{
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         }
         
         private init(emotion: EmotionTag) {
-            
-            super.init(frame: .zero)
-            
-            self.isUserInteractionEnabled = true
             self.emotion = emotion
-            
-            emotionImageView.image = emotion.firstEmotionImage
-            titleLabel.text = emotion.message
-            changeDeselectState()
+            super.init(frame: .zero)
+            initialize()
         }
         
         required init?(coder: NSCoder) {
@@ -106,11 +98,13 @@ extension RecordRegisterEmotionSelectView{
             return FirstEmotionView(emotion: emotion)
         }
         
+        override func style() {
+            isUserInteractionEnabled = true
+        }
+        
         override func hierarchy() {
-            
-            self.addSubview(imageBackView)
-            self.addSubview(titleLabel)
-            
+            addSubview(imageBackView)
+            addSubview(titleLabel)
             imageBackView.addSubview(emotionImageView)
         }
         
@@ -132,14 +126,19 @@ extension RecordRegisterEmotionSelectView{
             }
         }
         
+        private func initialize() {
+            tag = emotion.tagBinding
+            emotionImageView.image = emotion.firstEmotionImage
+            titleLabel.text = emotion.message
+            changeDeselectState()
+        }
+        
         func changeDeselectState(){
-            self.tag = ViewTag.deselect
             imageBackView.backgroundColor = Color.grey0
             titleLabel.textColor = Color.body
         }
         
         func changeSelectState(){
-            self.tag = ViewTag.select
             imageBackView.backgroundColor = Color.mint10
             titleLabel.textColor = Color.mint100
         }

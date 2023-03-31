@@ -80,7 +80,7 @@ class Recordable: BaseViewController{
             .drive(mainView.dateField.rightImage.rx.isHighlighted)
             .disposed(by: disposeBag)
         
-        output.canMoveNext
+        output.ctaButtonActivate
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         

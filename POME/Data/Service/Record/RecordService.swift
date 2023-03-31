@@ -28,7 +28,7 @@ extension RecordService{
         }
     }
     
-    func generateRecord(request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func generateRecord(request: GenerateRecordRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         provider.requestNoResultAPI(RecordRouter.postRecord(request: request), animate: true){ response in
             completion(response)
         }

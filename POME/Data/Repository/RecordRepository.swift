@@ -10,9 +10,9 @@ import RxSwift
 
 class RecordRepository: RecordRepositoryInterface{
     
-    func modifyRecord(requestValue: ModifyRecordRequestValue) -> Observable<Int> {
+    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int> {
         let observable = Observable<Int>.create { observer -> Disposable in
-            let requestReference: () = RecordService.shared.modifyRecord(id: requestValue.id, request: requestValue.recordInfo){ response in
+            let requestReference: () = RecordService.shared.modifyRecord(id: id, request: requestValue){ response in
                 switch response {
                 case .success:
                     observer.onNext(200)
@@ -25,11 +25,22 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
     
-    func generateRecord() {
-        
+    func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<Int>{
+        let observable = Observable<Int>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.generateRecord(request: requestValue){ response in
+                switch response {
+                case .success:
+                    observer.onNext(200)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
     }
-    
+
     func deleteRecord() {
-        
+
     }
 }

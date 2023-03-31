@@ -74,7 +74,7 @@ class RecordViewController: BaseTabViewController {
             let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").loadAndShowBottomSheet(in: self)
         } else {
             let goal = goalContent[categorySelectedIdx]
-            let vc = RecordRegisterContentViewController(goal: goal)
+            let vc = GenerateRecordTestViewController(goal: goal)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -300,11 +300,8 @@ extension RecordViewController: RecordCellDelegate{
         
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordTestViewController(record: self.recordsOfGoal[recordIndex])
-//            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
-//                                                       record: self.recordsOfGoal[recordIndex]){
-//                self.recordsOfGoal[recordIndex] = $0
-//            }
+            let vc = ModifyRecordTestViewController(goal: self.goalContent[self.categorySelectedIdx],
+                                                    record: self.recordsOfGoal[recordIndex])
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
