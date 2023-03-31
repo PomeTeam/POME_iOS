@@ -69,6 +69,13 @@ class RegisterFirstEmotionViewController: BaseViewController{
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
+        output.registerStatusCode
+            .drive(onNext: { [weak self] statusCode in
+                if(statusCode == 200){
+                    self?.navigationController?.pushViewController(RegisterSuccessViewController(type: .consume), animated: true)
+                }
+            }).disposed(by: disposeBag)
+        
         etcButton.rx.tap
             .bind{ [weak self] in
                 self?.closeButtonDidClicked()

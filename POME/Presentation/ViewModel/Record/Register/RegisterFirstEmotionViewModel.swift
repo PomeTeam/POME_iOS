@@ -12,11 +12,12 @@ import RxGesture
 
 class RegisterFirstEmotionViewModel{
     
-    private let createRecorUseCase: GenerateRecordUseCase
+    private let generateRecordUseCase: GenerateRecordUseCase
     private let emotionSubject = PublishSubject<Int>()
     private let disposeBag = DisposeBag()
     
     struct Input{
+        let record: RecordDTO
         let happyEmotionSelect: TapObservable
         let whatEmotionSelect: TapObservable
         let sadEmotionSelect: TapObservable
@@ -27,10 +28,11 @@ class RegisterFirstEmotionViewModel{
         let deselectEmotion: Driver<Int>
         let selectEmotion: Driver<Int>
         let ctaButtonActivate: Driver<Bool>
+        let registerStatusCode: Driver<Int>
     }
     
-    init(createRecordUseCase: GenerateRecordUseCase = GenerateRecordUseCase()){
-        self.createRecorUseCase = createRecordUseCase
+    init(generateRecorUseCase: GenerateRecordUseCase = GenerateRecordUseCase()){
+        self.generateRecordUseCase = generateRecorUseCase
     }
     
     func transform(input: Input) -> Output{
@@ -65,17 +67,31 @@ class RegisterFirstEmotionViewModel{
                 $0.1
             }.asDriver(onErrorJustReturn: -1)
         
-        //tagBinding용으로 observable 했기 때문에 api 통신할 때는 rawValue로 변환 연산 필요
-        
         let ctaButtonActivate = emotionSubject
             .first()
             .map { _ in true }
             .asDriver(onErrorJustReturn: false)
         
 
+        let registerStatusCode = input.ctaButtonTap
+            .withLatestFrom(selectEmotion)
+            .compactMap{
+                EmotionTag(tagValue: $0)?.rawValue
+            }.map{ emotion in
+                GenerateRecordRequestModel(emotionId: emotion,
+                                           goalId: input.record.goalId,
+                                           useComment: input.record.useComment,
+                                           useDate: input.record.useDate,
+                                           usePrice: input.record.usePrice)
+            }.flatMap{
+                self.generateRecordUseCase.execute(requestValue: $0)
+            }.asDriver(onErrorJustReturn: 404)
+        
+
         return Output(deselectEmotion: deselectEmotion,
                       selectEmotion: selectEmotion,
-                      ctaButtonActivate: ctaButtonActivate)
+                      ctaButtonActivate: ctaButtonActivate,
+                      registerStatusCode: registerStatusCode)
     }
     
     
