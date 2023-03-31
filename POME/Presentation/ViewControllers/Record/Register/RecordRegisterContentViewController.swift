@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 
+/*
 class RecordRegisterContentViewController: BaseViewController {
     
     final private let baseGoal: GoalResponseModel!
@@ -150,8 +151,8 @@ class RecordRegisterContentViewController: BaseViewController {
     }
     
     @objc func completeButtonDidClicked(){
-        let vc = RecordRegisterEmotionSelectViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = RecordRegisterEmotionSelectViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func backBtnDidClicked(){
@@ -297,3 +298,4 @@ extension RecordRegisterContentViewController{
     }
 }
 
+*/

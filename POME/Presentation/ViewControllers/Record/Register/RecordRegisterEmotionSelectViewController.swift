@@ -10,10 +10,11 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+/*
 class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     private let mainView = RecordRegisterEmotionSelectView()
-    private let viewModel = RecordRegisterEmotionSelectViewModel()
+    private let viewModel = RegisterFirstEmotionViewModel()
     private var recordManager = RecordRegisterRequestManager.shared
     
     //MARK: - Override
@@ -36,10 +37,10 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     override func bind(){
         
-        let input = RecordRegisterEmotionSelectViewModel.Input(happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
-                                                               whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
-                                                               sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
-                                                               completeButtonActiveStatus: mainView.completeButton.rx.tap)
+//        let input = RegisterFirstEmotionViewModel.Input(record: <#RecordDTO#>, happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
+//                                                               whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
+//                                                               sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
+//                                                        ctaButtonTap: mainView.completeButton.rx.tap)
         
 //        let output = viewModel.transform(input: input)
 //
@@ -80,7 +81,7 @@ class RecordRegisterEmotionSelectViewController: BaseViewController{
     
     @objc func completeButtonDidClicked(){
         guard let view = mainView.viewWithTag(ViewTag.select) as? RecordRegisterEmotionSelectView.FirstEmotionView else { return }
-        recordManager.emotion = view.emotion.rawValue
+//        recordManager.emotion = view.emotion.rawValue
 
         requestGenerateRecord()
     }
@@ -130,20 +131,21 @@ extension RecordRegisterEmotionSelectViewController{
         
         print(request)
         
-        RecordService.shared.generateRecord(request: request){ result in
-            switch result{
-            case .success:
-                print("LOG: success requestGenerateRecord")
-                let vc = RegisterSuccessViewController(type: .consume)
-                self.navigationController?.pushViewController(vc, animated: true)
-                break
-            default:
-                print(result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGenerateRecord()
-                }
-                break
-            }
-        }
+//        RecordService.shared.generateRecord(request: request){ result in
+//            switch result{
+//            case .success:
+//                print("LOG: success requestGenerateRecord")
+//                let vc = RegisterSuccessViewController(type: .consume)
+//                self.navigationController?.pushViewController(vc, animated: true)
+//                break
+//            default:
+//                print(result)
+//                NetworkAlert.show(in: self){ [weak self] in
+//                    self?.requestGenerateRecord()
+//                }
+//                break
+//            }
+//        }
     }
 }
+*/

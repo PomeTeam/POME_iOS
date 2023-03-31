@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RecordDTO: Encodable{
+struct RecordDTO: Encodable{ //기록 생성시 VC 간 데이터 전달용 구조체
     let goalId: Int
     let useComment: String
     let useDate: String

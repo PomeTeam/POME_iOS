@@ -7,6 +7,7 @@
 
 import Foundation
 
+/*
 class RecordModifyContentViewController: RecordRegisterContentViewController{
     
     private let goal: GoalResponseModel
@@ -81,3 +82,4 @@ extension RecordModifyContentViewController{
     }
 }
 
+*/

@@ -76,10 +76,8 @@ class AllRecordsViewController: BaseViewController {
         let modifyAction =  UIAlertAction(title: "수정하기", style: UIAlertAction.Style.default){(_) in
             guard let goalData = self.goalContent else {return}
             guard let recordData = sender.data else {return}
-            let vc = RecordModifyContentViewController(goal: goalData,
-                                                       record: recordData){_ in
-                print("click modify")
-            }
+            let vc = ModifyRecordTestViewController(goal: goalData,
+                                                    record: recordData)
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
