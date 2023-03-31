@@ -6,7 +6,27 @@
 //
 
 import Foundation
+import RxCocoa
 
 class GenerateRecordViewModel: RecordableViewModel{
     
+    private let generateRecordUseCase: ModifyRecordUseCaseInterface
+    
+    typealias Output = RecordDTO?
+    
+    init(defaultGoal: GoalResponseModel, defaultDate: String, generateRecordUseCase: ModifyRecordUseCaseInterface = ModifyRecordUseCase()) {
+        self.generateRecordUseCase = generateRecordUseCase
+        super.init(defaultGoal: defaultGoal, defaultDate: defaultDate)
+    }
+    
+    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output> {
+        return tapEvent
+            .withLatestFrom(requestObservable)
+            .map{ goal, date, price, comment in
+                return RecordDTO(goalId: goal.id,
+                                 useComment: comment,
+                                 useDate: date,
+                                 usePrice: price)
+            }.asDriver(onErrorJustReturn: nil)
+    }
 }
