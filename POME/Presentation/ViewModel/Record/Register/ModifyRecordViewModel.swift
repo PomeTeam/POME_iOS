@@ -26,13 +26,12 @@ class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
         return tapEvent
             .withLatestFrom(requestObservable)
             .map{ goal, date, price, comment in
-                return ModifyRecordRequestValue(id: self.recordId,
-                                                recordInfo: RecordDTO(goalId: goal.id,
-                                                                      useComment: comment,
-                                                                      useDate: date,
-                                                                    usePrice: price))
+                return RecordDTO(goalId: goal.id,
+                                 useComment: comment,
+                                 useDate: date,
+                                 usePrice: price)
             }.flatMap{
-                self.modifyRecordUseCase.execute(requestValue: $0)
+                self.modifyRecordUseCase.execute(recordId: self.recordId, requestValue: $0)
             }.asDriver(onErrorJustReturn: 404)
     }
     

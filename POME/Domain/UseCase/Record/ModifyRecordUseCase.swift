@@ -8,13 +8,8 @@
 import Foundation
 import RxSwift
 
-struct ModifyRecordRequestValue{
-    let id: Int
-    let recordInfo: RecordDTO
-}
-
 protocol ModifyRecordUseCaseInterface {
-    func execute(requestValue: ModifyRecordRequestValue) -> Observable<Int>
+    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<Int>
 }
 
 final class ModifyRecordUseCase: ModifyRecordUseCaseInterface {
@@ -25,7 +20,7 @@ final class ModifyRecordUseCase: ModifyRecordUseCaseInterface {
         self.recordRepository = recordRepository
     }
 
-    func execute(requestValue: ModifyRecordRequestValue) -> Observable<Int>{
-        return recordRepository.modifyRecord(requestValue: requestValue)
+    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<Int>{
+        return recordRepository.modifyRecord(id: recordId, requestValue: requestValue)
     }
 }
