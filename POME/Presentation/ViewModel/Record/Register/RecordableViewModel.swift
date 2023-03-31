@@ -60,7 +60,9 @@ class RecordableViewModel: BaseViewModel{
             }.asDriver(onErrorJustReturn: "")
         
         let priceBinding = input.consumePrice
-            .map{ self.priceConvertToDecimalFormat(text: $0 )}
+            .filter{
+                !$0.isEmpty
+            }.map{ self.priceConvertToDecimalFormat(text: $0 )}
             .asDriver(onErrorJustReturn: "0")
         
         let price = input.consumePrice
@@ -122,7 +124,11 @@ extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
     
     func viewWillAppear(){
         getGoalUseCase.execute()
-            .subscribe{ [weak self] in
+            .map{
+                $0.filter{
+                    !$0.isEnd
+                }
+            }.subscribe{ [weak self] in
                 self?.goals = $0
             }.disposed(by: disposeBag)
     }
