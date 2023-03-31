@@ -14,9 +14,9 @@ class GenerateRecordViewModel: RecordableViewModel{
     
     typealias Output = RecordDTO?
     
-    init(defaultGoal: GoalResponseModel, defaultDate: String, generateRecordUseCase: ModifyRecordUseCaseInterface = ModifyRecordUseCase()) {
+    init(defaultGoal: GoalResponseModel, generateRecordUseCase: ModifyRecordUseCaseInterface = ModifyRecordUseCase()) {
         self.generateRecordUseCase = generateRecordUseCase
-        super.init(defaultGoal: defaultGoal, defaultDate: defaultDate)
+        super.init(defaultGoal: defaultGoal, defaultDate: PomeDateFormatter.getTodayDate())
     }
     
     func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output> {
