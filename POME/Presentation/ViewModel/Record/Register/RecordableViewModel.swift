@@ -45,7 +45,7 @@ class RecordableViewModel: BaseViewModel{
     
     struct Output{
         let highlightCalendarIcon: Driver<Bool>
-        let canMoveNext: Driver<Bool>
+        let ctaButtonActivate: Driver<Bool>
         let goalBinding: Driver<String>
         let dateBinding: Driver<String>
         let priceBinding: Driver<String>
@@ -94,7 +94,7 @@ class RecordableViewModel: BaseViewModel{
             }.asDriver(onErrorJustReturn: false)
     
         return Output(highlightCalendarIcon: highlightCalendarIcon,
-                      canMoveNext: canMoveNext,
+                      ctaButtonActivate: canMoveNext,
                       goalBinding: goalBinding,
                       dateBinding: dateBinding,
                       priceBinding: priceBinding,
