@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecordRepositoryInterface{
-    func modifyRecord(requestValue: ModifyRecordRequestValue) -> Observable<Int>
-    func generateRecord()
+    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int>
+    func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<Int>
     func deleteRecord()
 }
