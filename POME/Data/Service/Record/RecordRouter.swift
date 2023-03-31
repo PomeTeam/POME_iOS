@@ -11,7 +11,7 @@ import Moya
 enum RecordRouter: BaseRouter{
     case patchRecord(id: Int, request: RecordDTO)
     case deleteRecord(id: Int)
-    case postRecord(request: RecordRegisterRequestModel)
+    case postRecord(request: GenerateRecordRequestModel)
     case getRecordsOfGoalByUser(id: Int, pageable: PageableModel)
     case getRecordsOfGoalByUserAtRecordTab(id: Int, pageable: PageableModel)    // 기록탭
     case getRecordsOfGoalByUserAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel)    // 회고탭

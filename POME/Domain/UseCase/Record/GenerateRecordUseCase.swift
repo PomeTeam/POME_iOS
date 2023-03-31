@@ -6,7 +6,29 @@
 //
 
 import Foundation
+import RxSwift
 
-class GenerateRecordUseCase{
-    
+struct GenerateRecordRequestModel: Encodable{
+    let emotionId: Int
+    let goalId: Int
+    let useComment: String
+    let useDate: String
+    let usePrice: Int
+}
+
+protocol GenerateRecordUseCaseInterface {
+    func execute(requestValue: GenerateRecordRequestModel) -> Observable<Int>
+}
+
+final class GenerateRecordUseCase: GenerateRecordUseCaseInterface {
+
+    private let recordRepository: RecordRepositoryInterface
+
+    init(recordRepository: RecordRepositoryInterface = RecordRepository()) {
+        self.recordRepository = recordRepository
+    }
+
+    func execute(requestValue: GenerateRecordRequestModel) -> Observable<Int> {
+        return recordRepository.generateRecord(requestValue: requestValue)
+    }
 }
