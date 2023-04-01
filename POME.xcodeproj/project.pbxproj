@@ -123,7 +123,6 @@
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
-		57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */; };
 		5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */; };
 		574E616029718ADE002BCDAF /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574E615F29718ADE002BCDAF /* AlertInfo.swift */; };
 		57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */; };
@@ -394,7 +393,6 @@
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
-		57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestManager.swift; sourceTree = "<group>"; };
 		5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessType.swift; sourceTree = "<group>"; };
 		574E615F29718ADE002BCDAF /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
 		57543B772951BF0200A409E3 /* CalendarSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSheetViewController.swift; sourceTree = "<group>"; };
@@ -1189,14 +1187,6 @@
 			path = Record;
 			sourceTree = "<group>";
 		};
-		57397FBD296E780A0088B5F4 /* Record */ = {
-			isa = PBXGroup;
-			children = (
-				57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */,
-			);
-			path = Record;
-			sourceTree = "<group>";
-		};
 		57543B762951BE8600A409E3 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1275,7 +1265,6 @@
 			isa = PBXGroup;
 			children = (
 				EE79C29D29937C85006A9AA2 /* Friend */,
-				57397FBD296E780A0088B5F4 /* Record */,
 				57C481E5296ABE55008731D9 /* Goal */,
 			);
 			path = Utils;
@@ -2166,7 +2155,6 @@
 				EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */,
 				EEC28CC229D30CEF0075CD4C /* RecordRepositoryInterface.swift in Sources */,
 				EEC28CC829D30D3B0075CD4C /* GetRecordUseCase.swift in Sources */,
-				57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
 				EEC28CBE29D30CA70075CD4C /* GoalRepositoryInterface.swift in Sources */,
