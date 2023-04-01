@@ -56,7 +56,7 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
             .map{
                 PomeDateFormatter.getDateString($0)
             }.subscribe{ [weak self] in
-                self?.completionTest($0)
+                self?.completion($0)
                 self?.dismiss(animated: true)
             }.disposed(by: disposeBag)
     }
@@ -64,9 +64,7 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
     
     //MARK: - Properties
     
-    var selectDate: CalendarSelectDate!
-    var completion: ((CalendarSelectDate) -> ())! //TODO: WILL DELETE
-    var completionTest: ((String) -> Void)!
+    var completion: ((String) -> Void)!
     
     let calendar = Calendar.current
     var calendarDate: Date!{
@@ -83,7 +81,7 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
         $0.dateFormat = "yyyy년 M월"
     }
     
-    private let mainView = CalendarSheetView()
+    let mainView = CalendarSheetView()
     
     //MARK: - LifeCycle
 
@@ -103,7 +101,7 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
     //MARK: - Override
 
     override func layout() {
-        self.view.addSubview(mainView)
+        view.addSubview(mainView)
         mainView.snp.makeConstraints{
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
@@ -118,7 +116,6 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
         
         mainView.lastMonthButton.addTarget(self, action: #selector(calendarWillChangeToLastMonth), for: .touchUpInside)
         mainView.nextMonthButton.addTarget(self, action: #selector(calendarWillChangeToNextMonth), for: .touchUpInside)
-//        mainView.completeButton.addTarget(self, action: #selector(completeButtonDidClicked), for: .touchUpInside)
         
         initializeCalendarDate()
     }
@@ -132,11 +129,6 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
     @objc private func calendarWillChangeToNextMonth(){
         calendarDate = calendar.date(byAdding: .month, value: 1, to: calendarDate)
     }
-    
-//    @objc private func completeButtonDidClicked(){
-//        completion(selectDate)
-//        self.dismiss(animated: true)
-//    }
     
     //MARK: - Helper
     
@@ -161,17 +153,6 @@ class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {
     private func updateCalendarTitleAndCollectionView(){
         mainView.yearMonthLabel.text = calendarDateFormatter.string(from: calendarDate)
         mainView.calendarCollectionView.reloadData()
-    }
-    
-    private func storageSelectDateAndActivateCompleButton(_ date: Int){
-        
-        let year = calendar.component(.year, from: calendarDate)
-        let month = calendar.component(.month, from: calendarDate)
-        
-        if(selectDate == nil){
-            mainView.completeButton.isActivate = true
-        }
-        selectDate = CalendarSelectDate(year: year, month: month, date: date)
     }
 }
 
@@ -204,7 +185,6 @@ extension CalendarSheetViewController: UICollectionViewDelegate, UICollectionVie
               let text = cell.infoLabel.text, let date = Int(text) else { return }
         
         cell.changeViewAttributesByState(.selected)
-//        storageSelectDateAndActivateCompleButton(date)
         dateSubject.onNext(date)
     }
     
