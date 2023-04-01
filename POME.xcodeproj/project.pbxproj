@@ -243,6 +243,7 @@
 		EEE5F5EB2981270700ECD31B /* FriendEmotionRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5EA2981270700ECD31B /* FriendEmotionRequestModel.swift */; };
 		EEE5F5EE2981276600ECD31B /* GoalRegisterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5ED2981276600ECD31B /* GoalRegisterRequestModel.swift */; };
 		EEE5F5F02981278900ECD31B /* FriendsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5EF2981278900ECD31B /* FriendsResponseModel.swift */; };
+		EEE9E5C229D87442001AAB1D /* GoalDateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE9E5C129D87442001AAB1D /* GoalDateDTO.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -513,6 +514,7 @@
 		EEE5F5EA2981270700ECD31B /* FriendEmotionRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendEmotionRequestModel.swift; sourceTree = "<group>"; };
 		EEE5F5ED2981276600ECD31B /* GoalRegisterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterRequestModel.swift; sourceTree = "<group>"; };
 		EEE5F5EF2981278900ECD31B /* FriendsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsResponseModel.swift; sourceTree = "<group>"; };
+		EEE9E5C129D87442001AAB1D /* GoalDateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateDTO.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1455,6 +1457,7 @@
 			isa = PBXGroup;
 			children = (
 				EE7D35D029D59E7700D2AD60 /* RecordDTO.swift */,
+				EEE9E5C129D87442001AAB1D /* GoalDateDTO.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -2161,6 +2164,7 @@
 				57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */,
 				EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */,
 				EE98F0D12980EFB1007BFCCD /* RecordRouter.swift in Sources */,
+				EEE9E5C229D87442001AAB1D /* GoalDateDTO.swift in Sources */,
 				233964A4292ED5CF000F6BAC /* LittleGoalView.swift in Sources */,
 				EE98F0D32980EFB9007BFCCD /* RecordService.swift in Sources */,
 				EE98F0DF2980EFE7007BFCCD /* UserService.swift in Sources */,

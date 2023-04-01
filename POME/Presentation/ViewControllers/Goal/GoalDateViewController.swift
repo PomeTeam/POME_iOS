@@ -10,11 +10,6 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-struct GoalDateDTO{
-    let startDate: String
-    let endDate: String
-}
-
 @frozen
 enum CalendarDate: Int{
     case start = 100
