@@ -68,25 +68,18 @@ class EndDateCalendarSheetViewController: CalendarSheetViewController{
         
         cell.changeViewAttributesByState(.disabled)
         
-        startDateValidation(year: year, month: month, dateValue: dateValue){
-            cell.changeViewAttributesByState(.normal)
-        }
-        endDateValidation(year: year, month: month, dateValue: dateValue){
+        rangeValidation(year: year, month: month, date: dateValue){
             cell.changeViewAttributesByState(.normal)
         }
         return cell
     }
     
-    func startDateValidation(year: Int, month: Int, dateValue: Int , closure: () -> Void){
-        let standard = possibleDateRange.0
-        if(year == standard.year && month == standard.month && dateValue > standard.date){
-            closure()
-        }
-    }
-    
-    func endDateValidation(year: Int, month: Int, dateValue: Int , closure: () -> Void){
-        let standard = possibleDateRange.1
-        if(year == standard.year && month == standard.month && dateValue <= standard.date){
+    func rangeValidation(year: Int, month: Int, date: Int, closure: () -> Void){
+        let startString = PomeDateFormatter.getDateString(possibleDateRange.0)
+        let endString = PomeDateFormatter.getDateString(possibleDateRange.1)
+        let candidate = PomeDateFormatter.getDateString(CalendarSelectDate(year: year, month: month, date: date))
+
+        if(candidate <= endString && candidate > startString){
             closure()
         }
     }
