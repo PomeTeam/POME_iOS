@@ -15,8 +15,8 @@ struct CalendarSelectDate{
 }
 
 @objc protocol CalendarViewModel{
-    @objc optional func selectConsumeDate(_ date: String)
-    @objc optional func selectConsumeDate(tag: Int, _ date: String)
+    @objc optional func selectDate(_ date: String)
+    @objc optional func selectDate(tag: Int, _ date: String)
 }
 
 class CalendarSheetViewController: BaseSheetViewController, ObservableBinding {

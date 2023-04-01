@@ -143,7 +143,7 @@ extension RecordableViewModel: CalendarViewModel, GoalSelectViewModel{
         goalSubject.onNext(goals[index])
     }
     
-    func selectConsumeDate(_ date: String) {
+    func selectDate(_ date: String) {
         consumeDateSubject.onNext(date)
     }
 }
