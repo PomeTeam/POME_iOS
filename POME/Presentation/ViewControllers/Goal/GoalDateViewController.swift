@@ -10,25 +10,29 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+struct GoalDateDTO{
+    let startDate: String
+    let endDate: String
+}
+
+@frozen
+enum CalendarDate: Int{
+    case start = 100
+    case end = 200
+}
+
 class GoalDateViewController: BaseViewController {
-    
-    private var startDate: String!
     
     private let mainView = GoalDateView()
     private let viewModel = GoalDateRegisterViewModel()
-    private var goalDataManager = GoalRegisterRequestManager.shared
+    private let startDateCalendar = CalendarSheetViewController()
+    private let endDateCalendar = EndDateCalendarSheetViewController()
     
     //MARK: - Override
-    
-    override func viewWillAppear(_ animated: Bool) {
-        goalDataManager.initialize()
-    }
-    
+
     override func layout() {
-        
         super.layout()
-        
-        self.view.addSubview(mainView)
+        view.addSubview(mainView)
         mainView.snp.makeConstraints{
             $0.top.equalTo(navigationView.snp.bottom)
             $0.leading.bottom.trailing.equalToSuperview()
@@ -36,30 +40,33 @@ class GoalDateViewController: BaseViewController {
     }
     
     override func bind(){
-        let input = GoalDateRegisterViewModel.Input(startDateTextField:
-                                                        mainView.startDateField.infoTextField.rx.text.orEmpty.asObservable(),
-                                                    endDateTextField:
-                                                        mainView.endDateField.infoTextField.rx.text.orEmpty.asObservable(),
-                                                    completeButtonControlEvent: mainView.completButton.rx.tap)
+        
+        let input = GoalDateRegisterViewModel.Input(ctaButtonTap: mainView.completButton.rx.tap)
         
         let output = viewModel.transform(input: input)
-        
-        mainView.completButton.rx.tap
-            .bind{
-                self.completeButtonDidClicked()
-            }.disposed(by: disposeBag)
         
         mainView.startDateField.rx.tapGesture()
             .when(.recognized)
             .bind(onNext: { sender in
-                self.calendarSheetWillShow(sender)
+                self.calendarSheetWillShow(date: .start)
             }).disposed(by: disposeBag)
 
         mainView.endDateField.rx.tapGesture()
             .when(.recognized)
             .bind(onNext: { sender in
-                self.calendarSheetWillShow(sender)
+                self.calendarSheetWillShow(date: .end)
             }).disposed(by: disposeBag)
+        
+        output.startDate
+            .drive{ [weak self] in
+                self?.endDateCalendar.setStartDate($0)
+                self?.mainView.startDateField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
+        
+        output.endDate
+            .drive{ [weak self] in
+                self?.mainView.endDateField.infoTextField.text = $0
+            }.disposed(by: disposeBag)
         
         output.willShowInvalidationLabel
             .drive(mainView.invalidationDateRangeLabel.rx.isHidden)
@@ -80,33 +87,35 @@ class GoalDateViewController: BaseViewController {
         output.isHighlightEndDateIcon
             .drive(mainView.endDateField.rightImage.rx.isHighlighted)
             .disposed(by: disposeBag)
+        
+        output.goalDateRange
+            .subscribe(onNext: { [weak self] in
+                self?.willMoveGoalContentViewController(dateRange: $0)
+            }).disposed(by: disposeBag)
     }
     
     //MARK: - Action
     
     override func backBtnDidClicked() {
-        let dialog = ImageAlert.quitRecord.generateAndShow(in: self)
-        dialog.completion = {
-            self.navigationController?.popToRootViewController(animated: true)
+        ImageAlert.quitRecord.generateAndShow(in: self).do{
+            $0.completion = { [weak self] in
+                self?.navigationController?.popToRootViewController(animated: true)
+            }
         }
     }
     
-    private func calendarSheetWillShow(_ sender: UITapGestureRecognizer){
+    private func calendarSheetWillShow(date calendarType: CalendarDate){
         
-        guard let dateField = sender.view as? CommonRightButtonTextFieldView else { return }
-   
-        let sheet: CalendarSheetViewController = dateField == mainView.startDateField ? CalendarSheetViewController() : EndDateCalendarSheetViewController(with: startDate)
+        let sheet: CalendarSheetViewController = {
+            switch calendarType{
+            case .start:    return startDateCalendar
+            case .end:      return endDateCalendar
+            }
+        }()
+        
         sheet.loadAndShowBottomSheet(in: self)
         sheet.completion = { date in
-            let dateString = PomeDateFormatter.getDateString(date)
-            if(dateField == self.mainView.startDateField){
-                self.startDate = dateString
-                self.goalDataManager.startDate = dateString
-            }else{
-                self.goalDataManager.endDate = dateString
-            }
-            dateField.infoTextField.text = dateString
-            dateField.infoTextField.sendActions(for: .valueChanged)
+            self.viewModel.selectDate(tag: calendarType.rawValue, date)
         }
     }
     
