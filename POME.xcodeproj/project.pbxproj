@@ -164,7 +164,7 @@
 		57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */; };
 		57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */; };
 		57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */; };
-		57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionSelectView.swift */; };
+		57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionView.swift */; };
 		57CCA7C7292EEB81007E22D1 /* GoalSelectSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */; };
 		57CCA7C9292EEB96007E22D1 /* GoalSelectSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C8292EEB96007E22D1 /* GoalSelectSheetViewController.swift */; };
 		57E4D96B294DC752004F7297 /* RecordCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */; };
@@ -189,7 +189,7 @@
 		EE7D35E429D5A16300D2AD60 /* ModifyRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35D729D5A16300D2AD60 /* ModifyRecordViewModel.swift */; };
 		EE7D35E529D5A16300D2AD60 /* RecordableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35D829D5A16300D2AD60 /* RecordableViewModel.swift */; };
 		EE7D35E629D5A16300D2AD60 /* GenerateRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35D929D5A16300D2AD60 /* GenerateRecordViewModel.swift */; };
-		EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionSelectViewModel.swift */; };
+		EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift */; };
 		EE7D35E929D5A16300D2AD60 /* AppRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DD29D5A16300D2AD60 /* AppRegisterViewModel.swift */; };
 		EE7D35EA29D5A16300D2AD60 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DF29D5A16300D2AD60 /* ReviewViewModel.swift */; };
 		EE7D35EB29D5A16300D2AD60 /* GoalContentRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35E129D5A16300D2AD60 /* GoalContentRegisterViewModel.swift */; };
@@ -432,7 +432,7 @@
 		57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewController.swift; sourceTree = "<group>"; };
 		57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCommonView.swift; sourceTree = "<group>"; };
 		57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentView.swift; sourceTree = "<group>"; };
-		57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionSelectView.swift; sourceTree = "<group>"; };
+		57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionView.swift; sourceTree = "<group>"; };
 		57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSelectSheetView.swift; sourceTree = "<group>"; };
 		57CCA7C8292EEB96007E22D1 /* GoalSelectSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalSelectSheetViewController.swift; sourceTree = "<group>"; };
 		57E4D96A294DC752004F7297 /* RecordCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCategoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -459,7 +459,7 @@
 		EE7D35D729D5A16300D2AD60 /* ModifyRecordViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModifyRecordViewModel.swift; sourceTree = "<group>"; };
 		EE7D35D829D5A16300D2AD60 /* RecordableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordableViewModel.swift; sourceTree = "<group>"; };
 		EE7D35D929D5A16300D2AD60 /* GenerateRecordViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateRecordViewModel.swift; sourceTree = "<group>"; };
-		EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionSelectViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionSelectViewModel.swift; sourceTree = "<group>"; };
+		EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionViewModel.swift; sourceTree = "<group>"; };
 		EE7D35DD29D5A16300D2AD60 /* AppRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRegisterViewModel.swift; sourceTree = "<group>"; };
 		EE7D35DF29D5A16300D2AD60 /* ReviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		EE7D35E129D5A16300D2AD60 /* GoalContentRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalContentRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -1354,7 +1354,7 @@
 			isa = PBXGroup;
 			children = (
 				57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */,
-				57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionSelectView.swift */,
+				57CCA7C4292EEB55007E22D1 /* RecordFirstEmotionView.swift */,
 				57CCA7C6292EEB81007E22D1 /* GoalSelectSheetView.swift */,
 			);
 			path = Register;
@@ -1493,7 +1493,7 @@
 				EE7D35D829D5A16300D2AD60 /* RecordableViewModel.swift */,
 				EE7D35D929D5A16300D2AD60 /* GenerateRecordViewModel.swift */,
 				EE7D35D729D5A16300D2AD60 /* ModifyRecordViewModel.swift */,
-				EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionSelectViewModel.swift */,
+				EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -2008,7 +2008,7 @@
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				EE7D35E329D5A16300D2AD60 /* FriendViewModel.swift in Sources */,
-				EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionSelectViewModel.swift in Sources */,
+				EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift in Sources */,
 				57CCA78129290263007E22D1 /* ReactionTypeCollectionViewCell.swift in Sources */,
 				57CCA791292B0B12007E22D1 /* EmotionFilterSheetViewController.swift in Sources */,
 				23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */,
@@ -2020,7 +2020,7 @@
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
 				EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */,
 				EEC28CB429D30B770075CD4C /* KeyboardController.swift in Sources */,
-				57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionSelectView.swift in Sources */,
+				57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionView.swift in Sources */,
 				232C1C922990CE850087B81A /* DeleteUserTableViewCell.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */,
