@@ -119,8 +119,8 @@ class GoalDateViewController: BaseViewController {
         }
     }
     
-    private func completeButtonDidClicked(){
-        let vc = GoalContentViewController()
+    private func willMoveGoalContentViewController(dateRange: GoalDateDTO){
+        let vc = GoalContentViewController(goalDateRange: dateRange)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

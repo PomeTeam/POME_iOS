@@ -17,9 +17,19 @@ class GoalContentViewController: BaseViewController {
     
     private let mainView = GoalContentView()
     private let viewModel = GoalContentRegisterViewModel()
+    private let goalDateRange: GoalDateDTO
     private var goalDataManager = GoalRegisterRequestManager.shared
     
     //MARK: - Override
+    
+    init(goalDateRange: GoalDateDTO){
+        self.goalDateRange = goalDateRange
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func style(){
         super.style()
