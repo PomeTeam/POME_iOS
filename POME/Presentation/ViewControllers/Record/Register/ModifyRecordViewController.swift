@@ -13,7 +13,7 @@ struct TestData{
     static let testGoalData = GoalResponseModel(endDate: "2023.04.06", id: 1075, isEnd: false, isPublic: true, name: "목표 설정", nickname: "쑤야아아아아", oneLineMind: "목표를 달성하자", price: 100000, startDate: "2023.03.31", usePrice: 1000)
 }
 
-class ModifyRecordTestViewController: Recordable{
+class ModifyRecordViewController: Recordable{
     
     private let record: RecordResponseModel
     
@@ -34,7 +34,7 @@ class ModifyRecordTestViewController: Recordable{
         guard let viewModel = viewModel as? ModifyRecordViewModel else { return }
         
         input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable().startWith(String(record.usePrice)),
-                                          consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable().startWith(record.useComment))
+                                          consumeComment: mainView.contentTextView.textView.rx.text.orEmpty.asObservable().startWith(record.useComment))
         
         super.bind()
         

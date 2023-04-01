@@ -73,10 +73,8 @@ class RecordableViewModel: BaseViewModel{
         let dateBinding = consumeDateSubject
             .asDriver(onErrorJustReturn: PomeDateFormatter.getTodayDate())
         
-        //TODO: 글자수 제한, placeholder 등 제한 필요
         let commentBinding = input.consumeComment
             .asDriver(onErrorJustReturn: "")
-            
         
         let highlightCalendarIcon = consumeDateSubject
             .map{ !$0.isEmpty }

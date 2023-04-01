@@ -278,7 +278,7 @@ extension ReviewViewController: RecordCellDelegate{
         
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordTestViewController(goal: self.goals[self.currentGoal],
+            let vc = ModifyRecordViewController(goal: self.goals[self.currentGoal],
                                                        record: self.records[recordIndex])
 //            {
 //                self.records[recordIndex] = $0

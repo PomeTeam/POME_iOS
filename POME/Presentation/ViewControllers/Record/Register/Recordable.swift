@@ -73,7 +73,7 @@ class Recordable: BaseViewController{
         
         output.commentBinding
             .drive{ [weak self] in
-                self?.mainView.contentTextView.recordTextView.text = $0
+                self?.mainView.contentTextView.textView.text = $0
             }.disposed(by: disposeBag)
         
         output.highlightCalendarIcon

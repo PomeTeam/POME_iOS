@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class RegisterFirstEmotionViewModel{
+class RecordFirstEmotionViewModel{
     
     private let generateRecordUseCase: GenerateRecordUseCase
     private let emotionSubject = PublishSubject<Int>()

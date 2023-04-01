@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import RxSwift
 
 class DefaultTextField: UITextField {
     
@@ -17,12 +18,13 @@ class DefaultTextField: UITextField {
         }
     }
     
+    private let disposeBag = DisposeBag()
+    
     init() {
-        
         super.init(frame: CGRect.zero)
 
-        self.clearButtonMode = .always
-        self.addLeftPadding(16)
+        clearButtonMode = .always
+        addLeftPadding(16)
         
         initialize()
     }
@@ -31,21 +33,21 @@ class DefaultTextField: UITextField {
     init(placeholderStr: String) {
         super.init(frame: CGRect.zero)
         
-        self.placeholder = placeholderStr
-        self.clearButtonMode = .always
-        self.addLeftPadding(16)
+        placeholder = placeholderStr
+        clearButtonMode = .always
+        addLeftPadding(16)
         
         initialize()
     }
     // padding 있는 textfield
-    init(_ placeholderStr: String, _ leftPadding: CGFloat, _ rightPadding: CGFloat) {
+    init(placeholder: String, leftPadding: CGFloat, rightPadding: CGFloat) {
         super.init(frame: CGRect.zero)
         
-        self.placeholder = placeholderStr
+        self.placeholder = placeholder
 //        self.clearButtonMode = .always
 
-        self.addLeftPadding(leftPadding)
-        self.addRightPadding(rightPadding)
+        addLeftPadding(leftPadding)
+        addRightPadding(rightPadding)
         
         initialize()
     }
@@ -55,12 +57,27 @@ class DefaultTextField: UITextField {
     }
     
     private func initialize(){
+        font = UIFont.autoPretendard(type: .r_14)
+        textColor = Color.title
+        backgroundColor = Color.grey0
+        layer.cornerRadius = 6
+        bind()
+    }
+    
+    private func bind(){
+        self.rx.controlEvent([.editingDidBegin])
+            .subscribe(onNext:{ [weak self] in
+                UIView.animate(withDuration: 0.1){
+                    self?.isFocusState = true
+                }
+            }).disposed(by: disposeBag)
         
-        self.font = UIFont.autoPretendard(type: .r_14)
-        self.textColor = Color.title
-        self.backgroundColor = Color.grey0
-        
-        self.layer.cornerRadius = 6
+        self.rx.controlEvent([.editingDidEnd])
+            .subscribe(onNext:{ [weak self] in
+                UIView.animate(withDuration: 0.2){
+                    self?.isFocusState = false
+                }
+            }).disposed(by: disposeBag)
     }
     
     // MARK: Clear button Custom
@@ -79,9 +96,11 @@ class DefaultTextField: UITextField {
         self.rightView = clearButton
         self.rightViewMode = mode
     }
+    
     @objc private func displayClearButtonIfNeeded() {
         self.rightView?.isHidden = (self.text?.isEmpty) ?? true
     }
+    
     @objc private func clear(sender: AnyObject) {
         self.text = ""
         sendActions(for: .editingChanged)

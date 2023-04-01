@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RecordRegisterEmotionSelectView: BaseView {
+class RecordFirstEmotionView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "소비한 순간의 \n솔직한 감정을 남겨주세요",
                                          subtitle: "포미는 순간의 감정에 집중해 \n한번 기록된 감정은 바꿀 수 없어요")
@@ -69,7 +69,7 @@ class RecordRegisterEmotionSelectView: BaseView {
 
 }
 
-extension RecordRegisterEmotionSelectView{
+extension RecordFirstEmotionView{
     
     class FirstEmotionView: BaseView{
     

@@ -9,12 +9,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class RegisterFirstEmotionViewController: BaseViewController{
+class RecordFirstEmotionViewController: BaseViewController{
     
-    
-    private typealias emotionViewType = RecordRegisterEmotionSelectView.FirstEmotionView
-    private let mainView = RecordRegisterEmotionSelectView()
-    private let viewModel = RegisterFirstEmotionViewModel()
     private let record: RecordDTO
     
     init(record: RecordDTO){
@@ -22,10 +18,15 @@ class RegisterFirstEmotionViewController: BaseViewController{
         super.init(nibName: nil, bundle: nil)
     }
     
+    private typealias emotionViewType = RecordFirstEmotionView.FirstEmotionView
+    
+    private let mainView = RecordFirstEmotionView()
+    private let viewModel = RecordFirstEmotionViewModel()
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func style(){
         super.style()
@@ -43,10 +44,10 @@ class RegisterFirstEmotionViewController: BaseViewController{
     
     override func bind(){
         
-        let input = RegisterFirstEmotionViewModel.Input(record: record,
+        let input = RecordFirstEmotionViewModel.Input(record: record,
                                                         happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
-                                                               whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
-                                                               sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
+                                                        whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
+                                                        sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
                                                         ctaButtonTap: mainView.completeButton.rx.tap)
         
         let output = viewModel.transform(input: input)
