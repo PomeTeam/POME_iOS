@@ -123,7 +123,6 @@
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
-		572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 572B20AD294F1D4000980835 /* DefaultTextView.swift */; };
 		57397FBF296E78200088B5F4 /* RecordRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */; };
 		5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */; };
 		574E616029718ADE002BCDAF /* AlertInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574E615F29718ADE002BCDAF /* AlertInfo.swift */; };
@@ -186,6 +185,7 @@
 		EE635F4429D1CD2800573F66 /* ModifyRecordTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4329D1CD2800573F66 /* ModifyRecordTestViewController.swift */; };
 		EE635F4A29D1D0DF00573F66 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4929D1D0DF00573F66 /* BaseViewModel.swift */; };
 		EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4B29D1D11400573F66 /* ObservableBinding.swift */; };
+		EE6C866829D7110000CACA3E /* CountingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6C866729D7110000CACA3E /* CountingTextView.swift */; };
 		EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */; };
 		EE7C9FF4298A510300D2F238 /* PomeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */; };
 		EE7D35D129D59E7700D2AD60 /* RecordDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35D029D59E7700D2AD60 /* RecordDTO.swift */; };
@@ -395,7 +395,6 @@
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
-		572B20AD294F1D4000980835 /* DefaultTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTextView.swift; sourceTree = "<group>"; };
 		57397FBE296E78200088B5F4 /* RecordRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestManager.swift; sourceTree = "<group>"; };
 		5741BA3D294B3AF700ABDDE5 /* RegisterSuccessType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessType.swift; sourceTree = "<group>"; };
 		574E615F29718ADE002BCDAF /* AlertInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertInfo.swift; sourceTree = "<group>"; };
@@ -462,6 +461,7 @@
 		EE635F4329D1CD2800573F66 /* ModifyRecordTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecordTestViewController.swift; sourceTree = "<group>"; };
 		EE635F4929D1D0DF00573F66 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		EE635F4B29D1D11400573F66 /* ObservableBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableBinding.swift; sourceTree = "<group>"; };
+		EE6C866729D7110000CACA3E /* CountingTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingTextView.swift; sourceTree = "<group>"; };
 		EE79C29E29937CA1006A9AA2 /* FriendProfileImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProfileImageManager.swift; sourceTree = "<group>"; };
 		EE7C9FF3298A510300D2F238 /* PomeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomeDateFormatter.swift; sourceTree = "<group>"; };
 		EE7D35D029D59E7700D2AD60 /* RecordDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDTO.swift; sourceTree = "<group>"; };
@@ -1233,7 +1233,7 @@
 			children = (
 				57BBA424295D712400068019 /* DefaultTextInfo.swift */,
 				23061243292B51F200662007 /* DefaultTextField.swift */,
-				572B20AD294F1D4000980835 /* DefaultTextView.swift */,
+				EE6C866729D7110000CACA3E /* CountingTextView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -1979,6 +1979,7 @@
 			files = (
 				57CCA7C0292EEA1D007E22D1 /* RecordRegisterEmotionSelectViewController.swift in Sources */,
 				57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */,
+				EE6C866829D7110000CACA3E /* CountingTextView.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
@@ -2092,7 +2093,6 @@
 				23F14C192990D72600630AB2 /* TextInfoPopUpViewController.swift in Sources */,
 				EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
-				572B20AE294F1D4000980835 /* DefaultTextView.swift in Sources */,
 				2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */,
 				EE7D35EB29D5A16300D2AD60 /* GoalContentRegisterViewModel.swift in Sources */,
 				230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */,
