@@ -23,7 +23,8 @@ class GenerateRecordTestViewController: Recordable{
         guard let viewModel = viewModel as? GenerateRecordViewModel else { return }
         
         input = RecordableViewModel.Input(consumePrice: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable(),
-                                          consumeComment: mainView.contentTextView.recordTextView.rx.text.orEmpty.asObservable())
+                                          consumeComment:
+                                            mainView.contentTextView.textView.rx.text.orEmpty.asObservable().startWith("소비에 대한 감상을 적어주세요 (150자)"))
         
         super.bind()
         
