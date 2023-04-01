@@ -22,10 +22,15 @@ class RegisterFirstEmotionViewController: BaseViewController{
         super.init(nibName: nil, bundle: nil)
     }
     
+    private typealias emotionViewType = RecordFirstEmotionSelectView.FirstEmotionView
+    
+    private let mainView = RecordFirstEmotionSelectView()
+    private let viewModel = RegisterFirstEmotionViewModel()
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func style(){
         super.style()
