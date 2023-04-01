@@ -125,7 +125,7 @@ extension RecordEmotionViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             
             guard let goalContent = self.goalContent else {return}
-            let vc = ModifyRecordTestViewController(goal: goalContent,
+            let vc = ModifyRecordViewController(goal: goalContent,
                                                        record: self.noSecondEmotionRecord[recordIndex])
 //            {
 //                self.noSecondEmotionRecord[recordIndex] = $0

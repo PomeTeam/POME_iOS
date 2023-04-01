@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GenerateRecordTestViewController: Recordable{
+class GenerateRecordViewController: Recordable{
     
     init(goal: GoalResponseModel){
         super.init(recordType: .generate,
@@ -31,7 +31,7 @@ class GenerateRecordTestViewController: Recordable{
         viewModel.controlEvent(mainView.completeButton.rx.tap)
             .drive(onNext: { [weak self] record in
                 if let record = record {
-                    self?.navigationController?.pushViewController(RegisterFirstEmotionViewController(record: record), animated: true)
+                    self?.navigationController?.pushViewController(RecordFirstEmotionViewController(record: record), animated: true)
                 }
             }).disposed(by: disposeBag)
     }
