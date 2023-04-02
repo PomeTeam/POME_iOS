@@ -16,10 +16,10 @@ enum CalendarDate: Int{
     case end = 200
 }
 
-class GoalDateViewController: BaseViewController {
+class GenerateGoalDateViewController: BaseViewController {
     
-    private let mainView = GoalDateView()
-    private let viewModel = GoalDateRegisterViewModel()
+    private let mainView = GenerateGoalDateView()
+    private let viewModel = GenerateGoalDateViewModel()
     private let startDateCalendar = CalendarSheetViewController()
     private let endDateCalendar = EndDateCalendarSheetViewController()
     
@@ -36,7 +36,7 @@ class GoalDateViewController: BaseViewController {
     
     override func bind(){
         
-        let input = GoalDateRegisterViewModel.Input(ctaButtonTap: mainView.completButton.rx.tap)
+        let input = GenerateGoalDateViewModel.Input(ctaButtonTap: mainView.completButton.rx.tap)
         
         let output = viewModel.transform(input: input)
         
@@ -115,7 +115,7 @@ class GoalDateViewController: BaseViewController {
     }
     
     private func willMoveGoalContentViewController(dateRange: GoalDateDTO){
-        let vc = GoalContentViewController(goalDateRange: dateRange)
+        let vc = GenerateGoalContentViewController(goalDateRange: dateRange)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

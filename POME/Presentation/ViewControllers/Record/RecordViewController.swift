@@ -96,7 +96,7 @@ class RecordViewController: BaseTabViewController {
     @objc func addGoalButtonDidTap() {
         print("goal count: ", self.goalContent.count)
         if self.goalContent.count < 10 {
-            let vc = GoalDateViewController()
+            let vc = GenerateGoalDateViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             cannotAddGoalWarning()

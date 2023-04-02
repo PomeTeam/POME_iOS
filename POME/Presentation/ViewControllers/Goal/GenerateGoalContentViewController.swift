@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class GoalContentViewController: BaseViewController {
+class GenerateGoalContentViewController: BaseViewController {
     
     enum GoalError: String{
         case duplicateGoal = "G0004" //Goal 생성 시, 이미 등록된 Goal-Category 명으로 등록한 경우
@@ -16,7 +16,7 @@ class GoalContentViewController: BaseViewController {
     }
     
     private let mainView = GoalContentView()
-    private let viewModel = GoalContentRegisterViewModel()
+    private let viewModel = GenerateGoalContentViewModel()
     private let goalDateRange: GoalDateDTO
     private var goalDataManager = GoalRegisterRequestManager.shared
     
@@ -60,7 +60,7 @@ class GoalContentViewController: BaseViewController {
     
     override func bind(){
 
-        let input = GoalContentRegisterViewModel.Input(categoryText: mainView.categoryField.infoTextField.rx.text.orEmpty.asObservable(),
+        let input = GenerateGoalContentViewModel.Input(categoryText: mainView.categoryField.infoTextField.rx.text.orEmpty.asObservable(),
                                                        promiseText: mainView.promiseField.infoTextField.rx.text.orEmpty.asObservable(),
                                                        priceText: mainView.priceField.infoTextField.rx.text.orEmpty.asObservable())
         
@@ -120,7 +120,7 @@ class GoalContentViewController: BaseViewController {
 
 //MARK: - UITextFieldDelegate
 
-extension GoalContentViewController: UITextFieldDelegate{
+extension GenerateGoalContentViewController: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.setFocusState()
@@ -181,7 +181,7 @@ extension GoalContentViewController: UITextFieldDelegate{
 
 
 //MARK: - API
-extension GoalContentViewController{
+extension GenerateGoalContentViewController{
     
     private func requestGenerateGoal(){
 

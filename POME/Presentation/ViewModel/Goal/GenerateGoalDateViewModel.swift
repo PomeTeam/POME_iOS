@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class GoalDateRegisterViewModel{
+class GenerateGoalDateViewModel{
     
     private let startDateSubject = PublishSubject<String>()
     private let endDateSubject = PublishSubject<String>()
@@ -98,7 +98,7 @@ class GoalDateRegisterViewModel{
 }
 
 
-extension GoalDateRegisterViewModel: CalendarViewModel{
+extension GenerateGoalDateViewModel: CalendarViewModel{
     func selectDate(tag: Int, _ date: String) {
         switch CalendarDate(rawValue: tag){
         case .start:

@@ -156,11 +156,11 @@
 		57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */; };
 		57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA794292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift */; };
 		57CCA797292B7A1E007E22D1 /* TagStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA796292B7A1E007E22D1 /* TagStyle.swift */; };
-		57CCA7AA292DE833007E22D1 /* GoalDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7A9292DE833007E22D1 /* GoalDateView.swift */; };
+		57CCA7AA292DE833007E22D1 /* GenerateGoalDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7A9292DE833007E22D1 /* GenerateGoalDateView.swift */; };
 		57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */; };
 		57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */; };
-		57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */; };
-		57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */; };
+		57CCA7B1292DE875007E22D1 /* GenerateGoalDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B0292DE875007E22D1 /* GenerateGoalDateViewController.swift */; };
+		57CCA7B3292DE883007E22D1 /* GenerateGoalContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B2292DE883007E22D1 /* GenerateGoalContentViewController.swift */; };
 		57CCA7B5292DE8A3007E22D1 /* RegisterSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */; };
 		57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */; };
 		57CCA7C3292EEB40007E22D1 /* RecordRegisterContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */; };
@@ -192,8 +192,8 @@
 		EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift */; };
 		EE7D35E929D5A16300D2AD60 /* AppRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DD29D5A16300D2AD60 /* AppRegisterViewModel.swift */; };
 		EE7D35EA29D5A16300D2AD60 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35DF29D5A16300D2AD60 /* ReviewViewModel.swift */; };
-		EE7D35EB29D5A16300D2AD60 /* GoalContentRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35E129D5A16300D2AD60 /* GoalContentRegisterViewModel.swift */; };
-		EE7D35EC29D5A16300D2AD60 /* GoalDateRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35E229D5A16300D2AD60 /* GoalDateRegisterViewModel.swift */; };
+		EE7D35EB29D5A16300D2AD60 /* GenerateGoalContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35E129D5A16300D2AD60 /* GenerateGoalContentViewModel.swift */; };
+		EE7D35EC29D5A16300D2AD60 /* GenerateGoalDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35E229D5A16300D2AD60 /* GenerateGoalDateViewModel.swift */; };
 		EE7D35EE29D5C08500D2AD60 /* RecordFirstEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7D35ED29D5C08500D2AD60 /* RecordFirstEmotionViewController.swift */; };
 		EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D0298799DB00077B28 /* PageableResponseModel.swift */; };
 		EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9505D229879C0C00077B28 /* ControlIndexPath.swift */; };
@@ -425,11 +425,11 @@
 		57CCA792292B0B24007E22D1 /* EmotionFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetView.swift; sourceTree = "<group>"; };
 		57CCA794292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsumeReviewTableViewCell.swift; sourceTree = "<group>"; };
 		57CCA796292B7A1E007E22D1 /* TagStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagStyle.swift; sourceTree = "<group>"; };
-		57CCA7A9292DE833007E22D1 /* GoalDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateView.swift; sourceTree = "<group>"; };
+		57CCA7A9292DE833007E22D1 /* GenerateGoalDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateGoalDateView.swift; sourceTree = "<group>"; };
 		57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentView.swift; sourceTree = "<group>"; };
 		57CCA7AD292DE84A007E22D1 /* RegisterSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessView.swift; sourceTree = "<group>"; };
-		57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDateViewController.swift; sourceTree = "<group>"; };
-		57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalContentViewController.swift; sourceTree = "<group>"; };
+		57CCA7B0292DE875007E22D1 /* GenerateGoalDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateGoalDateViewController.swift; sourceTree = "<group>"; };
+		57CCA7B2292DE883007E22D1 /* GenerateGoalContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateGoalContentViewController.swift; sourceTree = "<group>"; };
 		57CCA7B4292DE8A3007E22D1 /* RegisterSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSuccessViewController.swift; sourceTree = "<group>"; };
 		57CCA7BA292DEADA007E22D1 /* RegisterCommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCommonView.swift; sourceTree = "<group>"; };
 		57CCA7C2292EEB40007E22D1 /* RecordRegisterContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterContentView.swift; sourceTree = "<group>"; };
@@ -463,8 +463,8 @@
 		EE7D35DB29D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionViewModel.swift; sourceTree = "<group>"; };
 		EE7D35DD29D5A16300D2AD60 /* AppRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRegisterViewModel.swift; sourceTree = "<group>"; };
 		EE7D35DF29D5A16300D2AD60 /* ReviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
-		EE7D35E129D5A16300D2AD60 /* GoalContentRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalContentRegisterViewModel.swift; sourceTree = "<group>"; };
-		EE7D35E229D5A16300D2AD60 /* GoalDateRegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDateRegisterViewModel.swift; sourceTree = "<group>"; };
+		EE7D35E129D5A16300D2AD60 /* GenerateGoalContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateGoalContentViewModel.swift; sourceTree = "<group>"; };
+		EE7D35E229D5A16300D2AD60 /* GenerateGoalDateViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateGoalDateViewModel.swift; sourceTree = "<group>"; };
 		EE7D35ED29D5C08500D2AD60 /* RecordFirstEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordFirstEmotionViewController.swift; sourceTree = "<group>"; };
 		EE9505D0298799DB00077B28 /* PageableResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageableResponseModel.swift; sourceTree = "<group>"; };
 		EE9505D229879C0C00077B28 /* ControlIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlIndexPath.swift; sourceTree = "<group>"; };
@@ -1325,7 +1325,7 @@
 		57CCA7A8292DE810007E22D1 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA7A9292DE833007E22D1 /* GoalDateView.swift */,
+				57CCA7A9292DE833007E22D1 /* GenerateGoalDateView.swift */,
 				57CCA7AB292DE83F007E22D1 /* GoalContentView.swift */,
 			);
 			path = Goal;
@@ -1334,8 +1334,8 @@
 		57CCA7AF292DE85E007E22D1 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				57CCA7B0292DE875007E22D1 /* GoalDateViewController.swift */,
-				57CCA7B2292DE883007E22D1 /* GoalContentViewController.swift */,
+				57CCA7B0292DE875007E22D1 /* GenerateGoalDateViewController.swift */,
+				57CCA7B2292DE883007E22D1 /* GenerateGoalContentViewController.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1520,8 +1520,8 @@
 		EE7D35E029D5A16300D2AD60 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				EE7D35E129D5A16300D2AD60 /* GoalContentRegisterViewModel.swift */,
-				EE7D35E229D5A16300D2AD60 /* GoalDateRegisterViewModel.swift */,
+				EE7D35E129D5A16300D2AD60 /* GenerateGoalContentViewModel.swift */,
+				EE7D35E229D5A16300D2AD60 /* GenerateGoalDateViewModel.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -1954,7 +1954,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57CCA7B3292DE883007E22D1 /* GoalContentViewController.swift in Sources */,
+				57CCA7B3292DE883007E22D1 /* GenerateGoalContentViewController.swift in Sources */,
 				EE6C866829D7110000CACA3E /* CountingTextView.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */,
@@ -2067,7 +2067,7 @@
 				EE98F0E82980F043007BFCCD /* FriendService.swift in Sources */,
 				23F364D4291B7B38009232B4 /* FriendSearchViewController.swift in Sources */,
 				2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */,
-				EE7D35EB29D5A16300D2AD60 /* GoalContentRegisterViewModel.swift in Sources */,
+				EE7D35EB29D5A16300D2AD60 /* GenerateGoalContentViewModel.swift in Sources */,
 				230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */,
 				EEC28CBC29D30C8C0075CD4C /* FriendRepository.swift in Sources */,
 				EEC28CC429D30D250075CD4C /* GenerateRecordUseCase.swift in Sources */,
@@ -2078,7 +2078,7 @@
 				57CCA77129286C85007E22D1 /* BaseSheetViewController.swift in Sources */,
 				2380877E291B502E00072763 /* RegisterView.swift in Sources */,
 				EE7D35D129D59E7700D2AD60 /* RecordDTO.swift in Sources */,
-				57CCA7AA292DE833007E22D1 /* GoalDateView.swift in Sources */,
+				57CCA7AA292DE833007E22D1 /* GenerateGoalDateView.swift in Sources */,
 				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
 				EE98F0E22980F030007BFCCD /* SMSRouter.swift in Sources */,
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
@@ -2116,7 +2116,7 @@
 				5724EC5B2917735300DC529B /* ReviewViewController.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
-				EE7D35EC29D5A16300D2AD60 /* GoalDateRegisterViewModel.swift in Sources */,
+				EE7D35EC29D5A16300D2AD60 /* GenerateGoalDateViewModel.swift in Sources */,
 				57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */,
 				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,
 				EE98F0D92980EFCF007BFCCD /* GoalCategoryRouter.swift in Sources */,
@@ -2161,7 +2161,7 @@
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
-				57CCA7B1292DE875007E22D1 /* GoalDateViewController.swift in Sources */,
+				57CCA7B1292DE875007E22D1 /* GenerateGoalDateViewController.swift in Sources */,
 				EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */,
 				EE98F0D12980EFB1007BFCCD /* RecordRouter.swift in Sources */,
 				EEE9E5C229D87442001AAB1D /* GoalDateDTO.swift in Sources */,

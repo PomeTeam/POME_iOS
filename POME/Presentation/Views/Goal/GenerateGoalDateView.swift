@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalDateView: BaseView {
+class GenerateGoalDateView: BaseView {
     
     let titleView = RegisterCommonTitleView(title: "시작이 반이에요!\n오늘부터 언제까지 해볼까요?",
                                          subtitle: "최대 한달까지 목표를 세울 수 있어요")
