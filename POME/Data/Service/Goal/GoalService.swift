@@ -16,7 +16,7 @@ final class GoalService{
 
 extension GoalService{
     
-    func generateGoal(request: GoalRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func generateGoal(request: GenerateGoalRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         provider.requestNoResultAPI(GoalRouter.postGoal(request: request), animate: true){ response in
             completion(response)
         }
@@ -24,12 +24,6 @@ extension GoalService{
     
     func getGoal(id: Int, completion: @escaping (Result<BaseResponseModel<GoalResponseModel>, Error>) -> Void) {
         provider.requestDecoded(GoalRouter.getGoal(id: id)) { response in
-            completion(response)
-        }
-    }
-    
-    func modifyGoal(id: Int, request: GoalRegisterRequestModel,completion: @escaping (Result<Int, Error>) -> Void) {
-        provider.requestNoResultAPI(GoalRouter.putGoal(id: id, request: request)){ response in
             completion(response)
         }
     }

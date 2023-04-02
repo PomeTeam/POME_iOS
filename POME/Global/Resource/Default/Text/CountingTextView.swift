@@ -99,7 +99,7 @@ class CountingTextView: BaseView{
             .filter{ [weak self] in
                 $0 != self?.placeholder
             }.map{ [self] in
-                getValidateRangeString($0)
+                TextConverter.getValidateRangeString($0, limit: self.countLimit)
             }.do{ [weak self] in
                 self?.setCountLabelTextColor(count: $0.count)
             }.subscribe(onNext: { [weak self] in
@@ -122,11 +122,7 @@ class CountingTextView: BaseView{
         return countString
     }
     
-    private func getValidateRangeString(_ value: String) -> String{
-        let endIndex = min(countLimit, value.count)
-        let endStringIndex = value.index(value.startIndex, offsetBy: endIndex)
-        return String(value[..<endStringIndex])
-    }
+
     
     private func setCountLabelTextColor(count: Int){
         countLabel.textColor = count < countLimit ? Color.body : Color.red

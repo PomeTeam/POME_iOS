@@ -115,8 +115,8 @@ class Recordable: BaseViewController{
     
     private func calendarSheetWillShow(){
         CalendarSheetViewController().loadAndShowBottomSheet(in: self).do{
-            $0.completionTest = { [weak self] in
-                self?.viewModel.selectConsumeDate($0)
+            $0.completion = { [weak self] in
+                self?.viewModel.selectDate($0)
             }
         }
     }
