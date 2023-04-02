@@ -62,7 +62,7 @@ class RecordableViewModel: BaseViewModel{
         let priceBinding = input.consumePrice
             .filter{
                 !$0.isEmpty
-            }.map{ self.priceConvertToDecimalFormat(text: $0 )}
+            }.map{ TextConverter.convertToDecimalFormat(number: $0) }
             .asDriver(onErrorJustReturn: "0")
         
         let price = input.consumePrice
@@ -99,22 +99,6 @@ class RecordableViewModel: BaseViewModel{
                       dateBinding: dateBinding,
                       priceBinding: priceBinding,
                       commentBinding: commentBinding)
-    }
-    
-    private func priceConvertToDecimalFormat(text: String) -> String{
-        
-        let formatter = NumberFormatter().then{
-            $0.numberStyle = .decimal // 1,000,000
-            $0.locale = Locale.current
-            $0.maximumFractionDigits = 0 // 허용하는 소숫점 자리수
-        }
-        
-        let removeComma = text.replacingOccurrences(of: formatter.groupingSeparator, with: "")
-        guard let formattedNumber = formatter.number(from: removeComma),
-                let formattedString = formatter.string(from: formattedNumber) else{
-            return text.isEmpty ? "0" : ""
-        }
-        return formattedString
     }
 }
 
