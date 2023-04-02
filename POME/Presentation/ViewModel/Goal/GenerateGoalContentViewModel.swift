@@ -11,53 +11,96 @@ import RxCocoa
 
 class GenerateGoalContentViewModel{
     
-    private let goalUseCase: GenerateGoalUseCase
+    private let generateGoalUseCase: GenerateGoalUseCase
+    
+    init(generateGoalUseCase: GenerateGoalUseCase = GenerateGoalUseCase()){
+        self.generateGoalUseCase = generateGoalUseCase
+    }
     
     struct Input{
-        let categoryText: Observable<String>
-        let promiseText: Observable<String>
-        let priceText: Observable<String>
+        let dateRange: GoalDateDTO
+        let goal: Observable<String>
+        let oneLineMind: Observable<String>
+        let price: Observable<String>
+        let isPublic: Observable<Bool>
+        let ctaButtonTap: ControlEvent<Void>
     }
     
     struct Output{
-        let categoryText: Driver<String>
-        let promiseText: Driver<String>
-        let priceText: Driver<String>
-        let canMoveNext: Driver<Bool>
-    }
-    
-    init(goalUseCase: GenerateGoalUseCase = GenerateGoalUseCase()){
-        self.goalUseCase = goalUseCase
+        let categoryBinding: Driver<String>
+        let oneLineMindBinding: Driver<String>
+        let priceBinding: Driver<String>
+        let isPublicBinding: Driver<Bool>
+        let ctaButtonActivate: Driver<Bool>
+        let generateGoalStatusCode: Observable<GenerateGoalStatus>
     }
     
     func transform(input: Input) -> Output {
         
-        let requestObservable = Observable.combineLatest(input.categoryText,
-                                                         input.promiseText,
-                                                         input.priceText)
+        //8자 제한 필요
+        let category = input.goal
+            .map{
+                TextConverter.getValidateRangeString($0, limit: 8)
+            }.share()
         
-        
-        let category = input.categoryText
-            .map{ $0 }
+        let categoryBinding = category
             .asDriver(onErrorJustReturn: "")
         
-        let promise = input.promiseText
-            .map{ $0 }
+        //18자 제한 필요
+        let oneLineMind = input.oneLineMind
+            .map{
+                TextConverter.getValidateRangeString($0, limit: 18)
+            }.share()
+        
+        let oneLineMindBinding = oneLineMind
             .asDriver(onErrorJustReturn: "")
         
-        let price = input.priceText
-            .map{ $0.replacingOccurrences(of: ",", with: "") }
-            .asDriver(onErrorJustReturn: "")
+        //decimal 기능 추가
+        let priceBinding = input.price
+            .filter{
+                !$0.isEmpty
+            }.map{
+                TextConverter.convertToDecimalFormat(number: $0)
+            }.asDriver(onErrorJustReturn: "0")
         
-        let canMoveNext = requestObservable
-            .map { category, promise, price in
-                return !category.isEmpty && !promise.isEmpty && !price.isEmpty && Int(price.replacingOccurrences(of: ",", with: ""))! > 0
-            }.asDriver(onErrorJustReturn: false)
+        let price = input.price
+            .filter{
+                !$0.isEmpty
+            }.map{
+                Int($0.replacingOccurrences(of: ",", with: ""))!
+            }
+        
+        let isPublicBinding = input.isPublic
+            .asDriver(onErrorJustReturn: false)
 
-        return Output(categoryText: category,
-                      promiseText: promise,
-                      priceText: price,
-                      canMoveNext: canMoveNext)
+        let goalContentObservable = Observable.combineLatest(category,
+                                                         oneLineMind,
+                                                         price,
+                                                         input.isPublic)
+        
+        let canMoveNext = goalContentObservable
+            .map { category, oneLineMind, price, isPublic in
+                return !category.isEmpty && !oneLineMind.isEmpty && price > 0
+            }.asDriver(onErrorJustReturn: false)
+        
+        let generateGoalStatusCode = input.ctaButtonTap
+            .withLatestFrom(goalContentObservable)
+            .map{ category, oneLineMind, price, isPublic in
+                return GenerateGoalRequestModel(name: category,
+                                         startDate: input.dateRange.startDate,
+                                         endDate: input.dateRange.endDate,
+                                         oneLineMind: oneLineMind,
+                                         price: price,
+                                         isPublic: isPublic)
+            }.flatMap{
+                self.generateGoalUseCase.execute(requestValue: $0)
+            }
+
+        return Output(categoryBinding: categoryBinding,
+                      oneLineMindBinding: oneLineMindBinding,
+                      priceBinding: priceBinding,
+                      isPublicBinding: isPublicBinding,
+                      ctaButtonActivate: canMoveNext, generateGoalStatusCode: generateGoalStatusCode)
     }
 }
 
