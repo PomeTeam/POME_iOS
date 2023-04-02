@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 class GoalRepository: GoalRepositoryInterface{
-    
+        
     func getGoals() -> Observable<[GoalResponseModel]> {
         let observable = Observable<[GoalResponseModel]>.create { observer -> Disposable in
             let requestReference: () = GoalService.shared.getUserGoals { response in
@@ -25,8 +25,24 @@ class GoalRepository: GoalRepositoryInterface{
         return observable
     }
 
-    func generateGoal() {
-        
+    func generateGoal(requestValue: GenerateGoalRequestModel) -> Observable<GenerateGoalStatus> {
+        let observable = Observable<GenerateGoalStatus>.create { observer -> Disposable in
+            let requestReference: () = GoalService.shared.generateGoal(request: requestValue){ response in
+                switch response {
+                case .success:
+                    observer.onNext(GenerateGoalStatus.success)
+                case .invalidSuccess(let code, let message):
+                    if let error = GenerateGoalStatus(rawValue: code){
+                        observer.onNext(error)
+                    }
+                    print(message)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
     }
     
     func deleteGoal() {
