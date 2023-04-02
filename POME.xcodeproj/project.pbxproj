@@ -135,7 +135,6 @@
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57C4818A2967111B008731D9 /* SSOOYA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C481892967111B008731D9 /* SSOOYA.storyboard */; };
 		57C481DD296ABCDB008731D9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481DC296ABCDB008731D9 /* Goal.swift */; };
-		57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */; };
 		57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */; };
 		57CCA75F2925AF2C007E22D1 /* FriendDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */; };
 		57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57CCA76429265924007E22D1 /* ReactionStyle.swift */; };
@@ -403,7 +402,6 @@
 		57C4818629671010008731D9 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "POME-Bridging-Header.h"; sourceTree = "<group>"; };
 		57C481892967111B008731D9 /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
 		57C481DC296ABCDB008731D9 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
-		57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRegisterRequestManager.swift; sourceTree = "<group>"; };
 		57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableEmptyView.swift; sourceTree = "<group>"; };
 		57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendDetailView.swift; sourceTree = "<group>"; };
 		57CCA76429265924007E22D1 /* ReactionStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionStyle.swift; sourceTree = "<group>"; };
@@ -1259,17 +1257,8 @@
 			isa = PBXGroup;
 			children = (
 				EE79C29D29937C85006A9AA2 /* Friend */,
-				57C481E5296ABE55008731D9 /* Goal */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		57C481E5296ABE55008731D9 /* Goal */ = {
-			isa = PBXGroup;
-			children = (
-				57C481E6296ABE7C008731D9 /* GoalRegisterRequestManager.swift */,
-			);
-			path = Goal;
 			sourceTree = "<group>";
 		};
 		57CCA76729286761007E22D1 /* Tag */ = {
@@ -1520,8 +1509,8 @@
 		EE7D35E029D5A16300D2AD60 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				EE7D35E129D5A16300D2AD60 /* GenerateGoalContentViewModel.swift */,
 				EE7D35E229D5A16300D2AD60 /* GenerateGoalDateViewModel.swift */,
+				EE7D35E129D5A16300D2AD60 /* GenerateGoalContentViewModel.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -2093,7 +2082,6 @@
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,
-				57C481E7296ABE7C008731D9 /* GoalRegisterRequestManager.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */,
 				EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */,
