@@ -152,7 +152,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 as? GoalTagCollectionViewCell else { fatalError() }
         
         let itemIdx = indexPath.row
-        cell.goalCategoryLabel.text = goalContent[itemIdx].name
+        cell.title = goalContent[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
         else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
@@ -180,7 +180,8 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goalContent.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goalContent[indexPath.row].name)
+        let title = goalContent.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goalContent[indexPath.row].name
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
     
 }

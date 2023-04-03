@@ -174,6 +174,9 @@
 		EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */; };
 		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE38758029D917B900A26AD5 /* TextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38757F29D917B900A26AD5 /* TextConverter.swift */; };
+		EE39696329DAA143003F655F /* ReviewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696229DAA143003F655F /* ReviewTestViewController.swift */; };
+		EE39696529DAAF3D003F655F /* FriendReactionSheetTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */; };
+		EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
 		EE635F4029D1CC5100573F66 /* Recordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F3F29D1CC5100573F66 /* Recordable.swift */; };
@@ -229,7 +232,7 @@
 		EEC28CC229D30CEF0075CD4C /* RecordRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC129D30CEF0075CD4C /* RecordRepositoryInterface.swift */; };
 		EEC28CC429D30D250075CD4C /* GenerateRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC329D30D250075CD4C /* GenerateRecordUseCase.swift */; };
 		EEC28CC629D30D330075CD4C /* ModifyRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC529D30D330075CD4C /* ModifyRecordUseCase.swift */; };
-		EEC28CC829D30D3B0075CD4C /* GetRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC729D30D3B0075CD4C /* GetRecordUseCase.swift */; };
+		EEC28CC829D30D3B0075CD4C /* GetRecordInReviewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC729D30D3B0075CD4C /* GetRecordInReviewUseCase.swift */; };
 		EEC28CCA29D30D440075CD4C /* DeleteRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CC929D30D440075CD4C /* DeleteRecordUseCase.swift */; };
 		EEC28CCC29D30D540075CD4C /* GetGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CCB29D30D540075CD4C /* GetGoalUseCase.swift */; };
 		EEC28CCE29D30DFE0075CD4C /* GenerateGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC28CCD29D30DFE0075CD4C /* GenerateGoalUseCase.swift */; };
@@ -445,6 +448,9 @@
 		EE2628CE2992058C0013137C /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE38757F29D917B900A26AD5 /* TextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConverter.swift; sourceTree = "<group>"; };
+		EE39696229DAA143003F655F /* ReviewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTestViewController.swift; sourceTree = "<group>"; };
+		EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetTestViewController.swift; sourceTree = "<group>"; };
+		EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewModel.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
 		EE635F3F29D1CC5100573F66 /* Recordable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recordable.swift; sourceTree = "<group>"; };
@@ -500,7 +506,7 @@
 		EEC28CC129D30CEF0075CD4C /* RecordRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepositoryInterface.swift; sourceTree = "<group>"; };
 		EEC28CC329D30D250075CD4C /* GenerateRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecordUseCase.swift; sourceTree = "<group>"; };
 		EEC28CC529D30D330075CD4C /* ModifyRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecordUseCase.swift; sourceTree = "<group>"; };
-		EEC28CC729D30D3B0075CD4C /* GetRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecordUseCase.swift; sourceTree = "<group>"; };
+		EEC28CC729D30D3B0075CD4C /* GetRecordInReviewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecordInReviewUseCase.swift; sourceTree = "<group>"; };
 		EEC28CC929D30D440075CD4C /* DeleteRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteRecordUseCase.swift; sourceTree = "<group>"; };
 		EEC28CCB29D30D540075CD4C /* GetGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetGoalUseCase.swift; sourceTree = "<group>"; };
 		EEC28CCD29D30DFE0075CD4C /* GenerateGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateGoalUseCase.swift; sourceTree = "<group>"; };
@@ -1055,6 +1061,8 @@
 			children = (
 				5724EC5A2917735300DC529B /* ReviewViewController.swift */,
 				57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */,
+				EE39696229DAA143003F655F /* ReviewTestViewController.swift */,
+				EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1176,7 +1184,7 @@
 			children = (
 				EEC28CC329D30D250075CD4C /* GenerateRecordUseCase.swift */,
 				EEC28CC529D30D330075CD4C /* ModifyRecordUseCase.swift */,
-				EEC28CC729D30D3B0075CD4C /* GetRecordUseCase.swift */,
+				EEC28CC729D30D3B0075CD4C /* GetRecordInReviewUseCase.swift */,
 				EEC28CC929D30D440075CD4C /* DeleteRecordUseCase.swift */,
 			);
 			path = Record;
@@ -1505,6 +1513,7 @@
 			isa = PBXGroup;
 			children = (
 				EE7D35DF29D5A16300D2AD60 /* ReviewViewModel.swift */,
+				EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */,
 			);
 			path = Review;
 			sourceTree = "<group>";
@@ -1955,6 +1964,7 @@
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
 				23808777291B404A00072763 /* UITextField.swift in Sources */,
 				232FD9D2293436950072E9D5 /* MypageFriendViewController.swift in Sources */,
+				EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */,
 				EE2628CF2992058C0013137C /* LoadingTableViewCell.swift in Sources */,
 				2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */,
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
@@ -2018,6 +2028,7 @@
 				57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionView.swift in Sources */,
 				232C1C922990CE850087B81A /* DeleteUserTableViewCell.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
+				EE39696329DAA143003F655F /* ReviewTestViewController.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */,
 				EE7D35EA29D5A16300D2AD60 /* ReviewViewModel.swift in Sources */,
 				5741BA3E294B3AF700ABDDE5 /* RegisterSuccessType.swift in Sources */,
@@ -2076,6 +2087,7 @@
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				EE7D35E629D5A16300D2AD60 /* GenerateRecordViewModel.swift in Sources */,
 				EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */,
+				EE39696529DAAF3D003F655F /* FriendReactionSheetTestViewController.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
@@ -2133,7 +2145,7 @@
 				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
 				EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */,
 				EEC28CC229D30CEF0075CD4C /* RecordRepositoryInterface.swift in Sources */,
-				EEC28CC829D30D3B0075CD4C /* GetRecordUseCase.swift in Sources */,
+				EEC28CC829D30D3B0075CD4C /* GetRecordInReviewUseCase.swift in Sources */,
 				5724EC762919224700DC529B /* PaddingLabel.swift in Sources */,
 				2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */,
 				EEC28CBE29D30CA70075CD4C /* GoalRepositoryInterface.swift in Sources */,

@@ -31,7 +31,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
             requestGetRecords()
         }
     }
-    var currentEmotionSelectCardIndex: Int?
+
     var currentGoal: Int = 0{
         didSet{
             page = 0
@@ -178,7 +178,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
 
-        cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].name
+        cell.title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
     
         currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         
@@ -186,7 +186,8 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goals.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].name)
+        let title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
