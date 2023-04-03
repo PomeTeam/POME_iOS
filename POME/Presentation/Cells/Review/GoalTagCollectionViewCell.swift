@@ -13,6 +13,11 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     
     static let emptyTitle = "···"
 
+    var title: String = ""{
+        didSet{
+            goalCategoryLabel.text = title
+        }
+    }
     
     private let goalCategoryLabel = UILabel().then{
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
