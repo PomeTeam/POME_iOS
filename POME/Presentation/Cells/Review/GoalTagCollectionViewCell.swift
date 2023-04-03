@@ -14,9 +14,13 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     static let emptyTitle = "···"
 
     
-    let goalCategoryLabel = UILabel().then{
+    private let goalCategoryLabel = UILabel().then{
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
         $0.textAlignment = .center
+    }
+    
+    private let goalCategoryView = UIView().then{
+        $0.layer.cornerRadius = 30 / 2
     }
     
     //MARK: - LifeCycle

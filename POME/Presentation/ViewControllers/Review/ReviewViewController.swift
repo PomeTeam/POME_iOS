@@ -178,7 +178,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
 
-        cell.goalCategoryLabel.text = goals.isEmpty ? "···" : goals[indexPath.row].name
+        cell.title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
     
         currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
         

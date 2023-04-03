@@ -152,7 +152,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 as? GoalTagCollectionViewCell else { fatalError() }
         
         let itemIdx = indexPath.row
-        cell.goalCategoryLabel.text = goalContent[itemIdx].name
+        cell.title = goalContent[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
         else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
