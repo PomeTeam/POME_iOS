@@ -31,7 +31,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
             requestGetRecords()
         }
     }
-    var currentEmotionSelectCardIndex: Int?
+
     var currentGoal: Int = 0{
         didSet{
             page = 0
