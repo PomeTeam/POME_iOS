@@ -186,7 +186,8 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goals.isEmpty ? GoalTagCollectionViewCell.emptyTitleSize() : GoalTagCollectionViewCell.estimatedSize(title: goals[indexPath.row].name)
+        let title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

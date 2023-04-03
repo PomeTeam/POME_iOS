@@ -11,9 +11,8 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
     
     //MARK: - Properties
     
-    let goalCategoryView = UIView().then{
-        $0.layer.cornerRadius = 30 / 2
-    }
+    static let emptyTitle = "···"
+
     
     let goalCategoryLabel = UILabel().then{
         $0.setTypoStyleWithSingleLine(typoStyle: .title4)
@@ -69,16 +68,6 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
             $0.leading.equalToSuperview().offset(12)
             $0.centerX.centerY.equalToSuperview()
         }
-    }
-    
-    static func emptyTitleSize() -> CGSize{
-        let testLabel = UILabel().then{
-            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-            $0.textAlignment = .center
-            $0.text = "···"
-        }
-        let width = testLabel.intrinsicContentSize.width + 12 * 2
-        return CGSize(width: width, height: 30)
     }
     
     static func estimatedSize(title: String) -> CGSize{
