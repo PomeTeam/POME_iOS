@@ -71,7 +71,7 @@ class GoalTagCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    static func estimatedSize() -> CGSize{
+    static func emptyTitleSize() -> CGSize{
         let testLabel = UILabel().then{
             $0.setTypoStyleWithSingleLine(typoStyle: .title4)
             $0.textAlignment = .center

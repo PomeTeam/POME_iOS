@@ -180,7 +180,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goalContent.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goalContent[indexPath.row].name)
+        goalContent.isEmpty ? GoalTagCollectionViewCell.emptyTitleSize() : GoalTagCollectionViewCell.estimatedSize(title: goalContent[indexPath.row].name)
     }
     
 }
