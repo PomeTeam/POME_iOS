@@ -33,10 +33,7 @@ class FriendReactionSheetViewModel: BaseViewModel{
         
         let selectReactionCount = selectReactionSubject
             .map{ reactionId in
-                if(reactionId == self.ALL_REACTION){
-                    return self.allReactions
-                }
-                return self.filteringReactions(id: reactionId)
+                reactionId == self.ALL_REACTION ? self.allReactions : self.filteringReactions(id: reactionId)
             }.do{
                 self.filteringReactions = $0
             }.map{
