@@ -12,7 +12,7 @@ class FriendReactionSheetTestViewController: BaseSheetViewController, Observable
     
     @frozen
     enum CollectionView: Int { //rawValue > view tag
-        case reaction = 100
+        case reactionType = 100
         case friendReaction = 200
     }
     
@@ -42,7 +42,7 @@ class FriendReactionSheetTestViewController: BaseSheetViewController, Observable
     
     override func initialize() {
         super.initialize()
-        setCollectionViewDelegate([mainView.reactionCollectionView,
+        setCollectionViewDelegate([mainView.reactionTypeCollectionView,
                                    mainView.friendReactionCollectionView])
         setCollectionViewTag()
     }
@@ -55,7 +55,7 @@ class FriendReactionSheetTestViewController: BaseSheetViewController, Observable
     }
     
     private func setCollectionViewTag(){
-        mainView.reactionCollectionView.tag = CollectionView.reaction.rawValue
+        mainView.reactionTypeCollectionView.tag = CollectionView.reactionType.rawValue
         mainView.friendReactionCollectionView.tag = CollectionView.friendReaction.rawValue
     }
     
@@ -70,7 +70,7 @@ class FriendReactionSheetTestViewController: BaseSheetViewController, Observable
         output.tableViewReload
             .drive(onNext: { [weak self] _ in
                 self?.mainView.friendReactionCollectionView.reloadData()
-                self?.mainView.reactionCollectionView.reloadData()
+                self?.mainView.reactionTypeCollectionView.reloadData()
             }).disposed(by: disposeBag)
     }
 }
@@ -84,21 +84,21 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch getCollectionViewType(tag: collectionView.tag){
-        case .reaction:         return 7
+        case .reactionType:         return 7
         case .friendReaction:   return viewModel.getFriendsReactionCount()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch getCollectionViewType(tag: collectionView.tag){
-        case .reaction:
-            return bindingReactionCell(collectionView, indexPath: indexPath)
+        case .reactionType:
+            return bindingReactionTypeCell(collectionView, indexPath: indexPath)
         case .friendReaction:
             return bindingFriendReactionCell(collectionView, indexPath: indexPath)
         }
     }
     
-    private func bindingReactionCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> ReactionTypeCollectionViewCell{
+    private func bindingReactionTypeCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> ReactionTypeCollectionViewCell{
         return collectionView.dequeueReusableCell(for: indexPath, cellType: ReactionTypeCollectionViewCell.self).then{
             viewModel.selectedReaction() == indexPath.row ? $0.setSelectState(row: indexPath.row) : $0.setUnselectState(row: indexPath.row)
         }
@@ -113,7 +113,7 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if (getCollectionViewType(tag: collectionView.tag) != .reaction) {
+        if (getCollectionViewType(tag: collectionView.tag) != .reactionType) {
             return
         }
         collectionView.cellForItem(at: indexPath, cellType: ReactionTypeCollectionViewCell.self).do{
@@ -123,7 +123,7 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if (getCollectionViewType(tag: collectionView.tag) != .reaction) {
+        if (getCollectionViewType(tag: collectionView.tag) != .reactionType) {
             return
         }
         collectionView.cellForItem(at: indexPath, cellType: ReactionTypeCollectionViewCell.self).do{

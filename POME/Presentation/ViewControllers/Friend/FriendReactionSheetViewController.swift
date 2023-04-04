@@ -36,8 +36,8 @@ class FriendReactionSheetViewController: BaseSheetViewController {
         
         super.initialize()
         
-        mainView.reactionCollectionView.delegate = self
-        mainView.reactionCollectionView.dataSource = self
+        mainView.reactionTypeCollectionView.delegate = self
+        mainView.reactionTypeCollectionView.dataSource = self
         
         mainView.friendReactionCollectionView.delegate = self
         mainView.friendReactionCollectionView.dataSource = self
@@ -65,11 +65,11 @@ class FriendReactionSheetViewController: BaseSheetViewController {
 extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        collectionView == mainView.reactionCollectionView ? 7 : filterReactions.count
+        collectionView == mainView.reactionTypeCollectionView ? 7 : filterReactions.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if(collectionView == mainView.reactionCollectionView){
+        if(collectionView == mainView.reactionTypeCollectionView){
             
             let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ReactionTypeCollectionViewCell.self)
             currentReaction == indexPath.row ? cell.setSelectState(row: indexPath.row) : cell.setUnselectState(row: indexPath.row)
@@ -88,7 +88,7 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if(collectionView == mainView.reactionCollectionView){
+        if(collectionView == mainView.reactionTypeCollectionView){
             guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
             cell.setSelectState(row: indexPath.row)
             filterReactionBy(id: indexPath.row)
@@ -96,7 +96,7 @@ extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        if(collectionView == mainView.reactionCollectionView){
+        if(collectionView == mainView.reactionTypeCollectionView){
             guard let cell = collectionView.cellForItem(at: indexPath) as? ReactionTypeCollectionViewCell else { return }
             cell.setUnselectState(row: indexPath.row)
         }

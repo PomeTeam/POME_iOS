@@ -11,7 +11,7 @@ class FriendReactionSheetView: BaseView {
     
     //MARK: - Properties
     
-    let reactionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+    let reactionTypeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.itemSize = CGSize(width: ReactionTypeCollectionViewCell.cellWidth, height: ReactionTypeCollectionViewCell.cellWidth)
@@ -49,7 +49,7 @@ class FriendReactionSheetView: BaseView {
     //MARK: - Override
     
     override func hierarchy() {
-        addSubview(reactionCollectionView)
+        addSubview(reactionTypeCollectionView)
         addSubview(separatorLine)
         addSubview(countView)
         addSubview(friendReactionCollectionView)
@@ -58,14 +58,14 @@ class FriendReactionSheetView: BaseView {
     
     override func layout() {
         
-        reactionCollectionView.snp.makeConstraints{
+        reactionTypeCollectionView.snp.makeConstraints{
             $0.top.leading.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
             $0.height.equalTo(ReactionTypeCollectionViewCell.cellWidth)
         }
         
         separatorLine.snp.makeConstraints{
-            $0.bottom.equalTo(reactionCollectionView).offset(10)
+            $0.bottom.equalTo(reactionTypeCollectionView).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
