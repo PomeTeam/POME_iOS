@@ -116,7 +116,7 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
         getReactionTypeCollectionViewCell(collectionView: collectionView, indexPath: indexPath){
             $0.setSelectState(row: indexPath.row)
         }
-        viewModel.selectReaction(id: indexPath.row)
+        viewModel.selectReaction(row: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

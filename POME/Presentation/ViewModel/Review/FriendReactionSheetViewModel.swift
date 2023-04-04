@@ -63,8 +63,8 @@ extension FriendReactionSheetViewModel{
         try! selectReactionSubject.value()
     }
     
-    func selectReaction(id: Int){
-        selectReactionSubject.onNext(id)
+    func selectReaction(row: Int){
+        selectReactionSubject.onNext(row)
     }
     
     func getFriendReaction(at index: Int) -> FriendReactionResponseModel{
