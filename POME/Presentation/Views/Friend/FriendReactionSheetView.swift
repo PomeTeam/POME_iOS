@@ -21,7 +21,7 @@ class FriendReactionSheetView: BaseView {
         $0.collectionViewLayout = flowLayout
         $0.contentInset = UIEdgeInsets(top: 0, left: 16.5, bottom: 0, right: 16.5)
         
-        $0.register(ReactionTypeCollectionViewCell.self, forCellWithReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier)
+        $0.register(cellType: ReactionTypeCollectionViewCell.self)
     }
     
     private let separatorLine = UIView().then{
