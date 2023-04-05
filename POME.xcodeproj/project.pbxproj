@@ -241,6 +241,7 @@
 		EEC5CAF929B0AD0F00FF4C26 /* RenewRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */; };
 		EEC5CAFB29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5CAFA29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift */; };
 		EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */; };
+		EED4AE6329DD72D2002C8965 /* EmotionFilterSheetTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4AE6229DD72D2002C8965 /* EmotionFilterSheetTestViewController.swift */; };
 		EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */; };
 		EEE5F5E9298126E000ECD31B /* RecordResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5E8298126E000ECD31B /* RecordResponseModel.swift */; };
 		EEE5F5EB2981270700ECD31B /* FriendEmotionRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5F5EA2981270700ECD31B /* FriendEmotionRequestModel.swift */; };
@@ -515,6 +516,7 @@
 		EEC5CAF829B0AD0F00FF4C26 /* RenewRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenewRequestModel.swift; sourceTree = "<group>"; };
 		EEC5CAFA29B0B4D800FF4C26 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		EEC5EBFF2986AB34001D6460 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		EED4AE6229DD72D2002C8965 /* EmotionFilterSheetTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilterSheetTestViewController.swift; sourceTree = "<group>"; };
 		EEE5F5E6298126D500ECD31B /* RecordRegisterRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRegisterRequestModel.swift; sourceTree = "<group>"; };
 		EEE5F5E8298126E000ECD31B /* RecordResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordResponseModel.swift; sourceTree = "<group>"; };
 		EEE5F5EA2981270700ECD31B /* FriendEmotionRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendEmotionRequestModel.swift; sourceTree = "<group>"; };
@@ -1061,6 +1063,7 @@
 			children = (
 				5724EC5A2917735300DC529B /* ReviewViewController.swift */,
 				57CCA790292B0B12007E22D1 /* EmotionFilterSheetViewController.swift */,
+				EED4AE6229DD72D2002C8965 /* EmotionFilterSheetTestViewController.swift */,
 				EE39696229DAA143003F655F /* ReviewTestViewController.swift */,
 				EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */,
 			);
@@ -1983,6 +1986,7 @@
 				2338F4AC2989079400F37EA1 /* TapGesture.swift in Sources */,
 				57CCA78D292B0AB4007E22D1 /* GoalTagCollectionViewCell.swift in Sources */,
 				EEC28CCE29D30DFE0075CD4C /* GenerateGoalUseCase.swift in Sources */,
+				EED4AE6329DD72D2002C8965 /* EmotionFilterSheetTestViewController.swift in Sources */,
 				57CCA77F29290212007E22D1 /* FriendReactionCollectionViewCell.swift in Sources */,
 				EE98F0C92980E126007BFCCD /* UserDefault.swift in Sources */,
 				EE79C29F29937CA1006A9AA2 /* FriendProfileImageManager.swift in Sources */,

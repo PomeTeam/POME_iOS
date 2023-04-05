@@ -14,18 +14,6 @@ enum EmotionTag: Int{
     case sad
 }
 
-enum EmotionTime{
-    case first
-    case second
-    
-    var title: String{
-        switch self{
-        case .first:        return "처음 감정"
-        case .second:       return "돌아본 감정"
-        }
-    }
-}
-
 private struct EmotionTagIcon{
     let firstEmotion: UIImage
     let secondEmotion: UIImage
@@ -49,11 +37,11 @@ extension EmotionTag{
     private var iconDescription: EmotionTagIcon{
         switch self{
         case .sad:      return EmotionTagIcon(firstEmotion: Image.emojiSad,
-                                            secondEmotion: Image.reviewSad)
+                                              secondEmotion: Image.reviewSad)
         case .what:     return EmotionTagIcon(firstEmotion: Image.emojiWhat,
-                                            secondEmotion: Image.reviewWhat)
+                                              secondEmotion: Image.reviewWhat)
         case .happy:    return EmotionTagIcon(firstEmotion: Image.emojiHappy,
-                                            secondEmotion: Image.reviewHappy)
+                                              secondEmotion: Image.reviewHappy)
         default:        return EmotionTagIcon(firstEmotion: Image.tagUnselect,
                                               secondEmotion: Image.tagUnselect)
         }

@@ -31,22 +31,12 @@ class EmotionFilterSheetView: BaseView {
         
         $0.collectionViewLayout = flowLayout
         
-        $0.register(EmotionFilterSheetCollectionViewCell.self, forCellWithReuseIdentifier: EmotionFilterSheetCollectionViewCell.cellIdentifier)
+        $0.register(cellType: EmotionFilterSheetCollectionViewCell.self)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func hierarchy() {
-        
-        self.addSubview(topView)
-        self.addSubview(filterCollectionView)
-        
+        addSubview(topView)
+        addSubview(filterCollectionView)
         topView.addSubview(titleLabel)
         topView.addSubview(cancelButton)
     }

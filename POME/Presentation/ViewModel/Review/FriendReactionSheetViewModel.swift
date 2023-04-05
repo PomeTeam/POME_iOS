@@ -11,16 +11,17 @@ import RxCocoa
 
 class FriendReactionSheetViewModel: BaseViewModel{
     
-    private lazy var filteringReactions: [FriendReactionResponseModel] = allReactions
+    private var filteringReactions: [FriendReactionResponseModel]
     private let allReactions: [FriendReactionResponseModel]
     
     init(allReactions: [FriendReactionResponseModel]){
         self.allReactions = allReactions
+        self.filteringReactions = allReactions
     }
     
     private let ALL_REACTION = 0 // 전체인 경우 식별하기 위해 선언한 리터럴 값
     private let disposeBag = DisposeBag()
-    private let selectReactionSubject = BehaviorSubject(value: 0)
+    private let selectReactionSubject = BehaviorSubject<Int>(value: 0)
     
     struct Input { }
     
@@ -33,10 +34,7 @@ class FriendReactionSheetViewModel: BaseViewModel{
         
         let selectReactionCount = selectReactionSubject
             .map{ reactionId in
-                if(reactionId == self.ALL_REACTION){
-                    return self.allReactions
-                }
-                return self.filteringReactions(id: reactionId)
+                reactionId == self.ALL_REACTION ? self.allReactions : self.filteringReactions(id: reactionId)
             }.do{
                 self.filteringReactions = $0
             }.map{
@@ -63,8 +61,8 @@ extension FriendReactionSheetViewModel{
         try! selectReactionSubject.value()
     }
     
-    func selectReaction(id: Int){
-        selectReactionSubject.onNext(id)
+    func selectReaction(row: Int){
+        selectReactionSubject.onNext(row)
     }
     
     func getFriendReaction(at index: Int) -> FriendReactionResponseModel{
