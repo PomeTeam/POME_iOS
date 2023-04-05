@@ -13,13 +13,9 @@ enum GenerateGoalStatus: String{
     case duplicateGoal = "G0004" //Goal 생성 시, 이미 등록된 Goal-Category 명으로 등록한 경우
 }
 
-class GenerateGoalContentViewController: BaseViewController {
+final class GenerateGoalContentViewController: BaseViewController {
     
-    private let mainView = GoalContentView()
-    private let viewModel = GenerateGoalContentViewModel()
     private let goalDateRange: GoalDateDTO
-    
-    //MARK: - Override
     
     init(goalDateRange: GoalDateDTO){
         self.goalDateRange = goalDateRange
@@ -30,9 +26,12 @@ class GenerateGoalContentViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let mainView = GoalContentView()
+    private let viewModel = GenerateGoalContentViewModel()
+    
     override func style(){
         super.style()
-        self.setEtcButton(title: "닫기")
+        setEtcButton(title: "닫기")
     }
     
     override func layout(){
@@ -102,8 +101,8 @@ class GenerateGoalContentViewController: BaseViewController {
     
     private func closeButtonDidClicked(){
         ImageAlert.quitRecord.generateAndShow(in: self).do{
-            $0.completion = {
-                self.navigationController?.popToRootViewController(animated: true)
+            $0.completion = { [weak self] in
+                self?.navigationController?.popToRootViewController(animated: true)
             }
         }
     }
