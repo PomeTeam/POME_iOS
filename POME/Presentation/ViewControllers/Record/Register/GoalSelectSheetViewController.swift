@@ -9,19 +9,7 @@ import UIKit
 
 class GoalSelectSheetViewController: BaseSheetViewController {
     
-    //MARK: - Properties
-    
-    var completion: ((Int) -> ())! //TODO: WILL DELETE
-    
-    private var goals: [GoalResponseModel]!
-    private let mainView = GoalSelectSheetView()
-    private var viewModel: GoalSelectViewModel!
-    //MARK: - LifeCycle
-    
-    init(data goals: [GoalResponseModel]){ //TODO: WILL DELETE
-        self.goals = goals
-        super.init(type: .category)
-    }
+    private let viewModel: GoalSelectViewModel
     
     init(viewModel: RecordableViewModel){
         self.viewModel = viewModel
@@ -32,13 +20,15 @@ class GoalSelectSheetViewController: BaseSheetViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private let mainView = GoalSelectSheetView()
+    
     override func viewWillAppear(_ animated: Bool) {
         mainView.goalTableView.reloadData()
     }
     
     override func initialize(){
         super.initialize()
-        mainView.exitButton.addTarget(self, action: #selector(exitButtonDidClicked), for: .touchUpInside)
+        mainView.exitButton.addTarget(self, action: #selector(exitButtonDidTapped), for: .touchUpInside)
         setTableViewDelegate()
     }
     
@@ -57,7 +47,7 @@ class GoalSelectSheetViewController: BaseSheetViewController {
         }
     }
     
-    @objc func exitButtonDidClicked(){
+    @objc private func exitButtonDidTapped(){
         dismiss(animated: true)
     }
 }
@@ -69,7 +59,7 @@ extension GoalSelectSheetViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(for: indexPath, cellType: RecordCategoryTableViewCell.self).then{
+        tableView.dequeueReusableCell(for: indexPath, cellType: RecordCategoryTableViewCell.self).then{
             $0.nameLabel.text = viewModel.getGoalTitle(at: indexPath.row)
         }
     }
