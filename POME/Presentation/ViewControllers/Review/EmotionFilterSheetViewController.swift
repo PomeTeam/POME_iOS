@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+//will delete
 class EmotionFilterSheetViewController: BaseSheetViewController {
     
     var filterTime: EmotionTime!
@@ -37,33 +37,28 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     
     //MARK: - Method
     
-    @objc func cancelButtonDidClicked(){
+    @objc private func cancelButtonDidClicked(){
         self.dismiss(animated: true, completion: nil)
     }
     
     //MARK: - Override
     
     override func style() {
-        
         super.style()
-        
-        self.mainView.titleLabel.text = filterTime.title
+        mainView.titleLabel.text = filterTime.title
     }
     
     override func initialize() {
         super.initialize()
-        
         mainView.filterCollectionView.delegate = self
         mainView.filterCollectionView.dataSource = self
     }
     
     override func layout() {
-        
-        self.view.addSubview(mainView)
-        
+        view.addSubview(mainView)
         mainView.snp.makeConstraints{
             $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
 
@@ -78,20 +73,20 @@ extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmotionFilterSheetCollectionViewCell.cellIdentifier, for: indexPath) as? EmotionFilterSheetCollectionViewCell else { return UICollectionViewCell() }
-        
-        if(filterTime == .first){
-            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.firstEmotionImage
-        }else{
-            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.secondEmotionImage
-        }
-        
-        cell.emotionLabel.text = EmotionTag(rawValue: indexPath.row)?.message
+//
+//        if(filterTime == .first){
+//            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.firstEmotionImage
+//        }else{
+//            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.secondEmotionImage
+//        }
+//
+//        cell.emotionLabel.text = EmotionTag(rawValue: indexPath.row)?.message
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         completion(indexPath.row)
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     

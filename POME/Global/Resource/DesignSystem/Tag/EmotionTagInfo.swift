@@ -37,11 +37,11 @@ extension EmotionTag{
     private var iconDescription: EmotionTagIcon{
         switch self{
         case .sad:      return EmotionTagIcon(firstEmotion: Image.emojiSad,
-                                            secondEmotion: Image.reviewSad)
+                                              secondEmotion: Image.reviewSad)
         case .what:     return EmotionTagIcon(firstEmotion: Image.emojiWhat,
-                                            secondEmotion: Image.reviewWhat)
+                                              secondEmotion: Image.reviewWhat)
         case .happy:    return EmotionTagIcon(firstEmotion: Image.emojiHappy,
-                                            secondEmotion: Image.reviewHappy)
+                                              secondEmotion: Image.reviewHappy)
         default:        return EmotionTagIcon(firstEmotion: Image.tagUnselect,
                                               secondEmotion: Image.tagUnselect)
         }
