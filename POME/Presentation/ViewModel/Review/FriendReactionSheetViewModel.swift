@@ -11,16 +11,17 @@ import RxCocoa
 
 class FriendReactionSheetViewModel: BaseViewModel{
     
-    private lazy var filteringReactions: [FriendReactionResponseModel] = allReactions
+    private var filteringReactions: [FriendReactionResponseModel]
     private let allReactions: [FriendReactionResponseModel]
     
     init(allReactions: [FriendReactionResponseModel]){
         self.allReactions = allReactions
+        self.filteringReactions = allReactions
     }
     
     private let ALL_REACTION = 0 // 전체인 경우 식별하기 위해 선언한 리터럴 값
     private let disposeBag = DisposeBag()
-    private let selectReactionSubject = BehaviorSubject(value: 0)
+    private let selectReactionSubject = BehaviorSubject<Int>(value: 0)
     
     struct Input { }
     
