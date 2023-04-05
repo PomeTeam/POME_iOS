@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GenerateRecordViewController: Recordable{
+final class GenerateRecordViewController: Recordable{
     
     init(goal: GoalResponseModel){
         super.init(recordType: .generate,

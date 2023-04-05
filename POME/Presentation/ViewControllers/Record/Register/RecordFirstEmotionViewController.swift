@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class RecordFirstEmotionViewController: BaseViewController{
+final class RecordFirstEmotionViewController: BaseViewController{
     
     private let record: RecordDTO
     

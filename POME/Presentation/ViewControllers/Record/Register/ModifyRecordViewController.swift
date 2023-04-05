@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ModifyRecordViewController: Recordable{
+final class ModifyRecordViewController: Recordable{
     
     private let record: RecordResponseModel
     

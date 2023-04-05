@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GoalSelectSheetViewController: BaseSheetViewController {
+final class GoalSelectSheetViewController: BaseSheetViewController {
     
     private let viewModel: GoalSelectViewModel
     
