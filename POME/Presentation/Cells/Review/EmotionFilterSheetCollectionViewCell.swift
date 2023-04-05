@@ -9,8 +9,6 @@ import UIKit
 
 class EmotionFilterSheetCollectionViewCell: BaseCollectionViewCell {
     
-    static let cellIdentifier = "EmotionFilterSheetCollectionViewCell"
-    
     /*
      left, right padding = 26
      spacing = 10
