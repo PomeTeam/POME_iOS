@@ -7,6 +7,12 @@
 
 import Foundation
 
+@frozen
+enum EmotionTime: Int{
+    case first = 100
+    case second = 200
+}
+
 class ReviewTestViewController: BaseTabViewController{
     
     private var isPaging: Bool = false

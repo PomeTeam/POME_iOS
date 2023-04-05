@@ -123,6 +123,14 @@ class ReviewFilterTableViewCell: BaseTableViewCell{
     }
 }
 
+extension EmotionTime{
+    var title: String{
+        switch self{
+        case .first:        return "처음 감정"
+        case .second:       return "돌아본 감정"
+        }
+    }
+}
 
 extension ReviewFilterTableViewCell{
     
