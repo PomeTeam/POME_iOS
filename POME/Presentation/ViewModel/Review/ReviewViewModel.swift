@@ -11,13 +11,16 @@ import RxCocoa
 
 class ReviewViewModel: BaseViewModel{
     
+    private let uiRelatedCellCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetGoalUseCaseInterface
     private let deleteRecordUseCase: GetGoalUseCaseInterface
     
-    init(getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+    init(uiRelatedCellCount: Int,
+         getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          getRecordsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          deleteRecordUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
+        self.uiRelatedCellCount = uiRelatedCellCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
         self.deleteRecordUseCase = deleteRecordUseCase
@@ -28,8 +31,8 @@ class ReviewViewModel: BaseViewModel{
     private var selectedGoal: Int!
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
+    private lazy var dataIndex: (Int) -> Int = { row in row - self.uiRelatedCellCount }
     
-    private let dataIndex: (Int) -> Int = { row in row - 3 }
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
     private let filteringConditionSubject = BehaviorSubject<(Int?, Int?)>(value: (nil, nil))
     
@@ -83,10 +86,7 @@ extension ReviewViewModel{
     func viewDidLoad(){
         
     }
-    
-    func viewWillAppear(){
-        //목표 조회 api 호출
-    }
+
     
     func selectGoal(at index: Int){
         selectGoalSubject.onNext(index)
