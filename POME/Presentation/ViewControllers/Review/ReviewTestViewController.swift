@@ -75,7 +75,7 @@ class ReviewTestViewController: BaseTabViewController{
 extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.getGoalsCount()
+        viewModel.goalsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -91,7 +91,7 @@ extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0){
-            return viewModel.getRecordsCount() + COUNT_OF_NOT_RECORD_CELL
+            return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
         }else if(section == 1 && isPaging && viewModel.hasNextPage()){
             return 1
         }else{
@@ -127,7 +127,7 @@ extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
-            viewModel.isGoalEmpty() ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.getSelectGoal())
+            viewModel.isGoalEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
         }
     }
     
