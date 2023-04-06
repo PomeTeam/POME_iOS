@@ -77,36 +77,32 @@ class ReviewViewModel: BaseViewModel{
 
 extension ReviewViewModel{
     
-    
-    /*
-     상단에서 아래로 스와이플 할 경우에만 데이터 reload 시키는 건 어떤지..?
-     */
-    
     func viewDidLoad(){
         
     }
-
     
+    func updateData(){
+        
+    }
+
     func selectGoal(at index: Int){
         selectGoalSubject.onNext(index)
     }
     
     func filterFirstEmotion(id: Int){
-        let current = getCurrentFilteringCondition()
-        changeFilteringCondition(first: id, second: current.1)
+        changeFilteringCondition(first: id, second: filteringCondition.1)
     }
     
     func filterSecondEmotion(id: Int){
-        let current = getCurrentFilteringCondition()
-        changeFilteringCondition(first: current.0, second: id)
+        changeFilteringCondition(first: filteringCondition.0, second: id)
     }
     
     func initializeFilterCondtion(){
         changeFilteringCondition(first: nil, second: nil)
     }
     
-    private func getCurrentFilteringCondition() -> FilteringCondition{
-        return try! filteringConditionSubject.value()
+    private var filteringCondition: FilteringCondition{
+        try! filteringConditionSubject.value()
     }
     
     private func changeFilteringCondition(first: Int?, second: Int?){
@@ -117,15 +113,15 @@ extension ReviewViewModel{
         
     }
     
-    func isGoalEmpty() -> Bool{
+    var isGoalEmpty: Bool{
         goals.count == 0
     }
     
-    func getGoalsCount() -> Int{
+    var goalsCount: Int{
         goals.count == 0 ? 1 : goals.count
     }
     
-    func getRecordsCount() -> Int{
+    var recordsCount: Int{
         records.count
     }
     
@@ -133,8 +129,12 @@ extension ReviewViewModel{
         records[dataIndex(index)]
     }
     
-    func getSelectGoal() -> GoalResponseModel{
-        goals[selectedGoal]
+    var selectedGoal: GoalResponseModel{
+        goals[selectedGoalIndex]
+    }
+    
+    var selectedGoalIndex: Int{
+        try! selectGoalSubject.value()
     }
     
     func hasNextPage() -> Bool{
