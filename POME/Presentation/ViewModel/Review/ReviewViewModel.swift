@@ -11,16 +11,16 @@ import RxCocoa
 
 class ReviewViewModel: BaseViewModel{
     
-    private let uiRelatedCellCount: Int
+    private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetGoalUseCaseInterface
     private let deleteRecordUseCase: GetGoalUseCaseInterface
     
-    init(uiRelatedCellCount: Int,
+    init(regardlessOfRecordCount: Int,
          getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          getRecordsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          deleteRecordUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
-        self.uiRelatedCellCount = uiRelatedCellCount
+        self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
         self.deleteRecordUseCase = deleteRecordUseCase
@@ -30,7 +30,7 @@ class ReviewViewModel: BaseViewModel{
     
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
-    private lazy var dataIndex: (Int) -> Int = { row in row - self.uiRelatedCellCount }
+    private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
     private let filteringConditionSubject = BehaviorSubject<(Int?, Int?)>(value: (nil, nil))

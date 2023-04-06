@@ -19,7 +19,7 @@ class ReviewTestViewController: BaseTabViewController{
     
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
-    private lazy var viewModel = ReviewViewModel(uiRelatedCellCount: COUNT_OF_NOT_RECORD_CELL)
+    private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
     private lazy var firstEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateFirstEmotionFilter(viewModel: viewModel)
     private lazy var secondEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateSecondEmotionFilter(viewModel: viewModel)
     
