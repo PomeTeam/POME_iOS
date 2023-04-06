@@ -26,14 +26,14 @@ class ReviewViewModel: BaseViewModel{
         self.deleteRecordUseCase = deleteRecordUseCase
     }
     
-    private typealias FilteringCondition = (Int?, Int?)
+    private typealias FilteringCondition = (first: Int?, second: Int?)
     
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
-    private let filteringConditionSubject = BehaviorSubject<(Int?, Int?)>(value: (nil, nil))
+    private let filteringConditionSubject = BehaviorSubject<FilteringCondition>(value: (nil, nil))
     
     struct Input{
         
@@ -49,21 +49,21 @@ class ReviewViewModel: BaseViewModel{
     func transform(_ input: Input) -> Output{
         
         let firstEmotionState = filteringConditionSubject
-            .compactMap{ $0.0 }
+            .compactMap{ $0.first }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let secondEmotionState = filteringConditionSubject
-            .compactMap{ $0.1 }
+            .compactMap{ $0.second }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let initializeEmotionFilter = filteringConditionSubject
-            .filter{ $0.0 == nil && $0.1 == nil}
+            .filter{ $0.first == nil && $0.second == nil}
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
@@ -118,7 +118,7 @@ extension ReviewViewModel{
     }
     
     var goalsCount: Int{
-        goals.count == 0 ? 1 : goals.count
+        isGoalEmpty ? 1 : goals.count
     }
     
     var recordsCount: Int{
