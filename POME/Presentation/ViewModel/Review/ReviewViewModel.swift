@@ -28,7 +28,6 @@ class ReviewViewModel: BaseViewModel{
     
     private typealias FilteringCondition = (Int?, Int?)
     
-    private var selectedGoal: Int!
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
     private lazy var dataIndex: (Int) -> Int = { row in row - self.uiRelatedCellCount }
