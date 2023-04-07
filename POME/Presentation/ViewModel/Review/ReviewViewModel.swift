@@ -13,12 +13,12 @@ class ReviewViewModel: BaseViewModel{
     
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
-    private let getRecordsUseCase: GetGoalUseCaseInterface
+    private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
     private let deleteRecordUseCase: GetGoalUseCaseInterface
     
     init(regardlessOfRecordCount: Int,
          getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
-         getRecordsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+         getRecordsUseCase: GetRecordInReviewUseCaseInterface = GetRecordInReviewUseCase(),
          deleteRecordUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
         self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
@@ -28,10 +28,12 @@ class ReviewViewModel: BaseViewModel{
     
     private typealias FilteringCondition = (first: Int?, second: Int?)
     
+    private var page = 0
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
+    private let disposeBag = DisposeBag()
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
     private let filteringConditionSubject = BehaviorSubject<FilteringCondition>(value: (nil, nil))
     
@@ -43,10 +45,33 @@ class ReviewViewModel: BaseViewModel{
         let firstEmotionState: Driver<EmotionTag>
         let secondEmotionState: Driver<EmotionTag>
         let initializeEmotionFilter: Driver<Void>
-//        let showEmptyView: Driver<Void>
+        let reloadTableView: Driver<Void>
+        let showEmptyView: Driver<Bool>
     }
     
     func transform(_ input: Input) -> Output{
+        
+        let recordRequestObservable = Observable.combineLatest(selectGoalSubject, filteringConditionSubject)
+        
+        let recordsResponse = recordRequestObservable
+            .skip(1)
+            .do(onNext: { _ in
+                self.page = 0
+            }).flatMap{ _, filtering in
+                self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
+                                               requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
+                                                                                           secondEmotion: filtering.second,
+                                                                                           pageable: PageableModel(page: self.page)))
+            }
+        
+        let reloadTableView = recordsResponse
+            .map{ _ in Void() }
+            .asDriver(onErrorJustReturn: Void())
+        
+        let showEmptyView = recordsResponse
+            .map{ $0.content.isEmpty }
+            .asDriver(onErrorJustReturn: false)
+        
         
         let firstEmotionState = filteringConditionSubject
             .compactMap{ $0.first }
@@ -69,7 +94,9 @@ class ReviewViewModel: BaseViewModel{
         
         return Output(firstEmotionState: firstEmotionState,
                       secondEmotionState: secondEmotionState,
-                      initializeEmotionFilter: initializeEmotionFilter)
+                      initializeEmotionFilter: initializeEmotionFilter,
+                      reloadTableView: reloadTableView,
+                      showEmptyView: showEmptyView)
     }
     
     
@@ -78,7 +105,15 @@ class ReviewViewModel: BaseViewModel{
 extension ReviewViewModel{
     
     func viewDidLoad(){
-        
+        getGoalsUseCase.execute()
+            .subscribe(onNext: { [weak self] in
+                self?.responseGetGoals(goals: $0)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func responseGetGoals(goals: [GoalResponseModel]){
+        self.goals = goals.filter{ !$0.isEnd }
+        selectGoalSubject.onNext(selectedGoalIndex)
     }
     
     func updateData(){
@@ -118,7 +153,7 @@ extension ReviewViewModel{
     }
     
     var goalsCount: Int{
-        isGoalEmpty ? 1 : goals.count
+        goals.count
     }
     
     var recordsCount: Int{
@@ -127,6 +162,10 @@ extension ReviewViewModel{
     
     func getRecord(at index: Int) -> RecordResponseModel{
         records[dataIndex(index)]
+    }
+    
+    func getGoal(at index: Int) -> GoalResponseModel{
+        goals[index]
     }
     
     var selectedGoal: GoalResponseModel{
