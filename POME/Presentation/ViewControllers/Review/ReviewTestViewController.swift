@@ -19,9 +19,15 @@ class ReviewTestViewController: BaseTabViewController{
     
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
+    
     private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
     private lazy var firstEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateFirstEmotionFilter(viewModel: viewModel)
     private lazy var secondEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateSecondEmotionFilter(viewModel: viewModel)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.viewDidLoad()
+    }
     
     override func layout(){
         super.layout()
@@ -35,15 +41,38 @@ class ReviewTestViewController: BaseTabViewController{
     override func initialize(){
         setTableViewDelegate()
     }
+    private func setTableViewDelegate(){
+        mainView.tableView.do{
+            $0.separatorStyle = .none
+            $0.delegate = self
+            $0.dataSource = self
+        }
+    }
     
     override func bind() {
         
         let output = viewModel.transform(ReviewViewModel.Input())
         
+        output.showEmptyView
+            .drive(onNext: { [weak self] willShow in
+                willShow ? self?.mainView.emptyViewWillShow() : self?.mainView.emptyViewWillHide()
+            }).disposed(by: disposeBag)
+        
+        var goalTableViewCell: GoalTagsTableViewCell?{
+            mainView.tableView.cellForRow(at: [0,0], cellType: GoalTagsTableViewCell.self)
+        }
+        
+        output.reloadTableView
+            .drive(onNext: { [weak self] in
+                goalTableViewCell?.tagCollectionView.reloadData()
+                self?.mainView.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        
         var filteringCell: ReviewFilterTableViewCell?{
             mainView.tableView.cellForRow(at: [0,2], cellType: ReviewFilterTableViewCell.self)
         }
-
+        
         output.firstEmotionState
             .drive(onNext: {
                 filteringCell?.firstEmotionFilter.setFilterSelectState(emotion: $0)
@@ -62,24 +91,45 @@ class ReviewTestViewController: BaseTabViewController{
                 }
             }).disposed(by: disposeBag)
     }
-    
-    private func setTableViewDelegate(){
-        mainView.tableView.do{
-            $0.separatorStyle = .none
-            $0.delegate = self
-            $0.dataSource = self
-        }
-    }
 }
 
-extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.goalsCount
+        viewModel.isGoalEmpty ? 1 : viewModel.goalsCount
+    }
+    
+    private func getGoalCellTitle(index: Int) -> String{
+        viewModel.isGoalEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.getGoal(at: index).name
+    }
+    
+    private func isGoalEnd(index: Int) -> Bool{
+        viewModel.getGoal(at: index).isGoalEnd
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
+        collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self).then{
+            $0.title = getGoalCellTitle(index: indexPath.row)
+            viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let title = getGoalCellTitle(index: indexPath.row)
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            viewModel.selectGoal(at: indexPath.row)
+            $0.setSelectState()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+        }
     }
 }
 
