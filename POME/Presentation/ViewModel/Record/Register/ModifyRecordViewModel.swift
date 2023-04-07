@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
+final class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
     
     private let modifyRecordUseCase: ModifyRecordUseCaseInterface
     private let recordId: Int

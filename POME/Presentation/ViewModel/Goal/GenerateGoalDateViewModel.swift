@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-class GenerateGoalDateViewModel{
+final class GenerateGoalDateViewModel{
     
     private let startDateSubject = PublishSubject<String>()
     private let endDateSubject = PublishSubject<String>()

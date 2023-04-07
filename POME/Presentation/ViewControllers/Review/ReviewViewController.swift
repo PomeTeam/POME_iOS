@@ -327,26 +327,26 @@ extension ReviewViewController{
     }
 
     private func requestGetRecords(){
-        let goalId = goals[currentGoal].id
-        let loadingViewAnimate = page == 0 ? true : false
-        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
-                                                         firstEmotion: filterController.0,
-                                                         secondEmotion: filterController.1,
-                                                         pageable: PageableModel(page: page),
-                                                         animate: loadingViewAnimate){ response in
-            switch response {
-            case .success(let data):
-                print("LOG: success requestGetRecords", data)
-                self.processResponseGetRecords(data: data)
-                return
-            default:
-                print("LOG: fail requestGetRecords", response)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGetRecords()
-                }
-                break
-            }
-        }
+//        let goalId = goals[currentGoal].id
+//        let loadingViewAnimate = page == 0 ? true : false
+//        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
+//                                                         firstEmotion: filterController.0,
+//                                                         secondEmotion: filterController.1,
+//                                                         pageable: PageableModel(page: page),
+//                                                         animate: loadingViewAnimate){ response in
+//            switch response {
+//            case .success(let data):
+//                print("LOG: success requestGetRecords", data)
+//                self.processResponseGetRecords(data: data)
+//                return
+//            default:
+//                print("LOG: fail requestGetRecords", response)
+//                NetworkAlert.show(in: self){ [weak self] in
+//                    self?.requestGetRecords()
+//                }
+//                break
+//            }
+//        }
     }
     
     private func processResponseGetRecords(data: PageableResponseModel<RecordResponseModel>){

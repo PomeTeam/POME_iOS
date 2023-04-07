@@ -16,7 +16,7 @@ enum CalendarDate: Int{
     case end = 200
 }
 
-class GenerateGoalDateViewController: BaseViewController {
+final class GenerateGoalDateViewController: BaseViewController {
     
     private let mainView = GenerateGoalDateView()
     private let viewModel = GenerateGoalDateViewModel()
@@ -116,6 +116,6 @@ class GenerateGoalDateViewController: BaseViewController {
     
     private func willMoveGoalContentViewController(dateRange: GoalDateDTO){
         let vc = GenerateGoalContentViewController(goalDateRange: dateRange)
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

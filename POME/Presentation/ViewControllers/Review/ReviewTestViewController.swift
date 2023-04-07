@@ -17,10 +17,17 @@ class ReviewTestViewController: BaseTabViewController{
     
     private var isPaging: Bool = false
     
+    private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
-    private let viewModel = ReviewViewModel()
+    
+    private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
     private lazy var firstEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateFirstEmotionFilter(viewModel: viewModel)
     private lazy var secondEmotionFilterBottomSheet = EmotionFilterTestSheetViewController.generateSecondEmotionFilter(viewModel: viewModel)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.viewDidLoad()
+    }
     
     override func layout(){
         super.layout()
@@ -34,15 +41,38 @@ class ReviewTestViewController: BaseTabViewController{
     override func initialize(){
         setTableViewDelegate()
     }
+    private func setTableViewDelegate(){
+        mainView.tableView.do{
+            $0.separatorStyle = .none
+            $0.delegate = self
+            $0.dataSource = self
+        }
+    }
     
     override func bind() {
         
         let output = viewModel.transform(ReviewViewModel.Input())
         
+        output.showEmptyView
+            .drive(onNext: { [weak self] willShow in
+                willShow ? self?.mainView.emptyViewWillShow() : self?.mainView.emptyViewWillHide()
+            }).disposed(by: disposeBag)
+        
+        var goalTableViewCell: GoalTagsTableViewCell?{
+            mainView.tableView.cellForRow(at: [0,0], cellType: GoalTagsTableViewCell.self)
+        }
+        
+        output.reloadTableView
+            .drive(onNext: { [weak self] in
+                goalTableViewCell?.tagCollectionView.reloadData()
+                self?.mainView.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        
         var filteringCell: ReviewFilterTableViewCell?{
             mainView.tableView.cellForRow(at: [0,2], cellType: ReviewFilterTableViewCell.self)
         }
-
+        
         output.firstEmotionState
             .drive(onNext: {
                 filteringCell?.firstEmotionFilter.setFilterSelectState(emotion: $0)
@@ -55,28 +85,51 @@ class ReviewTestViewController: BaseTabViewController{
         
         output.initializeEmotionFilter
             .drive(onNext: {
-                filteringCell?.firstEmotionFilter.setFilterDefaultState()
-                filteringCell?.secondEmotionFilter.setFilterDefaultState()
+                filteringCell?.do{
+                    $0.firstEmotionFilter.setFilterDefaultState()
+                    $0.secondEmotionFilter.setFilterDefaultState()
+                }
             }).disposed(by: disposeBag)
-    }
-    
-    private func setTableViewDelegate(){
-        mainView.tableView.do{
-            $0.separatorStyle = .none
-            $0.delegate = self
-            $0.dataSource = self
-        }
     }
 }
 
-extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.getGoalsCount()
+        viewModel.isGoalEmpty ? 1 : viewModel.goalsCount
+    }
+    
+    private func getGoalCellTitle(index: Int) -> String{
+        viewModel.isGoalEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.getGoal(at: index).name
+    }
+    
+    private func isGoalEnd(index: Int) -> Bool{
+        viewModel.getGoal(at: index).isGoalEnd
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
+        collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self).then{
+            $0.title = getGoalCellTitle(index: indexPath.row)
+            viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let title = getGoalCellTitle(index: indexPath.row)
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            viewModel.selectGoal(at: indexPath.row)
+            $0.setSelectState()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+        }
     }
 }
 
@@ -88,7 +141,7 @@ extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 0){
-            return viewModel.getRecordsCount() + 3 //record 이외 UI 구성하는 cell 3개 존재
+            return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
         }else if(section == 1 && isPaging && viewModel.hasNextPage()){
             return 1
         }else{
@@ -124,7 +177,7 @@ extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
-            viewModel.isGoalEmpty() ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.getSelectGoal())
+            viewModel.isGoalEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
         }
     }
     
@@ -172,29 +225,29 @@ extension ReviewTestViewController: RecordCellDelegate{
 }
 
 extension ReviewTestViewController{
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.height
-        
-        if offsetY > (contentHeight - height) {
-            if isPaging == false && viewModel.hasNextPage() {
-                beginPaging()
-            }
-        }
-    }
-    
-    private func beginPaging(){
-        
-        isPaging = true
-        viewModel.requestNextPage()
-        
-        DispatchQueue.main.async { [self] in
-            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            self.requestGetRecords()
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        let contentHeight = scrollView.contentSize.height
+//        let height = scrollView.frame.height
+//
+//        if offsetY > (contentHeight - height) {
+//            if isPaging == false && viewModel.hasNextPage() {
+//                beginPaging()
+//            }
+//        }
+//    }
+//
+//    private func beginPaging(){
+//
+//        isPaging = true
+//        viewModel.requestNextPage()
+//
+//        DispatchQueue.main.async { [self] in
+//            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+//        }
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+////            self.requestGetRecords()
+//        }
+//    }
 }

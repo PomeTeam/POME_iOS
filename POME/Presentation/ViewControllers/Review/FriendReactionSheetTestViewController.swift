@@ -85,7 +85,7 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch getCollectionViewType(tag: collectionView.tag){
         case .reactionType:         return 7
-        case .friendReaction:   return viewModel.getFriendsReactionCount()
+        case .friendReaction:       return viewModel.getFriendsReactionCount()
         }
     }
     
@@ -129,7 +129,7 @@ extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICol
         if (getCollectionViewType(tag: collectionView.tag) != .reactionType) {
             return
         }
-        closure(collectionView.cellForItem(at: indexPath, cellType: ReactionTypeCollectionViewCell.self))
+        closure(collectionView.cellForItem(at: indexPath, cellType: ReactionTypeCollectionViewCell.self)!)
     }
     
 }

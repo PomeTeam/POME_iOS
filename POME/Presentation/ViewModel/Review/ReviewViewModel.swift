@@ -11,27 +11,31 @@ import RxCocoa
 
 class ReviewViewModel: BaseViewModel{
     
+    private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
-    private let getRecordsUseCase: GetGoalUseCaseInterface
+    private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
     private let deleteRecordUseCase: GetGoalUseCaseInterface
     
-    init(getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
-         getRecordsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+    init(regardlessOfRecordCount: Int,
+         getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+         getRecordsUseCase: GetRecordInReviewUseCaseInterface = GetRecordInReviewUseCase(),
          deleteRecordUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
+        self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
         self.deleteRecordUseCase = deleteRecordUseCase
     }
     
-    private typealias FilteringCondition = (Int?, Int?)
+    private typealias FilteringCondition = (first: Int?, second: Int?)
     
-    private var selectedGoal: Int!
+    private var page = 0
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
+    private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
-    private let dataIndex: (Int) -> Int = { row in row - 3 }
+    private let disposeBag = DisposeBag()
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
-    private let filteringConditionSubject = BehaviorSubject<(Int?, Int?)>(value: (nil, nil))
+    private let filteringConditionSubject = BehaviorSubject<FilteringCondition>(value: (nil, nil))
     
     struct Input{
         
@@ -41,33 +45,58 @@ class ReviewViewModel: BaseViewModel{
         let firstEmotionState: Driver<EmotionTag>
         let secondEmotionState: Driver<EmotionTag>
         let initializeEmotionFilter: Driver<Void>
-//        let showEmptyView: Driver<Void>
+        let reloadTableView: Driver<Void>
+        let showEmptyView: Driver<Bool>
     }
     
     func transform(_ input: Input) -> Output{
         
+        let recordRequestObservable = Observable.combineLatest(selectGoalSubject, filteringConditionSubject)
+        
+        let recordsResponse = recordRequestObservable
+            .skip(1)
+            .do(onNext: { _ in
+                self.page = 0
+            }).flatMap{ _, filtering in
+                self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
+                                               requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
+                                                                                           secondEmotion: filtering.second,
+                                                                                           pageable: PageableModel(page: self.page)))
+            }
+        
+        let reloadTableView = recordsResponse
+            .map{ _ in Void() }
+            .asDriver(onErrorJustReturn: Void())
+        
+        let showEmptyView = recordsResponse
+            .map{ $0.content.isEmpty }
+            .asDriver(onErrorJustReturn: false)
+        
+        
         let firstEmotionState = filteringConditionSubject
-            .compactMap{ $0.0 }
+            .compactMap{ $0.first }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let secondEmotionState = filteringConditionSubject
-            .compactMap{ $0.1 }
+            .compactMap{ $0.second }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let initializeEmotionFilter = filteringConditionSubject
-            .filter{ $0.0 == nil && $0.1 == nil}
+            .filter{ $0.first == nil && $0.second == nil}
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
         return Output(firstEmotionState: firstEmotionState,
                       secondEmotionState: secondEmotionState,
-                      initializeEmotionFilter: initializeEmotionFilter)
+                      initializeEmotionFilter: initializeEmotionFilter,
+                      reloadTableView: reloadTableView,
+                      showEmptyView: showEmptyView)
     }
     
     
@@ -75,39 +104,40 @@ class ReviewViewModel: BaseViewModel{
 
 extension ReviewViewModel{
     
-    
-    /*
-     상단에서 아래로 스와이플 할 경우에만 데이터 reload 시키는 건 어떤지..?
-     */
-    
     func viewDidLoad(){
+        getGoalsUseCase.execute()
+            .subscribe(onNext: { [weak self] in
+                self?.responseGetGoals(goals: $0)
+            }).disposed(by: disposeBag)
+    }
+    
+    private func responseGetGoals(goals: [GoalResponseModel]){
+        self.goals = goals.filter{ !$0.isEnd }
+        selectGoalSubject.onNext(selectedGoalIndex)
+    }
+    
+    func updateData(){
         
     }
-    
-    func viewWillAppear(){
-        //목표 조회 api 호출
-    }
-    
+
     func selectGoal(at index: Int){
         selectGoalSubject.onNext(index)
     }
     
     func filterFirstEmotion(id: Int){
-        let current = getCurrentFilteringCondition()
-        changeFilteringCondition(first: id, second: current.1)
+        changeFilteringCondition(first: id, second: filteringCondition.1)
     }
     
     func filterSecondEmotion(id: Int){
-        let current = getCurrentFilteringCondition()
-        changeFilteringCondition(first: current.0, second: id)
+        changeFilteringCondition(first: filteringCondition.0, second: id)
     }
     
     func initializeFilterCondtion(){
         changeFilteringCondition(first: nil, second: nil)
     }
     
-    private func getCurrentFilteringCondition() -> FilteringCondition{
-        return try! filteringConditionSubject.value()
+    private var filteringCondition: FilteringCondition{
+        try! filteringConditionSubject.value()
     }
     
     private func changeFilteringCondition(first: Int?, second: Int?){
@@ -118,15 +148,15 @@ extension ReviewViewModel{
         
     }
     
-    func isGoalEmpty() -> Bool{
+    var isGoalEmpty: Bool{
         goals.count == 0
     }
     
-    func getGoalsCount() -> Int{
-        goals.count == 0 ? 1 : goals.count
+    var goalsCount: Int{
+        goals.count
     }
     
-    func getRecordsCount() -> Int{
+    var recordsCount: Int{
         records.count
     }
     
@@ -134,8 +164,16 @@ extension ReviewViewModel{
         records[dataIndex(index)]
     }
     
-    func getSelectGoal() -> GoalResponseModel{
-        goals[selectedGoal]
+    func getGoal(at index: Int) -> GoalResponseModel{
+        goals[index]
+    }
+    
+    var selectedGoal: GoalResponseModel{
+        goals[selectedGoalIndex]
+    }
+    
+    var selectedGoalIndex: Int{
+        try! selectGoalSubject.value()
     }
     
     func hasNextPage() -> Bool{

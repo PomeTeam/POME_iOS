@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 
 protocol RecordRepositoryInterface{
+    func getRecordInReview(goalId: Int, requestValue: GetRecordInReviewRequestModel) -> Observable<PageableResponseModel<RecordResponseModel>>
     func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int>
     func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<Int>
     func deleteRecord()

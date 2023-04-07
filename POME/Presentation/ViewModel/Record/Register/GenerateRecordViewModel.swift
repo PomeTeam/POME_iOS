@@ -8,7 +8,7 @@
 import Foundation
 import RxCocoa
 
-class GenerateRecordViewModel: RecordableViewModel{
+final class GenerateRecordViewModel: RecordableViewModel{
     
     private let generateRecordUseCase: ModifyRecordUseCaseInterface
     

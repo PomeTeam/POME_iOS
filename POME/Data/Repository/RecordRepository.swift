@@ -10,6 +10,21 @@ import RxSwift
 
 class RecordRepository: RecordRepositoryInterface{
     
+    func getRecordInReview(goalId: Int, requestValue: GetRecordInReviewRequestModel) -> Observable<PageableResponseModel<RecordResponseModel>>{
+        let observable = Observable<PageableResponseModel<RecordResponseModel>>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId, request: requestValue){ response in
+                switch response {
+                case .success(let data):
+                    observer.onNext(data)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
+    }
+    
     func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int> {
         let observable = Observable<Int>.create { observer -> Disposable in
             let requestReference: () = RecordService.shared.modifyRecord(id: id, request: requestValue){ response in

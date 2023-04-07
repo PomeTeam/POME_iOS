@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class GenerateGoalContentViewModel{
+final class GenerateGoalContentViewModel{
     
     private let generateGoalUseCase: GenerateGoalUseCase
     
