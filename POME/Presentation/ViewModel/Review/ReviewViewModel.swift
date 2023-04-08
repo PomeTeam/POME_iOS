@@ -28,13 +28,14 @@ class ReviewViewModel: BaseViewModel{
     
     private typealias FilteringCondition = (first: Int?, second: Int?)
     
-    private var page = 0
+    private var canRequestNextPage = false
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel]()
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
     private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
+    private let pageSubject = BehaviorSubject<Int>(value: 0)
     private let filteringConditionSubject = BehaviorSubject<FilteringCondition>(value: (nil, nil))
     
     struct Input{
@@ -50,28 +51,6 @@ class ReviewViewModel: BaseViewModel{
     }
     
     func transform(_ input: Input) -> Output{
-        
-        let recordRequestObservable = Observable.combineLatest(selectGoalSubject, filteringConditionSubject)
-        
-        let recordsResponse = recordRequestObservable
-            .skip(1)
-            .do(onNext: { _ in
-                self.page = 0
-            }).flatMap{ _, filtering in
-                self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
-                                               requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
-                                                                                           secondEmotion: filtering.second,
-                                                                                           pageable: PageableModel(page: self.page)))
-            }
-        
-        let reloadTableView = recordsResponse
-            .map{ _ in Void() }
-            .asDriver(onErrorJustReturn: Void())
-        
-        let showEmptyView = recordsResponse
-            .map{ $0.content.isEmpty }
-            .asDriver(onErrorJustReturn: false)
-        
         
         let firstEmotionState = filteringConditionSubject
             .compactMap{ $0.first }
@@ -92,6 +71,56 @@ class ReviewViewModel: BaseViewModel{
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
+        selectGoalSubject
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                print("<>goal change", $0)
+                self?.initializeRecordRequest()
+            }).disposed(by: disposeBag)
+        
+        filteringConditionSubject
+            .skip(1)
+            .subscribe(onNext: { [weak self] in
+                print("<>filtering change", $0)
+                self?.initializeRecordRequest()
+            }).disposed(by: disposeBag)
+        
+        //왜 요청이 2-3번씩 가는 것일까
+        let recordsResponse = pageSubject
+            .skip(1)
+            .do(onNext: {
+                print("<>page change", $0)
+                if($0 == 0){
+                    self.canRequestNextPage = false
+                }
+            }).map{ page in
+                (page, self.filteringCondition)
+            }.flatMap{ (page, filtering) in
+                self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
+                                               requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
+                                                                                           secondEmotion: filtering.second,
+                                                                                           pageable: PageableModel(page: page)))
+            }
+        
+        recordsResponse
+            .do(onNext: {
+                self.canRequestNextPage = !$0.last
+            }).subscribe(onNext: {
+                if($0.page == 0){
+                    self.records = $0.content
+                }else{
+                    self.records.append(contentsOf: $0.content)
+                }
+            }).disposed(by: disposeBag)
+        
+        let reloadTableView = recordsResponse
+            .map{ _ in Void() }
+            .asDriver(onErrorJustReturn: Void())
+        
+        let showEmptyView = recordsResponse
+            .map{ $0.page == 0 && $0.content.isEmpty }
+            .asDriver(onErrorJustReturn: false)
+        
         return Output(firstEmotionState: firstEmotionState,
                       secondEmotionState: secondEmotionState,
                       initializeEmotionFilter: initializeEmotionFilter,
@@ -99,12 +128,15 @@ class ReviewViewModel: BaseViewModel{
                       showEmptyView: showEmptyView)
     }
     
-    
+    private func initializeRecordRequest(){
+        canRequestNextPage = false
+        pageSubject.onNext(0)
+    }
 }
 
 extension ReviewViewModel{
     
-    func viewDidLoad(){
+    func refreshData(){
         getGoalsUseCase.execute()
             .subscribe(onNext: { [weak self] in
                 self?.responseGetGoals(goals: $0)
@@ -114,10 +146,6 @@ extension ReviewViewModel{
     private func responseGetGoals(goals: [GoalResponseModel]){
         self.goals = goals.filter{ !$0.isEnd }
         selectGoalSubject.onNext(selectedGoalIndex)
-    }
-    
-    func updateData(){
-        
     }
 
     func selectGoal(at index: Int){
@@ -145,7 +173,7 @@ extension ReviewViewModel{
     }
     
     func requestNextPage(){
-        
+        pageSubject.onNext(try! pageSubject.value() + 1)
     }
     
     var isGoalEmpty: Bool{
@@ -177,6 +205,6 @@ extension ReviewViewModel{
     }
     
     func hasNextPage() -> Bool{
-        true
+        canRequestNextPage
     }
 }
