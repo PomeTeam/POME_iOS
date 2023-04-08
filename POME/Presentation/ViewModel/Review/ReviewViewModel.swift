@@ -34,9 +34,9 @@ class ReviewViewModel: BaseViewModel{
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
-    private let selectGoalSubject = BehaviorSubject<Int>(value: 0)
-    private let pageSubject = BehaviorSubject<Int>(value: 0)
-    private let filteringConditionSubject = BehaviorSubject<FilteringCondition>(value: (nil, nil))
+    private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
+    private let pageRelay = BehaviorRelay<Int>(value: 0)
+    private let filteringConditionRelay = BehaviorRelay<FilteringCondition>(value: (nil, nil))
     
     struct Input{
         
@@ -53,40 +53,40 @@ class ReviewViewModel: BaseViewModel{
     func transform(_ input: Input) -> Output{
         
         //emotion filter control
-        let firstEmotionState = filteringConditionSubject
+        let firstEmotionState = filteringConditionRelay
             .compactMap{ $0.first }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
-        let secondEmotionState = filteringConditionSubject
+        let secondEmotionState = filteringConditionRelay
             .compactMap{ $0.second }
             .map{
                 EmotionTag(rawValue: $0)
             }.compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
-        let initializeEmotionFilter = filteringConditionSubject
+        let initializeEmotionFilter = filteringConditionRelay
             .filter{ $0.first == nil && $0.second == nil}
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
         //새로운 목표 선택 또는 필터 조건 변경시 paging 관련 프로퍼티 초기화
-        selectGoalSubject
+        selectGoalRelay
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
         
-        filteringConditionSubject
+        filteringConditionRelay
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
 
         //기록 조회
-        let recordsResponse = pageSubject
+        let recordsResponse = pageRelay
             .skip(1)
             .do(onNext: {
                 if($0 == 0){
@@ -129,7 +129,7 @@ class ReviewViewModel: BaseViewModel{
     
     private func initializeRecordRequest(){
         canRequestNextPage = false
-        pageSubject.onNext(0)
+        pageRelay.accept(0)
     }
 }
 
@@ -144,11 +144,11 @@ extension ReviewViewModel{
     
     private func responseGetGoals(goals: [GoalResponseModel]){
         self.goals = goals.filter{ !$0.isEnd }
-        selectGoalSubject.onNext(selectedGoalIndex)
+        selectGoalRelay.accept(selectedGoalIndex)
     }
 
     func selectGoal(at index: Int){
-        selectGoalSubject.onNext(index)
+        selectGoalRelay.accept(index)
     }
     
     func filterFirstEmotion(id: Int){
@@ -164,15 +164,15 @@ extension ReviewViewModel{
     }
     
     private var filteringCondition: FilteringCondition{
-        try! filteringConditionSubject.value()
+        filteringConditionRelay.value
     }
     
     private func changeFilteringCondition(first: Int?, second: Int?){
-        filteringConditionSubject.onNext((first, second))
+        filteringConditionRelay.accept((first, second))
     }
     
     func requestNextPage(){
-        pageSubject.onNext(try! pageSubject.value() + 1)
+        pageRelay.accept(pageRelay.value + 1)
     }
     
     var isGoalEmpty: Bool{
@@ -200,7 +200,7 @@ extension ReviewViewModel{
     }
     
     var selectedGoalIndex: Int{
-        try! selectGoalSubject.value()
+        selectGoalRelay.value
     }
     
     func hasNextPage() -> Bool{
