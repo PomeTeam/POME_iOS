@@ -52,6 +52,7 @@ class ReviewViewModel: BaseViewModel{
     
     func transform(_ input: Input) -> Output{
         
+        //emotion filter control
         let firstEmotionState = filteringConditionSubject
             .compactMap{ $0.first }
             .map{
@@ -71,36 +72,34 @@ class ReviewViewModel: BaseViewModel{
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
+        //새로운 목표 선택 또는 필터 조건 변경시 paging 관련 프로퍼티 초기화
         selectGoalSubject
             .skip(1)
-            .subscribe(onNext: { [weak self] in
-                print("<>goal change", $0)
+            .subscribe(onNext: { [weak self] _ in
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
         
         filteringConditionSubject
             .skip(1)
-            .subscribe(onNext: { [weak self] in
-                print("<>filtering change", $0)
+            .subscribe(onNext: { [weak self] _ in
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
-        
-        //왜 요청이 2-3번씩 가는 것일까
+
+        //기록 조회
         let recordsResponse = pageSubject
             .skip(1)
             .do(onNext: {
-                print("<>page change", $0)
                 if($0 == 0){
                     self.canRequestNextPage = false
                 }
             }).map{ page in
-                (page, self.filteringCondition)
+                return (page, self.filteringCondition)
             }.flatMap{ (page, filtering) in
                 self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
                                                requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
                                                                                            secondEmotion: filtering.second,
                                                                                            pageable: PageableModel(page: page)))
-            }
+            }.share()
         
         recordsResponse
             .do(onNext: {
