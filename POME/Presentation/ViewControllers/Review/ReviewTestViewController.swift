@@ -15,7 +15,7 @@ enum EmotionTime: Int{
 
 class ReviewTestViewController: BaseTabViewController{
     
-    private var isPaging: Bool = false
+    private var isPaging = false
     
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
@@ -26,7 +26,7 @@ class ReviewTestViewController: BaseTabViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewDidLoad()
+        viewModel.refreshData()
     }
     
     override func layout(){
@@ -64,6 +64,7 @@ class ReviewTestViewController: BaseTabViewController{
         
         output.reloadTableView
             .drive(onNext: { [weak self] in
+                self?.isPaging = false
                 goalTableViewCell?.tagCollectionView.reloadData()
                 self?.mainView.tableView.reloadData()
             }).disposed(by: disposeBag)
@@ -121,9 +122,9 @@ extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
-            viewModel.selectGoal(at: indexPath.row)
             $0.setSelectState()
         }
+        viewModel.selectGoal(at: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -225,29 +226,28 @@ extension ReviewTestViewController: RecordCellDelegate{
 }
 
 extension ReviewTestViewController{
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//        let height = scrollView.frame.height
-//
-//        if offsetY > (contentHeight - height) {
-//            if isPaging == false && viewModel.hasNextPage() {
-//                beginPaging()
-//            }
-//        }
-//    }
-//
-//    private func beginPaging(){
-//
-//        isPaging = true
-//        viewModel.requestNextPage()
-//
-//        DispatchQueue.main.async { [self] in
-//            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-//        }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-////            self.requestGetRecords()
-//        }
-//    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+
+        if offsetY > (contentHeight - height) {
+            if isPaging == false && viewModel.hasNextPage() {
+                beginPaging()
+            }
+        }
+    }
+
+    private func beginPaging(){
+
+        isPaging = true
+
+        DispatchQueue.main.async { [self] in
+            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.requestNextPage()
+        }
+    }
 }
