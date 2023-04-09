@@ -111,7 +111,7 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
 extension RecordEmotionViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
         let data = noSecondEmotionRecord[dataIndexBy(indexPath)].friendReactions
-        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

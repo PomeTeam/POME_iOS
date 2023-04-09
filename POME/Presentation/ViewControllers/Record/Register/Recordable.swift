@@ -114,7 +114,7 @@ class Recordable: BaseViewController{
     }
     
     private func calendarSheetWillShow(){
-        CalendarSheetViewController().loadAndShowBottomSheet(in: self).do{
+        CalendarSheetViewController().show(in: self).do{
             $0.completion = { [weak self] in
                 self?.viewModel.selectDate($0)
             }
@@ -122,7 +122,7 @@ class Recordable: BaseViewController{
     }
     
     private func categorySheetWillShow(){
-        categoryBottomSheet.loadAndShowBottomSheet(in: self)
+        categoryBottomSheet.show(in: self)
     }
 }
 

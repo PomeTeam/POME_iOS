@@ -217,7 +217,7 @@ extension ReviewTestViewController: FilterDelegate{
             case .second:   return secondEmotionFilterBottomSheet
             }
         }()
-        filterSheet.loadAndShowBottomSheet(in: self)
+        filterSheet.show(in: self)
     }
     
     func initializeFilteringCondition() {
@@ -229,7 +229,7 @@ extension ReviewTestViewController: RecordCellDelegate{
     
     func presentReactionSheet(indexPath: IndexPath) {
         let data = viewModel.getRecord(at: indexPath.row).friendReactions
-        FriendReactionSheetTestViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetTestViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

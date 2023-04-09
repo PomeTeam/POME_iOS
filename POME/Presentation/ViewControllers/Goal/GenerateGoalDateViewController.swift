@@ -108,7 +108,7 @@ final class GenerateGoalDateViewController: BaseViewController {
             }
         }()
         
-        sheet.loadAndShowBottomSheet(in: self)
+        sheet.show(in: self)
         sheet.completion = { date in
             self.viewModel.selectDate(tag: calendarType.rawValue, date)
         }

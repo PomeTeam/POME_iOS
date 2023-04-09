@@ -71,7 +71,7 @@ class RecordViewController: BaseTabViewController {
     }
     @objc func writeButtonDidTap() {
         if self.goalContent.isEmpty {
-            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").loadAndShowBottomSheet(in: self)
+            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").show(in: self)
         } else {
             let goal = goalContent[categorySelectedIdx]
             let vc = GenerateRecordViewController(goal: goal)
@@ -129,13 +129,13 @@ class RecordViewController: BaseTabViewController {
     func showNoSecondEmotionWarning() {
         let sheet = RecordBottomSheetViewController(Image.penPink,
                                                     "아직 돌아보지 않은 기록이 있어요!",
-                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요").loadAndShowBottomSheet(in: self)
+                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요").show(in: self)
     }
     func cannotAddEmotionWarning() {
-        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!").loadAndShowBottomSheet(in: self)
+        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!").show(in: self)
     }
     func cannotAddGoalWarning() {
-        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!").loadAndShowBottomSheet(in: self)
+        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!").show(in: self)
     }
     
 }
@@ -289,7 +289,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 extension RecordViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
         let data = recordsOfGoal[dataIndexBy(indexPath)].friendReactions
-        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
