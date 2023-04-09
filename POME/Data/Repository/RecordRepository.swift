@@ -25,12 +25,12 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
     
-    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int> {
-        let observable = Observable<Int>.create { observer -> Disposable in
+    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<RecordResponseModel> {
+        let observable = Observable<RecordResponseModel>.create { observer -> Disposable in
             let requestReference: () = RecordService.shared.modifyRecord(id: id, request: requestValue){ response in
                 switch response {
-                case .success:
-                    observer.onNext(200)
+                case .success(let data):
+                    observer.onNext(data)
                 default:
                     break
                 }
