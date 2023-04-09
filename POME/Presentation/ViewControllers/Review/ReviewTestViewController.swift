@@ -98,6 +98,11 @@ class ReviewTestViewController: BaseTabViewController{
             .drive(onNext: { indexPath in
                 self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
             }).disposed(by: disposeBag)
+        
+        output.modifyRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
+            }).disposed(by: disposeBag)
     }
 }
 
@@ -229,18 +234,17 @@ extension ReviewTestViewController: RecordCellDelegate{
     
     func presentEtcActionSheet(indexPath: IndexPath) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
-            $0.addAction(generateModifyAction($0, index: indexPath.row))
+            $0.addAction(generateModifyAction($0, indexPath: indexPath))
             $0.addAction(generateDeleteAction($0, indexPath: indexPath))
             $0.addAction(generateCancelAction())
         }
         present(alert, animated: true)
     }
     
-    private func generateModifyAction(_ alert: UIAlertController, index: Int) -> UIAlertAction{
+    private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
         return UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordViewController(goal: self.viewModel.selectedGoal,
-                                                record: self.viewModel.getRecord(at: index))
+            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -275,13 +279,10 @@ extension ReviewTestViewController{
     }
 
     private func beginPaging(){
-
         isPaging = true
-
         DispatchQueue.main.async { [self] in
             mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.viewModel.requestNextPage()
         }

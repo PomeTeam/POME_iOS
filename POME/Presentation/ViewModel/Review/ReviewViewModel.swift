@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class ReviewViewModel: BaseViewModel{
+class ReviewViewModel: BaseViewModel, ModifyRecord{
     
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
@@ -38,6 +38,7 @@ class ReviewViewModel: BaseViewModel{
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
+    private let modifyRecordSubject = PublishSubject<IndexPath>()
     private let deleteRecordSubject = PublishSubject<IndexPath>()
     private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
@@ -52,6 +53,7 @@ class ReviewViewModel: BaseViewModel{
         let secondEmotionState: Driver<EmotionTag>
         let initializeEmotionFilter: Driver<Void>
         let deleteRecord: Driver<IndexPath>
+        let modifyRecord: Driver<IndexPath>
         let reloadTableView: Driver<Void>
         let showEmptyView: Driver<Bool>
     }
@@ -71,6 +73,10 @@ class ReviewViewModel: BaseViewModel{
                 self.records.remove(at: self.dataIndex($1.row))
             })
             .map{ $0.1 }
+            .asDriver(onErrorJustReturn: IndexPath.init())
+        
+        //modify record
+        let modifyRecordIndexPath = modifyRecordSubject
             .asDriver(onErrorJustReturn: IndexPath.init())
         
         //emotion filter control
@@ -143,6 +149,7 @@ class ReviewViewModel: BaseViewModel{
                       secondEmotionState: secondEmotionState,
                       initializeEmotionFilter: initializeEmotionFilter,
                       deleteRecord: deleteIndexPath,
+                      modifyRecord: modifyRecordIndexPath,
                       reloadTableView: reloadTableView,
                       showEmptyView: showEmptyView)
     }
@@ -165,6 +172,11 @@ extension ReviewViewModel{
     private func responseGetGoals(goals: [GoalResponseModel]){
         self.goals = goals.filter{ !$0.isEnd }
         selectGoalRelay.accept(selectedGoalIndex)
+    }
+    
+    func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel){
+        records[dataIndex(indexPath.row)] = record
+        modifyRecordSubject.onNext(indexPath)
     }
     
     func deleteRecord(at indexPath: IndexPath){

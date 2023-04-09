@@ -16,7 +16,18 @@ protocol ModifyRecord{
 final class ModifyRecordViewController: Recordable{
     
     private let record: RecordResponseModel
+    private var modifyViewModel: ModifyRecord?
+    private var tableViewIndexPath: IndexPath!
     
+    init(modifyViewModel: ModifyRecord, indexPath: IndexPath){
+        self.modifyViewModel = modifyViewModel
+        self.tableViewIndexPath = indexPath
+        self.record = modifyViewModel.getRecord(at: indexPath.row)
+        super.init(recordType: .modify, viewModel: ModifyRecordViewModel(recordId: record.id,
+                                                                         defaultGoal: modifyViewModel.selectedGoal,
+                                                                         defaultDate: record.useDate))
+    }
+    //will delete
     init(goal: GoalResponseModel, record: RecordResponseModel){
         self.record = record
         super.init(recordType: .modify,
@@ -39,10 +50,9 @@ final class ModifyRecordViewController: Recordable{
         super.bind()
         
         viewModel.controlEvent(mainView.completeButton.rx.tap)
-            .drive(onNext:{ [weak self] statusCode in
-                if(statusCode == 200){
-                    self?.navigationController?.popViewController(animated: true)
-                }
+            .subscribe(onNext: { modifyRecord in
+                self.modifyViewModel?.modifyRecord(indexPath: self.tableViewIndexPath, modifyRecord)
+                self.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
     }
 }
