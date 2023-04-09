@@ -17,7 +17,7 @@ protocol GoalSelectViewModel{
 
 protocol RecordButtonControl{
     associatedtype Output
-    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output>
+    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Output
 }
 
 class RecordableViewModel: BaseViewModel{
