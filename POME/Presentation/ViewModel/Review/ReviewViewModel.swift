@@ -30,13 +30,18 @@ class ReviewViewModel: BaseViewModel{
     
     private var canRequestNextPage = false
     private var goals = [GoalResponseModel]()
-    private var records = [RecordResponseModel]()
+    private var records = [RecordResponseModel](){
+        didSet{
+            emptyViewVisibilitySubject.onNext(records.isEmpty)
+        }
+    }
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
     private let deleteRecordSubject = PublishSubject<IndexPath>()
     private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
+    private let emptyViewVisibilitySubject = PublishSubject<Bool>()
     private let filteringConditionRelay = BehaviorRelay<FilteringCondition>(value: (nil, nil))
     
     struct Input{
@@ -130,9 +135,9 @@ class ReviewViewModel: BaseViewModel{
             .map{ _ in Void() }
             .asDriver(onErrorJustReturn: Void())
         
-        let showEmptyView = recordsResponse
-            .map{ $0.page == 0 && $0.content.isEmpty }
+        let showEmptyView = emptyViewVisibilitySubject
             .asDriver(onErrorJustReturn: false)
+        
         
         return Output(firstEmotionState: firstEmotionState,
                       secondEmotionState: secondEmotionState,
