@@ -14,12 +14,12 @@ class ReviewViewModel: BaseViewModel{
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
-    private let deleteRecordUseCase: GetGoalUseCaseInterface
+    private let deleteRecordUseCase: DeleteRecordUseCaseInterface
     
     init(regardlessOfRecordCount: Int,
          getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          getRecordsUseCase: GetRecordInReviewUseCaseInterface = GetRecordInReviewUseCase(),
-         deleteRecordUseCase: GetGoalUseCaseInterface = GetGoalUseCase()){
+         deleteRecordUseCase: DeleteRecordUseCaseInterface = DeleteRecordUseCase()){
         self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
@@ -34,37 +34,51 @@ class ReviewViewModel: BaseViewModel{
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
+    private let deleteRecordSubject = PublishSubject<IndexPath>()
     private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
     private let filteringConditionRelay = BehaviorRelay<FilteringCondition>(value: (nil, nil))
     
     struct Input{
-        
     }
     
     struct Output{
         let firstEmotionState: Driver<EmotionTag>
         let secondEmotionState: Driver<EmotionTag>
         let initializeEmotionFilter: Driver<Void>
+        let deleteRecord: Driver<IndexPath>
         let reloadTableView: Driver<Void>
         let showEmptyView: Driver<Bool>
     }
     
     func transform(_ input: Input) -> Output{
         
+        //deleteRecord
+        let deleteResponse = deleteRecordSubject
+            .map{ self.records[self.dataIndex($0.row)].id }
+            .flatMap{
+                self.deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: $0))
+            }.share()
+        
+        let deleteIndexPath = Observable.zip(deleteResponse, deleteRecordSubject)
+            .filter{ $0.0 == .success }
+            .do(onNext: {
+                self.records.remove(at: self.dataIndex($1.row))
+            })
+            .map{ $0.1 }
+            .asDriver(onErrorJustReturn: IndexPath.init())
+        
         //emotion filter control
         let firstEmotionState = filteringConditionRelay
             .compactMap{ $0.first }
-            .map{
-                EmotionTag(rawValue: $0)
-            }.compactMap{ $0 }
+            .map{ EmotionTag(rawValue: $0) }
+            .compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let secondEmotionState = filteringConditionRelay
             .compactMap{ $0.second }
-            .map{
-                EmotionTag(rawValue: $0)
-            }.compactMap{ $0 }
+            .map{ EmotionTag(rawValue: $0) }
+            .compactMap{ $0 }
             .asDriver(onErrorJustReturn: .default)
         
         let initializeEmotionFilter = filteringConditionRelay
@@ -123,6 +137,7 @@ class ReviewViewModel: BaseViewModel{
         return Output(firstEmotionState: firstEmotionState,
                       secondEmotionState: secondEmotionState,
                       initializeEmotionFilter: initializeEmotionFilter,
+                      deleteRecord: deleteIndexPath,
                       reloadTableView: reloadTableView,
                       showEmptyView: showEmptyView)
     }
@@ -145,6 +160,10 @@ extension ReviewViewModel{
     private func responseGetGoals(goals: [GoalResponseModel]){
         self.goals = goals.filter{ !$0.isEnd }
         selectGoalRelay.accept(selectedGoalIndex)
+    }
+    
+    func deleteRecord(at indexPath: IndexPath){
+        deleteRecordSubject.onNext(indexPath)
     }
 
     func selectGoal(at index: Int){

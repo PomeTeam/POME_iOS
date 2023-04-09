@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 @frozen
 enum EmotionTime: Int{
@@ -90,6 +92,11 @@ class ReviewTestViewController: BaseTabViewController{
                     $0.firstEmotionFilter.setFilterDefaultState()
                     $0.secondEmotionFilter.setFilterDefaultState()
                 }
+            }).disposed(by: disposeBag)
+        
+        output.deleteRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
             }).disposed(by: disposeBag)
     }
 }
@@ -221,7 +228,36 @@ extension ReviewTestViewController: RecordCellDelegate{
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
-        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
+            $0.addAction(generateModifyAction($0, index: indexPath.row))
+            $0.addAction(generateDeleteAction($0, indexPath: indexPath))
+            $0.addAction(generateCancelAction())
+        }
+        present(alert, animated: true)
+    }
+    
+    private func generateModifyAction(_ alert: UIAlertController, index: Int) -> UIAlertAction{
+        return UIAlertAction(title: "수정하기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            let vc = ModifyRecordViewController(goal: self.viewModel.selectedGoal,
+                                                record: self.viewModel.getRecord(at: index))
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func generateDeleteAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "삭제하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+            ImageAlert.deleteRecord.generateAndShow(in: self).do{
+                $0.completion = {
+                    self.viewModel.deleteRecord(at: indexPath)
+                }
+            }
+        }
+    }
+    
+    private func generateCancelAction() -> UIAlertAction{
+        return UIAlertAction(title: "취소", style: .cancel, handler: nil)
     }
 }
 
