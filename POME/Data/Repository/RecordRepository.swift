@@ -25,12 +25,12 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
     
-    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<Int> {
-        let observable = Observable<Int>.create { observer -> Disposable in
+    func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<RecordResponseModel> {
+        let observable = Observable<RecordResponseModel>.create { observer -> Disposable in
             let requestReference: () = RecordService.shared.modifyRecord(id: id, request: requestValue){ response in
                 switch response {
-                case .success:
-                    observer.onNext(200)
+                case .success(let data):
+                    observer.onNext(data)
                 default:
                     break
                 }
@@ -55,7 +55,18 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
 
-    func deleteRecord() {
-
+    func deleteRecord(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStaus>{
+        let observable = Observable<BaseResponseStaus>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.deleteRecord(id: requestValue.recordId) { response in
+                switch response {
+                case .success:
+                    observer.onNext(.success)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
     }
 }

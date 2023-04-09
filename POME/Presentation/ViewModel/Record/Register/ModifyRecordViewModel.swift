@@ -14,7 +14,7 @@ final class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
     private let modifyRecordUseCase: ModifyRecordUseCaseInterface
     private let recordId: Int
     
-    typealias Output = Int
+    typealias Output = Observable<RecordResponseModel>
     
     init(recordId: Int, defaultGoal: GoalResponseModel, defaultDate: String, modifyRecordUseCase: ModifyRecordUseCaseInterface = ModifyRecordUseCase()) {
         self.recordId = recordId
@@ -22,7 +22,7 @@ final class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
         super.init(defaultGoal: defaultGoal, defaultDate: defaultDate)
     }
     
-    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Driver<Output> {
+    func controlEvent(_ tapEvent: ControlEvent<Void>) -> Output {
         return tapEvent
             .withLatestFrom(requestObservable)
             .map{ goal, date, price, comment in
@@ -32,7 +32,7 @@ final class ModifyRecordViewModel: RecordableViewModel, RecordButtonControl{
                                  usePrice: price)
             }.flatMap{
                 self.modifyRecordUseCase.execute(recordId: self.recordId, requestValue: $0)
-            }.asDriver(onErrorJustReturn: 404)
+            }.asObservable()
     }
     
 }

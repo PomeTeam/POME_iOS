@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 @frozen
 enum EmotionTime: Int{
@@ -90,6 +92,16 @@ class ReviewTestViewController: BaseTabViewController{
                     $0.firstEmotionFilter.setFilterDefaultState()
                     $0.secondEmotionFilter.setFilterDefaultState()
                 }
+            }).disposed(by: disposeBag)
+        
+        output.deleteRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
+            }).disposed(by: disposeBag)
+        
+        output.modifyRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
             }).disposed(by: disposeBag)
     }
 }
@@ -205,7 +217,7 @@ extension ReviewTestViewController: FilterDelegate{
             case .second:   return secondEmotionFilterBottomSheet
             }
         }()
-        filterSheet.loadAndShowBottomSheet(in: self)
+        filterSheet.show(in: self)
     }
     
     func initializeFilteringCondition() {
@@ -217,11 +229,39 @@ extension ReviewTestViewController: RecordCellDelegate{
     
     func presentReactionSheet(indexPath: IndexPath) {
         let data = viewModel.getRecord(at: indexPath.row).friendReactions
-        FriendReactionSheetTestViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetTestViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
-        
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
+            $0.addAction(generateModifyAction($0, indexPath: indexPath))
+            $0.addAction(generateDeleteAction($0, indexPath: indexPath))
+            $0.addAction(generateCancelAction())
+        }
+        present(alert, animated: true)
+    }
+    
+    private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "수정하기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    private func generateDeleteAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "삭제하기", style: .default) { _ in
+            alert.dismiss(animated: true)
+            ImageAlert.deleteRecord.generateAndShow(in: self).do{
+                $0.completion = {
+                    self.viewModel.deleteRecord(at: indexPath)
+                }
+            }
+        }
+    }
+    
+    private func generateCancelAction() -> UIAlertAction{
+        return UIAlertAction(title: "취소", style: .cancel, handler: nil)
     }
 }
 
@@ -239,13 +279,10 @@ extension ReviewTestViewController{
     }
 
     private func beginPaging(){
-
         isPaging = true
-
         DispatchQueue.main.async { [self] in
             mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.viewModel.requestNextPage()
         }

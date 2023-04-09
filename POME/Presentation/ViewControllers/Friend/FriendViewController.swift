@@ -436,7 +436,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     
     func presentReactionSheet(indexPath: IndexPath) {
         let data = records[dataIndexBy(indexPath)].friendReactions
-        FriendReactionSheetTestViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetTestViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {

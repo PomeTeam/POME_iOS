@@ -115,6 +115,6 @@ final class GenerateGoalContentViewController: BaseViewController {
     private func processResponseDuplicateGoal(){
         RecordBottomSheetViewController(Image.flagMint,
                                         "이미 동일한 목표가 있어요",
-                                        "새로운 목표를 만들어 기록을 작성해보세요!").loadAndShowBottomSheet(in: self)
+                                        "새로운 목표를 만들어 기록을 작성해보세요!").show(in: self)
     }
 }

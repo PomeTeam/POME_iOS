@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol ModifyRecordUseCaseInterface {
-    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<Int>
+    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<RecordResponseModel>
 }
 
 final class ModifyRecordUseCase: ModifyRecordUseCaseInterface {
@@ -20,7 +20,7 @@ final class ModifyRecordUseCase: ModifyRecordUseCaseInterface {
         self.recordRepository = recordRepository
     }
 
-    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<Int>{
+    func execute(recordId: Int, requestValue: RecordDTO) -> Observable<RecordResponseModel>{
         return recordRepository.modifyRecord(id: recordId, requestValue: requestValue)
     }
 }
