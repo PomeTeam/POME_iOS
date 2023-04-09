@@ -7,6 +7,12 @@
 
 import Foundation
 
+protocol ModifyRecord{
+    var selectedGoal: GoalResponseModel { get }
+    func getRecord(at: Int) -> RecordResponseModel
+    func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel)
+}
+
 final class ModifyRecordViewController: Recordable{
     
     private let record: RecordResponseModel
