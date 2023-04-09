@@ -17,8 +17,9 @@ enum EmotionTime: Int{
 
 class ReviewTestViewController: BaseTabViewController{
     
-    private var isPaging = false
+    private var isLoading = false
     
+    private let INFO_SECTION = 1
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
     
@@ -61,19 +62,19 @@ class ReviewTestViewController: BaseTabViewController{
             }).disposed(by: disposeBag)
         
         var goalTableViewCell: GoalTagsTableViewCell?{
-            mainView.tableView.cellForRow(at: [0,0], cellType: GoalTagsTableViewCell.self)
+            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
         
         output.reloadTableView
             .drive(onNext: { [weak self] in
-                self?.isPaging = false
+                self?.isLoading = false
                 goalTableViewCell?.tagCollectionView.reloadData()
                 self?.mainView.tableView.reloadData()
             }).disposed(by: disposeBag)
         
         
         var filteringCell: ReviewFilterTableViewCell?{
-            mainView.tableView.cellForRow(at: [0,2], cellType: ReviewFilterTableViewCell.self)
+            mainView.tableView.cellForRow(at: [INFO_SECTION,2], cellType: ReviewFilterTableViewCell.self)
         }
         
         output.firstEmotionState
@@ -149,13 +150,13 @@ extension ReviewTestViewController: UICollectionViewDelegate, UICollectionViewDa
 extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 0){
+        if section == INFO_SECTION {
             return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
-        }else if(section == 1 && isPaging && viewModel.hasNextPage()){
+        }else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage){
             return 1
         }else{
             return 0
@@ -163,7 +164,7 @@ extension ReviewTestViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if(indexPath.section == 1){
+        if indexPath.section != INFO_SECTION {
             return getLoadingTableViewCell(indexPath: indexPath)
         }
         
@@ -268,23 +269,44 @@ extension ReviewTestViewController: RecordCellDelegate{
 extension ReviewTestViewController{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
+        checkPaigingConditionAndStartPaging(offset: offsetY, scrollView: scrollView)
+        checkRefreshingConditionAndStartRefreshing(offset: offsetY)
+    }
+    
+    private func checkPaigingConditionAndStartPaging(offset: CGFloat, scrollView: UIScrollView){
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
-
-        if offsetY > (contentHeight - height) {
-            if isPaging == false && viewModel.hasNextPage() {
+        
+        if offset > (contentHeight - height) {
+            if !isLoading && viewModel.hasNextPage {
                 beginPaging()
             }
         }
     }
-
+    
     private func beginPaging(){
-        isPaging = true
+        isLoading = true
         DispatchQueue.main.async { [self] in
             mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.viewModel.requestNextPage()
+        }
+    }
+    
+    private func checkRefreshingConditionAndStartRefreshing(offset: CGFloat){
+        if offset < Offset.REFRESH_DATA && !isLoading {
+            beginRefreshData()
+        }
+    }
+    
+    private func beginRefreshData(){
+        isLoading = true
+        DispatchQueue.main.async { [self] in
+            mainView.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.refreshData()
         }
     }
 }

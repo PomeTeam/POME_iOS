@@ -239,7 +239,7 @@ extension ReviewViewModel{
         selectGoalRelay.value
     }
     
-    func hasNextPage() -> Bool{
+    var hasNextPage: Bool{
         canRequestNextPage
     }
 }
