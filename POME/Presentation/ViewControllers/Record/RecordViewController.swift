@@ -24,14 +24,21 @@ class RecordViewController: BaseTabViewController {
     var recordPage: Int?
     // Cell Height
     var expendingCellContent = ExpandingTableViewCellContent()
+    // Refresh Control
+    var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    override func viewWillAppear(_ animated: Bool) {
+        
+        initRefresh()
         if(!isFirstLoad){
             requestGetGoals()
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+//        if(!isFirstLoad){
+//            requestGetGoals()
+//        }
         
     }
     override func style() {
@@ -321,6 +328,25 @@ extension RecordViewController: RecordCellDelegate{
         self.present(alert, animated: true)
     }
 }
+// MARK: - Refresh Control
+extension RecordViewController {
+    func initRefresh() {
+        refreshControl.addTarget(self, action: #selector(refreshTable(refresh:)), for: .valueChanged)
+        
+        refreshControl.backgroundColor = .white
+        refreshControl.tintColor = .black
+        
+        self.recordView.recordTableView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshTable(refresh: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // DATA reload
+            self.requestGetGoals()
+            refresh.endRefreshing()
+        }
+    }
+}
 //MARK: - API
 extension RecordViewController {
     // MARK: 목표 리스트 조회 API
@@ -351,7 +377,7 @@ extension RecordViewController {
                     cell.goalCollectionView.reloadData()
                     self.recordView.recordTableView.reloadData()
                 }
-                
+                self.refreshControl.endRefreshing()
                 break
             default:
                 print(result)
