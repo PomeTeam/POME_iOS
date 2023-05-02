@@ -179,6 +179,13 @@
 		EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
+		EE4CEA492A00A9EA002BF87E /* FriendTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA482A00A9EA002BF87E /* FriendTestViewController.swift */; };
+		EE4CEA4C2A00ABDF002BF87E /* GetFriendsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA4B2A00ABDF002BF87E /* GetFriendsUseCase.swift */; };
+		EE4CEA4E2A00ABFE002BF87E /* RegisterReactionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA4D2A00ABFE002BF87E /* RegisterReactionUseCase.swift */; };
+		EE4CEA502A00AC0E002BF87E /* HideRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA4F2A00AC0E002BF87E /* HideRecordUseCase.swift */; };
+		EE4CEA522A00AC29002BF87E /* GetAllFriendsRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA512A00AC29002BF87E /* GetAllFriendsRecordsUseCase.swift */; };
+		EE4CEA542A00AC36002BF87E /* GetFriendRecordUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA532A00AC36002BF87E /* GetFriendRecordUseCase.swift */; };
+		EE4CEA562A00AEDD002BF87E /* ResponseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA552A00AEDD002BF87E /* ResponseStatus.swift */; };
 		EE635F4029D1CC5100573F66 /* Recordable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F3F29D1CC5100573F66 /* Recordable.swift */; };
 		EE635F4229D1CD1C00573F66 /* GenerateRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4129D1CD1C00573F66 /* GenerateRecordViewController.swift */; };
 		EE635F4429D1CD2800573F66 /* ModifyRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE635F4329D1CD2800573F66 /* ModifyRecordViewController.swift */; };
@@ -454,6 +461,13 @@
 		EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewModel.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
+		EE4CEA482A00A9EA002BF87E /* FriendTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTestViewController.swift; sourceTree = "<group>"; };
+		EE4CEA4B2A00ABDF002BF87E /* GetFriendsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendsUseCase.swift; sourceTree = "<group>"; };
+		EE4CEA4D2A00ABFE002BF87E /* RegisterReactionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReactionUseCase.swift; sourceTree = "<group>"; };
+		EE4CEA4F2A00AC0E002BF87E /* HideRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideRecordUseCase.swift; sourceTree = "<group>"; };
+		EE4CEA512A00AC29002BF87E /* GetAllFriendsRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllFriendsRecordsUseCase.swift; sourceTree = "<group>"; };
+		EE4CEA532A00AC36002BF87E /* GetFriendRecordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriendRecordUseCase.swift; sourceTree = "<group>"; };
+		EE4CEA552A00AEDD002BF87E /* ResponseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStatus.swift; sourceTree = "<group>"; };
 		EE635F3F29D1CC5100573F66 /* Recordable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recordable.swift; sourceTree = "<group>"; };
 		EE635F4129D1CD1C00573F66 /* GenerateRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRecordViewController.swift; sourceTree = "<group>"; };
 		EE635F4329D1CD2800573F66 /* ModifyRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyRecordViewController.swift; sourceTree = "<group>"; };
@@ -899,6 +913,7 @@
 		5724EC18291012C100DC529B /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				EE4CEA552A00AEDD002BF87E /* ResponseStatus.swift */,
 				EE7D35CF29D59E6500D2AD60 /* DTO */,
 				57C4818229670DA0008731D9 /* Entitiy */,
 				57C4818129670D7F008731D9 /* UseCase */,
@@ -1076,6 +1091,7 @@
 				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
 				5724EC5C2917735B00DC529B /* FriendViewController.swift */,
 				57CCA77929289DB9007E22D1 /* FriendReactionSheetViewController.swift */,
+				EE4CEA482A00A9EA002BF87E /* FriendTestViewController.swift */,
 			);
 			path = Friend;
 			sourceTree = "<group>";
@@ -1246,6 +1262,7 @@
 			children = (
 				57397FBA296E77B60088B5F4 /* Record */,
 				57C481D8296ABCA2008731D9 /* Goal */,
+				EE4CEA4A2A00AADC002BF87E /* Friend */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -1445,6 +1462,18 @@
 				2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE4CEA4A2A00AADC002BF87E /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				EE4CEA4B2A00ABDF002BF87E /* GetFriendsUseCase.swift */,
+				EE4CEA4D2A00ABFE002BF87E /* RegisterReactionUseCase.swift */,
+				EE4CEA4F2A00AC0E002BF87E /* HideRecordUseCase.swift */,
+				EE4CEA512A00AC29002BF87E /* GetAllFriendsRecordsUseCase.swift */,
+				EE4CEA532A00AC36002BF87E /* GetFriendRecordUseCase.swift */,
+			);
+			path = Friend;
 			sourceTree = "<group>";
 		};
 		EE79C29D29937C85006A9AA2 /* Friend */ = {
@@ -1962,6 +1991,7 @@
 				EE6C866829D7110000CACA3E /* CountingTextView.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */,
+				EE4CEA502A00AC0E002BF87E /* HideRecordUseCase.swift in Sources */,
 				5724EC5D2917735B00DC529B /* FriendViewController.swift in Sources */,
 				EEC28CCC29D30D540075CD4C /* GetGoalUseCase.swift in Sources */,
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
@@ -2008,6 +2038,8 @@
 				2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */,
 				57CCA7BB292DEADA007E22D1 /* RegisterCommonView.swift in Sources */,
 				EE7D35E529D5A16300D2AD60 /* RecordableViewModel.swift in Sources */,
+				EE4CEA542A00AC36002BF87E /* GetFriendRecordUseCase.swift in Sources */,
+				EE4CEA4C2A00ABDF002BF87E /* GetFriendsUseCase.swift in Sources */,
 				EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
@@ -2067,6 +2099,7 @@
 				57CCA7AC292DE83F007E22D1 /* GoalContentView.swift in Sources */,
 				EEE5F5EB2981270700ECD31B /* FriendEmotionRequestModel.swift in Sources */,
 				57CCA75D2925AEED007E22D1 /* FriendTableEmptyView.swift in Sources */,
+				EE4CEA522A00AC29002BF87E /* GetAllFriendsRecordsUseCase.swift in Sources */,
 				EE7D35E929D5A16300D2AD60 /* AppRegisterViewModel.swift in Sources */,
 				EEC28CC029D30CE20075CD4C /* FriendRepositoryInterface.swift in Sources */,
 				57CCA785292B0A37007E22D1 /* ReviewEmptyView.swift in Sources */,
@@ -2077,6 +2110,7 @@
 				EE7D35EB29D5A16300D2AD60 /* GenerateGoalContentViewModel.swift in Sources */,
 				230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */,
 				EEC28CBC29D30C8C0075CD4C /* FriendRepository.swift in Sources */,
+				EE4CEA562A00AEDD002BF87E /* ResponseStatus.swift in Sources */,
 				EEC28CC429D30D250075CD4C /* GenerateRecordUseCase.swift in Sources */,
 				2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
@@ -2097,6 +2131,7 @@
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
+				EE4CEA4E2A00ABFE002BF87E /* RegisterReactionUseCase.swift in Sources */,
 				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
@@ -2168,6 +2203,7 @@
 				232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */,
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
 				23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */,
+				EE4CEA492A00A9EA002BF87E /* FriendTestViewController.swift in Sources */,
 				2306123E292B4EC500662007 /* LoginView.swift in Sources */,
 				57CCA7B1292DE875007E22D1 /* GenerateGoalDateViewController.swift in Sources */,
 				EEE5F5E7298126D500ECD31B /* RecordRegisterRequestModel.swift in Sources */,
