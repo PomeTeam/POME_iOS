@@ -8,17 +8,12 @@
 import Foundation
 import RxSwift
 
-enum BaseResponseStaus{
-    case success
-    case fail
-}
-
 struct DeleteRecordRequestModel{
     let recordId: Int
 }
 
 protocol DeleteRecordUseCaseInterface {
-    func execute(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStaus>
+    func execute(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStatus>
 }
 
 final class DeleteRecordUseCase: DeleteRecordUseCaseInterface {
@@ -29,7 +24,7 @@ final class DeleteRecordUseCase: DeleteRecordUseCaseInterface {
         self.recordRepository = recordRepository
     }
 
-    func execute(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStaus> {
+    func execute(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStatus> {
         return recordRepository.deleteRecord(requestValue: requestValue)
         
     }

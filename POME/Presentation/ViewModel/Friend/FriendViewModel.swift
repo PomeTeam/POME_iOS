@@ -9,7 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class FriendViewModel{
+protocol FriendViewModelInterface{
+    
+}
+
+class FriendViewModel: FriendViewModelInterface{
     
 //    private let friendUseCase: GetFriendReviewUseCase
     
@@ -24,12 +28,6 @@ class FriendViewModel{
         let friendCards: Driver<[Reaction?]>
     }
     
-    /*
-    init(friendUseCase: GetFriendReviewUseCase){
-
-    }
-     */
-    
 //    func transform(input: Input) -> Output{
 //        return Output(friends: <#Driver<[String]>#>,
 //                      friendCards: <#Driver<[Reaction?]>#>)
@@ -38,8 +36,12 @@ class FriendViewModel{
     
 }
 
-/*
- 친구 리스트 get
- 친구 카드 리스트 get
- 
- */
+
+ /* api
+  1. 친구 리스트 조회
+  2. 모든 친구 기록
+  3. 특정 친구 기록
+  4. 친구 기록에 리액션 남기기
+  5. 친구 기록 숨기기
+  */
+
