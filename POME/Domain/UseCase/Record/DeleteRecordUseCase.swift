@@ -8,11 +8,6 @@
 import Foundation
 import RxSwift
 
-enum BaseResponseStaus{
-    case success
-    case fail
-}
-
 struct DeleteRecordRequestModel{
     let recordId: Int
 }
