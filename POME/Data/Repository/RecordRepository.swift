@@ -55,8 +55,8 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
 
-    func deleteRecord(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStaus>{
-        let observable = Observable<BaseResponseStaus>.create { observer -> Disposable in
+    func deleteRecord(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStatus>{
+        let observable = Observable<BaseResponseStatus>.create { observer -> Disposable in
             let requestReference: () = RecordService.shared.deleteRecord(id: requestValue.recordId) { response in
                 switch response {
                 case .success:
