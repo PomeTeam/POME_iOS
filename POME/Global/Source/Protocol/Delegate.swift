@@ -12,10 +12,8 @@ protocol RecordCellDelegate{
     func presentEtcActionSheet(indexPath: IndexPath)
 }
 
-protocol FriendRecordCellDelegate{
-    func presentReactionSheet(indexPath: IndexPath)
-    func presentEtcActionSheet(indexPath: IndexPath)
-    func presentEmojiFloatingView(indexPath: IndexPath)
+protocol FriendRecordCellDelegate: RecordCellDelegate{
+    func willShowReactionFloatingView(indexPath: IndexPath)
     func requestGenerateFriendCardEmotion(reactionIndex: Int)
 }
 
