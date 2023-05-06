@@ -397,7 +397,7 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         return cell
     }
     
-    func presentEmojiFloatingView(indexPath: IndexPath) {
+    func willShowReactionFloatingView(indexPath: IndexPath) {
 
         isSufficientToShowFloatingView(indexPath: indexPath){
             
@@ -459,6 +459,6 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
         alert.addAction(declarationAction)
         alert.addAction(cancelAction)
              
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
 }

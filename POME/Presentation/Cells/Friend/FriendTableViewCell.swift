@@ -41,7 +41,7 @@ class FriendTableViewCell: BaseTableViewCell {
     
     @objc func myReactionBtnDidClicked(){
         if let index = getCellIndex(){
-            delegate?.presentEmojiFloatingView(indexPath: index)
+            delegate?.willShowReactionFloatingView(indexPath: index)
         }
     }
     
