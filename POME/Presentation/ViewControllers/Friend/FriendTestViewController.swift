@@ -35,19 +35,19 @@ final class FriendTestViewController: BaseTabViewController{
         guard let refreshControl = mainView.tableView.refreshControl else { return false }
         return refreshControl.isRefreshing
     }
-    private var isLoading = false
+    private var isLoading: Bool = false
     
-    private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [1,0]
-    private let COUNT_OF_NOT_RECORD_CELL = 1
+    private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [0,0]
+    private let COUNT_OF_NOT_RECORD_CELL: Int = 1
     
     private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
     
-    private let mainView = FriendView()
-    private let reactionFloatingView = ReactionFloatingView()
+    private let mainView: FriendView = FriendView()
+    private let reactionFloatingView: ReactionFloatingView = ReactionFloatingView()
     
     private let willRefreshData = BehaviorSubject<Void>(value: ())
     private let willPaging = PublishSubject<Void>()
-    private let selectedFriendCellIndex = BehaviorRelay(value: 0)
+    private let selectedFriendCellIndex = BehaviorRelay<Int>(value: 0)
     
     override func layout() {
         
