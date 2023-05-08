@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 struct RegisterReactionRequestValue{
-    let friendId: Int
+    let recordId: Int
     let emotionId: Int
 }
 
