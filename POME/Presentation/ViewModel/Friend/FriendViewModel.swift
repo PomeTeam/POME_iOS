@@ -70,6 +70,8 @@ class FriendViewModel: FriendViewModelInterface{
         let friendsResponse = input.refreshView
             .flatMap{
                 self.getFriendsUseCase.execute()
+            }.do{
+                FriendProfileImageManager.shared.construct(by: $0)
             }.share()
         
         let reloadCollectionView = friendsResponse
