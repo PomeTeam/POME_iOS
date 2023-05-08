@@ -97,6 +97,11 @@ final class FriendTestViewController: BaseTabViewController{
             mainView.tableView.reloadRows(at: [[0, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
         }
         
+        viewModel.hideRecordCompleted = { [self] in
+            mainView.tableView.deleteRows(at: [[0, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+            ToastMessageView.showHideCompleteMessage(in: self)
+        }
+        
         let input = FriendViewModel.Input(
             refreshView: willRefreshData.asObservable(),
             willPaging: willPaging.asObservable(),
@@ -272,7 +277,7 @@ extension FriendTestViewController: FriendRecordCellDelegate{
     private func makeAlertHideAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
         return UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
-            //viewModel
+            self.viewModel.hideRecord(index: indexPath.ofRecordData)
         }
     }
     
@@ -286,7 +291,7 @@ extension FriendTestViewController: FriendRecordCellDelegate{
         if isSufficientToShowFloatingView(indexPath: indexPath) {
             showReactionFloatingView(indexPath: indexPath)
         } else {
-            ToastMessageView.generateMakeSufficientSpaceMessage().show(in: self)
+            ToastMessageView.showMakeSufficientSpaceMessage(in: self)
         }
     }
     
