@@ -60,7 +60,7 @@ class FriendViewController: BaseTabViewController, ControlIndexPath, Pageable {
     private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
     
     let friendView = FriendView()
-    var emoijiFloatingView: EmojiFloatingView!
+    var emoijiFloatingView: ReactionFloatingView!
     
     //MARK: - Override
     

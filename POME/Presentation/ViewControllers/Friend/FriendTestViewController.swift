@@ -41,7 +41,7 @@ final class FriendTestViewController: BaseTabViewController{
     private let COUNT_OF_NOT_RECORD_CELL = 1
     
     private let mainView = FriendView()
-    private let reactionFloatingView = EmojiFloatingView()
+    private let reactionFloatingView = ReactionFloatingView()
     
     private let willRefreshData = BehaviorSubject<Void>(value: ())
     private let willPaging = PublishSubject<Void>()

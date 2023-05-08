@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class EmojiFloatingView: BaseView {
+final class ReactionFloatingView: BaseView {
     
     var delegate: FriendRecordCellDelegate!
     var completion: (() -> ())!
