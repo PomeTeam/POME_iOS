@@ -14,6 +14,5 @@ protocol RecordCellDelegate{
 
 protocol FriendRecordCellDelegate: RecordCellDelegate{
     func willShowReactionFloatingView(indexPath: IndexPath)
-    func requestGenerateFriendCardEmotion(reactionIndex: Int)
 }
 
