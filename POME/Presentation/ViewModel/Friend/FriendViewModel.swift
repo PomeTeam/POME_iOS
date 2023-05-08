@@ -13,6 +13,10 @@ protocol FriendViewModelInterface: BaseViewModel{
     var friends: [FriendsResponseModel] { get }
     var records: [RecordResponseModel] { get }
     var hasNextPage: Bool { get }
+    var registerReactionCompleted: ((Int) -> Void)! { get }
+    func registerReaction(id: Int, index: Int)
+//    var hideRecordCompleted: () { get }
+//    func hideRecord(index: Int)
 }
 
 class FriendViewModel: FriendViewModelInterface{
@@ -20,6 +24,8 @@ class FriendViewModel: FriendViewModelInterface{
     var friends = [FriendsResponseModel]()
     var records = [RecordResponseModel]()
     var hasNextPage = false
+    
+    var registerReactionCompleted: ((Int) -> Void)!
     
     
     private let getFriendsUseCase: GetFriendsUseCaseInterface
@@ -49,8 +55,6 @@ class FriendViewModel: FriendViewModelInterface{
         let refreshView: Observable<Void>
         let willPaging: Observable<Void>
         let friendCellIndex: Observable<Int>
-        let recordIndex: Observable<Int>
-        let reactionId: Observable<Int>
     }
     
     struct Output{
@@ -121,5 +125,12 @@ class FriendViewModel: FriendViewModelInterface{
         )
     }
     
-    
+    func registerReaction(id reactionId: Int, index: Int) {
+        registerRecordReactionUseCase.execute(
+            requestValue: RegisterReactionRequestValue(recordId: records[index].id, emotionId: reactionId)
+        ).subscribe{ [weak self] in
+            self?.records[index] = $0
+            self?.registerReactionCompleted(index)
+        }.disposed(by: disposeBag)
+    }
 }

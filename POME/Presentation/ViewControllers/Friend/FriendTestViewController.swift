@@ -40,14 +40,14 @@ final class FriendTestViewController: BaseTabViewController{
     private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [1,0]
     private let COUNT_OF_NOT_RECORD_CELL = 1
     
+    private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
+    
     private let mainView = FriendView()
     private let reactionFloatingView = ReactionFloatingView()
     
     private let willRefreshData = BehaviorSubject<Void>(value: ())
     private let willPaging = PublishSubject<Void>()
     private let selectedFriendCellIndex = BehaviorRelay(value: 0)
-    private let selectedRecordCellIndex = PublishSubject<Int>()
-    private let selectedReactionId = PublishSubject<Int>()
     
     override func layout() {
         
@@ -93,12 +93,14 @@ final class FriendTestViewController: BaseTabViewController{
         
         guard let viewModel = viewModel as? FriendViewModel else { return }
         
+        viewModel.registerReactionCompleted = { [self] in
+            mainView.tableView.reloadRows(at: [[0, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+        }
+        
         let input = FriendViewModel.Input(
             refreshView: willRefreshData.asObservable(),
             willPaging: willPaging.asObservable(),
-            friendCellIndex: selectedFriendCellIndex.asObservable(),
-            recordIndex: selectedRecordCellIndex.asObservable(),
-            reactionId: selectedReactionId.asObservable()
+            friendCellIndex: selectedFriendCellIndex.asObservable()
         )
         
         let output = viewModel.transform(input)
@@ -144,7 +146,7 @@ final class FriendTestViewController: BaseTabViewController{
 extension FriendTestViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.friends.count + COUNT_OF_NOT_RECORD_CELL
+        viewModel.friends.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -208,8 +210,6 @@ extension FriendTestViewController: UITableViewDelegate, UITableViewDataSource{
         }
     }
     
-    private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:     return getFriendTableViewCell(indexPath: indexPath)
@@ -252,6 +252,34 @@ extension FriendTestViewController: FriendRecordCellDelegate{
     
     func presentEtcActionSheet(indexPath: IndexPath) {
         
+        let alert = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        let hideAction = makeAlertHideAction(alert: alert, indexPath: indexPath)
+        let declarationAction = makeAlertDeclarationAction(alert: alert, indexPath: indexPath)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        alert.addAction(hideAction)
+        alert.addAction(declarationAction)
+        alert.addAction(cancelAction)
+             
+        present(alert, animated: true)
+    }
+    
+    private func makeAlertHideAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "숨기기", style: .default){ _ in
+            alert.dismiss(animated: true)
+            //viewModel
+        }
+    }
+    
+    private func makeAlertDeclarationAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "신고하기", style: .default) { _ in
+            LinkManager(self, .report)
+        }
     }
     
     func willShowReactionFloatingView(indexPath: IndexPath) {
@@ -267,24 +295,21 @@ extension FriendTestViewController: FriendRecordCellDelegate{
         let rectOfCellInTableView = mainView.tableView.rectForRow(at: indexPath)
         let rectOfCellInSuperview = mainView.tableView.convert(rectOfCellInTableView, to: view)
 
-        let viewPosition = CGPoint(x: rectOfCellInSuperview.origin.x,
-                                   y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height)
+        let viewPosition = CGPoint(
+            x: rectOfCellInSuperview.origin.x,
+            y: rectOfCellInSuperview.origin.y + rectOfCellInSuperview.height
+        )
         
         return Device.HEIGHT - viewPosition.y - view.safeAreaInsets.bottom >= 74
     }
     
     private func showReactionFloatingView(indexPath: IndexPath){
-        
+
         guard let cell = mainView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-        
-        reactionFloatingView.delegate = self
-        reactionFloatingView.show(in: self, standard: cell)
-        
-        selectedRecordCellIndex.onNext(indexPath.ofRecordData)
-    }
-    
-    func requestGenerateFriendCardEmotion(reactionIndex: Int) {
-        
+
+        reactionFloatingView.show(in: self, standard: cell){
+            self.viewModel.registerReaction(id: $0, index: indexPath.ofRecordData)
+        }
     }
 }
 
