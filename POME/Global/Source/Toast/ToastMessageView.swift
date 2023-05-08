@@ -28,20 +28,20 @@ class ToastMessageView: BaseView {
     
     private init(image: UIImage, message: String){
         super.init(frame: .zero)
-        self.toastImage.image = image
-        self.messageLabel.text = message
+        toastImage.image = image
+        messageLabel.text = message
     }
     
-    static func generateHideCompleteMessage() -> ToastMessageView{
-        return ToastMessageView(image: Image.hide, message: "해당 게시글을 숨겼어요")
+    static func showHideCompleteMessage(in viewController: UIViewController){
+        ToastMessageView(image: Image.hide, message: "해당 게시글을 숨겼어요").show(in: viewController)
     }
     
-    static func generateReactionMessage(type: Reaction) -> ToastMessageView{
-        return ToastMessageView(image: Image.toast, message: type.toastMessage)
+    static func showReactionMessage(type: Reaction, in viewController: UIViewController){
+        ToastMessageView(image: Image.toast, message: type.toastMessage).show(in: viewController)
     }
     
-    static func generateMakeSufficientSpaceMessage() -> ToastMessageView{
-        return ToastMessageView(image: Image.toastSufficientSpace, message: "스크롤을 올리면 이모지를 남길 수 있어요!")
+    static func showMakeSufficientSpaceMessage(in viewController: UIViewController){
+        ToastMessageView(image: Image.toastSufficientSpace, message: "스크롤을 올리면 이모지를 남길 수 있어요!").show(in: viewController)
     }
     
     required init?(coder: NSCoder) {
