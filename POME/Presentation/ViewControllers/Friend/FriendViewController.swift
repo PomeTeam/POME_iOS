@@ -251,24 +251,24 @@ extension FriendViewController{
     }
     
     
-    func requestGenerateFriendCardEmotion(reactionIndex: Int){
+    func requestGenerateFriendCardEmotion(reactionId: Int){
         
         guard let cellIndex = self.currentEmotionSelectCardIndex,
-                let reaction = Reaction(rawValue: reactionIndex) else { return }
+                let reaction = Reaction(rawValue: reactionId) else { return }
         
         FriendService.shared.generateFriendEmotion(id: records[cellIndex].id,
-                                                   emotion: reactionIndex){ result in
+                                                   emotion: reactionId){ result in
             switch result{
             case .success(let data):
                 print("LOG: success requestGenerateFriendCardEmotion", data)
                 self.records[cellIndex] = data
-                self.emoijiFloatingView?.dismiss()
+//                self.emoijiFloatingView?.dismiss()
                 ToastMessageView.generateReactionMessage(type: reaction).show(in: self)
                 break
             default:
                 print("LOG: fail requestGenerateFriendCardEmotion", result)
                 NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGenerateFriendCardEmotion(reactionIndex: reactionIndex)
+                    self?.requestGenerateFriendCardEmotion(reactionId: reactionId)
                 }
                 break
             }
@@ -399,21 +399,21 @@ extension FriendViewController: UITableViewDelegate, UITableViewDataSource, Frie
     
     func willShowReactionFloatingView(indexPath: IndexPath) {
 
-        isSufficientToShowFloatingView(indexPath: indexPath){
-            
-            currentEmotionSelectCardIndex = dataIndexBy(indexPath)
-            emoijiFloatingView = EmojiFloatingView().then{
-                $0.delegate = self
-                $0.completion = {
-                    print("LOG: emoijiFloatingView completion closure called")
-                    self.currentEmotionSelectCardIndex = nil
-                    self.emoijiFloatingView = nil
-                }
-            }
-
-            guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-            emoijiFloatingView.show(in: self, standard: cell)
-        }
+//        isSufficientToShowFloatingView(indexPath: indexPath){
+//
+//            currentEmotionSelectCardIndex = dataIndexBy(indexPath)
+//            emoijiFloatingView = EmojiFloatingView().then{
+//                $0.delegate = self
+//                $0.completion = {
+//                    print("LOG: emoijiFloatingView completion closure called")
+//                    self.currentEmotionSelectCardIndex = nil
+//                    self.emoijiFloatingView = nil
+//                }
+//            }
+//
+//            guard let cell = friendView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
+//            emoijiFloatingView.show(in: self, standard: cell)
+//        }
     }
     
     private func isSufficientToShowFloatingView(indexPath: IndexPath, closure: () -> Void){
