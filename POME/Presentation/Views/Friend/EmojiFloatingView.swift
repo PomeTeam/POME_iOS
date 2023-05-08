@@ -12,14 +12,14 @@ final class EmojiFloatingView: BaseView {
     var delegate: FriendRecordCellDelegate!
     var completion: (() -> ())!
     
-    let containerView = UIView().then{
+    private let containerView = UIView().then{
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .card)
         $0.clipsToBounds = false
         $0.layer.cornerRadius = 54/2
     }
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.minimumLineSpacing = 14
@@ -42,13 +42,13 @@ final class EmojiFloatingView: BaseView {
         let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss)).then{
             $0.delegate = self
         }
-        self.addGestureRecognizer(dismissGesture)
+        addGestureRecognizer(dismissGesture)
         
         collectionView.dataSource = self
         collectionView.delegate = self
     }
     
-    @objc func dismiss(){
+    @objc private func dismiss(){
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
                 self.transform = CGAffineTransform(translationX: 0, y: 10)
@@ -61,7 +61,7 @@ final class EmojiFloatingView: BaseView {
     }
     
     override func hierarchy() {
-        self.addSubview(containerView)
+        addSubview(containerView)
         containerView.addSubview(collectionView)
     }
     
