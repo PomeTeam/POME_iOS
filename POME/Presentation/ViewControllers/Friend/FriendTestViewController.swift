@@ -31,6 +31,10 @@ final class FriendTestViewController: BaseTabViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
+    private var isRefreshing: Bool{
+        guard let refreshControl = mainView.tableView.refreshControl else { return false }
+        return refreshControl.isRefreshing
+    }
     private var isLoading = false
     
     private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [1,0]
@@ -61,12 +65,28 @@ final class FriendTestViewController: BaseTabViewController{
     
     override func initialize() {
         setTableViewDelegate()
+        setTableViewRefresh()
     }
     
     private func setTableViewDelegate(){
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.separatorStyle = .none
+    }
+    
+    private func setTableViewRefresh(){
+        let refreshControl = UIRefreshControl().then{
+            $0.backgroundColor = .white
+            $0.tintColor = .black
+            $0.addTarget(self, action: #selector(refreshingData), for: .valueChanged)
+        }
+        mainView.tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func refreshingData(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.willRefreshData.onNext(())
+        }
     }
     
     override func bind() {
@@ -91,10 +111,15 @@ final class FriendTestViewController: BaseTabViewController{
             }).disposed(by: disposeBag)
         
         output.reloadRecords
-            .subscribe(onNext: { [weak self] in
-                self?.isLoading = false
-                self?.isTableViewEmpty()
-                self?.mainView.tableView.reloadData()
+            .subscribe(onNext: { [self] in
+                if isLoading {
+                    isLoading = false
+                }
+                if isRefreshing {
+                    mainView.tableView.refreshControl?.endRefreshing()
+                }
+                isTableViewEmpty()
+                mainView.tableView.reloadData()
             }).disposed(by: disposeBag)
     }
     
@@ -170,15 +195,15 @@ extension FriendTestViewController: UICollectionViewDelegate, UICollectionViewDa
 extension FriendTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
+        if section == 0 {
             return viewModel.records.count + COUNT_OF_NOT_RECORD_CELL
-        }else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage){
+        } else if section == 1 && isLoading && viewModel.hasNextPage {
             return 1
-        }else{
+        } else {
             return 0
         }
     }
@@ -187,7 +212,7 @@ extension FriendTestViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 1:     return getFriendTableViewCell(indexPath: indexPath)
+        case 0:     return getFriendTableViewCell(indexPath: indexPath)
         default:    return getLoadingCell(indexPath: indexPath)
         }
     }
@@ -266,20 +291,18 @@ extension FriendTestViewController: FriendRecordCellDelegate{
 extension FriendTestViewController{
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        checkPaigingConditionAndStartPaging(offset: offsetY, scrollView: scrollView)
-        checkRefreshingConditionAndStartRefreshing(offset: offsetY)
-    }
-    
-    private func checkPaigingConditionAndStartPaging(offset: CGFloat, scrollView: UIScrollView){
+        
+        let offset = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         
-        if offset > (contentHeight - height) {
-            if !isLoading && viewModel.hasNextPage {
-                beginPaging()
-            }
+        if canPaging(offset: offset, contentHeight: contentHeight, height: height) {
+            beginPaging()
         }
+    }
+    
+    private func canPaging(offset: CGFloat, contentHeight: CGFloat, height: CGFloat) -> Bool{
+        offset > (contentHeight - height) && !isLoading && viewModel.hasNextPage
     }
     
     private func beginPaging(){
@@ -287,24 +310,8 @@ extension FriendTestViewController{
         DispatchQueue.main.async { [self] in
             mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.willPaging.onNext(())
-        }
-    }
-    
-    private func checkRefreshingConditionAndStartRefreshing(offset: CGFloat){
-        if offset < Offset.REFRESH_DATA && !isLoading {
-            beginRefreshData()
-        }
-    }
-    
-    private func beginRefreshData(){
-        isLoading = true
-        DispatchQueue.main.async { [self] in
-            mainView.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.willRefreshData.onNext(())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+            willPaging.onNext(())
         }
     }
 }
