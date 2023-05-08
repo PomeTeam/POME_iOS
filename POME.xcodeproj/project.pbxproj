@@ -119,7 +119,7 @@
 		5724EC722918CFBA00DC529B /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */; };
 		5724EC762919224700DC529B /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC752919224700DC529B /* PaddingLabel.swift */; };
 		5724EC78291A009F00DC529B /* ShadowStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC77291A009F00DC529B /* ShadowStyle.swift */; };
-		5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC81291B246800DC529B /* EmojiFloatingView.swift */; };
+		5724EC82291B246800DC529B /* ReactionFloatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC81291B246800DC529B /* ReactionFloatingView.swift */; };
 		5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */; };
 		5724EC86291B4C9200DC529B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC85291B4C9200DC529B /* Const.swift */; };
 		5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5724EC88291B7B7B00DC529B /* Delegate.swift */; };
@@ -397,7 +397,7 @@
 		5724EC712918CFBA00DC529B /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC752919224700DC529B /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		5724EC77291A009F00DC529B /* ShadowStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowStyle.swift; sourceTree = "<group>"; };
-		5724EC81291B246800DC529B /* EmojiFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingView.swift; sourceTree = "<group>"; };
+		5724EC81291B246800DC529B /* ReactionFloatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionFloatingView.swift; sourceTree = "<group>"; };
 		5724EC83291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiFloatingCollectionViewCell.swift; sourceTree = "<group>"; };
 		5724EC85291B4C9200DC529B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		5724EC88291B7B7B00DC529B /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
@@ -1134,7 +1134,7 @@
 			isa = PBXGroup;
 			children = (
 				5724EC682918CECD00DC529B /* FriendView.swift */,
-				5724EC81291B246800DC529B /* EmojiFloatingView.swift */,
+				5724EC81291B246800DC529B /* ReactionFloatingView.swift */,
 				57CCA75C2925AEED007E22D1 /* FriendTableEmptyView.swift */,
 				57CCA75E2925AF2C007E22D1 /* FriendDetailView.swift */,
 				57CCA77B29289DCE007E22D1 /* FriendReactionSheetView.swift */,
@@ -2086,7 +2086,7 @@
 				2306123C292B4CB500662007 /* OnboardingViewController.swift in Sources */,
 				23858E5C292B6E6B00707572 /* TermsView.swift in Sources */,
 				57CCA795292B2D76007E22D1 /* ConsumeReviewTableViewCell.swift in Sources */,
-				5724EC82291B246800DC529B /* EmojiFloatingView.swift in Sources */,
+				5724EC82291B246800DC529B /* ReactionFloatingView.swift in Sources */,
 				23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */,
 				EEE5F5E9298126E000ECD31B /* RecordResponseModel.swift in Sources */,
 				2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */,
@@ -2337,6 +2337,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=50 -Xfrontend -warn-long-function-bodies=50";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "POME/Resource/POME-Bridging-Header.h";

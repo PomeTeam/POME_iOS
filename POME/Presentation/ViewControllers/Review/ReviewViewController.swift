@@ -59,7 +59,7 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     }
     
     let mainView = ReviewView()
-    var emoijiFloatingView: EmojiFloatingView!
+    var emoijiFloatingView: ReactionFloatingView!
     
     override func viewWillAppear(_ animated: Bool) {
         page = 0

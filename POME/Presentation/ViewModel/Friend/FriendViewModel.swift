@@ -9,39 +9,128 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol FriendViewModelInterface{
-    
+protocol FriendViewModelInterface: BaseViewModel{
+    var friends: [FriendsResponseModel] { get }
+    var records: [RecordResponseModel] { get }
+    var hasNextPage: Bool { get }
+    var registerReactionCompleted: ((Int) -> Void)! { get }
+    func registerReaction(id: Int, index: Int)
+//    var hideRecordCompleted: () { get }
+//    func hideRecord(index: Int)
 }
 
 class FriendViewModel: FriendViewModelInterface{
+
+    var friends = [FriendsResponseModel]()
+    var records = [RecordResponseModel]()
+    var hasNextPage = false
     
-//    private let friendUseCase: GetFriendReviewUseCase
+    var registerReactionCompleted: ((Int) -> Void)!
+    
+    
+    private let getFriendsUseCase: GetFriendsUseCaseInterface
+    private let getAllFriendsRecordsUseCase: GetAllFriendsRecordsUseCaseInterface
+    private let getFriendRecordsUseCase: GetFriendRecordsUseCaseInterface
+    private let hideFriendRecordUseCase: HideRecordUseCaseInterface
+    private let registerRecordReactionUseCase: RegisterReactionUseCaseInterface
+    
+    init(getFriendsUseCase: GetFriendsUseCaseInterface = GetFriendsUseCase(),
+         getAllFriendsRecordsUseCase: GetAllFriendsRecordsUseCaseInterface = GetAllFriendsRecordsUseCase(),
+         getFriendRecordsUseCase: GetFriendRecordsUseCaseInterface = GetFriendRecordsUseCase(),
+         hideFriendRecordUseCase: HideRecordUseCaseInterface = HideRecordUseCase(),
+         registerRecordReactionUseCase: RegisterReactionUseCaseInterface = RegisterReactionUseCase()) {
+        self.getFriendsUseCase = getFriendsUseCase
+        self.getAllFriendsRecordsUseCase = getAllFriendsRecordsUseCase
+        self.getFriendRecordsUseCase = getFriendRecordsUseCase
+        self.hideFriendRecordUseCase = hideFriendRecordUseCase
+        self.registerRecordReactionUseCase = registerRecordReactionUseCase
+    }
+    
+    private var friendIndex = 0
+    
+    private let pageRelay = PublishRelay<Int>()
+    private let disposeBag = DisposeBag()
     
     struct Input{
-        let viewWillAppear: Observable<Void>
-        let friendId: Observable<Int>
-        let leaveEmotionToFriend: ControlEvent<Void>
+        let refreshView: Observable<Void>
+        let willPaging: Observable<Void>
+        let friendCellIndex: Observable<Int>
     }
     
     struct Output{
-        let friends: Driver<[String]>
-        let friendCards: Driver<[Reaction?]>
+        let reloadFriends: Observable<Void>
+        let reloadRecords: Observable<Void>
     }
     
-//    func transform(input: Input) -> Output{
-//        return Output(friends: <#Driver<[String]>#>,
-//                      friendCards: <#Driver<[Reaction?]>#>)
-//    }
+    func transform(_ input: Input) -> Output {
+        
+        let friendsResponse = input.refreshView
+            .flatMap{
+                self.getFriendsUseCase.execute()
+            }.share()
+        
+        let reloadCollectionView = friendsResponse
+            .do{
+                self.friends = $0
+                self.pageRelay.accept(0)
+            }.map{ _ in
+                ()
+            }
+                
+        input.willPaging
+            .subscribe(onNext: {
+                self.pageRelay.accept(1)
+            }).disposed(by: disposeBag)
+        
+        input.friendCellIndex
+            .subscribe(onNext: {
+                self.friendIndex = $0
+                self.pageRelay.accept(0)
+            })
+            .disposed(by: disposeBag)
+                
+                
+        let requestPage = pageRelay
+                .scan((0,0)){
+                    $1 == 0 ? ($0.1, 0) : ($0.1, $0.1 + $1) //0인 경우 0 반환, 1인 경우 page + 1 반환
+                }.map{
+                    $0.1
+                }
+                .share()
+        
+        let recordsResponse = requestPage
+            .flatMap{ [self] page in
+                let pageModel = PageableModel(page: page)
+                return friendIndex == 0
+                ? self.getAllFriendsRecordsUseCase.execute(requestModel: pageModel)
+                : self.getFriendRecordsUseCase.execute(
+                    requestModel: GetFriendRecordsRequestValue(
+                        friendId: self.friends[friendIndex - 1].friendUserId,
+                        pageable: pageModel
+                    )
+                )
+            }.share()
+        
+        let reloadTableView: Observable<Void> = recordsResponse
+            .do(onNext: { [weak self] in
+                self?.hasNextPage = !$0.last
+                self?.records = $0.content
+            })
+            .map{ _ in () }
+            
+        
+        return Output(
+            reloadFriends: reloadCollectionView,
+            reloadRecords: reloadTableView
+        )
+    }
     
-    
+    func registerReaction(id reactionId: Int, index: Int) {
+        registerRecordReactionUseCase.execute(
+            requestValue: RegisterReactionRequestValue(recordId: records[index].id, emotionId: reactionId)
+        ).subscribe{ [weak self] in
+            self?.records[index] = $0
+            self?.registerReactionCompleted(index)
+        }.disposed(by: disposeBag)
+    }
 }
-
-
- /* api
-  1. 친구 리스트 조회
-  2. 모든 친구 기록
-  3. 특정 친구 기록
-  4. 친구 기록에 리액션 남기기
-  5. 친구 기록 숨기기
-  */
-

@@ -27,7 +27,7 @@ class FriendRepository: FriendRepositoryInterface{
     
     func registerReaction(requestValue: RegisterReactionRequestValue) -> Observable<RecordResponseModel> {
         let observable = Observable<RecordResponseModel>.create { observer -> Disposable in
-            let requestReference: () = FriendService.shared.generateFriendEmotion(id: requestValue.friendId, emotion: requestValue.emotionId) { response in
+            let requestReference: () = FriendService.shared.generateFriendEmotion(id: requestValue.recordId, emotion: requestValue.emotionId) { response in
                 switch response {
                 case .success(let data):
                     observer.onNext(data)

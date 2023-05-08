@@ -7,19 +7,18 @@
 
 import UIKit
 
-final class EmojiFloatingView: BaseView {
+final class ReactionFloatingView: BaseView {
     
-    var delegate: FriendRecordCellDelegate!
-    var completion: (() -> ())!
+    private var completion: ((Int) -> Void)!
     
-    let containerView = UIView().then{
+    private let containerView = UIView().then{
         $0.backgroundColor = .white
         $0.setShadowStyle(type: .card)
         $0.clipsToBounds = false
         $0.layer.cornerRadius = 54/2
     }
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.minimumLineSpacing = 14
@@ -42,26 +41,26 @@ final class EmojiFloatingView: BaseView {
         let dismissGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss)).then{
             $0.delegate = self
         }
-        self.addGestureRecognizer(dismissGesture)
+        addGestureRecognizer(dismissGesture)
         
         collectionView.dataSource = self
         collectionView.delegate = self
     }
     
-    @objc func dismiss(){
+    @objc private func dismiss(){
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3, animations: {
                 self.transform = CGAffineTransform(translationX: 0, y: 10)
                 self.layer.opacity = 0.0
             }, completion:{ finished in
                 self.removeFromSuperview()
-                self.completion()
             })
         }
+        completion = nil
     }
     
     override func hierarchy() {
-        self.addSubview(containerView)
+        addSubview(containerView)
         containerView.addSubview(collectionView)
     }
     
@@ -76,61 +75,50 @@ final class EmojiFloatingView: BaseView {
         }
     }
     
-    func show(in viewController: UIViewController, standard: BaseTableViewCell){
-
-        viewController.view.addSubview(self)
+    func show(in viewController: UIViewController, standard cell: BaseTableViewCell, closure: @escaping (Int) -> Void){
+        addViewToParent(vc: viewController)
+        setFloatingViewLayout(standard: cell.baseView)
+        playAnimation()
+        completion = closure
+    }
+    
+    private func addViewToParent(vc: UIViewController){
+        vc.view.addSubview(self)
+    }
+    
+    private func setFloatingViewLayout(standard: UIView){
         self.snp.makeConstraints{
             $0.top.bottom.leading.trailing.equalToSuperview()
         }
-        self.containerView.snp.makeConstraints{
-            $0.top.equalTo(standard.baseView.snp.bottom).offset(-4)
-        }
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3) {
-                self.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
-            } completion: { finished in
-                UIView.animate(withDuration: 0.5, delay: 0) {
-                    self.containerView.transform = .identity
-                }
-            }
-            
+        containerView.snp.makeConstraints{
+            $0.top.equalTo(standard.snp.bottom).offset(-4)
         }
     }
     
-    func show(in viewController: UIViewController, standard: BaseView){
-
-        viewController.view.addSubview(self)
-        self.snp.makeConstraints{
-            $0.top.bottom.leading.trailing.equalToSuperview()
-        }
-        self.containerView.snp.makeConstraints{
-            $0.top.equalTo(standard.snp.bottom).offset(20 - 4)
-        }
-        
+    private func playAnimation(){
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.3) {
+                self.layer.opacity = 1.0
                 self.containerView.transform = CGAffineTransform(translationX: 0, y: -10)
             } completion: { finished in
                 UIView.animate(withDuration: 0.5, delay: 0) {
                     self.containerView.transform = .identity
                 }
             }
-            
         }
     }
 }
 
-extension EmojiFloatingView: UIGestureRecognizerDelegate {
+extension ReactionFloatingView: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        guard touch.view?.isDescendant(of: self.containerView) == false else {
+        guard touch.view?.isDescendant(of: containerView) == false else {
             return false
         }
         return true
     }
 }
 
-extension EmojiFloatingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+extension ReactionFloatingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         6
@@ -144,7 +132,8 @@ extension EmojiFloatingView: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
-        delegate.requestGenerateFriendCardEmotion(reactionIndex: indexPath.row)
+        completion(indexPath.row)
+        dismiss()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
