@@ -37,8 +37,9 @@ final class FriendTestViewController: BaseTabViewController{
     }
     private var isLoading: Bool = false
     
-    private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [0,0]
+    private let FRIEND_INFO_SECTION: Int = 0
     private let COUNT_OF_NOT_RECORD_CELL: Int = 1
+    private let FRIEND_LIST_TABLEVIEW_CELL: IndexPath = [0,0]
     
     private typealias FriendListTableViewCell = FriendView.FriendListTableViewCell
     
@@ -94,11 +95,11 @@ final class FriendTestViewController: BaseTabViewController{
         guard let viewModel = viewModel as? FriendViewModel else { return }
         
         viewModel.registerReactionCompleted = { [self] in
-            mainView.tableView.reloadRows(at: [[0, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+            mainView.tableView.reloadRows(at: [[FRIEND_INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
         }
         
         viewModel.hideRecordCompleted = { [self] in
-            mainView.tableView.deleteRows(at: [[0, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+            mainView.tableView.deleteRows(at: [[FRIEND_INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .fade)
             ToastMessageView.showHideCompleteMessage(in: self)
         }
         
@@ -274,15 +275,15 @@ extension FriendTestViewController: FriendRecordCellDelegate{
         present(alert, animated: true)
     }
     
-    private func makeAlertHideAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
-        return UIAlertAction(title: "숨기기", style: .default){ _ in
+    private func makeAlertHideAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction {
+        UIAlertAction(title: "숨기기", style: .default){ _ in
             alert.dismiss(animated: true)
             self.viewModel.hideRecord(index: indexPath.ofRecordData)
         }
     }
     
-    private func makeAlertDeclarationAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
-        return UIAlertAction(title: "신고하기", style: .default) { _ in
+    private func makeAlertDeclarationAction(alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction {
+        UIAlertAction(title: "신고하기", style: .default) { _ in
             LinkManager(self, .report)
         }
     }
@@ -309,11 +310,10 @@ extension FriendTestViewController: FriendRecordCellDelegate{
     }
     
     private func showReactionFloatingView(indexPath: IndexPath){
-
-        guard let cell = mainView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell else { return }
-
-        reactionFloatingView.show(in: self, standard: cell){
-            self.viewModel.registerReaction(id: $0, index: indexPath.ofRecordData)
+        if let cell = mainView.tableView.cellForRow(at: indexPath) as? FriendTableViewCell {
+            reactionFloatingView.show(in: self, standard: cell){
+                self.viewModel.registerReaction(id: $0, index: indexPath.ofRecordData)
+            }
         }
     }
 }
