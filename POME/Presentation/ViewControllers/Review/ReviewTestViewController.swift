@@ -15,6 +15,15 @@ enum EmotionTime: Int{
     case second = 200
 }
 
+private extension IndexPath{
+    var ofGoalData: Int{
+        row
+    }
+    var ofRecordData: Int{
+        row - 3
+    }
+}
+
 class ReviewTestViewController: BaseTabViewController{
     
     private var isLoading = false
