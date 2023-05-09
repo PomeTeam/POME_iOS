@@ -131,7 +131,7 @@
 		5799DB762977D474001137EA /* GoalTagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799DB752977D474001137EA /* GoalTagsTableViewCell.swift */; };
 		5799DB782977D47D001137EA /* GoalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799DB772977D47D001137EA /* GoalDetailTableViewCell.swift */; };
 		5799DB7A2977D487001137EA /* ReviewFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5799DB792977D487001137EA /* ReviewFilterTableViewCell.swift */; };
-		57B16853295941E000639A15 /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessageView.swift */; };
+		57B16853295941E000639A15 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B16852295941E000639A15 /* ToastMessage.swift */; };
 		57B32C3D292466010018C0CB /* TypoStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B32C3C292466010018C0CB /* TypoStyle.swift */; };
 		57C4818A2967111B008731D9 /* SSOOYA.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57C481892967111B008731D9 /* SSOOYA.storyboard */; };
 		57C481DD296ABCDB008731D9 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C481DC296ABCDB008731D9 /* Goal.swift */; };
@@ -409,7 +409,7 @@
 		5799DB752977D474001137EA /* GoalTagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTagsTableViewCell.swift; sourceTree = "<group>"; };
 		5799DB772977D47D001137EA /* GoalDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		5799DB792977D487001137EA /* ReviewFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewFilterTableViewCell.swift; sourceTree = "<group>"; };
-		57B16852295941E000639A15 /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
+		57B16852295941E000639A15 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		57B32C3C292466010018C0CB /* TypoStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypoStyle.swift; sourceTree = "<group>"; };
 		57C4818629671010008731D9 /* POME-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "POME-Bridging-Header.h"; sourceTree = "<group>"; };
 		57C481892967111B008731D9 /* SSOOYA.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SSOOYA.storyboard; sourceTree = "<group>"; };
@@ -1233,7 +1233,7 @@
 		57B16851295941BD00639A15 /* Toast */ = {
 			isa = PBXGroup;
 			children = (
-				57B16852295941E000639A15 /* ToastMessageView.swift */,
+				57B16852295941E000639A15 /* ToastMessage.swift */,
 			);
 			path = Toast;
 			sourceTree = "<group>";
@@ -2132,7 +2132,7 @@
 				EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */,
 				23061244292B51F200662007 /* DefaultTextField.swift in Sources */,
 				EE4CEA4E2A00ABFE002BF87E /* RegisterReactionUseCase.swift in Sources */,
-				57B16853295941E000639A15 /* ToastMessageView.swift in Sources */,
+				57B16853295941E000639A15 /* ToastMessage.swift in Sources */,
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
 				23061240292B51A600662007 /* AppRegisterViewController.swift in Sources */,

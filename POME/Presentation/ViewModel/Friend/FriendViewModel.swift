@@ -10,23 +10,26 @@ import RxSwift
 import RxCocoa
 
 protocol FriendViewModelInterface: BaseViewModel{
+    
     var friends: [FriendsResponseModel] { get }
     var records: [RecordResponseModel] { get }
     var hasNextPage: Bool { get }
+    
     var registerReactionCompleted: ((Int) -> Void)! { get }
+    var hideRecordCompleted: ((Int) -> Void)! { get }
+    
     func registerReaction(id: Int, index: Int)
-//    var hideRecordCompleted: () { get }
-//    func hideRecord(index: Int)
+    func hideRecord(index: Int)
 }
 
 class FriendViewModel: FriendViewModelInterface{
-
+    
     var friends = [FriendsResponseModel]()
     var records = [RecordResponseModel]()
     var hasNextPage = false
     
+    var hideRecordCompleted: ((Int) -> Void)!
     var registerReactionCompleted: ((Int) -> Void)!
-    
     
     private let getFriendsUseCase: GetFriendsUseCaseInterface
     private let getAllFriendsRecordsUseCase: GetAllFriendsRecordsUseCaseInterface
@@ -46,7 +49,7 @@ class FriendViewModel: FriendViewModelInterface{
         self.registerRecordReactionUseCase = registerRecordReactionUseCase
     }
     
-    private var friendIndex = 0
+    private var friendIndex: Int = 0
     
     private let pageRelay = PublishRelay<Int>()
     private let disposeBag = DisposeBag()
@@ -67,6 +70,8 @@ class FriendViewModel: FriendViewModelInterface{
         let friendsResponse = input.refreshView
             .flatMap{
                 self.getFriendsUseCase.execute()
+            }.do{
+                FriendProfileImageManager.shared.construct(by: $0)
             }.share()
         
         let reloadCollectionView = friendsResponse
@@ -132,5 +137,15 @@ class FriendViewModel: FriendViewModelInterface{
             self?.records[index] = $0
             self?.registerReactionCompleted(index)
         }.disposed(by: disposeBag)
+    }
+    
+    func hideRecord(index: Int) {
+        hideFriendRecordUseCase.execute(recordId: records[index].id)
+            .subscribe(onNext: { [weak self] in
+                if $0 == .success {
+                    self?.records.remove(at: index)
+                    self?.hideRecordCompleted(index)
+                }
+            }).disposed(by: disposeBag)
     }
 }
