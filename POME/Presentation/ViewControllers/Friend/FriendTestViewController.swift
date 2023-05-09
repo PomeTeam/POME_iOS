@@ -100,7 +100,7 @@ final class FriendTestViewController: BaseTabViewController{
         
         viewModel.hideRecordCompleted = { [self] in
             mainView.tableView.deleteRows(at: [[FRIEND_INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .fade)
-            ToastMessageView.showHideCompleteMessage(in: self)
+            ToastMessage.showHideCompleteMessage(in: self)
         }
         
         let input = FriendViewModel.Input(
@@ -292,7 +292,7 @@ extension FriendTestViewController: FriendRecordCellDelegate{
         if isSufficientToShowFloatingView(indexPath: indexPath) {
             showReactionFloatingView(indexPath: indexPath)
         } else {
-            ToastMessageView.showMakeSufficientSpaceMessage(in: self)
+            ToastMessage.showMakeSufficientSpaceMessage(in: self)
         }
     }
     
