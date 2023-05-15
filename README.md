@@ -3,8 +3,7 @@
 <img width="1000" alt="pome_thumbnail" src="https://github-production-user-asset-6210df.s3.amazonaws.com/87636557/238380244-27980818-69d4-473d-ae41-2ce9b917b598.svg">
 
 __Timeline: ```22.09 ~ ing```<br>
-Release: ```23.03.27``` <br>__
-
+[Release](https://apps.apple.com/kr/app/pome-%ED%8F%AC%EB%AF%B8-%EB%82%98%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%86%8C%EB%B9%84%EA%B8%B0%EB%A1%9D/id1672584491): ```23.03.27``` <br>__
 ```
 ❓소비에 정답이 있을까요?
 무조건 절약하는 것도 아니고 넘치게 사용하는 것도 아닌, 나의 기준에 만족스러울 때 행복한 소비가 된다고 믿습니다. <br>
