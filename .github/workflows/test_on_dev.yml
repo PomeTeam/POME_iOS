@@ -23,4 +23,4 @@ jobs:
     - name: Start xcode build 🛠
       run: |
         pod install --repo-update --clean-install
-        xcodebuild clean test -project POME.xcodeproj -scheme POME -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
+        xcodebuild clean test -project POME.xcworkspace -scheme POME -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
