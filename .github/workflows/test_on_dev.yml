@@ -22,5 +22,6 @@ jobs:
     # shell 이용해서 하나의 command 수행
     - name: Start xcode build 🛠
       run: |
+        sudo gem update cocoapods --pre
         pod install --repo-update --clean-install
         xcodebuild clean test -workspace POME.xcworkspace -scheme POME -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
