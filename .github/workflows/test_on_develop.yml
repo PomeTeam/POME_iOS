@@ -22,5 +22,5 @@ jobs:
     # shell 이용해서 하나의 command 수행
     - name: Start xcode build 🛠
       run: |
-        pod install --repo-update --clean-install --project-directory=POME/
+        pod install --repo-update --clean-install --project-directory=POME
         xcodebuild clean test -project POME.xcodeproj -scheme POME -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=15.0'
