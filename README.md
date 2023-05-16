@@ -60,7 +60,7 @@ __Timeline: ```22.11 ~ ing```<br>
 <br>
 
 ## Convention
-[Git Convention 바로가기 Click ✔]()
+[Git Convention 바로가기 Click ✔](.github/Git_Convention.md)
 
 [Code Convention 바로가기 Click ✔]()
 
