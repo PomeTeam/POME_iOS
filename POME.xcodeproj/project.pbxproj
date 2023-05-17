@@ -171,7 +171,7 @@
 		EE2628D1299231230013137C /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2628D0299231230013137C /* Pageable.swift */; };
 		EE38758029D917B900A26AD5 /* TextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38757F29D917B900A26AD5 /* TextConverter.swift */; };
 		EE39696329DAA143003F655F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696229DAA143003F655F /* ReviewViewController.swift */; };
-		EE39696529DAAF3D003F655F /* FriendReactionSheetTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */; };
+		EE39696529DAAF3D003F655F /* FriendReactionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696429DAAF3D003F655F /* FriendReactionSheetViewController.swift */; };
 		EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
@@ -449,7 +449,7 @@
 		EE2628D0299231230013137C /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
 		EE38757F29D917B900A26AD5 /* TextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConverter.swift; sourceTree = "<group>"; };
 		EE39696229DAA143003F655F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
-		EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetTestViewController.swift; sourceTree = "<group>"; };
+		EE39696429DAAF3D003F655F /* FriendReactionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewController.swift; sourceTree = "<group>"; };
 		EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewModel.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
@@ -1078,7 +1078,7 @@
 			isa = PBXGroup;
 			children = (
 				23F364D3291B7B38009232B4 /* FriendSearchViewController.swift */,
-				EE39696429DAAF3D003F655F /* FriendReactionSheetTestViewController.swift */,
+				EE39696429DAAF3D003F655F /* FriendReactionSheetViewController.swift */,
 				EE4CEA482A00A9EA002BF87E /* FriendViewController.swift */,
 			);
 			path = Friend;
@@ -2110,7 +2110,7 @@
 				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				EE7D35E629D5A16300D2AD60 /* GenerateRecordViewModel.swift in Sources */,
 				EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */,
-				EE39696529DAAF3D003F655F /* FriendReactionSheetTestViewController.swift in Sources */,
+				EE39696529DAAF3D003F655F /* FriendReactionSheetViewController.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
