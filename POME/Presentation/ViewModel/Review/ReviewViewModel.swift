@@ -9,15 +9,34 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+
+/*
+ Review
+ 
+ 1. Modify
+ 2. Delete >
+ 3. Reaction 조회 >
+ 4. 목표 조회 > ViewController에서 데이터 관리
+ 5. 기록 필터링 > ViewController에서 데이터 관리
+ */
+
+protocol ModifyRecordInterface{
+    var modifyRecordCompleted: ((_ index: Int) -> Void)! { get }
+    func modifyRecord(index: Int)
+}
+
 protocol DeleteRecord{
     var deleteRecordCompleted: ((Int) -> Void)! { get }
     func deleteRecord(index: Int)
 }
 
-protocol ReviewViewModelInterface: BaseViewModel, DeleteRecord{
+protocol PageableInterface{
+    var hasNextPage: Bool { get }
+}
+
+protocol ReviewViewModelInterface: BaseViewModel{
     var goals: [GoalResponseModel] { get }
     var records: [RecordResponseModel] { get }
-    var hasNextPage: Bool { get }
 }
 
 class ReviewViewModel: BaseViewModel, ModifyRecord{
@@ -117,7 +136,8 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
         
         filteringConditionRelay
             .skip(1)
-            .subscribe(onNext: { [weak self] _ in
+            .subscribe(onNext: { [weak self] in
+                self?.emotionFilter = $0
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
 
@@ -129,8 +149,9 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
                     self.canRequestNextPage = false
                 }
             }).map{ page in
-                return (page, self.filteringCondition)
-            }.flatMap{ (page, filtering) in
+                return (page, self.emotionFilter)
+            }
+            .flatMap{ page, filtering in
                 self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
                                                requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
                                                                                            secondEmotion: filtering.second,
@@ -156,13 +177,12 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
             .asDriver(onErrorJustReturn: false)
         
         
-        return Output(firstEmotionState: firstEmotionState,
-                      secondEmotionState: secondEmotionState,
-                      initializeEmotionFilter: initializeEmotionFilter,
-                      deleteRecord: deleteIndexPath,
-                      modifyRecord: modifyRecordIndexPath,
-                      reloadTableView: reloadTableView,
-                      showEmptyView: showEmptyView)
+        return Output(
+            deleteRecord: deleteIndexPath,
+            modifyRecord: modifyRecordIndexPath,
+            reloadTableView: reloadTableView,
+            showEmptyView: showEmptyView
+        )
     }
     
     private func initializeRecordRequest(){
@@ -196,26 +216,6 @@ extension ReviewViewModel{
 
     func selectGoal(at index: Int){
         selectGoalRelay.accept(index)
-    }
-    
-    func filterFirstEmotion(id: Int){
-        changeFilteringCondition(first: id, second: filteringCondition.1)
-    }
-    
-    func filterSecondEmotion(id: Int){
-        changeFilteringCondition(first: filteringCondition.0, second: id)
-    }
-    
-    func initializeFilterCondtion(){
-        changeFilteringCondition(first: nil, second: nil)
-    }
-    
-    private var filteringCondition: FilteringCondition{
-        filteringConditionRelay.value
-    }
-    
-    private func changeFilteringCondition(first: Int?, second: Int?){
-        filteringConditionRelay.accept((first, second))
     }
     
     func requestNextPage(){
