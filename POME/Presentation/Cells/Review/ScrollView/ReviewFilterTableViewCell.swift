@@ -31,10 +31,10 @@ class ReviewFilterTableViewCell: BaseTableViewCell{
         $0.axis = .horizontal
     }
     
-    let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
-    let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
+    private let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
+    private let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
-    lazy var reloadingButton = UIButton()
+    private lazy var reloadingButton = UIButton()
     
     private let reloadingLabel = UILabel().then{
         $0.text = "초기화"
@@ -121,6 +121,11 @@ class ReviewFilterTableViewCell: BaseTableViewCell{
     @objc private func initializeButtonDidTapped(){
         delegate?.initializeFilteringCondition()
     }
+    
+    func changeEmotionSelectState(firstEmotionId: Int?, secondEmotionId: Int?){
+        firstEmotionFilter.setEmotionFilterState(emotionId: firstEmotionId)
+        secondEmotionFilter.setEmotionFilterState(emotionId: secondEmotionId)
+    }
 }
 
 extension EmotionTime{
@@ -135,6 +140,14 @@ extension EmotionTime{
 extension ReviewFilterTableViewCell{
     
     class EmotionFilterView: BaseView{
+        
+        static func generateFirstEmotionFilter() -> EmotionFilterView{
+            EmotionFilterView(time: .first)
+        }
+        
+        static func generateSecondEmotionFilter() -> EmotionFilterView{
+            EmotionFilterView(time: .second)
+        }
         
         private let time: EmotionTime
         
@@ -162,27 +175,26 @@ extension ReviewFilterTableViewCell{
             $0.isUserInteractionEnabled = false
         }
         
-        static func generateFirstEmotionFilter() -> EmotionFilterView{
-            EmotionFilterView(time: .first)
-        }
-        
-        static func generateSecondEmotionFilter() -> EmotionFilterView{
-            EmotionFilterView(time: .second)
-        }
-        
         //MARK: - Method
-        func setFilterDefaultState(){
+        private func setFilterDefaultState(){
             titleLabel.text = time.title
             titleLabel.textColor = Color.grey5
             filterButton.backgroundColor = Color.grey1
             arrowImage.tintColor = Color.grey5
         }
         
-        func setFilterSelectState(emotion: EmotionTag){
+        private func setFilterSelectState(emotion: EmotionTag){
             titleLabel.text = emotion.message
             titleLabel.textColor = Color.pink100
             filterButton.backgroundColor = Color.pink10
             arrowImage.tintColor = Color.pink100
+        }
+        
+        func setEmotionFilterState(emotionId: Int?){
+            guard let emotionId = emotionId, let emotion = EmotionTag(rawValue: emotionId) else {
+                setFilterDefaultState(); return
+            }
+            setFilterSelectState(emotion: emotion)
         }
         
         //MARK: - Override

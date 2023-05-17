@@ -81,29 +81,6 @@ class ReviewViewController: BaseTabViewController{
                 self?.mainView.tableView.reloadData()
             }).disposed(by: disposeBag)
         
-        
-        var filteringCell: ReviewFilterTableViewCell?{
-            mainView.tableView.cellForRow(at: [INFO_SECTION,2], cellType: ReviewFilterTableViewCell.self)
-        }
-        
-        output.firstEmotionState
-            .drive(onNext: {
-                filteringCell?.firstEmotionFilter.setFilterSelectState(emotion: $0)
-            }).disposed(by: disposeBag)
-        
-        output.secondEmotionState
-            .drive(onNext: {
-                filteringCell?.secondEmotionFilter.setFilterSelectState(emotion: $0)
-            }).disposed(by: disposeBag)
-        
-        output.initializeEmotionFilter
-            .drive(onNext: {
-                filteringCell?.do{
-                    $0.firstEmotionFilter.setFilterDefaultState()
-                    $0.secondEmotionFilter.setFilterDefaultState()
-                }
-            }).disposed(by: disposeBag)
-        
         output.deleteRecord
             .drive(onNext: { indexPath in
                 self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
