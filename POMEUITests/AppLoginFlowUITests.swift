@@ -7,10 +7,9 @@
 
 import XCTest
 
-class AppRegisterFlowUITests: XCTestCase {
+class AppLoginFlowUITests: XCTestCase {
     
     private var app:XCUIApplication!
-    private var nameTF:XCUIElement!
     private var phoneTF:XCUIElement!
     private var codeTF:XCUIElement!
     private var sendCodeBtn:XCUIElement!
@@ -33,21 +32,16 @@ class AppRegisterFlowUITests: XCTestCase {
         app = XCUIApplication()
         app.launch()
         
-        app/*@START_MENU_TOKEN@*/.staticTexts["gomin"]/*[[".buttons[\"gomin\"].staticTexts[\"gomin\"]",".staticTexts[\"gomin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        // '시작하기' 클릭
         app.buttons["시작하기"].tap()
         
-        nameTF = app.textFields["이름을 입력해주세요"]
+        // Login Data input
         phoneTF = app.textFields["- 없이 숫자만 입력해주세요"]
         codeTF = app.textFields["인증번호를 입력해주세요"]
         sendCodeBtn = app.buttons["인증요청"]
         nextBtn = app.buttons["동의하고 시작하기"]
-        touchScreen = XCUIApplication().children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1)
         
-        nameTF.tap()
-        nameTF.typeText("nickname")
-        
-        touchScreen.tap()
-        XCTAssertTrue(!nextBtn.isEnabled, "정보를 입력하지 않으면 버튼이 비활성화되어야합니다.")
+        touchScreen = app.windows.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1)
         
         phoneTF.tap()
         phoneTF.typeText("01012341234")
@@ -59,7 +53,7 @@ class AppRegisterFlowUITests: XCTestCase {
         XCTAssertTrue(!nextBtn.isEnabled, "정보를 입력하지 않으면 버튼이 비활성화되어야합니다.")
         
         codeTF.tap()
-        codeTF.typeText("12345678")
+        codeTF.typeText("41534")
         
         touchScreen.tap()
         
