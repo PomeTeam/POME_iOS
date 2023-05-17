@@ -9,12 +9,20 @@ import Foundation
 
 class EmotionFilterSheetViewController: BaseSheetViewController {
     
-    private let emotionTime: EmotionTime
-    private let reviewViewModel: ReviewViewModel
+    static func generateFirstEmotionFilter() -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .first)
+    }
     
-    private init(emotionTime: EmotionTime, viewModel: ReviewViewModel){
+    static func generateSecondEmotionFilter() -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .second)
+    }
+    
+    var selectedEmotion: ((Int) -> Void)!
+    
+    private let emotionTime: EmotionTime
+    
+    private init(emotionTime: EmotionTime){
         self.emotionTime = emotionTime
-        self.reviewViewModel = viewModel
         super.init(type: .emotionFilter)
     }
     
@@ -23,14 +31,6 @@ class EmotionFilterSheetViewController: BaseSheetViewController {
     }
     
     private let mainView = EmotionFilterSheetView()
-    
-    static func generateFirstEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterSheetViewController{
-        EmotionFilterSheetViewController(emotionTime: .first, viewModel: viewModel)
-    }
-    
-    static func generateSecondEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterSheetViewController{
-        EmotionFilterSheetViewController(emotionTime: .second, viewModel: viewModel)
-    }
     
     override func style() {
         super.style()
@@ -87,9 +87,6 @@ extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollecti
     }
     
     private func selectFilteringEmotion(id: Int){
-        switch emotionTime{
-        case .first:    reviewViewModel.filterFirstEmotion(id: id)
-        case .second:   reviewViewModel.filterSecondEmotion(id: id)
-        }
+        selectedEmotion(id)
     }
 }

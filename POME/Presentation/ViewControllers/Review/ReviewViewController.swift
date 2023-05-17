@@ -24,6 +24,10 @@ private extension IndexPath{
     }
 }
 
+struct Review{
+    typealias EmotionFiltering = (first: Int?, second: Int?)
+}
+
 class ReviewViewController: BaseTabViewController{
     
     private var isLoading = false
@@ -33,8 +37,18 @@ class ReviewViewController: BaseTabViewController{
     private let mainView = ReviewView()
     
     private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
-    private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter(viewModel: viewModel)
-    private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter(viewModel: viewModel)
+    private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
+    private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
+    
+    //감정 필터링 프로퍼티
+    private typealias FilteringEmotion = (first: Int?, second: Int?)
+    private let filterEmotion = BehaviorRelay<Review.EmotionFiltering>(value: (nil, nil))
+    private var firstEmotion: Int?{
+        filterEmotion.value.first
+    }
+    private var secondEmotion: Int?{
+        filterEmotion.value.second
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,10 +74,12 @@ class ReviewViewController: BaseTabViewController{
             $0.dataSource = self
         }
     }
-    
+
     override func bind() {
         
-        let output = viewModel.transform(ReviewViewModel.Input())
+        bindEmotionFiltering()
+        
+        let output = viewModel.transform(ReviewViewModel.Input(filteringEmotion: filterEmotion.asObservable()))
         
         output.showEmptyView
             .drive(onNext: { [weak self] willShow in
@@ -90,6 +106,24 @@ class ReviewViewController: BaseTabViewController{
             .drive(onNext: { indexPath in
                 self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
             }).disposed(by: disposeBag)
+    }
+    
+    private func bindEmotionFiltering(){
+        
+        firstEmotionFilterBottomSheet.selectedEmotion = { [weak self] in
+            self?.filterEmotion.accept(($0, self?.secondEmotion))
+        }
+        secondEmotionFilterBottomSheet.selectedEmotion = { [weak self] in
+            self?.filterEmotion.accept((self?.firstEmotion, $0))
+        }
+        
+        var filteringCell: ReviewFilterTableViewCell?{
+            mainView.tableView.cellForRow(at: [INFO_SECTION,2], cellType: ReviewFilterTableViewCell.self)
+        }
+        filterEmotion
+            .subscribe{
+                filteringCell?.changeEmotionSelectState(firstEmotionId: $0.first, secondEmotionId: $0.second)
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -208,7 +242,7 @@ extension ReviewViewController: FilterDelegate{
     }
     
     func initializeFilteringCondition() {
-        viewModel.initializeFilterCondtion()
+        filterEmotion.accept((nil, nil))
     }
 }
 

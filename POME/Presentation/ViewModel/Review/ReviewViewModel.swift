@@ -56,8 +56,6 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
         self.deleteRecordUseCase = deleteRecordUseCase
     }
     
-    private typealias FilteringCondition = (first: Int?, second: Int?)
-    
     private var canRequestNextPage = false
     private var goals = [GoalResponseModel]()
     private var records = [RecordResponseModel](){
@@ -73,15 +71,14 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
     private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
     private let emptyViewVisibilitySubject = PublishSubject<Bool>()
-    private let filteringConditionRelay = BehaviorRelay<FilteringCondition>(value: (nil, nil))
+    private var emotionFilter: Review.EmotionFiltering = (nil, nil)
+    
     
     struct Input{
+        let filteringEmotion: Observable<Review.EmotionFiltering>
     }
     
     struct Output{
-        let firstEmotionState: Driver<EmotionTag>
-        let secondEmotionState: Driver<EmotionTag>
-        let initializeEmotionFilter: Driver<Void>
         let deleteRecord: Driver<IndexPath>
         let modifyRecord: Driver<IndexPath>
         let reloadTableView: Driver<Void>
@@ -109,24 +106,6 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
         let modifyRecordIndexPath = modifyRecordSubject
             .asDriver(onErrorJustReturn: IndexPath.init())
         
-        //emotion filter control
-        let firstEmotionState = filteringConditionRelay
-            .compactMap{ $0.first }
-            .map{ EmotionTag(rawValue: $0) }
-            .compactMap{ $0 }
-            .asDriver(onErrorJustReturn: .default)
-        
-        let secondEmotionState = filteringConditionRelay
-            .compactMap{ $0.second }
-            .map{ EmotionTag(rawValue: $0) }
-            .compactMap{ $0 }
-            .asDriver(onErrorJustReturn: .default)
-        
-        let initializeEmotionFilter = filteringConditionRelay
-            .filter{ $0.first == nil && $0.second == nil}
-            .map{ _ in Void() }
-            .asDriver(onErrorJustReturn: Void())
-        
         //새로운 목표 선택 또는 필터 조건 변경시 paging 관련 프로퍼티 초기화
         selectGoalRelay
             .skip(1)
@@ -134,7 +113,7 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
                 self?.initializeRecordRequest()
             }).disposed(by: disposeBag)
         
-        filteringConditionRelay
+        input.filteringEmotion
             .skip(1)
             .subscribe(onNext: { [weak self] in
                 self?.emotionFilter = $0
