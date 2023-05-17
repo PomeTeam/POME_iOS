@@ -1,7 +1,7 @@
 ---
 name: "\bIssue template"
 about: 이슈 템플릿
-title: ''
+title: "[] 이슈 제목"
 labels: ''
 assignees: ''
 
