@@ -55,8 +55,8 @@ class TabBarController: UITabBarController {
     func setTabBarItems(){
         
         let tabs = [UINavigationController(rootViewController: recordViewController),
-                    UINavigationController(rootViewController: ReviewTestViewController(btnImage: UIImage())),
-                    UINavigationController(rootViewController: FriendTestViewController()),
+                    UINavigationController(rootViewController: ReviewViewController(btnImage: UIImage())),
+                    UINavigationController(rootViewController: FriendViewController()),
                     UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
         
         TabBarItem.allCases.forEach {
