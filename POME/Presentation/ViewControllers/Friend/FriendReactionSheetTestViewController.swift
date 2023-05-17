@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-class FriendReactionSheetTestViewController: BaseSheetViewController, ObservableBinding{
+class FriendReactionSheetViewController: BaseSheetViewController, ObservableBinding{
     
     @frozen
     enum CollectionView: Int { //rawValue > view tag
@@ -75,7 +75,7 @@ class FriendReactionSheetTestViewController: BaseSheetViewController, Observable
     }
 }
 
-extension FriendReactionSheetTestViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension FriendReactionSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     private func getCollectionViewType(tag: Int) -> CollectionView{
         guard let type = CollectionView(rawValue: tag) else { fatalError("유효하지 않은 collection view tag 값") }

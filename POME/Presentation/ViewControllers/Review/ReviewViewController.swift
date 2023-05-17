@@ -1,76 +1,49 @@
 //
-//  ReviewViewController.swift
+//  ReviewTestViewController.swift
 //  POME
 //
-//  Created by 박지윤 on 2022/11/06.
+//  Created by 박소윤 on 2023/04/03.
 //
 
-import UIKit
+import Foundation
+import RxSwift
+import RxCocoa
 
-class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
-    
-    //MARK: - Properties
-    
-    var dataIndexBy: (IndexPath) -> Int = { indexPath in
-        return indexPath.row - 3
-    }
-    
-    var page = 0{
-        didSet{
-            if(page == 0){
-                hasNextPage = false
-            }
-        }
-    }
-    var isPaging: Bool = false
-    var hasNextPage: Bool = false
+@frozen
+enum EmotionTime: Int{
+    case first = 100
+    case second = 200
+}
 
-    var filterController: (Int?, Int?) = (nil, nil){
-        didSet{
-            page = 0
-            requestGetRecords()
-        }
+private extension IndexPath{
+    var ofGoalData: Int{
+        row
     }
+    var ofRecordData: Int{
+        row - 3
+    }
+}
 
-    var currentGoal: Int = 0{
-        didSet{
-            page = 0
-            requestGetRecords()
-        }
-    }
-    var goals = [GoalResponseModel](){
-        didSet{
-            if let cell = self.mainView.tableView.cellForRow(at: [0,0]) as? GoalTagsTableViewCell{
-                cell.tagCollectionView.reloadData()
-            }
-        }
-    }
+class ReviewViewController: BaseTabViewController{
     
-    private var willDelete = false
-    private var records = [RecordResponseModel](){
-        didSet{
-            if(willDelete){
-                return
-            }
-            isPaging = false
-            isTableViewEmpty()
-            mainView.tableView.reloadData()
-        }
+    private var isLoading = false
+    
+    private let INFO_SECTION = 1
+    private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
+    private let mainView = ReviewView()
+    
+    private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
+    private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter(viewModel: viewModel)
+    private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter(viewModel: viewModel)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.refreshData()
     }
-    
-    let mainView = ReviewView()
-    var emoijiFloatingView: ReactionFloatingView!
-    
-    override func viewWillAppear(_ animated: Bool) {
-        page = 0
-        requestGetGoals()
-    }
-    
-    //MARK: - Override
     
     override func layout(){
         super.layout()
-        self.view.addSubview(mainView)
+        view.addSubview(mainView)
         mainView.snp.makeConstraints{
             $0.top.equalToSuperview().offset(Offset.VIEW_CONTROLLER_TOP)
             $0.leading.trailing.bottom.equalToSuperview()
@@ -78,145 +51,121 @@ class ReviewViewController: BaseTabViewController, ControlIndexPath, Pageable {
     }
     
     override func initialize(){
-        mainView.tableView.separatorStyle = .none
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
+        setTableViewDelegate()
     }
-    // 알람 페이지 연결 제거
-    override func topBtnDidClicked() {
-//        let vc = NotificationViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    //MARK: - Method
-    
-    private func isTableViewEmpty(){
-        records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
-    }
-    
-    @objc func filterButtonDidClicked(_ sender: UIButton){
-        
-        page = 0
-        
-        let sheet: EmotionFilterSheetViewController!
-        var emotionTime: EmotionTime!
-        
-        guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
-        //TODO: Tag 활용하는 방식으로 변경하기
-        if(sender == cell.firstEmotionFilter.filterButton){
-            emotionTime = .first
-            sheet = EmotionFilterSheetViewController.generateFirstEmotionFilterSheet()
-        }else{
-            emotionTime = .second
-            sheet = EmotionFilterSheetViewController.generateSecondEmotionFilterSheet()
-        }
-        
-        sheet.completion = { emotion in
-            
-            switch emotionTime{
-            case .first:
-                self.filterController.0 = emotion
-            case .second:
-                self.filterController.1 = emotion
-            default:
-                return
-            }
-            
-            guard let filterView = sender.superview as? ReviewFilterTableViewCell.EmotionFilterView,
-                    let emotion = EmotionTag(rawValue: emotion) else { return }
-            
-            filterView.setFilterSelectState(emotion: emotion)
-        }
-        
-        sheet.show(in: self)
-    }
-    
-    @objc func filterInitializeButtonDidClicked(){
-        guard let cell = mainView.tableView.cellForRow(at: [0,2]) as? ReviewFilterTableViewCell else { return }
-        cell.firstEmotionFilter.setFilterDefaultState()
-        cell.secondEmotionFilter.setFilterDefaultState()
-        filterController = (nil, nil)
-    }
-}
-
-extension ReviewViewController{
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-        let contentHeight = scrollView.contentSize.height
-        let height = scrollView.frame.height
-        
-        if offsetY > (contentHeight - height) {
-            if isPaging == false && hasNextPage {
-                beginPaging()
-            }
+    private func setTableViewDelegate(){
+        mainView.tableView.do{
+            $0.separatorStyle = .none
+            $0.delegate = self
+            $0.dataSource = self
         }
     }
     
-    func beginPaging(){
+    override func bind() {
         
-        isPaging = true
-        page = page + 1
+        let output = viewModel.transform(ReviewViewModel.Input())
         
-        DispatchQueue.main.async { [self] in
-            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        output.showEmptyView
+            .drive(onNext: { [weak self] willShow in
+                willShow ? self?.mainView.emptyViewWillShow() : self?.mainView.emptyViewWillHide()
+            }).disposed(by: disposeBag)
+        
+        var goalTableViewCell: GoalTagsTableViewCell?{
+            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.requestGetRecords()
+        
+        output.reloadTableView
+            .drive(onNext: { [weak self] in
+                self?.isLoading = false
+                goalTableViewCell?.tagCollectionView.reloadData()
+                self?.mainView.tableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        
+        var filteringCell: ReviewFilterTableViewCell?{
+            mainView.tableView.cellForRow(at: [INFO_SECTION,2], cellType: ReviewFilterTableViewCell.self)
         }
+        
+        output.firstEmotionState
+            .drive(onNext: {
+                filteringCell?.firstEmotionFilter.setFilterSelectState(emotion: $0)
+            }).disposed(by: disposeBag)
+        
+        output.secondEmotionState
+            .drive(onNext: {
+                filteringCell?.secondEmotionFilter.setFilterSelectState(emotion: $0)
+            }).disposed(by: disposeBag)
+        
+        output.initializeEmotionFilter
+            .drive(onNext: {
+                filteringCell?.do{
+                    $0.firstEmotionFilter.setFilterDefaultState()
+                    $0.secondEmotionFilter.setFilterDefaultState()
+                }
+            }).disposed(by: disposeBag)
+        
+        output.deleteRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
+            }).disposed(by: disposeBag)
+        
+        output.modifyRecord
+            .drive(onNext: { indexPath in
+                self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
+            }).disposed(by: disposeBag)
     }
 }
 
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        goals.count == 0 ? 1 : goals.count
+        viewModel.isGoalEmpty ? 1 : viewModel.goalsCount
+    }
+    
+    private func getGoalCellTitle(index: Int) -> String{
+        viewModel.isGoalEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.getGoal(at: index).name
+    }
+    
+    private func isGoalEnd(index: Int) -> Bool{
+        viewModel.getGoal(at: index).isGoalEnd
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self)
-
-        cell.title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
-    
-        currentGoal == indexPath.row ? cell.setSelectState() : cell.setUnselectState(with: goals[indexPath.row].isGoalEnd)
-        
-        return cell
+        collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self).then{
+            $0.title = getGoalCellTitle(index: indexPath.row)
+            viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let title = goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goals[indexPath.row].name
+        let title = getGoalCellTitle(index: indexPath.row)
         return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if let willDeselctCell = collectionView.cellForItem(at: [0, currentGoal]) as? GoalTagCollectionViewCell{
-            willDeselctCell.setUnselectState(with: goals[currentGoal].isGoalEnd)
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setSelectState()
         }
-        
-        guard let cell = collectionView.cellForItem(at: indexPath) as? GoalTagCollectionViewCell else { return }
-        if(currentGoal == 0 && indexPath.row != 0){
-            guard let initialCell = collectionView.cellForItem(at: [0,0]) as? GoalTagCollectionViewCell else { return }
-            initialCell.setUnselectState(with: goals[0].isGoalEnd)
+        viewModel.selectGoal(at: indexPath.row)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
         }
-
-        currentGoal = indexPath.row
-        cell.setSelectState()
     }
 }
 
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(section == 0){
-            return records.count + 3
-        }else if(section == 1 && isPaging && hasNextPage){
+        if section == INFO_SECTION {
+            return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
+        }else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage){
             return 1
         }else{
             return 0
@@ -224,174 +173,149 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if(indexPath.section == 1){
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self).then{
-                $0.startLoading()
-            }
-            return cell
+        if indexPath.section != INFO_SECTION {
+            return getLoadingTableViewCell(indexPath: indexPath)
         }
         
-        switch indexPath.row{
-        case 0:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self).then{
-                $0.tagCollectionView.delegate = self
-                $0.tagCollectionView.dataSource = self
-            }
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self)
-            goals.isEmpty ? cell.bindingEmptyData() : cell.bindingData(goal: goals[currentGoal])
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self).then{
-                $0.firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-                $0.secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidClicked), for: .touchUpInside)
-                $0.reloadingButton.addTarget(self, action: #selector(filterInitializeButtonDidClicked), for: .touchUpInside)
-            }
-            return cell
-        default:
-            let cardIndex = dataIndexBy(indexPath)
-            let record = records[cardIndex]
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
-                $0.delegate = self
-                $0.bindingData(with: record)
-            }
-            return cell
+        switch indexPath.row {
+        case 0:     return getGoalTagsTableViewCell(indexPath: indexPath)
+        case 1:     return getGoalDetailTableViewCell(indexPath: indexPath)
+        case 2:     return getFilterTableViewCell(indexPath: indexPath)
+        default:    return getRecordTableViewCell(indexPath: indexPath)
         }
+    }
+    
+    private func getLoadingTableViewCell(indexPath: IndexPath) -> LoadingTableViewCell{
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: LoadingTableViewCell.self).then{
+            $0.startLoading()
+        }
+    }
+    
+    private func getGoalTagsTableViewCell(indexPath: IndexPath) -> GoalTagsTableViewCell{
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalTagsTableViewCell.self).then{
+            $0.tagCollectionView.delegate = self
+            $0.tagCollectionView.dataSource = self
+        }
+    }
+    
+    private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
+            viewModel.isGoalEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
+        }
+    }
+    
+    private func getFilterTableViewCell(indexPath: IndexPath) -> ReviewFilterTableViewCell{
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: ReviewFilterTableViewCell.self).then{
+            $0.delegate = self
+        }
+    }
+    
+    private func getRecordTableViewCell(indexPath: IndexPath) -> ConsumeReviewTableViewCell{
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+            $0.delegate = self
+            $0.bindingData(with: viewModel.getRecord(at: indexPath.row))
+        }
+    }
+}
+
+extension ReviewViewController: FilterDelegate{
+    
+    func willShowFilterBottomSheet(time: EmotionTime) {
+        let filterSheet = {
+            switch time {
+            case .first:    return firstEmotionFilterBottomSheet
+            case .second:   return secondEmotionFilterBottomSheet
+            }
+        }()
+        filterSheet.show(in: self)
+    }
+    
+    func initializeFilteringCondition() {
+        viewModel.initializeFilterCondtion()
     }
 }
 
 extension ReviewViewController: RecordCellDelegate{
-
+    
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = records[dataIndexBy(indexPath)].friendReactions
+        let data = viewModel.getRecord(at: indexPath.row).friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
-
-        let recordIndex = dataIndexBy(indexPath)
-        
-        let alert = UIAlertController(title: nil,
-                                      message: nil,
-                                      preferredStyle: .actionSheet)
-        
-        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
+            $0.addAction(generateModifyAction($0, indexPath: indexPath))
+            $0.addAction(generateDeleteAction($0, indexPath: indexPath))
+            $0.addAction(generateCancelAction())
+        }
+        present(alert, animated: true)
+    }
+    
+    private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordViewController(goal: self.goals[self.currentGoal],
-                                                       record: self.records[recordIndex])
-//            {
-//                self.records[recordIndex] = $0
-//            }
+            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
             self.navigationController?.pushViewController(vc, animated: true)
         }
-
-        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+    }
+    
+    private func generateDeleteAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        return UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
-            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
-            alert.completion = {
-                self.requestDeleteRecord(indexPath: indexPath)
+            ImageAlert.deleteRecord.generateAndShow(in: self).do{
+                $0.completion = {
+                    self.viewModel.deleteRecord(at: indexPath)
+                }
             }
         }
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        alert.addAction(editAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-             
-        self.present(alert, animated: true)
+    }
+    
+    private func generateCancelAction() -> UIAlertAction{
+        return UIAlertAction(title: "취소", style: .cancel, handler: nil)
     }
 }
 
-//MARK: - API
 extension ReviewViewController{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        checkPaigingConditionAndStartPaging(offset: offsetY, scrollView: scrollView)
+        checkRefreshingConditionAndStartRefreshing(offset: offsetY)
+    }
     
-    private func requestGetGoals(){
-        GoalService.shared.getUserGoals{ [self] response in
-            switch response{
-            case .success(let data):
-                print("LOG: success requestGetGoals", data)
-                goals = data.content.filter{ !$0.isEnd }
-                requestGetRecords()
-                break
-            default:
-                print("LOG: fail requestGetGoals", response)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGetGoals()
-                }
-                break
+    private func checkPaigingConditionAndStartPaging(offset: CGFloat, scrollView: UIScrollView){
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.height
+        
+        if offset > (contentHeight - height) {
+            if !isLoading && viewModel.hasNextPage {
+                beginPaging()
             }
         }
     }
-
-    private func requestGetRecords(){
-//        let goalId = goals[currentGoal].id
-//        let loadingViewAnimate = page == 0 ? true : false
-//        RecordService.shared.getRecordsOfGoalAtReviewTab(id: goalId,
-//                                                         firstEmotion: filterController.0,
-//                                                         secondEmotion: filterController.1,
-//                                                         pageable: PageableModel(page: page),
-//                                                         animate: loadingViewAnimate){ response in
-//            switch response {
-//            case .success(let data):
-//                print("LOG: success requestGetRecords", data)
-//                self.processResponseGetRecords(data: data)
-//                return
-//            default:
-//                print("LOG: fail requestGetRecords", response)
-//                NetworkAlert.show(in: self){ [weak self] in
-//                    self?.requestGetRecords()
-//                }
-//                break
-//            }
-//        }
-    }
     
-    private func processResponseGetRecords(data: PageableResponseModel<RecordResponseModel>){
-        
-        hasNextPage = !data.last
-        
-        if(page == 0){
-            records = data.content
-        }else{
-            records.append(contentsOf: data.content)
+    private func beginPaging(){
+        isLoading = true
+        DispatchQueue.main.async { [self] in
+            mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
         }
-        
-        if(data.empty){
-            recordRequestIsEmpty()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.requestNextPage()
         }
     }
     
-    func recordRequestIsEmpty() {
-        isPaging = false
-        mainView.tableView.reloadSections(IndexSet(integer: 1), with: .none)
-    }
-    
-    private func requestDeleteRecord(indexPath: IndexPath){
-        let index = dataIndexBy(indexPath)
-        let record = records[index]
-        RecordService.shared.deleteRecord(id: record.id){ response in
-            switch response {
-            case .success:
-                self.processResponseDeleteRecord(indexPath: indexPath)
-                print("LOG: success requestDeleteRecord")
-                break
-            default:
-                print("LOG: fail requestGetRecords", response)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestDeleteRecord(indexPath: indexPath)
-                }
-                break
-            }
+    private func checkRefreshingConditionAndStartRefreshing(offset: CGFloat){
+        if offset < Offset.REFRESH_DATA && !isLoading {
+            beginRefreshData()
         }
     }
-    private func processResponseDeleteRecord(indexPath: IndexPath){
-        self.willDelete = true
-        let recordIndex = dataIndexBy(indexPath)
-        self.records.remove(at: recordIndex)
-        self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
-        self.willDelete = false
+    
+    private func beginRefreshData(){
+        isLoading = true
+        DispatchQueue.main.async { [self] in
+            mainView.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.refreshData()
+        }
     }
 }

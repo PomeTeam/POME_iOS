@@ -9,6 +9,17 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+protocol DeleteRecord{
+    var deleteRecordCompleted: ((Int) -> Void)! { get }
+    func deleteRecord(index: Int)
+}
+
+protocol ReviewViewModelInterface: BaseViewModel, DeleteRecord{
+    var goals: [GoalResponseModel] { get }
+    var records: [RecordResponseModel] { get }
+    var hasNextPage: Bool { get }
+}
+
 class ReviewViewModel: BaseViewModel, ModifyRecord{
     
     private let regardlessOfRecordCount: Int

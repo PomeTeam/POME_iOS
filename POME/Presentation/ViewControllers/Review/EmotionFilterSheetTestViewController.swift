@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EmotionFilterTestSheetViewController: BaseSheetViewController {
+class EmotionFilterSheetViewController: BaseSheetViewController {
     
     private let emotionTime: EmotionTime
     private let reviewViewModel: ReviewViewModel
@@ -24,12 +24,12 @@ class EmotionFilterTestSheetViewController: BaseSheetViewController {
     
     private let mainView = EmotionFilterSheetView()
     
-    static func generateFirstEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterTestSheetViewController{
-        EmotionFilterTestSheetViewController(emotionTime: .first, viewModel: viewModel)
+    static func generateFirstEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .first, viewModel: viewModel)
     }
     
-    static func generateSecondEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterTestSheetViewController{
-        EmotionFilterTestSheetViewController(emotionTime: .second, viewModel: viewModel)
+    static func generateSecondEmotionFilter(viewModel: ReviewViewModel) -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .second, viewModel: viewModel)
     }
     
     override func style() {
@@ -60,7 +60,7 @@ class EmotionFilterTestSheetViewController: BaseSheetViewController {
     }
 }
 
-extension EmotionFilterTestSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         3
