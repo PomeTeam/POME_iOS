@@ -37,6 +37,7 @@ protocol PageableInterface{
 protocol ReviewViewModelInterface: BaseViewModel{
     var goals: [GoalResponseModel] { get }
     var records: [RecordResponseModel] { get }
+    var reloadTableView: (() -> Void)! { get }
 }
 
 class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
@@ -65,15 +66,16 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     var goals = [GoalResponseModel]()
     var records = [RecordResponseModel]()
     var deleteRecordCompleted: ((Int) -> Void)!
+    var reloadTableView: (() -> Void)!
 
+    private var page: Int = 0
     private var selectedGoalIndex: Int = 0
+    private var emotionFilter: Review.EmotionFiltering = (nil, nil)
+    
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
     private let modifyRecordSubject = PublishSubject<IndexPath>()
-    private let pageRelay = BehaviorRelay<Int>(value: 0)
-    private let emptyViewVisibilitySubject = PublishSubject<Bool>()
-    private var emotionFilter: Review.EmotionFiltering = (nil, nil)
     
     
     struct Input{
@@ -83,8 +85,6 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     
     struct Output{
         let modifyRecord: Driver<IndexPath>
-        let reloadTableView: Driver<Void>
-        let showEmptyView: Driver<Bool>
     }
     
     func transform(_ input: Input) -> Output{
@@ -104,54 +104,17 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
             .subscribe(onNext: { [weak self] in
                 self?.emotionFilter = $0
                 self?.initializeRecordRequest()
+                self?.requestRecords()
             }).disposed(by: disposeBag)
-
-        //기록 조회
-        let recordsResponse = pageRelay
-            .skip(1)
-            .do(onNext: {
-                if($0 == 0){
-                    self.hasNextPage = false
-                }
-            }).map{ page in
-                return (page, self.emotionFilter)
-            }
-            .flatMap{ page, filtering in
-                self.getRecordsUseCase.execute(goalId: self.goals[self.selectedGoalIndex].id,
-                                               requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
-                                                                                           secondEmotion: filtering.second,
-                                                                                           pageable: PageableModel(page: page)))
-            }.share()
-        
-        recordsResponse
-            .do(onNext: {
-                self.hasNextPage = !$0.last
-            }).subscribe(onNext: {
-                if($0.page == 0){
-                    self.records = $0.content
-                }else{
-                    self.records.append(contentsOf: $0.content)
-                }
-            }).disposed(by: disposeBag)
-        
-        let reloadTableView = recordsResponse
-            .map{ _ in Void() }
-            .asDriver(onErrorJustReturn: Void())
-        
-        let showEmptyView = emptyViewVisibilitySubject
-            .asDriver(onErrorJustReturn: false)
-        
         
         return Output(
-            modifyRecord: modifyRecordIndexPath,
-            reloadTableView: reloadTableView,
-            showEmptyView: showEmptyView
+            modifyRecord: modifyRecordIndexPath //,
         )
     }
     
     private func initializeRecordRequest(){
         hasNextPage = false
-        pageRelay.accept(0)
+        page = 0
     }
     
     func deleteRecord(index: Int) {
@@ -169,14 +132,45 @@ extension ReviewViewModel{
     
     func refreshData(){
         getGoalsUseCase.execute()
-            .subscribe(onNext: { [weak self] in
-                self?.responseGetGoals(goals: $0)
+            .subscribe(onNext: { [weak self] goals in
+                self?.goals = goals.filter{ !$0.isEnd }
+                self?.initializeRecordRequest()
+                self?.canRequestRecord()
             }).disposed(by: disposeBag)
     }
     
-    private func responseGetGoals(goals: [GoalResponseModel]){
-        self.goals = goals.filter{ !$0.isEnd }
-//        selectGoalRelay.accept(selectedGoalIndex)
+    private func canRequestRecord(){
+        if goals.isEmpty {
+            records = []
+            reloadTableView()
+        } else {
+            requestRecords()
+        }
+    }
+    
+    private func requestRecords(){
+        
+        let recordResponse = getRecordsUseCase
+            .execute(
+                goalId: goals[self.selectedGoalIndex].id,
+                requestValue: GetRecordInReviewRequestModel(
+                    firstEmotion: emotionFilter.first,
+                    secondEmotion: emotionFilter.second,
+                    pageable: PageableModel(page: page)
+                )
+            ).share()
+        
+        recordResponse
+            .do(onNext: {
+                self.hasNextPage = !$0.last
+            }).subscribe(onNext: { [weak self] in
+                if $0.page == 0 {
+                    self?.records = $0.content
+                } else {
+                    self?.records.append(contentsOf: $0.content)
+                }
+                self?.reloadTableView()
+            }).disposed(by: disposeBag)
     }
     
     func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel){
@@ -185,6 +179,7 @@ extension ReviewViewModel{
     }
 
     func requestNextPage(){
-        pageRelay.accept(pageRelay.value + 1)
+        page += 1
+        requestRecords()
     }
 }

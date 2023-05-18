@@ -87,30 +87,29 @@ class ReviewViewController: BaseTabViewController{
         
         viewModel.deleteRecordCompleted = {
             self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+            self.showEmptyView()
         }
-        
-        let output = viewModel.transform(ReviewViewModel.Input(selectedGoalIndex: goalRelay.asObservable(), filteringEmotion: filterEmotion.asObservable()))
-        
-        output.showEmptyView
-            .drive(onNext: { [weak self] willShow in
-                willShow ? self?.mainView.emptyViewWillShow() : self?.mainView.emptyViewWillHide()
-            }).disposed(by: disposeBag)
         
         var goalTableViewCell: GoalTagsTableViewCell?{
             mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
+        viewModel.reloadTableView = { [weak self] in
+            self?.isLoading = false
+            goalTableViewCell?.tagCollectionView.reloadData()
+            self?.mainView.tableView.reloadData()
+            self?.showEmptyView()
+        }
         
-        output.reloadTableView
-            .drive(onNext: { [weak self] in
-                self?.isLoading = false
-                goalTableViewCell?.tagCollectionView.reloadData()
-                self?.mainView.tableView.reloadData()
-            }).disposed(by: disposeBag)
+        let output = viewModel.transform(ReviewViewModel.Input(selectedGoalIndex: goalRelay.asObservable(), filteringEmotion: filterEmotion.asObservable()))
         
         output.modifyRecord
             .drive(onNext: { indexPath in
                 self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
             }).disposed(by: disposeBag)
+    }
+    
+    private func showEmptyView(){
+        viewModel.records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     private func bindEmotionFiltering(){
