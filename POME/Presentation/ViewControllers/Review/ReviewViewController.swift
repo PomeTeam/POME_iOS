@@ -50,6 +50,12 @@ class ReviewViewController: BaseTabViewController{
         filterEmotion.value.second
     }
     
+    //목표
+    private let goalRelay = BehaviorRelay<Int>(value: 0)
+    private var selectedGoalIndex: Int{
+        goalRelay.value
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.refreshData()
@@ -83,7 +89,7 @@ class ReviewViewController: BaseTabViewController{
             self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
         }
         
-        let output = viewModel.transform(ReviewViewModel.Input(filteringEmotion: filterEmotion.asObservable()))
+        let output = viewModel.transform(ReviewViewModel.Input(selectedGoalIndex: goalRelay.asObservable(), filteringEmotion: filterEmotion.asObservable()))
         
         output.showEmptyView
             .drive(onNext: { [weak self] willShow in
@@ -135,7 +141,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self).then{
             $0.title = getGoalCellTitle(index: indexPath.row)
-            viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+            selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
         }
     }
     
@@ -155,7 +161,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
             $0.setSelectState()
         }
-        viewModel.selectGoal(at: indexPath.row)
+        goalRelay.accept(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -209,7 +215,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
-            viewModel.goals.isEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
+            viewModel.goals.isEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.goals[selectedGoalIndex])
         }
     }
     
@@ -263,8 +269,8 @@ extension ReviewViewController: RecordCellDelegate{
     private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
         return UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

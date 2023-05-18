@@ -39,7 +39,8 @@ protocol ReviewViewModelInterface: BaseViewModel{
     var records: [RecordResponseModel] { get }
 }
 
-class ReviewViewModel: ReviewViewModelInterface, DeleteRecord, ModifyRecord{
+class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
+    
     
     func getRecord(at: Int) -> RecordResponseModel {
         records[at]
@@ -65,17 +66,18 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord, ModifyRecord{
     var records = [RecordResponseModel]()
     var deleteRecordCompleted: ((Int) -> Void)!
 
+    private var selectedGoalIndex: Int = 0
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
     private let modifyRecordSubject = PublishSubject<IndexPath>()
-    private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
     private let emptyViewVisibilitySubject = PublishSubject<Bool>()
     private var emotionFilter: Review.EmotionFiltering = (nil, nil)
     
     
     struct Input{
+        let selectedGoalIndex: Observable<Int>
         let filteringEmotion: Observable<Review.EmotionFiltering>
     }
     
@@ -87,16 +89,15 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord, ModifyRecord{
     
     func transform(_ input: Input) -> Output{
         
+        input.selectedGoalIndex
+            .subscribe{ [weak self] in
+                self?.initializeRecordRequest()
+                self?.selectedGoalIndex = $0
+            }.disposed(by: disposeBag)
+        
         //modify record
         let modifyRecordIndexPath = modifyRecordSubject
             .asDriver(onErrorJustReturn: IndexPath.init())
-        
-        //새로운 목표 선택 또는 필터 조건 변경시 paging 관련 프로퍼티 초기화
-        selectGoalRelay
-            .skip(1)
-            .subscribe(onNext: { [weak self] _ in
-                self?.initializeRecordRequest()
-            }).disposed(by: disposeBag)
         
         input.filteringEmotion
             .skip(1)
@@ -116,7 +117,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord, ModifyRecord{
                 return (page, self.emotionFilter)
             }
             .flatMap{ page, filtering in
-                self.getRecordsUseCase.execute(goalId: self.selectedGoal.id,
+                self.getRecordsUseCase.execute(goalId: self.goals[self.selectedGoalIndex].id,
                                                requestValue: GetRecordInReviewRequestModel(firstEmotion: filtering.first,
                                                                                            secondEmotion: filtering.second,
                                                                                            pageable: PageableModel(page: page)))
@@ -175,7 +176,7 @@ extension ReviewViewModel{
     
     private func responseGetGoals(goals: [GoalResponseModel]){
         self.goals = goals.filter{ !$0.isEnd }
-        selectGoalRelay.accept(selectedGoalIndex)
+//        selectGoalRelay.accept(selectedGoalIndex)
     }
     
     func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel){
@@ -183,19 +184,7 @@ extension ReviewViewModel{
         modifyRecordSubject.onNext(indexPath)
     }
 
-    func selectGoal(at index: Int){
-        selectGoalRelay.accept(index)
-    }
-    
     func requestNextPage(){
         pageRelay.accept(pageRelay.value + 1)
-    }
-    
-    var selectedGoal: GoalResponseModel{
-        goals[selectedGoalIndex]
-    }
-    
-    var selectedGoalIndex: Int{
-        selectGoalRelay.value
     }
 }
