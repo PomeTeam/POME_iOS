@@ -77,6 +77,13 @@ class RecordViewController: BaseTabViewController {
             .subscribe{ [weak self] _ in
                 self?.requestGetGoals()
             }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.generateRecord
+            .subscribe{ _ in
+                self.recordPage = 0
+                self.recordsOfGoal.removeAll()
+                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
     }
     // MARK: - Actions
     // 알림 페이지 연결 제거
