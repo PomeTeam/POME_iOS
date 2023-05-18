@@ -91,9 +91,8 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
         
         input.selectedGoalIndex
             .subscribe{ [weak self] in
-                self?.initializeRecordRequest()
                 self?.selectedGoalIndex = $0
-                self?.requestRecords()
+                self?.initializeStateAndRequestRecord()
             }.disposed(by: disposeBag)
         
         //modify record
@@ -104,7 +103,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
             .skip(1)
             .subscribe(onNext: { [weak self] in
                 self?.emotionFilter = $0
-                self?.initializeRecordRequest()
+                self?.initializeStateAndRequestRecord()
                 self?.requestRecords()
             }).disposed(by: disposeBag)
         
@@ -113,19 +112,10 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
         )
     }
     
-    private func initializeRecordRequest(){
+    private func initializeStateAndRequestRecord(){
         hasNextPage = false
         page = 0
-    }
-    
-    func deleteRecord(index: Int) {
-        deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: records[index].id))
-            .subscribe{ [weak self] in
-                if $0 == .success {
-                    self?.records.remove(at: index)
-                    self?.deleteRecordCompleted(index)
-                }
-            }.disposed(by: disposeBag)
+        canRequestRecord()
     }
 }
 
@@ -135,8 +125,7 @@ extension ReviewViewModel{
         getGoalsUseCase.execute()
             .subscribe(onNext: { [weak self] goals in
                 self?.goals = goals.filter{ !$0.isEnd }
-                self?.initializeRecordRequest()
-                self?.canRequestRecord()
+                self?.initializeStateAndRequestRecord()
             }).disposed(by: disposeBag)
     }
     
