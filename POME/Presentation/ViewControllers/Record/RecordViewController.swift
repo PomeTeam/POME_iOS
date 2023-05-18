@@ -71,6 +71,13 @@ class RecordViewController: BaseTabViewController {
         
         recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
     }
+    
+    override func bind() {
+        GoalObserver.shared.generateGoal
+            .subscribe{ [weak self] _ in
+                self?.requestGetGoals()
+            }.disposed(by: disposeBag)
+    }
     // MARK: - Actions
     // 알림 페이지 연결 제거
     override func topBtnDidClicked() {

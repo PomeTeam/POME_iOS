@@ -24,8 +24,10 @@ class RegisterSuccessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        style()
         layout()
         initialize()
+        emitObservable()
     }
     
     private func style(){
@@ -50,6 +52,13 @@ class RegisterSuccessViewController: UIViewController {
         mainView.titleView.titleLabel.text = registerType.title
         mainView.titleView.subtitleLabel.text = registerType.subtitle
         mainView.iconImage.image = registerType.image
+    }
+    
+    private func emitObservable(){
+        switch registerType {
+        case .goal:     GoalObserver.shared.generateGoal.onNext(Void())
+        case .consume:  RecordObserver.shared.generateRecord.onNext(Void())
+        }
     }
     
     @objc private func completeButtonDidClicked(){

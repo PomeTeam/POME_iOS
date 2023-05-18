@@ -9,6 +9,25 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+class GoalObserver{
+    //TODO: 현재 선택 중인 목표 삭제했을 경우 처리 추가
+    static let shared = GoalObserver()
+    
+    private init(){}
+    
+    let generateGoal = PublishSubject<Void>()
+    let deleteGoal = PublishSubject<Void>()
+}
+
+class RecordObserver{
+    
+    static let shared = RecordObserver()
+    
+    private init(){ }
+    
+    let generateRecord = PublishSubject<Void>()
+}
+
 @frozen
 enum EmotionTime: Int{
     case first = 100
@@ -104,6 +123,11 @@ class ReviewViewController: BaseTabViewController{
     }
 
     override func bind() {
+        
+        GoalObserver.shared.generateGoal
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
         
         bindEmotionFiltering()
         
