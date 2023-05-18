@@ -84,6 +84,11 @@ class RecordViewController: BaseTabViewController {
                 self.recordsOfGoal.removeAll()
                 self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
             }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.registerSecondEmotion
+            .subscribe{ _ in
+                self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
     }
     // MARK: - Actions
     // 알림 페이지 연결 제거

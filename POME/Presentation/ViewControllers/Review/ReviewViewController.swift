@@ -25,6 +25,7 @@ class RecordObserver{
     private init(){ }
     
     let generateRecord = PublishSubject<Void>()
+    let registerSecondEmotion = PublishSubject<Void>()
 }
 
 @frozen
@@ -131,6 +132,11 @@ class ReviewViewController: BaseTabViewController{
         GoalObserver.shared.deleteGoal
             .subscribe{ [weak self] _ in
                 self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.registerSecondEmotion
+            .subscribe{ _ in
+                self.goalRelay.accept(self.selectedGoalIndex)
             }.disposed(by: disposeBag)
         
         bindEmotionFiltering()
