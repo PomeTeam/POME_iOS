@@ -108,7 +108,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
             }).disposed(by: disposeBag)
         
         return Output(
-            modifyRecord: modifyRecordIndexPath //,
+            modifyRecord: modifyRecordIndexPath
         )
     }
     
@@ -140,6 +140,7 @@ extension ReviewViewModel{
     }
     
     private func canRequestRecord(){
+        //goal이 존재할 때만 기록 요청
         if goals.isEmpty {
             records = []
             reloadTableView()
