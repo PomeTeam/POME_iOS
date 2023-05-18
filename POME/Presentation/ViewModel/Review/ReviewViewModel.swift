@@ -39,12 +39,11 @@ protocol ReviewViewModelInterface: BaseViewModel{
     var records: [RecordResponseModel] { get }
 }
 
-class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
+class ReviewViewModel: ReviewViewModelInterface, DeleteRecord, ModifyRecord{
     
     func getRecord(at: Int) -> RecordResponseModel {
         records[at]
     }
-    
 
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
@@ -64,12 +63,12 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
     var hasNextPage: Bool = false
     var goals = [GoalResponseModel]()
     var records = [RecordResponseModel]()
+    var deleteRecordCompleted: ((Int) -> Void)!
 
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
     private let modifyRecordSubject = PublishSubject<IndexPath>()
-    private let deleteRecordSubject = PublishSubject<IndexPath>()
     private let selectGoalRelay = BehaviorRelay<Int>(value: 0)
     private let pageRelay = BehaviorRelay<Int>(value: 0)
     private let emptyViewVisibilitySubject = PublishSubject<Bool>()
@@ -81,28 +80,12 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
     }
     
     struct Output{
-        let deleteRecord: Driver<IndexPath>
         let modifyRecord: Driver<IndexPath>
         let reloadTableView: Driver<Void>
         let showEmptyView: Driver<Bool>
     }
     
     func transform(_ input: Input) -> Output{
-        
-        //deleteRecord
-        let deleteResponse = deleteRecordSubject
-            .map{ self.records[self.dataIndex($0.row)].id }
-            .flatMap{
-                self.deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: $0))
-            }.share()
-        
-        let deleteIndexPath = Observable.zip(deleteResponse, deleteRecordSubject)
-            .filter{ $0.0 == .success }
-            .do(onNext: {
-                self.records.remove(at: self.dataIndex($1.row))
-            })
-            .map{ $0.1 }
-            .asDriver(onErrorJustReturn: IndexPath.init())
         
         //modify record
         let modifyRecordIndexPath = modifyRecordSubject
@@ -159,7 +142,6 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
         
         
         return Output(
-            deleteRecord: deleteIndexPath,
             modifyRecord: modifyRecordIndexPath,
             reloadTableView: reloadTableView,
             showEmptyView: showEmptyView
@@ -169,6 +151,16 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
     private func initializeRecordRequest(){
         hasNextPage = false
         pageRelay.accept(0)
+    }
+    
+    func deleteRecord(index: Int) {
+        deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: records[index].id))
+            .subscribe{ [weak self] in
+                if $0 == .success {
+                    self?.records.remove(at: index)
+                    self?.deleteRecordCompleted(index)
+                }
+            }.disposed(by: disposeBag)
     }
 }
 
@@ -189,10 +181,6 @@ extension ReviewViewModel{
     func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel){
         records[dataIndex(indexPath.row)] = record
         modifyRecordSubject.onNext(indexPath)
-    }
-    
-    func deleteRecord(at indexPath: IndexPath){
-        deleteRecordSubject.onNext(indexPath)
     }
 
     func selectGoal(at index: Int){
