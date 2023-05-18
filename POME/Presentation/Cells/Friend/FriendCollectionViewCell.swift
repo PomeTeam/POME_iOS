@@ -26,25 +26,13 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
         $0.numberOfLines = 1
         $0.textAlignment = .center
     }
-    
-    //MARK: - LifeCycle
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     //MARK: - Override
     
     override func hierarchy() {
-        
         super.hierarchy()
-        
-        self.baseView.addSubview(profileImage)
-        self.baseView.addSubview(nameLabel)
+        baseView.addSubview(profileImage)
+        baseView.addSubview(nameLabel)
     }
     
     override func layout() {
@@ -68,26 +56,21 @@ class FriendCollectionViewCell: BaseCollectionViewCell {
     override func prepareForReuse() {
         nameLabel.text = ""
         nameLabel.textColor = Color.grey5
-    
         profileImage.image = Image.photoDefault
     }
     
     //MARK: - Method
 
     func setSelectState(row: Int){
-        
-        self.nameLabel.textColor = Color.title
-        
-        if(row == 0){
+        nameLabel.textColor = Color.title
+        if row == 0 {
             profileImage.image = Image.categoryActive
         }
     }
     
     func setUnselectState(row: Int){
-        
-        self.nameLabel.textColor = Color.grey5
-        
-        if(row == 0){
+        nameLabel.textColor = Color.grey5
+        if row == 0 {
             profileImage.image = Image.categoryInactive
         }
     }

@@ -24,14 +24,21 @@ class RecordViewController: BaseTabViewController {
     var recordPage: Int?
     // Cell Height
     var expendingCellContent = ExpandingTableViewCellContent()
+    // Refresh Control
+    var refreshControl = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    override func viewWillAppear(_ animated: Bool) {
+        
+        initRefresh()
         if(!isFirstLoad){
             requestGetGoals()
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+//        if(!isFirstLoad){
+//            requestGetGoals()
+//        }
         
     }
     override func style() {
@@ -64,6 +71,25 @@ class RecordViewController: BaseTabViewController {
         
         recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
     }
+    
+    override func bind() {
+        GoalObserver.shared.generateGoal
+            .subscribe{ [weak self] _ in
+                self?.requestGetGoals()
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.generateRecord
+            .subscribe{ _ in
+                self.recordPage = 0
+                self.recordsOfGoal.removeAll()
+                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.registerSecondEmotion
+            .subscribe{ _ in
+                self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
+    }
     // MARK: - Actions
     // 알림 페이지 연결 제거
     override func topBtnDidClicked() {
@@ -71,10 +97,10 @@ class RecordViewController: BaseTabViewController {
     }
     @objc func writeButtonDidTap() {
         if self.goalContent.isEmpty {
-            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").loadAndShowBottomSheet(in: self)
+            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").show(in: self)
         } else {
             let goal = goalContent[categorySelectedIdx]
-            let vc = RecordRegisterContentViewController(goal: goal)
+            let vc = GenerateRecordViewController(goal: goal)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -96,7 +122,7 @@ class RecordViewController: BaseTabViewController {
     @objc func addGoalButtonDidTap() {
         print("goal count: ", self.goalContent.count)
         if self.goalContent.count < 10 {
-            let vc = GoalDateViewController()
+            let vc = GenerateGoalDateViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             cannotAddGoalWarning()
@@ -129,13 +155,13 @@ class RecordViewController: BaseTabViewController {
     func showNoSecondEmotionWarning() {
         let sheet = RecordBottomSheetViewController(Image.penPink,
                                                     "아직 돌아보지 않은 기록이 있어요!",
-                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요").loadAndShowBottomSheet(in: self)
+                                                    "씀씀이 기록 후 일주일 뒤에\n감정을 돌아보고 목표를 종료할 수 있어요").show(in: self)
     }
     func cannotAddEmotionWarning() {
-        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!").loadAndShowBottomSheet(in: self)
+        let sheet = RecordBottomSheetViewController(Image.penPink, "아직은 감정을 기록할 수 없어요", "일주일이 지나야 감정을 남길 수 있어요\n나중에 다시 봐요!").show(in: self)
     }
     func cannotAddGoalWarning() {
-        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!").loadAndShowBottomSheet(in: self)
+        let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!").show(in: self)
     }
     
 }
@@ -152,7 +178,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 as? GoalTagCollectionViewCell else { fatalError() }
         
         let itemIdx = indexPath.row
-        cell.goalCategoryLabel.text = goalContent[itemIdx].name
+        cell.title = goalContent[itemIdx].name
         
         if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
         else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
@@ -180,7 +206,8 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        goalContent.isEmpty ? GoalTagCollectionViewCell.estimatedSize() : GoalTagCollectionViewCell.estimatedSize(title: goalContent[indexPath.row].name)
+        let title = goalContent.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goalContent[indexPath.row].name
+        return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
     
 }
@@ -288,7 +315,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 extension RecordViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
         let data = recordsOfGoal[dataIndexBy(indexPath)].friendReactions
-        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
@@ -300,9 +327,11 @@ extension RecordViewController: RecordCellDelegate{
         
         let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
             alert.dismiss(animated: true)
-            let vc = RecordModifyContentViewController(goal: self.goalContent[self.categorySelectedIdx],
-                                                       record: self.recordsOfGoal[recordIndex]){
-                self.recordsOfGoal[recordIndex] = $0
+            let vc = ModifyRecordViewController(goal: self.goalContent[self.categorySelectedIdx],
+                                                    record: self.recordsOfGoal[recordIndex])
+            vc.completion = {
+                self.recordsOfGoal[self.dataIndexBy(indexPath)] = $0
+                self.recordView.recordTableView.reloadRows(at: [indexPath], with: .none)
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }
@@ -320,6 +349,25 @@ extension RecordViewController: RecordCellDelegate{
         alert.addAction(cancelAction)
              
         self.present(alert, animated: true)
+    }
+}
+// MARK: - Refresh Control
+extension RecordViewController {
+    func initRefresh() {
+        refreshControl.addTarget(self, action: #selector(refreshTable(refresh:)), for: .valueChanged)
+        
+        refreshControl.backgroundColor = .white
+        refreshControl.tintColor = .black
+        
+        self.recordView.recordTableView.refreshControl = refreshControl
+    }
+    
+    @objc func refreshTable(refresh: UIRefreshControl) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // DATA reload
+            self.requestGetGoals()
+            refresh.endRefreshing()
+        }
     }
 }
 //MARK: - API
@@ -352,7 +400,7 @@ extension RecordViewController {
                     cell.goalCollectionView.reloadData()
                     self.recordView.recordTableView.reloadData()
                 }
-                
+                self.refreshControl.endRefreshing()
                 break
             default:
                 print(result)
@@ -372,6 +420,7 @@ extension RecordViewController {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
                     self.requestGetGoals()
+                    GoalObserver.shared.deleteGoal.onNext(Void())
                 }
                 break
             default:

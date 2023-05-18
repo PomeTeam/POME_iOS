@@ -111,7 +111,7 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
 extension RecordEmotionViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
         let data = noSecondEmotionRecord[dataIndexBy(indexPath)].friendReactions
-        FriendReactionSheetViewController(reactions: data).loadAndShowBottomSheet(in: self)
+        FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
@@ -125,9 +125,12 @@ extension RecordEmotionViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             
             guard let goalContent = self.goalContent else {return}
-            let vc = RecordModifyContentViewController(goal: goalContent,
-                                                       record: self.noSecondEmotionRecord[recordIndex]){
+            let vc = ModifyRecordViewController(goal: goalContent,
+                                                       record: self.noSecondEmotionRecord[recordIndex])
+            
+            vc.completion = {
                 self.noSecondEmotionRecord[recordIndex] = $0
+                self.recordEmotionView.recordEmotionTableView.reloadRows(at: [indexPath], with: .none)
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }

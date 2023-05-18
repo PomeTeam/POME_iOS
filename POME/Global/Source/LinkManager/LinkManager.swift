@@ -32,6 +32,7 @@ enum Link: String {
 class LinkManager {
     var viewcontroller: UIViewController?
     
+    @discardableResult
     init(_ vc: UIViewController, _ link: Link) {
         self.viewcontroller = vc
         

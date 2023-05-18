@@ -10,7 +10,7 @@ import UIKit
 
 class FriendSearchView: BaseView {
     // MARK: - Views
-    let searchTextField = DefaultTextField("친구의 닉네임을 검색해보세요", 50, 16).then{
+    let searchTextField = DefaultTextField(placeholder: "친구의 닉네임을 검색해보세요", leftPadding: 50, rightPadding: 16).then{
         $0.setClearButton(mode: .whileEditing)
     }
     let searchButton = UIButton().then{

@@ -2,71 +2,62 @@
 //  EmotionFilterSheetViewController.swift
 //  POME
 //
-//  Created by 박지윤 on 2022/11/21.
+//  Created by 박소윤 on 2023/04/05.
 //
 
-import UIKit
+import Foundation
 
 class EmotionFilterSheetViewController: BaseSheetViewController {
     
-    var filterTime: EmotionTime!
-    var completion: ((Int) -> ())!
-    
-    let mainView = EmotionFilterSheetView().then{
-        $0.cancelButton.addTarget(self, action: #selector(cancelButtonDidClicked), for: .touchUpInside)
+    static func generateFirstEmotionFilter() -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .first)
     }
-
-    //MARK: - LifeCycle
     
-    private init(time: EmotionTime){
-        self.filterTime = time
+    static func generateSecondEmotionFilter() -> EmotionFilterSheetViewController{
+        EmotionFilterSheetViewController(emotionTime: .second)
+    }
+    
+    var selectedEmotion: ((Int) -> Void)!
+    
+    private let emotionTime: EmotionTime
+    
+    private init(emotionTime: EmotionTime){
+        self.emotionTime = emotionTime
         super.init(type: .emotionFilter)
-    }
-    
-    static func generateFirstEmotionFilterSheet() -> EmotionFilterSheetViewController{
-        return EmotionFilterSheetViewController(time: .first)
-    }
-    
-    static func generateSecondEmotionFilterSheet() -> EmotionFilterSheetViewController{
-        return EmotionFilterSheetViewController(time: .second)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Method
-    
-    @objc func cancelButtonDidClicked(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    //MARK: - Override
+    private let mainView = EmotionFilterSheetView()
     
     override func style() {
-        
         super.style()
-        
-        self.mainView.titleLabel.text = filterTime.title
+        mainView.titleLabel.text = emotionTime.title
+    }
+    
+    override func layout() {
+        view.addSubview(mainView)
+        mainView.snp.makeConstraints{
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     override func initialize() {
         super.initialize()
-        
+        setCollectionViewDelegate()
+    }
+    
+    private func setCollectionViewDelegate(){
         mainView.filterCollectionView.delegate = self
         mainView.filterCollectionView.dataSource = self
     }
     
-    override func layout() {
-        
-        self.view.addSubview(mainView)
-        
-        mainView.snp.makeConstraints{
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
-        }
+    @objc private func cancelButtonDidClicked(){
+        dismiss(animated: true, completion: nil)
     }
-
 }
 
 extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -76,25 +67,26 @@ extension EmotionFilterSheetViewController: UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmotionFilterSheetCollectionViewCell.cellIdentifier, for: indexPath) as? EmotionFilterSheetCollectionViewCell else { return UICollectionViewCell() }
-        
-        if(filterTime == .first){
-            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.firstEmotionImage
-        }else{
-            cell.emotionImage.image = EmotionTag(rawValue: indexPath.row)?.secondEmotionImage
+        guard let emotion = EmotionTag(rawValue: indexPath.row) else { fatalError("Emotion tag index error")}
+        return collectionView.dequeueReusableCell(for: indexPath, cellType: EmotionFilterSheetCollectionViewCell.self).then{
+            $0.emotionImage = getEmotionImageAboutTime(emotion: emotion)
+            $0.emotionTitle = emotion.message
         }
-        
-        cell.emotionLabel.text = EmotionTag(rawValue: indexPath.row)?.message
-        return cell
+    }
+    
+    private func getEmotionImageAboutTime(emotion: EmotionTag) -> UIImage{
+        switch emotionTime{
+        case .first:        return emotion.firstEmotionImage
+        case .second:       return emotion.secondEmotionImage
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        completion(indexPath.row)
-        self.dismiss(animated: true, completion: nil)
+        selectFilteringEmotion(id: indexPath.row)
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    
-    
+    private func selectFilteringEmotion(id: Int){
+        selectedEmotion(id)
+    }
 }

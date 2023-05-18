@@ -7,15 +7,6 @@
 
 import Foundation
 
-struct GoalRegisterRequestModel: Encodable{
-    let name: String
-    let startDate: String
-    let endDate: String
-    let oneLineMind: String
-    let price: Int
-    let isPublic: Bool
-}
-
 struct FinishGoalRequestModel: Encodable{
     let oneLineComment: String
 }

@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
-class BaseTabViewController: UIViewController {
+class BaseTabViewController: UIViewController, ObservableBinding {
     
     lazy var navigationView = UIView()
     
@@ -26,12 +27,15 @@ class BaseTabViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         style()
         layout()
         initialize()
+        bind()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
@@ -65,6 +69,8 @@ class BaseTabViewController: UIViewController {
     }
     
     func initialize() {}
+    
+    func bind() { }
     
     @objc func topBtnDidClicked() {} //각 TabVC에서 topBtnDidClicked를 override해서 event 기능 구현하면 됩니다.
 

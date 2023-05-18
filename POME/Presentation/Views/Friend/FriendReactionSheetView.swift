@@ -11,7 +11,7 @@ class FriendReactionSheetView: BaseView {
     
     //MARK: - Properties
     
-    let emotionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
+    let reactionTypeCollectionView = UICollectionView(frame: .zero, collectionViewLayout: .init()).then{
         
         let flowLayout = UICollectionViewFlowLayout().then{
             $0.itemSize = CGSize(width: ReactionTypeCollectionViewCell.cellWidth, height: ReactionTypeCollectionViewCell.cellWidth)
@@ -21,14 +21,13 @@ class FriendReactionSheetView: BaseView {
         $0.collectionViewLayout = flowLayout
         $0.contentInset = UIEdgeInsets(top: 0, left: 16.5, bottom: 0, right: 16.5)
         
-        $0.register(ReactionTypeCollectionViewCell.self, forCellWithReuseIdentifier: ReactionTypeCollectionViewCell.cellIdenifier)
+        $0.register(cellType: ReactionTypeCollectionViewCell.self)
     }
     
-    let separatorLine = UIView().then{
+    private let separatorLine = UIView().then{
         $0.backgroundColor = Color.grey2
     }
-    
-    let countView = UIView()
+    private let countView = UIView()
     
     let countLabel = UILabel().then{
         $0.setTypoStyleWithMultiLine(typoStyle: .subtitle3)
@@ -44,39 +43,29 @@ class FriendReactionSheetView: BaseView {
         }
         
         $0.collectionViewLayout = flowLayout
-        
         $0.register(FriendReactionCollectionViewCell.self, forCellWithReuseIdentifier: FriendReactionCollectionViewCell.cellIdenifier)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Override
     
     override func hierarchy() {
-        self.addSubview(emotionCollectionView)
-        self.addSubview(separatorLine)
-        self.addSubview(countView)
-        self.addSubview(friendReactionCollectionView)
-        
+        addSubview(reactionTypeCollectionView)
+        addSubview(separatorLine)
+        addSubview(countView)
+        addSubview(friendReactionCollectionView)
         countView.addSubview(countLabel)
     }
     
     override func layout() {
         
-        emotionCollectionView.snp.makeConstraints{
+        reactionTypeCollectionView.snp.makeConstraints{
             $0.top.leading.equalToSuperview().offset(10)
             $0.trailing.equalToSuperview().offset(-10)
             $0.height.equalTo(ReactionTypeCollectionViewCell.cellWidth)
         }
         
         separatorLine.snp.makeConstraints{
-            $0.bottom.equalTo(emotionCollectionView).offset(10)
+            $0.bottom.equalTo(reactionTypeCollectionView).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(1)
         }
@@ -98,7 +87,6 @@ class FriendReactionSheetView: BaseView {
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
             $0.bottom.equalToSuperview()
-//                .offset(-10)
         }
     }
     

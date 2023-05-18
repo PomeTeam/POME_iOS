@@ -20,6 +20,7 @@ struct Device{
 }
 
 struct Offset{
+    static let REFRESH_DATA: CGFloat = -45
     static let VIEW_CONTROLLER_TOP: CGFloat = 92
 }
 

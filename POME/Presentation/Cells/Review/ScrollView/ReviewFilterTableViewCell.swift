@@ -7,41 +7,50 @@
 
 import Foundation
 
+protocol FilterDelegate{
+    func willShowFilterBottomSheet(time: EmotionTime)
+    func initializeFilteringCondition()
+}
+
 class ReviewFilterTableViewCell: BaseTableViewCell{
     
-    static let cellIdentifier = "ReviewFilterTableViewCell"
+    var delegate: FilterDelegate?
     
-    let reviewTitleLabel = UILabel().then{
+    private let reviewTitleLabel = UILabel().then{
         $0.text = "씀씀이 돌아보기"
         $0.setTypoStyleWithSingleLine(typoStyle: .title2)
         $0.textColor = Color.title
     }
     
-    let titleUnderView = UIView().then{
+    private let titleUnderView = UIView().then{
         $0.backgroundColor = Color.transparent
     }
-    let filterStackView = UIStackView().then{
+    
+    private let filterStackView = UIStackView().then{
         $0.spacing = 8
         $0.axis = .horizontal
     }
     
-    let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
-    let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
+    private let firstEmotionFilter = EmotionFilterView.generateFirstEmotionFilter()
+    private let secondEmotionFilter = EmotionFilterView.generateSecondEmotionFilter()
     
-    lazy var reloadingButton = UIButton()
-    let reloadingLabel = UILabel().then{
+    private lazy var reloadingButton = UIButton()
+    
+    private let reloadingLabel = UILabel().then{
         $0.text = "초기화"
         $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
         $0.textAlignment = .right
         $0.isUserInteractionEnabled = false
     }
-    let reloadingImage = UIImageView().then{
+    
+    private let reloadingImage = UIImageView().then{
         $0.image = Image.reloading
         $0.isUserInteractionEnabled = false
     }
     
     override func hierarchy() {
+        
         super.hierarchy()
         
         baseView.addSubview(reviewTitleLabel)
@@ -97,82 +106,106 @@ class ReviewFilterTableViewCell: BaseTableViewCell{
             $0.centerY.equalToSuperview()
         }
     }
+    
+    override func initialize() {
+        firstEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidTapped), for: .touchUpInside)
+        secondEmotionFilter.filterButton.addTarget(self, action: #selector(filterButtonDidTapped), for: .touchUpInside)
+        reloadingButton.addTarget(self, action: #selector(initializeButtonDidTapped), for: .touchUpInside)
+    }
+    
+    @objc private func filterButtonDidTapped(_ sender: UIButton){
+        guard let time = EmotionTime(rawValue: sender.tag) else { return }
+        delegate?.willShowFilterBottomSheet(time: time)
+    }
+    
+    @objc private func initializeButtonDidTapped(){
+        delegate?.initializeFilteringCondition()
+    }
+    
+    func changeEmotionSelectState(firstEmotionId: Int?, secondEmotionId: Int?){
+        firstEmotionFilter.setEmotionFilterState(emotionId: firstEmotionId)
+        secondEmotionFilter.setEmotionFilterState(emotionId: secondEmotionId)
+    }
 }
 
+extension EmotionTime{
+    var title: String{
+        switch self{
+        case .first:        return "처음 감정"
+        case .second:       return "돌아본 감정"
+        }
+    }
+}
 
 extension ReviewFilterTableViewCell{
     
     class EmotionFilterView: BaseView{
         
-        //MARK: - Propertes
-        
-        var filterTime: EmotionTime!
-        
-        lazy var filterButton = UIButton().then{
-            $0.layer.cornerRadius = 30 / 2
+        static func generateFirstEmotionFilter() -> EmotionFilterView{
+            EmotionFilterView(time: .first)
         }
         
-        let titleLabel = UILabel().then{
-            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
-            $0.isUserInteractionEnabled = false
+        static func generateSecondEmotionFilter() -> EmotionFilterView{
+            EmotionFilterView(time: .second)
         }
         
-        let arrowImage = UIImageView().then{
-            $0.image = Image.tagArrowDown
-            $0.isUserInteractionEnabled = false
-        }
-        
-        //MARK: - LifeCycle
+        private let time: EmotionTime
         
         init(time: EmotionTime){
-            self.filterTime = time
+            self.time = time
             super.init(frame: .zero)
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
-        //static factory method
-        static func generateFirstEmotionFilter() -> EmotionFilterView{
-            return EmotionFilterView(time: .first)
+        lazy var filterButton = UIButton().then{
+            $0.tag = time.rawValue
+            $0.layer.cornerRadius = 30 / 2
         }
         
-        static func generateSecondEmotionFilter() -> EmotionFilterView{
-            return EmotionFilterView(time: .second)
+        private let titleLabel = UILabel().then{
+            $0.setTypoStyleWithSingleLine(typoStyle: .title4)
+            $0.isUserInteractionEnabled = false
+        }
+        
+        private let arrowImage = UIImageView().then{
+            $0.image = Image.tagArrowDown
+            $0.isUserInteractionEnabled = false
         }
         
         //MARK: - Method
-        func setFilterDefaultState(){
-            self.titleLabel.text = filterTime.title
-            self.titleLabel.textColor = Color.grey5
-            self.filterButton.backgroundColor = Color.grey1
-            self.arrowImage.tintColor = Color.grey5
+        private func setFilterDefaultState(){
+            titleLabel.text = time.title
+            titleLabel.textColor = Color.grey5
+            filterButton.backgroundColor = Color.grey1
+            arrowImage.tintColor = Color.grey5
         }
         
-        func setFilterSelectState(emotion: EmotionTag){
-            self.titleLabel.text = emotion.message
-            self.titleLabel.textColor = Color.pink100
-            self.filterButton.backgroundColor = Color.pink10
-            self.arrowImage.tintColor = Color.pink100
+        private func setFilterSelectState(emotion: EmotionTag){
+            titleLabel.text = emotion.message
+            titleLabel.textColor = Color.pink100
+            filterButton.backgroundColor = Color.pink10
+            arrowImage.tintColor = Color.pink100
+        }
+        
+        func setEmotionFilterState(emotionId: Int?){
+            guard let emotionId = emotionId, let emotion = EmotionTag(rawValue: emotionId) else {
+                setFilterDefaultState(); return
+            }
+            setFilterSelectState(emotion: emotion)
         }
         
         //MARK: - Override
         
         override func style() {
-            self.setFilterDefaultState()
+            setFilterDefaultState()
         }
         
         override func hierarchy() {
-            
             super.hierarchy()
-            
-            self.addSubview(filterButton)
-            
+            addSubview(filterButton)
             filterButton.addSubview(titleLabel)
             filterButton.addSubview(arrowImage)
         }

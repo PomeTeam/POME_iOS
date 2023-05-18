@@ -27,7 +27,7 @@ class RecordContentView: BaseView{
         $0.font = UIFont.autoPretendard(type: .sb_14)
         $0.textColor = Color.body
     }
-    let contentTextView = CharactersCountTextView(type: .consume)
+    let contentTextView = CountingTextView(placeholder: "소비에 대한 감상을 적어주세요 (150자)")
     lazy var completeButton = DefaultButton(titleStr: "작성했어요").then{
         $0.isActivate = true
     }

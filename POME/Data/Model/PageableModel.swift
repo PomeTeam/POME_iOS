@@ -9,6 +9,6 @@ import Foundation
 
 struct PageableModel: Encodable{
     let page: Int
-    let size: Int = Const.requestPagingSize
+    var size: Int = Const.requestPagingSize
     let sort = ["string"]
 }

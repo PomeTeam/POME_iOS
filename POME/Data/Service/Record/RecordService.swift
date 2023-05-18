@@ -16,19 +16,19 @@ final class RecordService{
 
 extension RecordService{
     
-    func modifyRecord(id: Int, request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
+    func modifyRecord(id: Int, request: RecordDTO, completion: @escaping (NetworkResult<RecordResponseModel>) -> Void) {
         provider.requestDecoded(RecordRouter.patchRecord(id: id, request: request), animate: true){ response in
             completion(response)
         }
     }
-    
+
     func deleteRecord(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
         provider.requestNoResultAPI(RecordRouter.deleteRecord(id: id), animate: true){ response in
             completion(response)
         }
     }
     
-    func generateRecord(request: RecordRegisterRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
+    func generateRecord(request: GenerateRecordRequestModel, completion: @escaping (NetworkResult<Any>) -> Void) {
         provider.requestNoResultAPI(RecordRouter.postRecord(request: request), animate: true){ response in
             completion(response)
         }
@@ -52,8 +52,15 @@ extension RecordService{
         }
     }
     
-    func getRecordsOfGoalAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
-        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable), animate: animate) { response in
+//    func getRecordsOfGoalAtReviewTab(id: Int, firstEmotion: Int?, secondEmotion: Int?, pageable: PageableModel, animate: Bool,completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+//        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, firstEmotion: firstEmotion, secondEmotion: secondEmotion, pageable: pageable), animate: animate) { response in
+//            completion(response)
+//        }
+//    }
+    
+    //CLEAN ARCHITECURE VER.
+    func getRecordsOfGoalAtReviewTab(id: Int, request: GetRecordInReviewRequestModel, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        provider.requestDecoded(RecordRouter.getRecordsOfGoalByUserAtReviewTab(id: id, request: request), animate: false) { response in
             completion(response)
         }
     }

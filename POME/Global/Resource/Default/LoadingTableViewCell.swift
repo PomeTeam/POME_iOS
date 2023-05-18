@@ -9,11 +9,11 @@ import Foundation
 
 class LoadingTableViewCell: BaseTableViewCell{
     
-    let loadingView = UIActivityIndicatorView()
+    private let loadingView = UIActivityIndicatorView()
     
     override func hierarchy() {
         super.hierarchy()
-        self.baseView.addSubview(loadingView)
+        baseView.addSubview(loadingView)
     }
     
     override func layout() {

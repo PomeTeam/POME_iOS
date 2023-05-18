@@ -195,17 +195,17 @@ class MultiMoyaService: MoyaProvider<MultiTarget> {
     }
     
     func requestGenerateAccessToken(){
-        AuthService.shared.generateAccessToken{ response in
-            switch response{
-            case .success(let token):
-                print("LOG: SUCCESS requestGenerateAccessToken", token)
-                UserManager.token = token
-                break
-            default:
-                print("LOG: INVALID SUCCESS requestGenerateAccessToken")
-                self.requestGenerateAccessToken()
-            }
-        }
+//        AuthService.shared.generateAccessToken{ response in
+//            switch response{
+//            case .success(let token):
+//                print("LOG: SUCCESS requestGenerateAccessToken", token)
+//                UserManager.token = token
+//                break
+//            default:
+//                print("LOG: INVALID SUCCESS requestGenerateAccessToken")
+//                self.requestGenerateAccessToken()
+//            }
+//        }
     }
     
     private func addObserver() {
