@@ -173,6 +173,8 @@
 		EE39696329DAA143003F655F /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696229DAA143003F655F /* ReviewViewController.swift */; };
 		EE39696529DAAF3D003F655F /* FriendReactionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696429DAAF3D003F655F /* FriendReactionSheetViewController.swift */; };
 		EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */; };
+		EE42F93B2A166BA000AFDD03 /* GoalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F93A2A166BA000AFDD03 /* GoalObserver.swift */; };
+		EE42F93D2A166BB000AFDD03 /* RecordObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F93C2A166BB000AFDD03 /* RecordObserver.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
 		EE4CEA492A00A9EA002BF87E /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA482A00A9EA002BF87E /* FriendViewController.swift */; };
@@ -451,6 +453,8 @@
 		EE39696229DAA143003F655F /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		EE39696429DAAF3D003F655F /* FriendReactionSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewController.swift; sourceTree = "<group>"; };
 		EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewModel.swift; sourceTree = "<group>"; };
+		EE42F93A2A166BA000AFDD03 /* GoalObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalObserver.swift; sourceTree = "<group>"; };
+		EE42F93C2A166BB000AFDD03 /* RecordObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordObserver.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
 		EE4CEA482A00A9EA002BF87E /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
@@ -1275,6 +1279,8 @@
 		57C481E4296ABE46008731D9 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EE42F93A2A166BA000AFDD03 /* GoalObserver.swift */,
+				EE42F93C2A166BB000AFDD03 /* RecordObserver.swift */,
 				EE79C29D29937C85006A9AA2 /* Friend */,
 			);
 			path = Utils;
@@ -1991,6 +1997,7 @@
 				2365150A29AA626E00A4AFD1 /* UITabBar.swift in Sources */,
 				EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */,
 				EEC28CB829D30C6A0075CD4C /* GoalRepository.swift in Sources */,
+				EE42F93B2A166BA000AFDD03 /* GoalObserver.swift in Sources */,
 				EE635F4429D1CD2800573F66 /* ModifyRecordViewController.swift in Sources */,
 				57CCA793292B0B24007E22D1 /* EmotionFilterSheetView.swift in Sources */,
 				EEC28CBA29D30C740075CD4C /* RecordRepository.swift in Sources */,
@@ -2057,6 +2064,7 @@
 				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				EEC5CAF629B0AC6500FF4C26 /* AuthService.swift in Sources */,
 				2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */,
+				EE42F93D2A166BB000AFDD03 /* RecordObserver.swift in Sources */,
 				EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				2308C5BB29B385500046A76C /* LinkToAppStore.swift in Sources */,
