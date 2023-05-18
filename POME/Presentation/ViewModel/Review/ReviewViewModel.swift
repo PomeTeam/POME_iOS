@@ -61,6 +61,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     var records = [RecordResponseModel]()
     var deleteRecordCompleted: ((Int) -> Void)!
     var modifyRecordCompleted: ((Int) -> Void)!
+    var changeGoalSelect: (() -> Void)!
     var reloadTableView: (() -> Void)!
 
     private var page: Int = 0
@@ -120,6 +121,8 @@ extension ReviewViewModel{
         if goals.isEmpty {
             records = []
             reloadTableView()
+        } else if selectedGoalIndex >= goals.count {
+            changeGoalSelect()
         } else {
             requestRecords()
         }

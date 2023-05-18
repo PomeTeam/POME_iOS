@@ -411,6 +411,7 @@ extension RecordViewController {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
                     self.requestGetGoals()
+                    GoalObserver.shared.deleteGoal.onNext(Void())
                 }
                 break
             default:

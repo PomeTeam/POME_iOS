@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class GoalObserver{
-    //TODO: 현재 선택 중인 목표 삭제했을 경우 처리 추가
     static let shared = GoalObserver()
     
     private init(){}
@@ -129,7 +128,16 @@ class ReviewViewController: BaseTabViewController{
                 self?.viewModel.refreshData()
             }.disposed(by: disposeBag)
         
+        GoalObserver.shared.deleteGoal
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
         bindEmotionFiltering()
+        
+        var goalTableViewCell: GoalTagsTableViewCell?{
+            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
+        }
         
         viewModel.deleteRecordCompleted = {
             self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
@@ -140,9 +148,12 @@ class ReviewViewController: BaseTabViewController{
             mainView.tableView.reloadRows(at: [[INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
         }
         
-        var goalTableViewCell: GoalTagsTableViewCell?{
-            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
+        viewModel.changeGoalSelect = { [weak self] in
+            if let cell = goalTableViewCell {
+                self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
+            }
         }
+
         viewModel.reloadTableView = { [self] in
             isLoading = false
             if isRefreshing {
