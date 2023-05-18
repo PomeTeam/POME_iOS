@@ -93,6 +93,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
             .subscribe{ [weak self] in
                 self?.initializeRecordRequest()
                 self?.selectedGoalIndex = $0
+                self?.requestRecords()
             }.disposed(by: disposeBag)
         
         //modify record

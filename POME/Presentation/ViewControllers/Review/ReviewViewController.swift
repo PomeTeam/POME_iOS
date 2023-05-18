@@ -45,7 +45,7 @@ class ReviewViewController: BaseTabViewController{
         return refreshControl.isRefreshing
     }
     
-    //감정 필터링 프로퍼티
+    //감정 필터링
     private typealias FilteringEmotion = (first: Int?, second: Int?)
     private let filterEmotion = BehaviorRelay<Review.EmotionFiltering>(value: (nil, nil))
     private var firstEmotion: Int?{
