@@ -84,6 +84,7 @@ extension SecondEmotionViewController {
     private func postSecondEmotion(_ recordId: Int, param: RecordSecondEmotionRequestModel) {
         RecordService.shared.postSecondEmotion(id: recordId, param: param) { result in
             print("두번째 감정 남기기 성공")
+            RecordObserver.shared.registerSecondEmotion.onNext(Void())
             self.navigationController?.popViewController(animated: true)
         }
     }

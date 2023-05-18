@@ -9,6 +9,25 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+class GoalObserver{
+    static let shared = GoalObserver()
+    
+    private init(){}
+    
+    let generateGoal = PublishSubject<Void>()
+    let deleteGoal = PublishSubject<Void>()
+}
+
+class RecordObserver{
+    
+    static let shared = RecordObserver()
+    
+    private init(){ }
+    
+    let generateRecord = PublishSubject<Void>()
+    let registerSecondEmotion = PublishSubject<Void>()
+}
+
 @frozen
 enum EmotionTime: Int{
     case first = 100
@@ -30,9 +49,7 @@ struct Review{
 
 class ReviewViewController: BaseTabViewController{
     
-    private var isLoading = false
-    
-    private let INFO_SECTION = 1
+    private let INFO_SECTION = 0
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
     
@@ -40,7 +57,14 @@ class ReviewViewController: BaseTabViewController{
     private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
     private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
     
-    //감정 필터링 프로퍼티
+    //데이터 로드
+    private var isLoading = false
+    private var isRefreshing: Bool{
+        guard let refreshControl = mainView.tableView.refreshControl else { return false }
+        return refreshControl.isRefreshing
+    }
+    
+    //감정 필터링
     private typealias FilteringEmotion = (first: Int?, second: Int?)
     private let filterEmotion = BehaviorRelay<Review.EmotionFiltering>(value: (nil, nil))
     private var firstEmotion: Int?{
@@ -48,6 +72,12 @@ class ReviewViewController: BaseTabViewController{
     }
     private var secondEmotion: Int?{
         filterEmotion.value.second
+    }
+    
+    //목표
+    private let goalRelay = BehaviorRelay<Int>(value: 0)
+    private var selectedGoalIndex: Int{
+        goalRelay.value
     }
     
     override func viewDidLoad() {
@@ -66,7 +96,9 @@ class ReviewViewController: BaseTabViewController{
     
     override func initialize(){
         setTableViewDelegate()
+        setTableViewRefresh()
     }
+    
     private func setTableViewDelegate(){
         mainView.tableView.do{
             $0.separatorStyle = .none
@@ -74,38 +106,78 @@ class ReviewViewController: BaseTabViewController{
             $0.dataSource = self
         }
     }
+    
+    private func setTableViewRefresh(){
+        let refreshControl = UIRefreshControl().then{
+            $0.backgroundColor = .white
+            $0.tintColor = .black
+            $0.addTarget(self, action: #selector(refreshingData), for: .valueChanged)
+        }
+        mainView.tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func refreshingData(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.refreshData()
+        }
+    }
 
     override func bind() {
         
+        GoalObserver.shared.generateGoal
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
+        GoalObserver.shared.deleteGoal
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.registerSecondEmotion
+            .subscribe{ _ in
+                self.goalRelay.accept(self.selectedGoalIndex)
+            }.disposed(by: disposeBag)
+        
         bindEmotionFiltering()
-        
-        let output = viewModel.transform(ReviewViewModel.Input(filteringEmotion: filterEmotion.asObservable()))
-        
-        output.showEmptyView
-            .drive(onNext: { [weak self] willShow in
-                willShow ? self?.mainView.emptyViewWillShow() : self?.mainView.emptyViewWillHide()
-            }).disposed(by: disposeBag)
         
         var goalTableViewCell: GoalTagsTableViewCell?{
             mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
         
-        output.reloadTableView
-            .drive(onNext: { [weak self] in
-                self?.isLoading = false
-                goalTableViewCell?.tagCollectionView.reloadData()
-                self?.mainView.tableView.reloadData()
-            }).disposed(by: disposeBag)
+        viewModel.deleteRecordCompleted = {
+            self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+            self.showEmptyView()
+        }
         
-        output.deleteRecord
-            .drive(onNext: { indexPath in
-                self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
-            }).disposed(by: disposeBag)
+        viewModel.modifyRecordCompleted = { [self] in
+            mainView.tableView.reloadRows(at: [[INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+        }
         
-        output.modifyRecord
-            .drive(onNext: { indexPath in
-                self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
-            }).disposed(by: disposeBag)
+        viewModel.changeGoalSelect = { [weak self] in
+            if let cell = goalTableViewCell {
+                self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
+            }
+        }
+
+        viewModel.reloadTableView = { [self] in
+            isLoading = false
+            if isRefreshing {
+                mainView.tableView.refreshControl?.endRefreshing()
+            }
+            goalTableViewCell?.tagCollectionView.reloadData()
+            mainView.tableView.reloadData()
+            showEmptyView()
+        }
+        
+        viewModel.transform(ReviewViewModel.Input(
+            selectedGoalIndex: goalRelay.asObservable(),
+            filteringEmotion: filterEmotion.asObservable())
+        )
+    }
+    
+    private func showEmptyView(){
+        viewModel.records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     private func bindEmotionFiltering(){
@@ -130,22 +202,21 @@ class ReviewViewController: BaseTabViewController{
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.isGoalEmpty ? 1 : viewModel.goalsCount
-    }
-    
-    private func getGoalCellTitle(index: Int) -> String{
-        viewModel.isGoalEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.getGoal(at: index).name
-    }
-    
-    private func isGoalEnd(index: Int) -> Bool{
-        viewModel.getGoal(at: index).isGoalEnd
+        viewModel.goals.isEmpty ? 1 : viewModel.goals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         collectionView.dequeueReusableCell(for: indexPath, cellType: GoalTagCollectionViewCell.self).then{
             $0.title = getGoalCellTitle(index: indexPath.row)
-            viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
+            selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
         }
+    }
+    
+    private func getGoalCellTitle(index: Int) -> String{
+        viewModel.goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.goals[index].name
+    }
+    private func isGoalEnd(index: Int) -> Bool{
+        viewModel.goals[index].isGoalEnd
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -157,7 +228,7 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
         collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
             $0.setSelectState()
         }
-        viewModel.selectGoal(at: indexPath.row)
+        goalRelay.accept(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -170,15 +241,15 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == INFO_SECTION {
-            return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
-        }else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage){
+            return viewModel.records.count + COUNT_OF_NOT_RECORD_CELL
+        } else if section == 2 && isLoading && viewModel.hasNextPage {
             return 1
-        }else{
+        } else {
             return 0
         }
     }
@@ -211,7 +282,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
-            viewModel.isGoalEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
+            viewModel.goals.isEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.goals[selectedGoalIndex])
         }
     }
     
@@ -224,7 +295,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     private func getRecordTableViewCell(indexPath: IndexPath) -> ConsumeReviewTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
             $0.delegate = self
-            $0.bindingData(with: viewModel.getRecord(at: indexPath.row))
+            $0.bindingData(with: viewModel.records[indexPath.ofRecordData])
         }
     }
 }
@@ -249,7 +320,7 @@ extension ReviewViewController: FilterDelegate{
 extension ReviewViewController: RecordCellDelegate{
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = viewModel.getRecord(at: indexPath.row).friendReactions
+        let data = viewModel.records[indexPath.ofRecordData].friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
@@ -263,10 +334,12 @@ extension ReviewViewController: RecordCellDelegate{
     }
     
     private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
-        return UIAlertAction(title: "수정하기", style: .default){ _ in
+        return UIAlertAction(title: "수정하기", style: .default){ [self] _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
-            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = ModifyRecordViewController(modifyViewModel: viewModel,
+                                                index: indexPath.ofRecordData,
+                                                goal: viewModel.goals[selectedGoalIndex])
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -275,7 +348,7 @@ extension ReviewViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             ImageAlert.deleteRecord.generateAndShow(in: self).do{
                 $0.completion = {
-                    self.viewModel.deleteRecord(at: indexPath)
+                    self.viewModel.deleteRecord(index: indexPath.ofRecordData)
                 }
             }
         }
@@ -289,15 +362,10 @@ extension ReviewViewController: RecordCellDelegate{
 extension ReviewViewController{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        checkPaigingConditionAndStartPaging(offset: offsetY, scrollView: scrollView)
-        checkRefreshingConditionAndStartRefreshing(offset: offsetY)
-    }
-    
-    private func checkPaigingConditionAndStartPaging(offset: CGFloat, scrollView: UIScrollView){
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         
-        if offset > (contentHeight - height) {
+        if offsetY > (contentHeight - height) {
             if !isLoading && viewModel.hasNextPage {
                 beginPaging()
             }
@@ -311,22 +379,6 @@ extension ReviewViewController{
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.viewModel.requestNextPage()
-        }
-    }
-    
-    private func checkRefreshingConditionAndStartRefreshing(offset: CGFloat){
-        if offset < Offset.REFRESH_DATA && !isLoading {
-            beginRefreshData()
-        }
-    }
-    
-    private func beginRefreshData(){
-        isLoading = true
-        DispatchQueue.main.async { [self] in
-            mainView.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.viewModel.refreshData()
         }
     }
 }

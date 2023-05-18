@@ -71,6 +71,25 @@ class RecordViewController: BaseTabViewController {
         
         recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
     }
+    
+    override func bind() {
+        GoalObserver.shared.generateGoal
+            .subscribe{ [weak self] _ in
+                self?.requestGetGoals()
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.generateRecord
+            .subscribe{ _ in
+                self.recordPage = 0
+                self.recordsOfGoal.removeAll()
+                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.registerSecondEmotion
+            .subscribe{ _ in
+                self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
+            }.disposed(by: disposeBag)
+    }
     // MARK: - Actions
     // 알림 페이지 연결 제거
     override func topBtnDidClicked() {
@@ -310,6 +329,10 @@ extension RecordViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             let vc = ModifyRecordViewController(goal: self.goalContent[self.categorySelectedIdx],
                                                     record: self.recordsOfGoal[recordIndex])
+            vc.completion = {
+                self.recordsOfGoal[self.dataIndexBy(indexPath)] = $0
+                self.recordView.recordTableView.reloadRows(at: [indexPath], with: .none)
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
@@ -397,6 +420,7 @@ extension RecordViewController {
                     print("목표 삭제 성공")
                     self.categorySelectedIdx = 0
                     self.requestGetGoals()
+                    GoalObserver.shared.deleteGoal.onNext(Void())
                 }
                 break
             default:

@@ -7,24 +7,21 @@
 
 import Foundation
 
-protocol ModifyRecord{
-    var selectedGoal: GoalResponseModel { get }
-    func getRecord(at: Int) -> RecordResponseModel
-    func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel)
-}
-
 final class ModifyRecordViewController: Recordable{
     
+    var completion: ((RecordResponseModel) -> Void)? //ViewModel 활용안하는 VC에게 데이터 전달 용도
+    
     private let record: RecordResponseModel
-    private var modifyViewModel: ModifyRecord?
+    private var modifyViewModel: (any ReviewViewModelInterface)?
+    private var index: Int!
     private var tableViewIndexPath: IndexPath!
     
-    init(modifyViewModel: ModifyRecord, indexPath: IndexPath){
+    init(modifyViewModel: any ReviewViewModelInterface, index: Int, goal: GoalResponseModel){
         self.modifyViewModel = modifyViewModel
-        self.tableViewIndexPath = indexPath
-        self.record = modifyViewModel.getRecord(at: indexPath.row)
+        self.index = index
+        self.record = modifyViewModel.records[index]
         super.init(recordType: .modify, viewModel: ModifyRecordViewModel(recordId: record.id,
-                                                                         defaultGoal: modifyViewModel.selectedGoal,
+                                                                         defaultGoal: goal,
                                                                          defaultDate: record.useDate))
     }
     //will delete
@@ -51,7 +48,8 @@ final class ModifyRecordViewController: Recordable{
         
         viewModel.controlEvent(mainView.completeButton.rx.tap)
             .subscribe(onNext: { modifyRecord in
-                self.modifyViewModel?.modifyRecord(indexPath: self.tableViewIndexPath, modifyRecord)
+                self.modifyViewModel?.modifyRecord(modifyRecord, index: self.index)
+                self.completion?(modifyRecord)
                 self.navigationController?.popViewController(animated: true)
             }).disposed(by: disposeBag)
     }

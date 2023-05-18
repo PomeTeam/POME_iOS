@@ -127,9 +127,11 @@ extension RecordEmotionViewController: RecordCellDelegate{
             guard let goalContent = self.goalContent else {return}
             let vc = ModifyRecordViewController(goal: goalContent,
                                                        record: self.noSecondEmotionRecord[recordIndex])
-//            {
-//                self.noSecondEmotionRecord[recordIndex] = $0
-//            }
+            
+            vc.completion = {
+                self.noSecondEmotionRecord[recordIndex] = $0
+                self.recordEmotionView.recordEmotionTableView.reloadRows(at: [indexPath], with: .none)
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
