@@ -112,6 +112,10 @@ class ReviewViewController: BaseTabViewController{
             self.showEmptyView()
         }
         
+        viewModel.modifyRecordCompleted = { [self] in
+            mainView.tableView.reloadRows(at: [[INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+        }
+        
         var goalTableViewCell: GoalTagsTableViewCell?{
             mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
@@ -125,12 +129,10 @@ class ReviewViewController: BaseTabViewController{
             showEmptyView()
         }
         
-        let output = viewModel.transform(ReviewViewModel.Input(selectedGoalIndex: goalRelay.asObservable(), filteringEmotion: filterEmotion.asObservable()))
-        
-        output.modifyRecord
-            .drive(onNext: { indexPath in
-                self.mainView.tableView.reloadRows(at: [indexPath], with: .none)
-            }).disposed(by: disposeBag)
+        viewModel.transform(ReviewViewModel.Input(
+            selectedGoalIndex: goalRelay.asObservable(),
+            filteringEmotion: filterEmotion.asObservable())
+        )
     }
     
     private func showEmptyView(){
@@ -291,10 +293,12 @@ extension ReviewViewController: RecordCellDelegate{
     }
     
     private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
-        return UIAlertAction(title: "수정하기", style: .default){ _ in
+        return UIAlertAction(title: "수정하기", style: .default){ [self] _ in
             alert.dismiss(animated: true)
-//            let vc = ModifyRecordViewController(modifyViewModel: self.viewModel, indexPath: indexPath)
-//            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = ModifyRecordViewController(modifyViewModel: viewModel,
+                                                index: indexPath.ofRecordData,
+                                                goal: viewModel.goals[selectedGoalIndex])
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

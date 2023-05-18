@@ -20,9 +20,9 @@ import RxCocoa
  5. 기록 필터링 > ViewController에서 데이터 관리
  */
 
-protocol ModifyRecordInterface{
+protocol ModifyRecordInterface {
     var modifyRecordCompleted: ((_ index: Int) -> Void)! { get }
-    func modifyRecord(index: Int)
+    func modifyRecord(_ record: RecordResponseModel, index: Int)
 }
 
 protocol DeleteRecord{
@@ -34,18 +34,12 @@ protocol PageableInterface{
     var hasNextPage: Bool { get }
 }
 
-protocol ReviewViewModelInterface: BaseViewModel{
+protocol ReviewViewModelInterface: BaseViewModel, ModifyRecordInterface{
     var goals: [GoalResponseModel] { get }
     var records: [RecordResponseModel] { get }
-    var reloadTableView: (() -> Void)! { get }
 }
 
 class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
-    
-    
-    func getRecord(at: Int) -> RecordResponseModel {
-        records[at]
-    }
 
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
@@ -66,14 +60,13 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     var goals = [GoalResponseModel]()
     var records = [RecordResponseModel]()
     var deleteRecordCompleted: ((Int) -> Void)!
+    var modifyRecordCompleted: ((Int) -> Void)!
     var reloadTableView: (() -> Void)!
 
     private var page: Int = 0
     private var selectedGoalIndex: Int = 0
     private var emotionFilter: Review.EmotionFiltering = (nil, nil)
-    
-    private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
-    
+
     private let disposeBag = DisposeBag()
     private let modifyRecordSubject = PublishSubject<IndexPath>()
     
@@ -83,10 +76,9 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
         let filteringEmotion: Observable<Review.EmotionFiltering>
     }
     
-    struct Output{
-        let modifyRecord: Driver<IndexPath>
-    }
+    struct Output{}
     
+    @discardableResult
     func transform(_ input: Input) -> Output{
         
         input.selectedGoalIndex
@@ -94,10 +86,6 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
                 self?.selectedGoalIndex = $0
                 self?.initializeStateAndRequestRecord()
             }.disposed(by: disposeBag)
-        
-        //modify record
-        let modifyRecordIndexPath = modifyRecordSubject
-            .asDriver(onErrorJustReturn: IndexPath.init())
         
         input.filteringEmotion
             .skip(1)
@@ -107,9 +95,7 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
                 self?.requestRecords()
             }).disposed(by: disposeBag)
         
-        return Output(
-            modifyRecord: modifyRecordIndexPath
-        )
+        return Output()
     }
     
     private func initializeStateAndRequestRecord(){
@@ -163,14 +149,24 @@ extension ReviewViewModel{
                 self?.reloadTableView()
             }).disposed(by: disposeBag)
     }
-    
-    func modifyRecord(indexPath: IndexPath, _ record: RecordResponseModel){
-        records[dataIndex(indexPath.row)] = record
-        modifyRecordSubject.onNext(indexPath)
-    }
 
     func requestNextPage(){
         page += 1
         requestRecords()
+    }
+    
+    func deleteRecord(index: Int) {
+        deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: records[index].id))
+            .subscribe{ [weak self] in
+                if $0 == .success {
+                    self?.records.remove(at: index)
+                    self?.deleteRecordCompleted(index)
+                }
+            }.disposed(by: disposeBag)
+    }
+    
+    func modifyRecord(_ record: RecordResponseModel, index: Int){
+        records[index] = record
+        modifyRecordCompleted(index)
     }
 }
