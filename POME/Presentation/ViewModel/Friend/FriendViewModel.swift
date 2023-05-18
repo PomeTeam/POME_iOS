@@ -15,7 +15,7 @@ protocol FriendViewModelInterface: BaseViewModel{
     var records: [RecordResponseModel] { get }
     var hasNextPage: Bool { get }
     
-    var registerReactionCompleted: ((Int) -> Void)! { get }
+    var registerReactionCompleted: ((Int, Int) -> Void)! { get } //(id, index)
     var hideRecordCompleted: ((Int) -> Void)! { get }
     
     func registerReaction(id: Int, index: Int)
@@ -29,7 +29,7 @@ class FriendViewModel: FriendViewModelInterface{
     var hasNextPage = false
     
     var hideRecordCompleted: ((Int) -> Void)!
-    var registerReactionCompleted: ((Int) -> Void)!
+    var registerReactionCompleted: ((Int, Int) -> Void)!
     
     private let getFriendsUseCase: GetFriendsUseCaseInterface
     private let getAllFriendsRecordsUseCase: GetAllFriendsRecordsUseCaseInterface
@@ -135,7 +135,7 @@ class FriendViewModel: FriendViewModelInterface{
             requestValue: RegisterReactionRequestValue(recordId: records[index].id, emotionId: reactionId)
         ).subscribe{ [weak self] in
             self?.records[index] = $0
-            self?.registerReactionCompleted(index)
+            self?.registerReactionCompleted(reactionId, index)
         }.disposed(by: disposeBag)
     }
     

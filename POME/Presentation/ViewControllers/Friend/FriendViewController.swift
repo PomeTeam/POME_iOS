@@ -93,9 +93,12 @@ final class FriendViewController: BaseTabViewController{
     override func bind() {
         
         guard let viewModel = viewModel as? FriendViewModel else { return }
-        
-        viewModel.registerReactionCompleted = { [self] in
-            mainView.tableView.reloadRows(at: [[FRIEND_INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+
+        viewModel.registerReactionCompleted = { [self] (reactionId, index) in
+            if let reaction = Reaction(rawValue: reactionId){
+                mainView.tableView.reloadRows(at: [[FRIEND_INFO_SECTION, index + COUNT_OF_NOT_RECORD_CELL]], with: .none)
+                ToastMessage.showReactionMessage(type: reaction, in: self)
+            }
         }
         
         viewModel.hideRecordCompleted = { [self] in
