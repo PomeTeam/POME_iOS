@@ -9,25 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class GoalObserver{
-    static let shared = GoalObserver()
-    
-    private init(){}
-    
-    let generateGoal = PublishSubject<Void>()
-    let deleteGoal = PublishSubject<Void>()
-}
-
-class RecordObserver{
-    
-    static let shared = RecordObserver()
-    
-    private init(){ }
-    
-    let generateRecord = PublishSubject<Void>()
-    let registerSecondEmotion = PublishSubject<Void>()
-}
-
 @frozen
 enum EmotionTime: Int{
     case first = 100
