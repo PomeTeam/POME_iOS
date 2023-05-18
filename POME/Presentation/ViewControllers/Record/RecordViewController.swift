@@ -329,6 +329,10 @@ extension RecordViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             let vc = ModifyRecordViewController(goal: self.goalContent[self.categorySelectedIdx],
                                                     record: self.recordsOfGoal[recordIndex])
+            vc.completion = {
+                self.recordsOfGoal[self.dataIndexBy(indexPath)] = $0
+                self.recordView.recordTableView.reloadRows(at: [indexPath], with: .none)
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
