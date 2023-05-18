@@ -130,15 +130,7 @@ class ReviewViewController: BaseTabViewController{
 extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.isGoalEmpty ? 1 : viewModel.goalsCount
-    }
-    
-    private func getGoalCellTitle(index: Int) -> String{
-        viewModel.isGoalEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.getGoal(at: index).name
-    }
-    
-    private func isGoalEnd(index: Int) -> Bool{
-        viewModel.getGoal(at: index).isGoalEnd
+        viewModel.goals.isEmpty ? 1 : viewModel.goals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -146,6 +138,13 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
             $0.title = getGoalCellTitle(index: indexPath.row)
             viewModel.selectedGoalIndex == indexPath.row ? $0.setSelectState() : $0.setUnselectState(with: isGoalEnd(index: indexPath.row))
         }
+    }
+    
+    private func getGoalCellTitle(index: Int) -> String{
+        viewModel.goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.goals[index].name
+    }
+    private func isGoalEnd(index: Int) -> Bool{
+        viewModel.goals[index].isGoalEnd
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -175,10 +174,10 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == INFO_SECTION {
-            return viewModel.recordsCount + COUNT_OF_NOT_RECORD_CELL
-        }else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage){
+            return viewModel.records.count + COUNT_OF_NOT_RECORD_CELL
+        } else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage) {
             return 1
-        }else{
+        } else {
             return 0
         }
     }
@@ -211,7 +210,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalDetailTableViewCell.self).then{
-            viewModel.isGoalEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
+            viewModel.goals.isEmpty ? $0.bindingEmptyData() : $0.bindingData(goal: viewModel.selectedGoal)
         }
     }
     
@@ -224,7 +223,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
     private func getRecordTableViewCell(indexPath: IndexPath) -> ConsumeReviewTableViewCell{
         mainView.tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
             $0.delegate = self
-            $0.bindingData(with: viewModel.getRecord(at: indexPath.row))
+            $0.bindingData(with: viewModel.records[indexPath.ofRecordData])
         }
     }
 }
@@ -249,7 +248,7 @@ extension ReviewViewController: FilterDelegate{
 extension ReviewViewController: RecordCellDelegate{
     
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = viewModel.getRecord(at: indexPath.row).friendReactions
+        let data = viewModel.records[indexPath.ofRecordData].friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     

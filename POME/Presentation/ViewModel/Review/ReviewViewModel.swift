@@ -39,8 +39,13 @@ protocol ReviewViewModelInterface: BaseViewModel{
     var records: [RecordResponseModel] { get }
 }
 
-class ReviewViewModel: BaseViewModel, ModifyRecord{
+class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
     
+    func getRecord(at: Int) -> RecordResponseModel {
+        records[at]
+    }
+    
+
     private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
@@ -57,12 +62,9 @@ class ReviewViewModel: BaseViewModel, ModifyRecord{
     }
     
     private var canRequestNextPage = false
-    private var goals = [GoalResponseModel]()
-    private var records = [RecordResponseModel](){
-        didSet{
-            emptyViewVisibilitySubject.onNext(records.isEmpty)
-        }
-    }
+    var goals = [GoalResponseModel]()
+    var records = [RecordResponseModel]()
+
     private lazy var dataIndex: (Int) -> Int = { row in row - self.regardlessOfRecordCount }
     
     private let disposeBag = DisposeBag()
@@ -199,26 +201,6 @@ extension ReviewViewModel{
     
     func requestNextPage(){
         pageRelay.accept(pageRelay.value + 1)
-    }
-    
-    var isGoalEmpty: Bool{
-        goals.count == 0
-    }
-    
-    var goalsCount: Int{
-        goals.count
-    }
-    
-    var recordsCount: Int{
-        records.count
-    }
-    
-    func getRecord(at index: Int) -> RecordResponseModel{
-        records[dataIndex(index)]
-    }
-    
-    func getGoal(at index: Int) -> GoalResponseModel{
-        goals[index]
     }
     
     var selectedGoal: GoalResponseModel{
