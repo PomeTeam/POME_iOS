@@ -79,6 +79,10 @@ class ReviewViewController: BaseTabViewController{
         
         bindEmotionFiltering()
         
+        viewModel.deleteRecordCompleted = {
+            self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+        }
+        
         let output = viewModel.transform(ReviewViewModel.Input(filteringEmotion: filterEmotion.asObservable()))
         
         output.showEmptyView
@@ -95,11 +99,6 @@ class ReviewViewController: BaseTabViewController{
                 self?.isLoading = false
                 goalTableViewCell?.tagCollectionView.reloadData()
                 self?.mainView.tableView.reloadData()
-            }).disposed(by: disposeBag)
-        
-        output.deleteRecord
-            .drive(onNext: { indexPath in
-                self.mainView.tableView.deleteRows(at: [indexPath], with: .fade)
             }).disposed(by: disposeBag)
         
         output.modifyRecord
@@ -274,7 +273,7 @@ extension ReviewViewController: RecordCellDelegate{
             alert.dismiss(animated: true)
             ImageAlert.deleteRecord.generateAndShow(in: self).do{
                 $0.completion = {
-                    self.viewModel.deleteRecord(at: indexPath)
+                    self.viewModel.deleteRecord(index: indexPath.ofRecordData)
                 }
             }
         }
