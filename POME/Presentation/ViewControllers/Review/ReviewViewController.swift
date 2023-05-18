@@ -30,15 +30,20 @@ struct Review{
 
 class ReviewViewController: BaseTabViewController{
     
-    private var isLoading = false
-    
-    private let INFO_SECTION = 1
+    private let INFO_SECTION = 0
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
     private let mainView = ReviewView()
     
     private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
     private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
     private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
+    
+    //데이터 로드
+    private var isLoading = false
+    private var isRefreshing: Bool{
+        guard let refreshControl = mainView.tableView.refreshControl else { return false }
+        return refreshControl.isRefreshing
+    }
     
     //감정 필터링 프로퍼티
     private typealias FilteringEmotion = (first: Int?, second: Int?)
@@ -72,12 +77,29 @@ class ReviewViewController: BaseTabViewController{
     
     override func initialize(){
         setTableViewDelegate()
+        setTableViewRefresh()
     }
+    
     private func setTableViewDelegate(){
         mainView.tableView.do{
             $0.separatorStyle = .none
             $0.delegate = self
             $0.dataSource = self
+        }
+    }
+    
+    private func setTableViewRefresh(){
+        let refreshControl = UIRefreshControl().then{
+            $0.backgroundColor = .white
+            $0.tintColor = .black
+            $0.addTarget(self, action: #selector(refreshingData), for: .valueChanged)
+        }
+        mainView.tableView.refreshControl = refreshControl
+    }
+    
+    @objc private func refreshingData(){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.viewModel.refreshData()
         }
     }
 
@@ -93,11 +115,14 @@ class ReviewViewController: BaseTabViewController{
         var goalTableViewCell: GoalTagsTableViewCell?{
             mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
         }
-        viewModel.reloadTableView = { [weak self] in
-            self?.isLoading = false
+        viewModel.reloadTableView = { [self] in
+            isLoading = false
+            if isRefreshing {
+                mainView.tableView.refreshControl?.endRefreshing()
+            }
             goalTableViewCell?.tagCollectionView.reloadData()
-            self?.mainView.tableView.reloadData()
-            self?.showEmptyView()
+            mainView.tableView.reloadData()
+            showEmptyView()
         }
         
         let output = viewModel.transform(ReviewViewModel.Input(selectedGoalIndex: goalRelay.asObservable(), filteringEmotion: filterEmotion.asObservable()))
@@ -173,13 +198,13 @@ extension ReviewViewController: UICollectionViewDelegate, UICollectionViewDataSo
 extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        3
+        2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == INFO_SECTION {
             return viewModel.records.count + COUNT_OF_NOT_RECORD_CELL
-        } else if (section == 0 && isLoading) || (section == 2 && isLoading && viewModel.hasNextPage) {
+        } else if section == 2 && isLoading && viewModel.hasNextPage {
             return 1
         } else {
             return 0
@@ -292,15 +317,10 @@ extension ReviewViewController: RecordCellDelegate{
 extension ReviewViewController{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        checkPaigingConditionAndStartPaging(offset: offsetY, scrollView: scrollView)
-        checkRefreshingConditionAndStartRefreshing(offset: offsetY)
-    }
-    
-    private func checkPaigingConditionAndStartPaging(offset: CGFloat, scrollView: UIScrollView){
         let contentHeight = scrollView.contentSize.height
         let height = scrollView.frame.height
         
-        if offset > (contentHeight - height) {
+        if offsetY > (contentHeight - height) {
             if !isLoading && viewModel.hasNextPage {
                 beginPaging()
             }
@@ -314,22 +334,6 @@ extension ReviewViewController{
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.viewModel.requestNextPage()
-        }
-    }
-    
-    private func checkRefreshingConditionAndStartRefreshing(offset: CGFloat){
-        if offset < Offset.REFRESH_DATA && !isLoading {
-            beginRefreshData()
-        }
-    }
-    
-    private func beginRefreshData(){
-        isLoading = true
-        DispatchQueue.main.async { [self] in
-            mainView.tableView.reloadSections(IndexSet(integer: 0), with: .none)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.viewModel.refreshData()
         }
     }
 }
