@@ -61,7 +61,7 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
         self.deleteRecordUseCase = deleteRecordUseCase
     }
     
-    private var canRequestNextPage = false
+    var hasNextPage: Bool = false
     var goals = [GoalResponseModel]()
     var records = [RecordResponseModel]()
 
@@ -127,7 +127,7 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
             .skip(1)
             .do(onNext: {
                 if($0 == 0){
-                    self.canRequestNextPage = false
+                    self.hasNextPage = false
                 }
             }).map{ page in
                 return (page, self.emotionFilter)
@@ -141,7 +141,7 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
         
         recordsResponse
             .do(onNext: {
-                self.canRequestNextPage = !$0.last
+                self.hasNextPage = !$0.last
             }).subscribe(onNext: {
                 if($0.page == 0){
                     self.records = $0.content
@@ -167,7 +167,7 @@ class ReviewViewModel: ReviewViewModelInterface, ModifyRecord{
     }
     
     private func initializeRecordRequest(){
-        canRequestNextPage = false
+        hasNextPage = false
         pageRelay.accept(0)
     }
 }
@@ -209,9 +209,5 @@ extension ReviewViewModel{
     
     var selectedGoalIndex: Int{
         selectGoalRelay.value
-    }
-    
-    var hasNextPage: Bool{
-        canRequestNextPage
     }
 }
