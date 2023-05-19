@@ -267,17 +267,22 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             // MARK: 목표가 존재하지 않을 때
             if self.goalContent.count == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyGoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
-                cell.makeGoalButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+                
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+                    $0.banner = .registerInRecord
+                    $0.actionButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+                }
                 return cell
             }
             
             // MARK: 기간이 지난 목표 셀
             if goalContent[self.categorySelectedIdx].isGoalEnd {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self)
+                cell.banner = .finish
+                
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
                 finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
-                cell.finishGoalButton.addGestureRecognizer(finishGoalGesture)
+                cell.actionButton.addGestureRecognizer(finishGoalGesture)
                 return cell
             }
             

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */; };
 		23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */; };
 		23061236292B4B5E00662007 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23061235292B4B5E00662007 /* RecordView.swift */; };
 		2306123C292B4CB500662007 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306123B292B4CB500662007 /* OnboardingViewController.swift */; };
@@ -32,7 +31,6 @@
 		232F3FD9292D5E40009F2EE5 /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */; };
 		232FD9D2293436950072E9D5 /* MypageFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232FD9D1293436950072E9D5 /* MypageFriendViewController.swift */; };
 		2338F4AC2989079400F37EA1 /* TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2338F4AB2989079400F37EA1 /* TapGesture.swift */; };
-		2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */; };
 		2339649D292EC9A8000F6BAC /* AllRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */; };
 		2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339649E292EC9F7000F6BAC /* AllRecordsView.swift */; };
 		233964A1292ECC06000F6BAC /* GoalWithProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233964A0292ECC06000F6BAC /* GoalWithProgressBarView.swift */; };
@@ -175,6 +173,8 @@
 		EE39696729DAAFF6003F655F /* FriendReactionSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */; };
 		EE42F93B2A166BA000AFDD03 /* GoalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F93A2A166BA000AFDD03 /* GoalObserver.swift */; };
 		EE42F93D2A166BB000AFDD03 /* RecordObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F93C2A166BB000AFDD03 /* RecordObserver.swift */; };
+		EE42F9492A174D5100AFDD03 /* GoalBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F9482A174D5100AFDD03 /* GoalBannerTableViewCell.swift */; };
+		EE42F94B2A174D5800AFDD03 /* GoalBannerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42F94A2A174D5800AFDD03 /* GoalBannerStyle.swift */; };
 		EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */; };
 		EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */; };
 		EE4CEA492A00A9EA002BF87E /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4CEA482A00A9EA002BF87E /* FriendViewController.swift */; };
@@ -276,7 +276,6 @@
 		09C9BF2EA39F1113B7B22706 /* Pods_POME.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_POME.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BECD1D55C3C8936CEEFA40E /* Pods-POME.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME.release.xcconfig"; path = "Target Support Files/Pods-POME/Pods-POME.release.xcconfig"; sourceTree = "<group>"; };
 		188B7CC711D87CACB40AC32B /* Pods-POME-POMEUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-POME-POMEUITests.debug.xcconfig"; path = "Target Support Files/Pods-POME-POMEUITests/Pods-POME-POMEUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyGoalTableViewCell.swift; sourceTree = "<group>"; };
 		23061232292B48FA00662007 /* GoEmotionBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoEmotionBannerTableViewCell.swift; sourceTree = "<group>"; };
 		23061235292B4B5E00662007 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		2306123B292B4CB500662007 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -302,7 +301,6 @@
 		232F3FD8292D5E40009F2EE5 /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
 		232FD9D1293436950072E9D5 /* MypageFriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageFriendViewController.swift; sourceTree = "<group>"; };
 		2338F4AB2989079400F37EA1 /* TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGesture.swift; sourceTree = "<group>"; };
-		2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGoalTableViewCell.swift; sourceTree = "<group>"; };
 		2339649C292EC9A8000F6BAC /* AllRecordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsViewController.swift; sourceTree = "<group>"; };
 		2339649E292EC9F7000F6BAC /* AllRecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRecordsView.swift; sourceTree = "<group>"; };
 		233964A0292ECC06000F6BAC /* GoalWithProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalWithProgressBarView.swift; sourceTree = "<group>"; };
@@ -455,6 +453,8 @@
 		EE39696629DAAFF6003F655F /* FriendReactionSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendReactionSheetViewModel.swift; sourceTree = "<group>"; };
 		EE42F93A2A166BA000AFDD03 /* GoalObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalObserver.swift; sourceTree = "<group>"; };
 		EE42F93C2A166BB000AFDD03 /* RecordObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordObserver.swift; sourceTree = "<group>"; };
+		EE42F9482A174D5100AFDD03 /* GoalBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalBannerTableViewCell.swift; sourceTree = "<group>"; };
+		EE42F94A2A174D5800AFDD03 /* GoalBannerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalBannerStyle.swift; sourceTree = "<group>"; };
 		EE44601E2983D1EB00B1A311 /* GoalCategoryResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryResponseModel.swift; sourceTree = "<group>"; };
 		EE49615C29A47FE9000DA88C /* FriendListChangeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListChangeManager.swift; sourceTree = "<group>"; };
 		EE4CEA482A00A9EA002BF87E /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
@@ -726,9 +726,7 @@
 		23816887292EDE9600579DD4 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				23061230292B48E200662007 /* EmptyGoalTableViewCell.swift */,
 				2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */,
-				2339649A292EC71D000F6BAC /* FinishGoalTableViewCell.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -988,6 +986,7 @@
 		5724EC212910134600DC529B /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				EE42F9472A174D4200AFDD03 /* Util */,
 				232C1C902990CE740087B81A /* DeleteUser */,
 				23ADE495292D3EF7003002D9 /* MyPage */,
 				23ADE491292D341D003002D9 /* Notification */,
@@ -1456,6 +1455,15 @@
 				2FE5DF366839419651B33311 /* Pods-POMETests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE42F9472A174D4200AFDD03 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				EE42F94A2A174D5800AFDD03 /* GoalBannerStyle.swift */,
+				EE42F9482A174D5100AFDD03 /* GoalBannerTableViewCell.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		EE4CEA4A2A00AADC002BF87E /* Friend */ = {
@@ -2037,6 +2045,7 @@
 				EE98F0DB2980EFD9007BFCCD /* GoalCategoryService.swift in Sources */,
 				5724EC86291B4C9200DC529B /* Const.swift in Sources */,
 				23ADE493292D3428003002D9 /* NotiTableViewCell.swift in Sources */,
+				EE42F9492A174D5100AFDD03 /* GoalBannerTableViewCell.swift in Sources */,
 				EE98F0C62980DFCC007BFCCD /* UserDefaultWrapper.swift in Sources */,
 				EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
@@ -2047,7 +2056,6 @@
 				23F57837292D559F002DD28E /* SettingProfileTableViewCell.swift in Sources */,
 				5724EC532917682400DC529B /* BaseTabViewController.swift in Sources */,
 				EEC5CAF429B0AC5F00FF4C26 /* AuthRouter.swift in Sources */,
-				2339649B292EC71D000F6BAC /* FinishGoalTableViewCell.swift in Sources */,
 				EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
@@ -2115,7 +2123,6 @@
 				57CCA7AA292DE833007E22D1 /* GenerateGoalDateView.swift in Sources */,
 				2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */,
 				EE98F0E22980F030007BFCCD /* SMSRouter.swift in Sources */,
-				23061231292B48E200662007 /* EmptyGoalTableViewCell.swift in Sources */,
 				EE7D35E629D5A16300D2AD60 /* GenerateRecordViewModel.swift in Sources */,
 				EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */,
 				EE39696529DAAF3D003F655F /* FriendReactionSheetViewController.swift in Sources */,
@@ -2191,6 +2198,7 @@
 				5724EC692918CECD00DC529B /* FriendView.swift in Sources */,
 				2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */,
 				57CCA7692928679E007E22D1 /* EmotionTagInfo.swift in Sources */,
+				EE42F94B2A174D5800AFDD03 /* GoalBannerStyle.swift in Sources */,
 				23816881292ED63800579DD4 /* CommentViewController.swift in Sources */,
 				232F3FD4292D5B2F009F2EE5 /* SettingTableViewCell.swift in Sources */,
 				23F5782E292D44A3002DD28E /* MarshmallowCollectionViewCell.swift in Sources */,
