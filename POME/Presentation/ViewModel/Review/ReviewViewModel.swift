@@ -9,17 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-
-/*
- Review
- 
- 1. Modify
- 2. Delete >
- 3. Reaction 조회 >
- 4. 목표 조회 > ViewController에서 데이터 관리
- 5. 기록 필터링 > ViewController에서 데이터 관리
- */
-
 protocol ModifyRecordInterface {
     var modifyRecordCompleted: ((_ index: Int) -> Void)! { get }
     func modifyRecord(_ record: RecordResponseModel, index: Int)
