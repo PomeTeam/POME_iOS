@@ -56,8 +56,6 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     private var emotionFilter: Review.EmotionFiltering = (nil, nil)
 
     private let disposeBag = DisposeBag()
-    private let modifyRecordSubject = PublishSubject<IndexPath>()
-    
     
     struct Input{
         let selectedGoalIndex: Observable<Int>
