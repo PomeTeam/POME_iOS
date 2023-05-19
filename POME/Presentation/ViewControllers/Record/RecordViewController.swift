@@ -277,10 +277,12 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             // MARK: 기간이 지난 목표 셀
             if goalContent[self.categorySelectedIdx].isGoalEnd {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "FinishGoalTableViewCell", for: indexPath) as? FinishGoalTableViewCell else { return UITableViewCell() }
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self)
+                cell.banner = .finish
+                
                 let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
                 finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
-                cell.finishGoalButton.addGestureRecognizer(finishGoalGesture)
+                cell.actionButton.addGestureRecognizer(finishGoalGesture)
                 return cell
             }
             
