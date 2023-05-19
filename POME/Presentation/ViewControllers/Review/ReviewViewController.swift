@@ -44,6 +44,9 @@ class ReviewViewController: BaseTabViewController{
         guard let refreshControl = mainView.tableView.refreshControl else { return false }
         return refreshControl.isRefreshing
     }
+    private var goalTableViewCell: GoalTagsTableViewCell?{
+        mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
+    }
     
     //감정 필터링
     private typealias FilteringEmotion = (first: Int?, second: Int?)
@@ -122,10 +125,6 @@ class ReviewViewController: BaseTabViewController{
         
         bindEmotionFiltering()
         
-        var goalTableViewCell: GoalTagsTableViewCell?{
-            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
-        }
-        
         viewModel.deleteRecordCompleted = {
             self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
             self.showEmptyView()
@@ -136,20 +135,16 @@ class ReviewViewController: BaseTabViewController{
         }
         
         viewModel.changeGoalSelect = { [weak self] in
-            if let cell = goalTableViewCell {
+            if let cell = self?.goalTableViewCell {
                 self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
             }
         }
-
-        viewModel.reloadTableView = { [self] in
-            isLoading = false
-            if isRefreshing {
-                mainView.tableView.refreshControl?.endRefreshing()
-            }
-            goalTableViewCell?.tagCollectionView.reloadData()
-            mainView.tableView.reloadData()
-            showEmptyView()
-        }
+        
+        viewModel.reloadTableViewRelay
+            .subscribe{ [weak self] _ in
+                self?.stopRefreshingOrPaging()
+                self?.reloadData()
+            }.disposed(by: disposeBag)
         
         viewModel.transform(ReviewViewModel.Input(
             selectedGoalIndex: goalRelay.asObservable(),
@@ -157,8 +152,21 @@ class ReviewViewController: BaseTabViewController{
         )
     }
     
+    private func stopRefreshingOrPaging(){
+        isLoading = false
+        if isRefreshing {
+            mainView.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
+    private func reloadData(){
+        mainView.tableView.reloadData()
+        goalTableViewCell?.tagCollectionView.reloadData()
+        showEmptyView()
+    }
+    
     private func showEmptyView(){
-        viewModel.records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
+        viewModel.records.isEmpty || viewModel.goals.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     private func bindEmotionFiltering(){

@@ -51,7 +51,8 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     var deleteRecordCompleted: ((Int) -> Void)!
     var modifyRecordCompleted: ((Int) -> Void)!
     var changeGoalSelect: (() -> Void)!
-    var reloadTableView: (() -> Void)!
+    
+    let reloadTableViewRelay = PublishRelay<Void>()
 
     private var page: Int = 0
     private var selectedGoalIndex: Int = 0
@@ -109,7 +110,7 @@ extension ReviewViewModel{
         //goal이 존재할 때만 기록 요청
         if goals.isEmpty {
             records = []
-            reloadTableView()
+            reloadTableViewRelay.accept(Void())
         } else if selectedGoalIndex >= goals.count {
             changeGoalSelect()
         } else {
@@ -138,7 +139,7 @@ extension ReviewViewModel{
                 } else {
                     self?.records.append(contentsOf: $0.content)
                 }
-                self?.reloadTableView()
+                self?.reloadTableViewRelay.accept(Void())
             }).disposed(by: disposeBag)
     }
 
