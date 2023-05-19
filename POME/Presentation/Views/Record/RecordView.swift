@@ -60,8 +60,7 @@ class RecordView: BaseView {
             $0.register(GoalCategoryTableViewCell.self, forCellReuseIdentifier: "GoalCategoryTableViewCell")
             // 목표 카드
             $0.register(GoalTableViewCell.self, forCellReuseIdentifier: "GoalTableViewCell")
-            $0.register(EmptyGoalTableViewCell.self, forCellReuseIdentifier: "EmptyGoalTableViewCell")
-            $0.register(FinishGoalTableViewCell.self, forCellReuseIdentifier: "FinishGoalTableViewCell")
+            $0.register(cellType: GoalBannerTableViewCell.self)
             // 감정 남기기
             $0.register(GoEmotionBannerTableViewCell.self, forCellReuseIdentifier: "GoEmotionBannerTableViewCell")
             // 기록 카드

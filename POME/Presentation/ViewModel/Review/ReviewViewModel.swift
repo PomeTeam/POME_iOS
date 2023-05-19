@@ -9,24 +9,13 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-
-/*
- Review
- 
- 1. Modify
- 2. Delete >
- 3. Reaction 조회 >
- 4. 목표 조회 > ViewController에서 데이터 관리
- 5. 기록 필터링 > ViewController에서 데이터 관리
- */
-
 protocol ModifyRecordInterface {
-    var modifyRecordCompleted: ((_ index: Int) -> Void)! { get }
+    var modifyRecordSubject: PublishSubject<Int> { get }
     func modifyRecord(_ record: RecordResponseModel, index: Int)
 }
 
 protocol DeleteRecord{
-    var deleteRecordCompleted: ((Int) -> Void)! { get }
+    var deleteRecordSubject: PublishSubject<Int> { get }
     func deleteRecord(index: Int)
 }
 
@@ -41,16 +30,13 @@ protocol ReviewViewModelInterface: BaseViewModel, ModifyRecordInterface{
 
 class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
 
-    private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
     private let deleteRecordUseCase: DeleteRecordUseCaseInterface
     
-    init(regardlessOfRecordCount: Int,
-         getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+    init(getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          getRecordsUseCase: GetRecordInReviewUseCaseInterface = GetRecordInReviewUseCase(),
          deleteRecordUseCase: DeleteRecordUseCaseInterface = DeleteRecordUseCase()){
-        self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
         self.deleteRecordUseCase = deleteRecordUseCase
@@ -59,18 +45,17 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
     var hasNextPage: Bool = false
     var goals = [GoalResponseModel]()
     var records = [RecordResponseModel]()
-    var deleteRecordCompleted: ((Int) -> Void)!
-    var modifyRecordCompleted: ((Int) -> Void)!
-    var changeGoalSelect: (() -> Void)!
-    var reloadTableView: (() -> Void)!
-
+    
+    let changeGoalSelect = PublishSubject<Void>()
+    let reloadTableView = PublishRelay<Void>()
+    let deleteRecordSubject = PublishSubject<Int>()
+    let modifyRecordSubject = PublishSubject<Int>()
+    
     private var page: Int = 0
     private var selectedGoalIndex: Int = 0
     private var emotionFilter: Review.EmotionFiltering = (nil, nil)
 
     private let disposeBag = DisposeBag()
-    private let modifyRecordSubject = PublishSubject<IndexPath>()
-    
     
     struct Input{
         let selectedGoalIndex: Observable<Int>
@@ -98,12 +83,6 @@ class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
         
         return Output()
     }
-    
-    private func initializeStateAndRequestRecord(){
-        hasNextPage = false
-        page = 0
-        canRequestRecord()
-    }
 }
 
 extension ReviewViewModel{
@@ -116,13 +95,19 @@ extension ReviewViewModel{
             }).disposed(by: disposeBag)
     }
     
+    private func initializeStateAndRequestRecord(){
+        hasNextPage = false
+        page = 0
+        canRequestRecord()
+    }
+    
     private func canRequestRecord(){
-        //goal이 존재할 때만 기록 요청
+        //goal이 존재할 때만 기록 조회 요청
         if goals.isEmpty {
             records = []
-            reloadTableView()
-        } else if selectedGoalIndex >= goals.count {
-            changeGoalSelect()
+            reloadTableView.accept(Void())
+        } else if selectedGoalIndex >= goals.count { //현재 선택 중인 목표가 삭제되었을 경우, 목표 변경 VC으로 전달
+            changeGoalSelect.onNext(Void())
         } else {
             requestRecords()
         }
@@ -149,7 +134,7 @@ extension ReviewViewModel{
                 } else {
                     self?.records.append(contentsOf: $0.content)
                 }
-                self?.reloadTableView()
+                self?.reloadTableView.accept(Void())
             }).disposed(by: disposeBag)
     }
 
@@ -163,13 +148,13 @@ extension ReviewViewModel{
             .subscribe{ [weak self] in
                 if $0 == .success {
                     self?.records.remove(at: index)
-                    self?.deleteRecordCompleted(index)
+                    self?.deleteRecordSubject.onNext(index)
                 }
             }.disposed(by: disposeBag)
     }
     
     func modifyRecord(_ record: RecordResponseModel, index: Int){
         records[index] = record
-        modifyRecordCompleted(index)
+        modifyRecordSubject.onNext(index)
     }
 }

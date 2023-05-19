@@ -18,20 +18,20 @@ class ReviewView: BaseView{
         
         $0.register(cellType: GoalTagsTableViewCell.self)
         $0.register(cellType: GoalDetailTableViewCell.self)
+        $0.register(cellType: GoalBannerTableViewCell.self)
         $0.register(cellType: ReviewFilterTableViewCell.self)
         $0.register(cellType: ConsumeReviewTableViewCell.self)
         $0.register(cellType: LoadingTableViewCell.self)
     }
     
     override func hierarchy() {
-        self.addSubview(tableView)
+        addSubview(tableView)
     }
 
     override func layout() {
         tableView.snp.makeConstraints{
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
-        
         tableView.backgroundView?.snp.makeConstraints{
             $0.top.equalToSuperview().offset(380)
             $0.centerX.equalToSuperview()

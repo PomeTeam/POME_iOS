@@ -32,17 +32,20 @@ class ReviewViewController: BaseTabViewController{
     
     private let INFO_SECTION = 0
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
-    private let mainView = ReviewView()
     
-    private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
-    private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
-    private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
+    private let mainView = ReviewView()
+    private let viewModel = ReviewViewModel()
+    private let firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
+    private let secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
     
     //데이터 로드
     private var isLoading = false
     private var isRefreshing: Bool{
         guard let refreshControl = mainView.tableView.refreshControl else { return false }
         return refreshControl.isRefreshing
+    }
+    private var goalTableViewCell: GoalTagsTableViewCell?{
+        mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
     }
     
     //감정 필터링
@@ -122,34 +125,30 @@ class ReviewViewController: BaseTabViewController{
         
         bindEmotionFiltering()
         
-        var goalTableViewCell: GoalTagsTableViewCell?{
-            mainView.tableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalTagsTableViewCell.self)
-        }
+        viewModel.deleteRecordSubject
+            .subscribe{
+                self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+                self.showEmptyView()
+            }.disposed(by: disposeBag)
         
-        viewModel.deleteRecordCompleted = {
-            self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
-            self.showEmptyView()
-        }
+        viewModel.modifyRecordSubject
+            .subscribe{
+                self.mainView.tableView.reloadRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .none)
+            }.disposed(by: disposeBag)
         
-        viewModel.modifyRecordCompleted = { [self] in
-            mainView.tableView.reloadRows(at: [[INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
-        }
+        //현재 포커스인 목표가 삭제되었을 경우, 0번째 인덱스로 선택 변경
+        viewModel.changeGoalSelect
+            .subscribe{ [weak self] _ in
+                if let cell = self?.goalTableViewCell {
+                    self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
+                }
+            }.disposed(by: disposeBag)
         
-        viewModel.changeGoalSelect = { [weak self] in
-            if let cell = goalTableViewCell {
-                self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
-            }
-        }
-
-        viewModel.reloadTableView = { [self] in
-            isLoading = false
-            if isRefreshing {
-                mainView.tableView.refreshControl?.endRefreshing()
-            }
-            goalTableViewCell?.tagCollectionView.reloadData()
-            mainView.tableView.reloadData()
-            showEmptyView()
-        }
+        viewModel.reloadTableView
+            .subscribe{ [weak self] _ in
+                self?.stopRefreshingOrPaging()
+                self?.reloadData()
+            }.disposed(by: disposeBag)
         
         viewModel.transform(ReviewViewModel.Input(
             selectedGoalIndex: goalRelay.asObservable(),
@@ -157,8 +156,21 @@ class ReviewViewController: BaseTabViewController{
         )
     }
     
+    private func stopRefreshingOrPaging(){
+        isLoading = false
+        if isRefreshing {
+            mainView.tableView.refreshControl?.endRefreshing()
+        }
+    }
+    
+    private func reloadData(){
+        mainView.tableView.reloadData()
+        goalTableViewCell?.tagCollectionView.reloadData()
+        showEmptyView()
+    }
+    
     private func showEmptyView(){
-        viewModel.records.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
+        viewModel.records.isEmpty || viewModel.goals.isEmpty ? mainView.emptyViewWillShow() : mainView.emptyViewWillHide()
     }
     
     private func bindEmotionFiltering(){
@@ -242,7 +254,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         
         switch indexPath.row {
         case 0:     return getGoalTagsTableViewCell(indexPath: indexPath)
-        case 1:     return getGoalDetailTableViewCell(indexPath: indexPath)
+        case 1:     return getGoalInfoSectionTableViewCell(indexPath: indexPath)
         case 2:     return getFilterTableViewCell(indexPath: indexPath)
         default:    return getRecordTableViewCell(indexPath: indexPath)
         }
@@ -259,6 +271,25 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             $0.tagCollectionView.delegate = self
             $0.tagCollectionView.dataSource = self
         }
+    }
+    
+    private func getGoalInfoSectionTableViewCell(indexPath: IndexPath) -> BaseTableViewCell {
+        if viewModel.goals.isEmpty {
+            return getGoalEmptyBannerTableViewCell(indexPath: indexPath)
+        } else {
+            return getGoalDetailTableViewCell(indexPath: indexPath)
+        }
+    }
+    
+    private func getGoalEmptyBannerTableViewCell(indexPath: IndexPath) -> BaseTableViewCell {
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+            $0.banner = .registerInReview
+            $0.actionButton.addTarget(self, action: #selector(willMoveGoalRegisterViewController), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func willMoveGoalRegisterViewController(){
+        navigationController?.pushViewController(GenerateGoalDateViewController(), animated: true)
     }
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
