@@ -32,11 +32,11 @@ class ReviewViewController: BaseTabViewController{
     
     private let INFO_SECTION = 0
     private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
-    private let mainView = ReviewView()
     
-    private lazy var viewModel = ReviewViewModel(regardlessOfRecordCount: COUNT_OF_NOT_RECORD_CELL)
-    private lazy var firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
-    private lazy var secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
+    private let mainView = ReviewView()
+    private let viewModel = ReviewViewModel()
+    private let firstEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateFirstEmotionFilter()
+    private let secondEmotionFilterBottomSheet = EmotionFilterSheetViewController.generateSecondEmotionFilter()
     
     //데이터 로드
     private var isLoading = false

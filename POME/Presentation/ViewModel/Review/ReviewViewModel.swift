@@ -30,16 +30,13 @@ protocol ReviewViewModelInterface: BaseViewModel, ModifyRecordInterface{
 
 class ReviewViewModel: ReviewViewModelInterface, DeleteRecord{
 
-    private let regardlessOfRecordCount: Int
     private let getGoalsUseCase: GetGoalUseCaseInterface
     private let getRecordsUseCase: GetRecordInReviewUseCaseInterface
     private let deleteRecordUseCase: DeleteRecordUseCaseInterface
     
-    init(regardlessOfRecordCount: Int,
-         getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
+    init(getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
          getRecordsUseCase: GetRecordInReviewUseCaseInterface = GetRecordInReviewUseCase(),
          deleteRecordUseCase: DeleteRecordUseCaseInterface = DeleteRecordUseCase()){
-        self.regardlessOfRecordCount = regardlessOfRecordCount
         self.getGoalsUseCase = getGoalsUseCase
         self.getRecordsUseCase = getRecordsUseCase
         self.deleteRecordUseCase = deleteRecordUseCase
