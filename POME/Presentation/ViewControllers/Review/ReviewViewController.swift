@@ -125,22 +125,26 @@ class ReviewViewController: BaseTabViewController{
         
         bindEmotionFiltering()
         
-        viewModel.deleteRecordCompleted = {
-            self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
-            self.showEmptyView()
-        }
+        viewModel.deleteRecordSubject
+            .subscribe{
+                self.mainView.tableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+                self.showEmptyView()
+            }.disposed(by: disposeBag)
         
-        viewModel.modifyRecordCompleted = { [self] in
-            mainView.tableView.reloadRows(at: [[INFO_SECTION, $0 + COUNT_OF_NOT_RECORD_CELL]], with: .none)
-        }
+        viewModel.modifyRecordSubject
+            .subscribe{
+                self.mainView.tableView.reloadRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .none)
+            }.disposed(by: disposeBag)
         
-        viewModel.changeGoalSelect = { [weak self] in
-            if let cell = self?.goalTableViewCell {
-                self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
-            }
-        }
+        //현재 포커스인 목표가 삭제되었을 경우, 0번째 인덱스로 선택 변경
+        viewModel.changeGoalSelect
+            .subscribe{ [weak self] _ in
+                if let cell = self?.goalTableViewCell {
+                    self?.collectionView(cell.tagCollectionView, didSelectItemAt: [0,0])
+                }
+            }.disposed(by: disposeBag)
         
-        viewModel.reloadTableViewRelay
+        viewModel.reloadTableView
             .subscribe{ [weak self] _ in
                 self?.stopRefreshingOrPaging()
                 self?.reloadData()
