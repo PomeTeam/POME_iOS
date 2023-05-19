@@ -267,8 +267,11 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             // MARK: 목표가 존재하지 않을 때
             if self.goalContent.count == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyGoalTableViewCell", for: indexPath) as? EmptyGoalTableViewCell else { return UITableViewCell() }
-                cell.makeGoalButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+                
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+                    $0.banner = .registerInRecord
+                    $0.actionButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+                }
                 return cell
             }
             
