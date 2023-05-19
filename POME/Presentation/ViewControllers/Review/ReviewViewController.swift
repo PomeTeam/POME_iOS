@@ -242,7 +242,7 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
         
         switch indexPath.row {
         case 0:     return getGoalTagsTableViewCell(indexPath: indexPath)
-        case 1:     return getGoalDetailTableViewCell(indexPath: indexPath)
+        case 1:     return getGoalInfoSectionTableViewCell(indexPath: indexPath)
         case 2:     return getFilterTableViewCell(indexPath: indexPath)
         default:    return getRecordTableViewCell(indexPath: indexPath)
         }
@@ -259,6 +259,25 @@ extension ReviewViewController: UITableViewDelegate, UITableViewDataSource{
             $0.tagCollectionView.delegate = self
             $0.tagCollectionView.dataSource = self
         }
+    }
+    
+    private func getGoalInfoSectionTableViewCell(indexPath: IndexPath) -> BaseTableViewCell {
+        if viewModel.goals.isEmpty {
+            return getGoalEmptyBannerTableViewCell(indexPath: indexPath)
+        } else {
+            return getGoalDetailTableViewCell(indexPath: indexPath)
+        }
+    }
+    
+    private func getGoalEmptyBannerTableViewCell(indexPath: IndexPath) -> BaseTableViewCell {
+        mainView.tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+            $0.banner = .registerInReview
+            $0.actionButton.addTarget(self, action: #selector(willMoveGoalRegisterViewController), for: .touchUpInside)
+        }
+    }
+    
+    @objc private func willMoveGoalRegisterViewController(){
+        navigationController?.pushViewController(GenerateGoalDateViewController(), animated: true)
     }
     
     private func getGoalDetailTableViewCell(indexPath: IndexPath) -> GoalDetailTableViewCell{
