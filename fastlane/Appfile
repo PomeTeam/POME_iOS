@@ -1,0 +1,6 @@
+# app_identifier("[[com.pome]]") # The bundle identifier of your app
+# apple_id(ENV["APPLE_ID"]) # Your Apple Developer Portal username -> Please Set Env Variable in /fastlane/.env!!
+
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
