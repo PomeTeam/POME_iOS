@@ -59,6 +59,7 @@
 		2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8D0292C58F9003A62EA /* EmptyView.swift */; };
 		238AA432299FD7DD00036922 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AA431299FD7DD00036922 /* UIImageView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
+		238F22A22A1A69EA00505065 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 238F22A12A1A69EA00505065 /* GoogleService-Info.plist */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
 		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
@@ -329,6 +330,7 @@
 		2385A8D0292C58F9003A62EA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		238AA431299FD7DD00036922 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
+		238F22A12A1A69EA00505065 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -832,6 +834,7 @@
 		5724EBDA29100C8500DC529B = {
 			isa = PBXGroup;
 			children = (
+				238F22A12A1A69EA00505065 /* GoogleService-Info.plist */,
 				2308C5BC29B38ABD0046A76C /* pome_ios_opensource.html */,
 				5724EBE529100C8500DC529B /* POME */,
 				5724EBFC29100C8800DC529B /* POMETests */,
@@ -1752,6 +1755,7 @@
 				5724EBE029100C8500DC529B /* Frameworks */,
 				5724EBE129100C8500DC529B /* Resources */,
 				73F2698F7C13DAA071A1329B /* [CP] Embed Pods Frameworks */,
+				238F22A32A1A6AD000505065 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1850,6 +1854,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				238F22A22A1A69EA00505065 /* GoogleService-Info.plist in Resources */,
 				5724EBF329100C8700DC529B /* LaunchScreen.storyboard in Resources */,
 				2308C5BD29B38ABD0046A76C /* pome_ios_opensource.html in Resources */,
 				5724EC4329162F2300DC529B /* Pretendard-Bold.otf in Resources */,
@@ -1882,6 +1887,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		238F22A32A1A6AD000505065 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		3D38A9EC4E24FCBE62B20026 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2411,6 +2435,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
