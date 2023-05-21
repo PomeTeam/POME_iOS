@@ -19,6 +19,8 @@ target 'POME' do
   pod 'RxCocoa'
   pod "RxGesture"
  
+  pod 'FirebaseAnalytics'
+  pod 'Firebase/Crashlytics'
 
   target 'POMETests' do
     inherit! :search_paths
