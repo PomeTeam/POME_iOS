@@ -44,6 +44,11 @@
 		2367FC57292BDBC0006ED970 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC56292BDBC0006ED970 /* ProgressBarView.swift */; };
 		2367FC59292BDC96006ED970 /* GoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */; };
 		2367FC5C292BECB8006ED970 /* ImagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */; };
+		2375E4892A20397400843056 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E4882A20397400843056 /* MyPageViewModel.swift */; };
+		2375E48C2A20401B00843056 /* GetFinishedGoalsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E48B2A20401B00843056 /* GetFinishedGoalsUseCase.swift */; };
+		2375E48E2A20409300843056 /* GetMarshmallowsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E48D2A20409200843056 /* GetMarshmallowsUseCase.swift */; };
+		2375E4902A2040FC00843056 /* MarshmallowRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */; };
+		2375E4922A20415B00843056 /* MarshmallowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E4912A20415B00843056 /* MarshmallowRepository.swift */; };
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
@@ -315,6 +320,11 @@
 		2367FC56292BDBC0006ED970 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		2367FC58292BDC96006ED970 /* GoalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewCell.swift; sourceTree = "<group>"; };
 		2367FC5B292BECB8006ED970 /* ImagePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePopUpViewController.swift; sourceTree = "<group>"; };
+		2375E4882A20397400843056 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		2375E48B2A20401B00843056 /* GetFinishedGoalsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFinishedGoalsUseCase.swift; sourceTree = "<group>"; };
+		2375E48D2A20409200843056 /* GetMarshmallowsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMarshmallowsUseCase.swift; sourceTree = "<group>"; };
+		2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowRepositoryInterface.swift; sourceTree = "<group>"; };
+		2375E4912A20415B00843056 /* MarshmallowRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowRepository.swift; sourceTree = "<group>"; };
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
@@ -693,6 +703,23 @@
 				23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */,
 			);
 			path = PopUp;
+			sourceTree = "<group>";
+		};
+		2375E4872A20396600843056 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2375E4882A20397400843056 /* MyPageViewModel.swift */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		2375E48A2A20400E00843056 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				2375E48B2A20401B00843056 /* GetFinishedGoalsUseCase.swift */,
+				2375E48D2A20409200843056 /* GetMarshmallowsUseCase.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		23808773291B3ABE00072763 /* Register */ = {
@@ -1247,6 +1274,7 @@
 				EEC28CBD29D30CA70075CD4C /* GoalRepositoryInterface.swift */,
 				EEC28CBF29D30CE20075CD4C /* FriendRepositoryInterface.swift */,
 				EEC28CC129D30CEF0075CD4C /* RecordRepositoryInterface.swift */,
+				2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -1254,6 +1282,7 @@
 		57C4818129670D7F008731D9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				2375E48A2A20400E00843056 /* MyPage */,
 				57397FBA296E77B60088B5F4 /* Record */,
 				57C481D8296ABCA2008731D9 /* Goal */,
 				EE4CEA4A2A00AADC002BF87E /* Friend */,
@@ -1502,6 +1531,7 @@
 		EE7D35D229D5A16300D2AD60 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				2375E4872A20396600843056 /* MyPage */,
 				EE7D35D329D5A16300D2AD60 /* Friend */,
 				EE7D35D529D5A16300D2AD60 /* Record */,
 				EE7D35DC29D5A16300D2AD60 /* Register */,
@@ -1570,6 +1600,7 @@
 				EEC28CB729D30C6A0075CD4C /* GoalRepository.swift */,
 				EEC28CB929D30C740075CD4C /* RecordRepository.swift */,
 				EEC28CBB29D30C8C0075CD4C /* FriendRepository.swift */,
+				2375E4912A20415B00843056 /* MarshmallowRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -2058,6 +2089,7 @@
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */,
+				2375E4902A2040FC00843056 /* MarshmallowRepositoryInterface.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
 				23F364D7291B7BB4009232B4 /* FriendSearchView.swift in Sources */,
 				5724EC6229177BF000DC529B /* TabBarItem.swift in Sources */,
@@ -2097,6 +2129,7 @@
 				EEC5CAF629B0AC6500FF4C26 /* AuthService.swift in Sources */,
 				2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */,
 				EE42F93D2A166BB000AFDD03 /* RecordObserver.swift in Sources */,
+				2375E4922A20415B00843056 /* MarshmallowRepository.swift in Sources */,
 				EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */,
 				5724EC6C2918CEE200DC529B /* FriendCollectionViewCell.swift in Sources */,
 				2308C5BB29B385500046A76C /* LinkToAppStore.swift in Sources */,
@@ -2151,6 +2184,7 @@
 				EE44601F2983D1EB00B1A311 /* GoalCategoryResponseModel.swift in Sources */,
 				EE39696529DAAF3D003F655F /* FriendReactionSheetViewController.swift in Sources */,
 				232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */,
+				2375E48E2A20409300843056 /* GetMarshmallowsUseCase.swift in Sources */,
 				23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */,
 				57CCA787292B0A4B007E22D1 /* ReviewView.swift in Sources */,
 				EE635F4C29D1D11400573F66 /* ObservableBinding.swift in Sources */,
@@ -2179,7 +2213,9 @@
 				EE98F0EC2981024D007BFCCD /* PageableModel.swift in Sources */,
 				EE635F4229D1CD1C00573F66 /* GenerateRecordViewController.swift in Sources */,
 				57C481DD296ABCDB008731D9 /* Goal.swift in Sources */,
+				2375E48C2A20401B00843056 /* GetFinishedGoalsUseCase.swift in Sources */,
 				23061233292B48FA00662007 /* GoEmotionBannerTableViewCell.swift in Sources */,
+				2375E4892A20397400843056 /* MyPageViewModel.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				EE38758029D917B900A26AD5 /* TextConverter.swift in Sources */,
 				EE7D35EC29D5A16300D2AD60 /* GenerateGoalDateViewModel.swift in Sources */,

@@ -69,7 +69,9 @@ class RecordViewController: BaseTabViewController {
     override func initialize() {
         super.initialize()
         
-        recordView.writeButton.addTarget(self, action: #selector(writeButtonDidTap), for: .touchUpInside)
+        recordView.writeButton.rx.tap
+            .bind {self.writeButtonDidTap()}
+            .disposed(by: disposeBag)
     }
     
     override func bind() {
@@ -90,43 +92,27 @@ class RecordViewController: BaseTabViewController {
                 self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
             }.disposed(by: disposeBag)
     }
+    
     // MARK: - Actions
     // 알림 페이지 연결 제거
     override func topBtnDidClicked() {
 //        self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
-        if self.goalContent.isEmpty {
-            let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").show(in: self)
-        } else {
-            let goal = goalContent[categorySelectedIdx]
-            let vc = GenerateRecordViewController(goal: goal)
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        goalContent.isEmpty ? showNoGoalContentsWarning() : moveToGenerateRecord()
     }
+    
     @objc func finishGoalButtonDidTap(_ sender: GoalTapGesture) {
         /*
          7일이전 기록 있을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우고 & 종료 페이지 진입 불가
          7일 이전 기록은 없으나 2차감정 기록을 하지 않았을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우기 & 종료 페이지 진입 불가
          모든 감정기록 완료했을 때 -> 종료페이지 진입
          */
-        
-        if !self.recordsOfGoal.isEmpty || !self.noSecondEmotionRecords.isEmpty {
-            showNoSecondEmotionWarning()
-        } else {
-            let vc = AllRecordsViewController(self)
-            vc.goalContent = sender.data
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        let isSecondEmotionNeeded = !self.recordsOfGoal.isEmpty || !self.noSecondEmotionRecords.isEmpty
+        isSecondEmotionNeeded ? showNoSecondEmotionWarning() : moveToAllRecords(sender)
     }
     @objc func addGoalButtonDidTap() {
-        print("goal count: ", self.goalContent.count)
-        if self.goalContent.count < 10 {
-            let vc = GenerateGoalDateViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        } else {
-            cannotAddGoalWarning()
-        }
+        goalContent.count < 10 ? moveToGenerateGoalDate() : cannotAddGoalWarning()
     }
     
     @objc func alertGoalMenuButtonDidTap(_ sender: GoalTapGesture) {
@@ -151,7 +137,7 @@ class RecordViewController: BaseTabViewController {
 //        self.recordView.recordTableView.reloadRows(at: [sender.data], with: .automatic)
 //    }
     
-    // MARK: - Warning Sheets
+    // MARK: Warning Sheets
     func showNoSecondEmotionWarning() {
         let sheet = RecordBottomSheetViewController(Image.penPink,
                                                     "아직 돌아보지 않은 기록이 있어요!",
@@ -162,6 +148,24 @@ class RecordViewController: BaseTabViewController {
     }
     func cannotAddGoalWarning() {
         let sheet = RecordBottomSheetViewController(Image.ten, "목표는 10개를 넘을 수 없어요", "포미는 사용자가 무리하지 않고 즐겁게 목표를\n달성할 수 있도록 응원하고 있어요!").show(in: self)
+    }
+    func showNoGoalContentsWarning() {
+        let sheet = RecordBottomSheetViewController(Image.flagMint, "지금은 씀씀이를 기록할 수 없어요", "나만의 소비 목표를 설정하고\n기록을 시작해보세요!").show(in: self)
+    }
+    // MARK: Move to other pages
+    func moveToGenerateRecord() {
+        let goal = goalContent[categorySelectedIdx]
+        let vc = GenerateRecordViewController(goal: goal)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func moveToAllRecords(_ sender: GoalTapGesture) {
+        let vc = AllRecordsViewController(self)
+        vc.goalContent = sender.data
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func moveToGenerateGoalDate() {
+        let vc = GenerateGoalDateViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -241,7 +245,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let tag = indexPath.row
         switch tag {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalCategoryTableViewCell", for: indexPath) as? GoalCategoryTableViewCell else { return UITableViewCell() }
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalCategoryTableViewCell.self)
             
             cell.selectionStyle = .none
             cell.goalCollectionView.delegate = self
@@ -253,7 +257,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoalTableViewCell", for: indexPath) as? GoalTableViewCell else { return UITableViewCell() }
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTableViewCell.self)
             
             if !self.goalContent.isEmpty {
                 cell.setUpData(self.goalContent[self.categorySelectedIdx])
@@ -288,7 +292,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "GoEmotionBannerTableViewCell", for: indexPath) as? GoEmotionBannerTableViewCell else { return UITableViewCell() }
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoEmotionBannerTableViewCell.self)
             cell.setUpCount(self.noSecondEmotionRecords.count ?? 0)
             cell.selectionStyle = .none
             return cell

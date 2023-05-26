@@ -12,4 +12,5 @@ protocol GoalRepositoryInterface{
     func getGoals() -> Observable<[GoalResponseModel]>
     func generateGoal(requestValue: GenerateGoalRequestModel) -> Observable<GenerateGoalStatus>
     func deleteGoal()
+    func getFinishedGoals() -> Observable<[GoalResponseModel]>
 }
