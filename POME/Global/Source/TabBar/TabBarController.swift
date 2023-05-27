@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
     
     private func generateAccessToken(){
         
-        UserService.shared.signIn(model: SignInRequestModel(phoneNum: UserManager.phoneNum ?? "" )){ result in
+        UserService.shared.signIn(requestValue: SignInRequestModel(phoneNum: UserManager.phoneNum ?? "" )){ result in
             switch result{
             case .success(let data):
                 print("LOG: SUCCESS GENERATE TOKEN")

@@ -75,6 +75,10 @@
 		23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3B7DE29319425008CB960 /* SecondEmotionView.swift */; };
 		23B4FD4C293863620020AD40 /* AppLoginFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B4FD4B293863620020AD40 /* AppLoginFlowUITests.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
+		23E171412A223C0E0093476D /* SendCodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171402A223C0E0093476D /* SendCodeUseCase.swift */; };
+		23E171432A223DF00093476D /* UserRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171422A223DF00093476D /* UserRepositoryInterface.swift */; };
+		23E171452A223E590093476D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171442A223E590093476D /* UserRepository.swift */; };
+		23E171472A22406A0093476D /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171462A22406A0093476D /* LoginUseCase.swift */; };
 		23EC115B292BC34E002BB363 /* GoalCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */; };
 		23F14C172990D41C00630AB2 /* DeleteUserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F14C162990D41C00630AB2 /* DeleteUserDetailView.swift */; };
 		23F14C192990D72600630AB2 /* TextInfoPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */; };
@@ -351,6 +355,10 @@
 		23B3B7DE29319425008CB960 /* SecondEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondEmotionView.swift; sourceTree = "<group>"; };
 		23B4FD4B293863620020AD40 /* AppLoginFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoginFlowUITests.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
+		23E171402A223C0E0093476D /* SendCodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeUseCase.swift; sourceTree = "<group>"; };
+		23E171422A223DF00093476D /* UserRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryInterface.swift; sourceTree = "<group>"; };
+		23E171442A223E590093476D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		23E171462A22406A0093476D /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
 		23EC115A292BC34E002BB363 /* GoalCategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		23F14C162990D41C00630AB2 /* DeleteUserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserDetailView.swift; sourceTree = "<group>"; };
 		23F14C182990D72600630AB2 /* TextInfoPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInfoPopUpViewController.swift; sourceTree = "<group>"; };
@@ -832,6 +840,15 @@
 			path = SecondEmotion;
 			sourceTree = "<group>";
 		};
+		23E1713F2A223C020093476D /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				23E171402A223C0E0093476D /* SendCodeUseCase.swift */,
+				23E171462A22406A0093476D /* LoginUseCase.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
 		23F364D5291B7BA9009232B4 /* AddFriend */ = {
 			isa = PBXGroup;
 			children = (
@@ -1275,6 +1292,7 @@
 				EEC28CBF29D30CE20075CD4C /* FriendRepositoryInterface.swift */,
 				EEC28CC129D30CEF0075CD4C /* RecordRepositoryInterface.swift */,
 				2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */,
+				23E171422A223DF00093476D /* UserRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -1282,6 +1300,7 @@
 		57C4818129670D7F008731D9 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				23E1713F2A223C020093476D /* Authentication */,
 				2375E48A2A20400E00843056 /* MyPage */,
 				57397FBA296E77B60088B5F4 /* Record */,
 				57C481D8296ABCA2008731D9 /* Goal */,
@@ -1601,6 +1620,7 @@
 				EEC28CB929D30C740075CD4C /* RecordRepository.swift */,
 				EEC28CBB29D30C8C0075CD4C /* FriendRepository.swift */,
 				2375E4912A20415B00843056 /* MarshmallowRepository.swift */,
+				23E171442A223E590093476D /* UserRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -2088,6 +2108,7 @@
 				EEC28CC629D30D330075CD4C /* ModifyRecordUseCase.swift in Sources */,
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
+				23E171432A223DF00093476D /* UserRepositoryInterface.swift in Sources */,
 				EE9505D1298799DB00077B28 /* PageableResponseModel.swift in Sources */,
 				2375E4902A2040FC00843056 /* MarshmallowRepositoryInterface.swift in Sources */,
 				5724EC702918CFA100DC529B /* BaseTableViewCell.swift in Sources */,
@@ -2104,6 +2125,7 @@
 				EE42F9492A174D5100AFDD03 /* GoalBannerTableViewCell.swift in Sources */,
 				EE98F0C62980DFCC007BFCCD /* UserDefaultWrapper.swift in Sources */,
 				EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */,
+				23E171412A223C0E0093476D /* SendCodeUseCase.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				EE7D35E329D5A16300D2AD60 /* FriendViewModel.swift in Sources */,
@@ -2233,6 +2255,7 @@
 				57CCA78F292B0AF6007E22D1 /* EmotionFilterSheetCollectionViewCell.swift in Sources */,
 				EE49615D29A47FE9000DA88C /* FriendListChangeManager.swift in Sources */,
 				570304C42978193E00AAC56D /* UITableView.swift in Sources */,
+				23E171472A22406A0093476D /* LoginUseCase.swift in Sources */,
 				5724EC592917734C00DC529B /* RecordViewController.swift in Sources */,
 				EEC5CAF929B0AD0F00FF4C26 /* RenewRequestModel.swift in Sources */,
 				EE98F0D52980EFC0007BFCCD /* GoalRouter.swift in Sources */,
@@ -2275,6 +2298,7 @@
 				232F3FD6292D5E0A009F2EE5 /* AlarmSettingViewController.swift in Sources */,
 				5724EC48291638BC00DC529B /* Color.swift in Sources */,
 				EE635F4029D1CC5100573F66 /* Recordable.swift in Sources */,
+				23E171452A223E590093476D /* UserRepository.swift in Sources */,
 				EE98F0BE2980DEE7007BFCCD /* HTTPMethodURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2470,7 +2494,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2508,7 +2532,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 5XGLRW6VG4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = POME/Support/Info.plist;
@@ -2544,7 +2568,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -2566,7 +2590,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
@@ -2587,7 +2611,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -2607,7 +2631,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = DS2AD6Q7T4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
