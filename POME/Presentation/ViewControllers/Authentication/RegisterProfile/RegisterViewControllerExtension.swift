@@ -33,7 +33,6 @@ extension RegisterViewController: UITextFieldDelegate {
                 self.view.frame.origin.y -= (dif + 20)
             }
         }
-        print("keyboard Will appear Execute")
     }
     
     @objc func keyboardWillDisappear(noti: NSNotification) {
@@ -43,17 +42,14 @@ extension RegisterViewController: UITextFieldDelegate {
                 let keyboardHeight = keyboardRectangle.height
                 self.view.frame.origin.y += keyboardHeight
             }
-            print("keyboard Will Disappear Execute")
         }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        print("textFieldShouldReturn Execute")
         textField.resignFirstResponder()
         return true
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        print("textFieldShouldEndEditing Execute")
         self.view.frame.origin.y = self.restoreFrameValue
         return true
     }

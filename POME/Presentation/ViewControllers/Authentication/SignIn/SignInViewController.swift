@@ -40,7 +40,8 @@ class SignInViewController: BaseViewController {
                                                codeTextField: appRegisterView.codeTextField.rx.text.orEmpty.asObservable(),
                                                sendCodeButtonControlEvent: appRegisterView.codeSendButton.rx.tap,
                                                nextButtonControlEvent: appRegisterView.nextButton.rx.tap)
-        let output = viewModel.transform(input: input)
+        
+        let output = viewModel.transform(input)
         
         // 인증번호 발송 버튼 활성화 유무
         output.ctaSendCodeButtonActivate

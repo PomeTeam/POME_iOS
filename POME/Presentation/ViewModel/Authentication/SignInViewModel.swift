@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 
-class SignInViewModel{
+class SignInViewModel: BaseViewModel {
     
     private let sendCodeUseCase: SendCodeUseCaseInterface
     private let loginUseCase: LoginUseCaseInterface
@@ -40,7 +40,8 @@ class SignInViewModel{
         self.loginUseCase = loginUseCase
     }
     
-    func transform(input: Input) -> Output{
+    @discardableResult
+    func transform(_ input: Input) -> Output{
         
         input.phoneTextField
             .map(Optional.init)

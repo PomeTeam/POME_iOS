@@ -74,6 +74,10 @@
 		23B3B7DC29319411008CB960 /* SecondEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3B7DB29319411008CB960 /* SecondEmotionViewController.swift */; };
 		23B3B7DF29319425008CB960 /* SecondEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3B7DE29319425008CB960 /* SecondEmotionView.swift */; };
 		23B4FD4C293863620020AD40 /* AppLoginFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B4FD4B293863620020AD40 /* AppLoginFlowUITests.swift */; };
+		23D5107D2A23B32C007330DB /* RegisterProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5107C2A23B32C007330DB /* RegisterProfileViewModel.swift */; };
+		23D5107F2A23B4C6007330DB /* CheckNicknameUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5107E2A23B4C6007330DB /* CheckNicknameUseCase.swift */; };
+		23D510812A23B5CF007330DB /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D510802A23B5CF007330DB /* SignUpUseCase.swift */; };
+		23D510832A23CF27007330DB /* PresignedURLUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D510822A23CF27007330DB /* PresignedURLUseCase.swift */; };
 		23D66037291B689A00E5CD28 /* CompleteRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */; };
 		23E171412A223C0E0093476D /* SendCodeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171402A223C0E0093476D /* SendCodeUseCase.swift */; };
 		23E171432A223DF00093476D /* UserRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E171422A223DF00093476D /* UserRepositoryInterface.swift */; };
@@ -354,6 +358,10 @@
 		23B3B7DB29319411008CB960 /* SecondEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondEmotionViewController.swift; sourceTree = "<group>"; };
 		23B3B7DE29319425008CB960 /* SecondEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondEmotionView.swift; sourceTree = "<group>"; };
 		23B4FD4B293863620020AD40 /* AppLoginFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoginFlowUITests.swift; sourceTree = "<group>"; };
+		23D5107C2A23B32C007330DB /* RegisterProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterProfileViewModel.swift; sourceTree = "<group>"; };
+		23D5107E2A23B4C6007330DB /* CheckNicknameUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckNicknameUseCase.swift; sourceTree = "<group>"; };
+		23D510802A23B5CF007330DB /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		23D510822A23CF27007330DB /* PresignedURLUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedURLUseCase.swift; sourceTree = "<group>"; };
 		23D66036291B689A00E5CD28 /* CompleteRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRegisterViewController.swift; sourceTree = "<group>"; };
 		23E171402A223C0E0093476D /* SendCodeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeUseCase.swift; sourceTree = "<group>"; };
 		23E171422A223DF00093476D /* UserRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryInterface.swift; sourceTree = "<group>"; };
@@ -853,6 +861,9 @@
 			children = (
 				23E171402A223C0E0093476D /* SendCodeUseCase.swift */,
 				23E171462A22406A0093476D /* LoginUseCase.swift */,
+				23D5107E2A23B4C6007330DB /* CheckNicknameUseCase.swift */,
+				23D510802A23B5CF007330DB /* SignUpUseCase.swift */,
+				23D510822A23CF27007330DB /* PresignedURLUseCase.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -1599,6 +1610,7 @@
 			isa = PBXGroup;
 			children = (
 				EE7D35DD29D5A16300D2AD60 /* SignInViewModel.swift */,
+				23D5107C2A23B32C007330DB /* RegisterProfileViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -2076,6 +2088,7 @@
 				EE6C866829D7110000CACA3E /* CountingTextView.swift in Sources */,
 				57CCA77C29289DCE007E22D1 /* FriendReactionSheetView.swift in Sources */,
 				2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */,
+				23D5107F2A23B4C6007330DB /* CheckNicknameUseCase.swift in Sources */,
 				EE4CEA502A00AC0E002BF87E /* HideRecordUseCase.swift in Sources */,
 				EEC28CCC29D30D540075CD4C /* GetGoalUseCase.swift in Sources */,
 				23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */,
@@ -2114,6 +2127,7 @@
 				238AA432299FD7DD00036922 /* UIImageView.swift in Sources */,
 				EE98F0C42980DF5A007BFCCD /* UserManager.swift in Sources */,
 				EEC28CC629D30D330075CD4C /* ModifyRecordUseCase.swift in Sources */,
+				23D5107D2A23B32C007330DB /* RegisterProfileViewModel.swift in Sources */,
 				232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */,
 				5724EBE729100C8500DC529B /* AppDelegate.swift in Sources */,
 				23E171432A223DF00093476D /* UserRepositoryInterface.swift in Sources */,
@@ -2135,6 +2149,7 @@
 				EE98F0EA29810212007BFCCD /* BaseReqestModel.swift in Sources */,
 				23E171412A223C0E0093476D /* SendCodeUseCase.swift in Sources */,
 				5724EC89291B7B7B00DC529B /* Delegate.swift in Sources */,
+				23D510832A23CF27007330DB /* PresignedURLUseCase.swift in Sources */,
 				57CCA76B292867D6007E22D1 /* EmotionTagView.swift in Sources */,
 				EE7D35E329D5A16300D2AD60 /* FriendViewModel.swift in Sources */,
 				EE7D35E829D5A16300D2AD60 /* RecordFirstEmotionViewModel.swift in Sources */,
@@ -2158,6 +2173,7 @@
 				57CCA7AE292DE84A007E22D1 /* RegisterSuccessView.swift in Sources */,
 				EEC5CAF629B0AC6500FF4C26 /* AuthService.swift in Sources */,
 				2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */,
+				23D510812A23B5CF007330DB /* SignUpUseCase.swift in Sources */,
 				EE42F93D2A166BB000AFDD03 /* RecordObserver.swift in Sources */,
 				2375E4922A20415B00843056 /* MarshmallowRepository.swift in Sources */,
 				EE168C8F2990C8670020D5CE /* EndDateCalendarSheetViewController.swift in Sources */,
