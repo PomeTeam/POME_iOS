@@ -70,7 +70,7 @@ extension UserService{
         }
     }
     
-    func uploadToBinary(url: String, image: UIImage, compeltion: @escaping (String) -> Void) {
+    func uploadToBinary(url: String, image: UIImage, completion: @escaping (String) -> Void) {
         let semaphore = DispatchSemaphore (value: 0)
         
         let imageToData = image.jpegData(compressionQuality: 1)
@@ -89,7 +89,7 @@ extension UserService{
         }
         task.resume()
         semaphore.wait()
-        compeltion(url)
+        completion(url)
     }
 }
 
