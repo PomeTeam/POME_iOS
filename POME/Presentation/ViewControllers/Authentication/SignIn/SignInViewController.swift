@@ -9,9 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class AppRegisterViewController: BaseViewController {
+class SignInViewController: BaseViewController {
     var appRegisterView: AppRegisterView!
-    private let viewModel = AppRegisterViewModel()
+    private let viewModel = SignInViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class AppRegisterViewController: BaseViewController {
         initButton()
     }
     override func bind() {
-        let input = AppRegisterViewModel.Input(phoneTextField: appRegisterView.phoneTextField.rx.text.orEmpty.asObservable(),
+        let input = SignInViewModel.Input(phoneTextField: appRegisterView.phoneTextField.rx.text.orEmpty.asObservable(),
                                                codeTextField: appRegisterView.codeTextField.rx.text.orEmpty.asObservable(),
                                                sendCodeButtonControlEvent: appRegisterView.codeSendButton.rx.tap,
                                                nextButtonControlEvent: appRegisterView.nextButton.rx.tap)
@@ -93,7 +93,7 @@ class AppRegisterViewController: BaseViewController {
 }
 
 // MARK: - UITextField Delegate
-extension AppRegisterViewController: UITextFieldDelegate {
+extension SignInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 
-class AppRegisterViewModel{
+class SignInViewModel{
     
     private let sendCodeUseCase: SendCodeUseCaseInterface
     private let loginUseCase: LoginUseCaseInterface

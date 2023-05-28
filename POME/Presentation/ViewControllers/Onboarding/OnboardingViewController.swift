@@ -8,7 +8,7 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
-    var onboardingView: LoginView!
+    var onboardingView: OnboardingView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class OnboardingViewController: UIViewController {
         self.view.backgroundColor = .white
     }
     func layout() {
-        onboardingView = LoginView()
+        onboardingView = OnboardingView()
         self.view.addSubview(onboardingView)
         onboardingView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
@@ -55,7 +55,7 @@ extension OnboardingViewController {
             signIn(phoneNum)
         } else {
             // 회원가입 창으로 이동
-            let vc = AppRegisterViewController()
+            let vc = SignInViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
