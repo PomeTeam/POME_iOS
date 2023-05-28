@@ -61,7 +61,7 @@ extension OnboardingViewController {
     }
     private func signIn(_ phoneNum: String){
         let signInRequestModel = SignInRequestModel(phoneNum: phoneNum)
-        UserService.shared.signIn(model: signInRequestModel) { result in
+        UserService.shared.signIn(requestValue: signInRequestModel) { result in
             switch result {
                 case .success(let data):
                 print("로그인 성공")

@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
     
     private func generateAccessToken(){
         
-        UserService.shared.signIn(model: SignInRequestModel(phoneNum: UserManager.phoneNum ?? "" )){ result in
+        UserService.shared.signIn(requestValue: SignInRequestModel(phoneNum: UserManager.phoneNum ?? "" )){ result in
             switch result{
             case .success(let data):
                 print("LOG: SUCCESS GENERATE TOKEN")
@@ -57,7 +57,7 @@ class TabBarController: UITabBarController {
         let tabs = [UINavigationController(rootViewController: recordViewController),
                     UINavigationController(rootViewController: ReviewViewController(btnImage: UIImage())),
                     UINavigationController(rootViewController: FriendViewController()),
-                    UINavigationController(rootViewController: MyPageViewController(btnImage: Image.setting))]
+                    UINavigationController(rootViewController: MyPageViewController())]
         
         TabBarItem.allCases.forEach {
             tabs[$0.rawValue].tabBarItem = $0.asTabBarItem()

@@ -6,36 +6,41 @@
 //
 
 import UIKit
+import Foundation
+import RxSwift
+import RxCocoa
 
-class MyPageViewController: BaseTabViewController {
-    var mypageTableView: UITableView!
-    var completedGoalCount = 0
+final class MyPageViewController: BaseTabViewController {
+    private let viewModel: any MyPageViewModelInterface
     
-    // MARK: Marshmallow
-    var recordLevel: Int = -1
-    var emotionLevel: Int = -1
-    var growthLevel: Int = -1
-    var honestLevel: Int = -1
+    // MARK: Init
+    init(viewModel: any MyPageViewModelInterface = MyPageViewModel()){
+        self.viewModel = viewModel
+        super.init(btnImage: Image.setting)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Properties
+    var mypageTableView: UITableView!
 
+
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        getFinishedGoalCounts()
-        getMarshmallow()
-    }
     
     override func style() {
         super.style()
         
-        setTableView()
-        mypageTableView.delegate = self
-        mypageTableView.dataSource = self
     }
     override func layout() {
         super.layout()
+        
+        setTableView()
         
         self.view.addSubview(mypageTableView)
         mypageTableView.snp.makeConstraints { make in
@@ -43,17 +48,51 @@ class MyPageViewController: BaseTabViewController {
             make.top.equalTo(super.navigationView.snp.bottom)
         }
     }
+    
+    override func initialize() {
+//        setTableView()
+        setTableViewDelegate()
+    }
+    
     override func topBtnDidClicked() {
         self.navigationController?.pushViewController(SettingViewController(), animated: true)
     }
-    func setTableView() {
+    
+    override func bind() {
+        guard let viewModel = viewModel as? MyPageViewModel else { return }
+        
+        let input = MyPageViewModel.Input()
+        let output = viewModel.transform(input)
+        
+        output.goals
+            .subscribe(onNext: { [self]
+                let cell = self.mypageTableView.cellForRow(at: [0,1]) as? MypageGoalsTableViewCell
+                cell?.bindingData($0)
+//                mypageTableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+        output.marshmallows
+                .subscribe(onNext: { [self] in
+                mypageTableView.reloadData()
+            }).disposed(by: disposeBag)
+        
+    }
+    
+    // MARK: Methods
+    
+    private func setTableViewDelegate() {
+        mypageTableView.delegate = self
+        mypageTableView.dataSource = self
+    }
+    
+    private func setTableView() {
         mypageTableView = UITableView().then{
             // 프로필
-            $0.register(MypageProfileTableViewCell.self, forCellReuseIdentifier: "MypageProfileTableViewCell")
+            $0.register(cellType: MypageProfileTableViewCell.self)
             // 목표 보관함 가기
-            $0.register(MypageGoalsTableViewCell.self, forCellReuseIdentifier: "MypageGoalsTableViewCell")
+            $0.register(cellType: MypageGoalsTableViewCell.self)
             // 마시멜로 모아보기
-            $0.register(MypageMarshmallowTableViewCell.self, forCellReuseIdentifier: "MypageMarshmallowTableViewCell")
+            $0.register(cellType: MypageMarshmallowTableViewCell.self)
             
             $0.rowHeight = UITableView.automaticDimension
             $0.estimatedRowHeight = UITableView.automaticDimension
@@ -65,11 +104,12 @@ class MyPageViewController: BaseTabViewController {
             $0.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
-    // MARK: - Actions
+    // MARK: Actions
     @objc func marshmallowToolTopDidTap(tapGestureRecognizer: UITapGestureRecognizer) {
         LinkManager(self, .marshmallowToolTip)
     }
 }
+
 // MARK: - TableView delegate
 extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -78,27 +118,9 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
         switch tag {
-        case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageProfileTableViewCell", for: indexPath) as? MypageProfileTableViewCell else { return UITableViewCell() }
-            cell.setUpData()
-            cell.selectionStyle = .none
-            return cell
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageGoalsTableViewCell", for: indexPath) as? MypageGoalsTableViewCell else { return UITableViewCell() }
-            cell.setUpData(self.completedGoalCount)
-            cell.selectionStyle = .none
-            return cell
-        default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MypageMarshmallowTableViewCell", for: indexPath) as? MypageMarshmallowTableViewCell else { return UITableViewCell() }
-            cell.marshmallowCollectionView.delegate = self
-            cell.marshmallowCollectionView.dataSource = self
-            cell.marshmallowCollectionView.reloadData()
-            cell.selectionStyle = .none
-            
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(marshmallowToolTopDidTap(tapGestureRecognizer:)))
-            cell.marshmallowToolTipLabel.addGestureRecognizer(tapGesture)
-            
-            return cell
+        case 0:     return getProfileCell(indexPath: indexPath)
+        case 1:     return getFinishedGoalsCell(indexPath: indexPath)
+        default:    return getMarshmallowsCell(indexPath: indexPath)
         }
         
     }
@@ -107,12 +129,35 @@ extension MyPageViewController: UITableViewDelegate, UITableViewDataSource {
    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag == 1 {
-            self.navigationController?.pushViewController(CompletedGoalsViewController(), animated: true)
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        tag == 1 ?
+        self.navigationController?.pushViewController(CompletedGoalsViewController(), animated: true)
+        : tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    // MARK: Setup TableView Cell
+    private func getProfileCell(indexPath: IndexPath) -> BaseTableViewCell{
+        mypageTableView.dequeueReusableCell(for: indexPath, cellType: MypageProfileTableViewCell.self).then{
+            $0.setUpData()
+            $0.selectionStyle = .none
+        }
+    }
+    private func getFinishedGoalsCell(indexPath: IndexPath) -> BaseTableViewCell{
+        mypageTableView.dequeueReusableCell(for: indexPath, cellType: MypageGoalsTableViewCell.self).then{
+            $0.bindingData(viewModel.finishedGoals.count)
+            $0.selectionStyle = .none
+        }
+    }
+    private func getMarshmallowsCell(indexPath: IndexPath) -> BaseTableViewCell{
+        mypageTableView.dequeueReusableCell(for: indexPath, cellType: MypageMarshmallowTableViewCell.self).then{
+            $0.marshmallowCollectionView.delegate = self
+            $0.marshmallowCollectionView.dataSource = self
+            $0.marshmallowCollectionView.reloadData()
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(marshmallowToolTopDidTap(tapGestureRecognizer:)))
+            $0.marshmallowToolTipLabel.addGestureRecognizer(tapGesture)
+        }
+    }
+    
 }
 //MARK: - CollectionView Delegate
 extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -122,18 +167,17 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MarshmallowCollectionViewCell.cellIdentifier, for: indexPath)
-                as? MarshmallowCollectionViewCell else { fatalError() }
+        let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: MarshmallowCollectionViewCell.self)
         let tag = indexPath.row
         switch tag {
         case 0:
-            cell.setUpMarshmallow(.record, self.recordLevel)
+            cell.setUpMarshmallow(.record, viewModel.marshmallows.recordMarshmelloLv)
         case 1:
-            cell.setUpMarshmallow(.emotion, self.emotionLevel)
+            cell.setUpMarshmallow(.emotion, viewModel.marshmallows.emotionMarshmelloLv)
         case 2:
-            cell.setUpMarshmallow(.growth, self.growthLevel)
+            cell.setUpMarshmallow(.growth, viewModel.marshmallows.growthMarshmelloLv)
         default:
-            cell.setUpMarshmallow(.honest, self.honestLevel)
+            cell.setUpMarshmallow(.honest, viewModel.marshmallows.honestMarshmelloLv)
         }
         
         return cell
@@ -144,40 +188,4 @@ extension MyPageViewController: UICollectionViewDelegate, UICollectionViewDataSo
         cell.isSelected = true
     }
     
-}
-//MARK: - API
-extension MyPageViewController {
-    private func getFinishedGoalCounts(){
-        GoalService.shared.getFinishedGoals { result in
-            switch result{
-            case .success(let data):
-                self.completedGoalCount = data.content.count
-                self.mypageTableView.reloadData()
-                break
-            default:
-                print(result)
-                break
-            }
-        }
-    }
-    private func getMarshmallow() {
-        UserService.shared.getMarshmallow { result in
-            switch result{
-            case .success(let data):
-                self.recordLevel = data.recordMarshmelloLv
-                self.emotionLevel = data.emotionMarshmelloLv
-                self.growthLevel = data.growthMarshmelloLv
-                self.honestLevel = data.honestMarshmelloLv
-                
-                self.mypageTableView.reloadData()
-                break
-            default:
-                print(result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.getMarshmallow()
-                }
-                break
-            }
-        }
-    }
 }

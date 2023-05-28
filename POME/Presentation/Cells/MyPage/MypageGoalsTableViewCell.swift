@@ -84,7 +84,7 @@ class MypageGoalsTableViewCell: BaseTableViewCell {
             make.trailing.equalToSuperview().offset(-14)
         }
     }
-    func setUpData(_ count: Int) {
+    func bindingData(_ count: Int) {
         self.subTitleLabel.text = "다시 보고 싶은 지난 목표가 \(count)건 있어요"
     }
 }

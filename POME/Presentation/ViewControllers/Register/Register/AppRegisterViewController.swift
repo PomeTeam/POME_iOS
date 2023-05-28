@@ -12,14 +12,6 @@ import RxCocoa
 class AppRegisterViewController: BaseViewController {
     var appRegisterView: AppRegisterView!
     private let viewModel = AppRegisterViewModel()
-    
-    var phone = BehaviorRelay(value: "")
-    var inputCode = BehaviorRelay(value: "")
-    var authCode = ""
-    
-    var isValidPhone = false
-    var isValidCode = false
-    var isUser = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,77 +38,61 @@ class AppRegisterViewController: BaseViewController {
     override func bind() {
         let input = AppRegisterViewModel.Input(phoneTextField: appRegisterView.phoneTextField.rx.text.orEmpty.asObservable(),
                                                codeTextField: appRegisterView.codeTextField.rx.text.orEmpty.asObservable(),
+                                               sendCodeButtonControlEvent: appRegisterView.codeSendButton.rx.tap,
                                                nextButtonControlEvent: appRegisterView.nextButton.rx.tap)
         let output = viewModel.transform(input: input)
         
-        output.canMoveNext
+        // 인증번호 발송 버튼 활성화 유무
+        output.ctaSendCodeButtonActivate
+            .drive(appRegisterView.codeSendButton.rx.isActivate)
+            .disposed(by: disposeBag)
+        
+        // '동의하고 시작하기' 버튼 활성화 유무
+        output.ctaButtonActivate
             .drive(appRegisterView.nextButton.rx.isActivate)
             .disposed(by: disposeBag)
+        
+        // 로그인 후 기록탭으로 이동
+        output.user.bind { _ in
+            self.moveToRecordTab()
+        }.disposed(by: disposeBag)
+        
+        // 유저가 아닐 시 회원가입 페이지 이동
+        output.signUp.bind{
+            if $0 {self.moveToRegister()}
+        }.disposed(by: disposeBag)
+        
+        // 인증번호 에러메세지 출력
+        output.codeMatch
+            .drive(appRegisterView.errorMessageLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
     }
     // MARK: - Functions
-    // TextFields
     func initTextField() {
         appRegisterView.phoneTextField.delegate = self
         appRegisterView.codeTextField.delegate = self
-        
-        self.appRegisterView.phoneTextField.rx.text.orEmpty
-                            .distinctUntilChanged()
-                            .bind(to: self.phone)
-                            .disposed(by: disposeBag)
-        
-        self.appRegisterView.codeTextField.rx.text.orEmpty
-                            .distinctUntilChanged()
-                            .bind(to: self.inputCode)
-                            .disposed(by: disposeBag)
-        self.inputCode.skip(1).distinctUntilChanged()
-            .subscribe( onNext: { newValue in
-                self.appRegisterView.errorMessageLabel.isHidden = true
-            })
-            .disposed(by: disposeBag)
     }
-    // Buttons
     func initButton() {
-        // 인증번호 요청 버튼
-        appRegisterView.codeSendButton.rx.tap
-            .bind {self.codeSendButtonDidTap()}
-            .disposed(by: disposeBag)
-        
         // 인증번호가 오지 않나요?
         appRegisterView.notSendedButton.rx.tap
             .bind {LinkManager(self, .codeError)}
             .disposed(by: disposeBag)
-        
-        // 동의하고 시작하기 버튼
-        appRegisterView.nextButton.rx.tap
-            .bind {self.nextButtonDidTap()}
-            .disposed(by: disposeBag)
+    }
+    func moveToRecordTab() {
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        guard let delegate = sceneDelegate else {return}
+        delegate.window?.rootViewController = TabBarController()
+    }
+    func moveToRegister() {
+        let vc = TermsViewController()
+        vc.phoneNum = self.viewModel.phoneNumRelay.value ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Actions
-    @objc func codeSendButtonDidTap() {
-        appRegisterView.codeSendButton.isSelected = true
-        sendSMS()   // 문자 전송
-        checkUser() // 유저 확인
-    }
-    @objc func nextButtonDidTap() {
-        if isUser && inputCode.value == self.authCode {
-            // 이미 유저임을 확인했을 때 - 로그인 후 기록탭으로 이동
-            signIn()
-        } else if !isUser && inputCode.value == self.authCode {
-            // 회원가입 시
-            let vc = TermsViewController()
-            vc.phoneNum = self.phone.value
-            self.navigationController?.pushViewController(vc, animated: true)
-        } else {
-            // 전송된 인증코드와 입력된 인증코드가 다를 때
-            self.appRegisterView.errorMessageLabel.isHidden = false
-            print("보내진 인증코드와 입력한 코드번호가 맞지 않습니다.")
-        }
-    }
-    @objc func goBack() {
-        self.dismiss(animated: false)
-    }
 }
+
+// MARK: - UITextField Delegate
 extension AppRegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -134,79 +110,5 @@ extension AppRegisterViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.setUnfocusState()
-    }
-}
-//MARK: - API
-extension AppRegisterViewController {
-    private func sendSMS(){
-        let sendSMSRequestModel = PhoneNumRequestModel(phoneNum: self.phone.value)
-        UserService.shared.sendSMS(model: sendSMSRequestModel) { result in
-            switch result {
-                case .success(let data):
-                    print("인증번호 전송 성공")
-                    guard let authCode = data.data?.value else {return}
-                    self.authCode = authCode
-                    print("인증코드:", self.authCode)
-                    break
-                case .failure(let err):
-                    print(err.localizedDescription)
-                    break
-            default:
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.sendSMS()
-                }
-                break
-            }
-        }
-    }
-    private func checkUser(){
-        let checkUserRequestModel = PhoneNumRequestModel(phoneNum: self.phone.value)
-        UserService.shared.checkUser(model: checkUserRequestModel) { result in
-            switch result {
-                case .success(let data):
-                    guard let isUser = data.data else {return}
-                    self.isUser = isUser
-                    print("유저 확인:", isUser)
-                    break
-                case .failure(let err):
-                    print(err.localizedDescription)
-                    break
-            default:
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.checkUser()
-                }
-                break
-            }
-        }
-    }
-    private func signIn(){
-        let signInRequestModel = SignInRequestModel(phoneNum: self.phone.value)
-        UserService.shared.signIn(model: signInRequestModel) { result in
-            switch result {
-            case .success(let data):
-                // 유저 정보 저장
-                let token = data.accessToken ?? ""
-                let userId = data.userId ?? ""
-                let nickName = data.nickName ?? ""
-                let profileImg = data.imageURL ?? ""
-                
-                UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
-                UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
-                UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
-                UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
-                // 자동 로그인을 위해 phoneNum과 token을 기기에 저장
-                UserDefaults.standard.set(self.phone.value, forKey: UserDefaultKey.phoneNum)
-                
-                // 기록탭으로 이동
-                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                guard let delegate = sceneDelegate else {
-                    return
-                }
-                delegate.window?.rootViewController = TabBarController()
-                break
-            default:
-                break
-            }
-        }
     }
 }

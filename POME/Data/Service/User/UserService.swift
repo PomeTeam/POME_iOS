@@ -22,8 +22,8 @@ extension UserService{
         }
     }
     
-    func signIn(model: SignInRequestModel, completion: @escaping (NetworkResult<UserModel>) -> Void) {
-        provider.requestDecoded(UserRouter.signIn(param: model), animate: true){ response in
+    func signIn(requestValue: SignInRequestModel, completion: @escaping (NetworkResult<UserModel>) -> Void) {
+        provider.requestDecoded(UserRouter.signIn(param: requestValue), animate: true){ response in
             completion(response)
         }
     }
@@ -46,8 +46,8 @@ extension UserService{
         }
     }
     
-    func sendSMS(model: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
-        provider.requestDecoded(UserRouter.sendSMS(param: model)) { response in
+    func sendSMS(requestValue: PhoneNumRequestModel, completion: @escaping (Result<BaseResponseModel<SendSMSResponseModel>, Error>) -> Void) {
+        provider.requestDecoded(UserRouter.sendSMS(param: requestValue)) { response in
             completion(response)
         }
     }
