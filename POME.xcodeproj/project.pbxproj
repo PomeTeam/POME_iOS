@@ -39,7 +39,7 @@
 		23431C322A24293500571286 /* DeleteGoalUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23431C312A24293500571286 /* DeleteGoalUseCase.swift */; };
 		23431C342A242B1D00571286 /* GetRecordsOfGoalInRecordTabUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23431C332A242B1D00571286 /* GetRecordsOfGoalInRecordTabUseCase.swift */; };
 		23431C362A242C8B00571286 /* GetNoSecondEmotionRecordsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23431C352A242C8B00571286 /* GetNoSecondEmotionRecordsUseCase.swift */; };
-		2343FB032A269F7600820625 /* GoalWithRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2343FB022A269F7600820625 /* GoalWithRecordViewModel.swift */; };
+		2343FB052A26AD7200820625 /* GoalWithRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2343FB042A26AD7200820625 /* GoalWithRecordViewModel.swift */; };
 		2345E1C429818848003185E0 /* BaseResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C329818848003185E0 /* BaseResponseModel.swift */; };
 		2345E1C829819471003185E0 /* UserRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C729819471003185E0 /* UserRequestModel.swift */; };
 		2345E1CA2981947A003185E0 /* UserResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2345E1C92981947A003185E0 /* UserResponseModel.swift */; };
@@ -328,7 +328,7 @@
 		23431C312A24293500571286 /* DeleteGoalUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteGoalUseCase.swift; sourceTree = "<group>"; };
 		23431C332A242B1D00571286 /* GetRecordsOfGoalInRecordTabUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecordsOfGoalInRecordTabUseCase.swift; sourceTree = "<group>"; };
 		23431C352A242C8B00571286 /* GetNoSecondEmotionRecordsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNoSecondEmotionRecordsUseCase.swift; sourceTree = "<group>"; };
-		2343FB022A269F7600820625 /* GoalWithRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalWithRecordViewModel.swift; sourceTree = "<group>"; };
+		2343FB042A26AD7200820625 /* GoalWithRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalWithRecordViewModel.swift; sourceTree = "<group>"; };
 		2345E1C329818848003185E0 /* BaseResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponseModel.swift; sourceTree = "<group>"; };
 		2345E1C729819471003185E0 /* UserRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequestModel.swift; sourceTree = "<group>"; };
 		2345E1C92981947A003185E0 /* UserResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponseModel.swift; sourceTree = "<group>"; };
@@ -1588,7 +1588,7 @@
 				EE7D35DC29D5A16300D2AD60 /* Authentication */,
 				EE7D35DE29D5A16300D2AD60 /* Review */,
 				EE7D35E029D5A16300D2AD60 /* Goal */,
-				2343FB022A269F7600820625 /* GoalWithRecordViewModel.swift */,
+				2343FB042A26AD7200820625 /* GoalWithRecordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -2281,7 +2281,7 @@
 				2375E4892A20397400843056 /* MyPageViewModel.swift in Sources */,
 				5724EC84291B29A700DC529B /* EmojiFloatingCollectionViewCell.swift in Sources */,
 				EE38758029D917B900A26AD5 /* TextConverter.swift in Sources */,
-				2343FB032A269F7600820625 /* GoalWithRecordViewModel.swift in Sources */,
+				2343FB052A26AD7200820625 /* GoalWithRecordViewModel.swift in Sources */,
 				EE7D35EC29D5A16300D2AD60 /* GenerateGoalDateViewModel.swift in Sources */,
 				57543B7C2951BF5300A409E3 /* CalendarSheetCollectionViewCell.swift in Sources */,
 				23F57834292D5460002DD28E /* SettingViewController.swift in Sources */,

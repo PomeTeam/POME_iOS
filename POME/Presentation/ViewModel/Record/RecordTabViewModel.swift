@@ -26,7 +26,7 @@ protocol NoSecondEmotionRecordViewModelInterface {
 //    var records: [RecordResponseModel] { get }
 //}
 
-final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionViewModelInterface {
+final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionRecordViewModelInterface {
     
     internal var noSecondEmotionRecords: Int = 0
 

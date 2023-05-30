@@ -82,8 +82,4 @@ final class ReviewViewModel: GoalWithRecordViewModel {
             }).disposed(by: disposeBag)
     }
 
-    func requestNextPage(){
-        page += 1
-        requestRecords()
-    }
 }
