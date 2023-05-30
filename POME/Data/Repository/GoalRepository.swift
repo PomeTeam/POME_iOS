@@ -45,8 +45,19 @@ class GoalRepository: GoalRepositoryInterface{
         return observable
     }
     
-    func deleteGoal() {
-        
+    func deleteGoal(id: Int) -> Observable<BaseResponseStatus> {
+        let observable = Observable<BaseResponseStatus>.create { observer -> Disposable in
+            let requestReference: () = GoalService.shared.deleteGoal(id: id) { response in
+                switch response {
+                case .success:
+                    observer.onNext(.success)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
     }
     
     func getFinishedGoals() -> Observable<[GoalResponseModel]> {

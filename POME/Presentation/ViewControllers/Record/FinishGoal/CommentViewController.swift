@@ -106,12 +106,12 @@ extension CommentViewController {
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
-                if data.success {
+//                if data.success {
                     print("목표 삭제 성공")
                     // 첫화면으로 전환
                     guard let tabBarController = UIStoryboard(name: "gomin", bundle: nil).instantiateViewController(identifier: "TabBarController") as? UITabBarController else {return}
                     self.navigationController?.pushViewController(tabBarController, animated: true)
-                }
+//                }
                 break
             default:
                 print(result)

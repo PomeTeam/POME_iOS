@@ -14,6 +14,7 @@ class RecordObserver{
     
     private init(){ }
     
+    let deleteRecord = PublishSubject<Void>()
     let generateRecord = PublishSubject<Void>()
     let registerSecondEmotion = PublishSubject<Void>()
 }

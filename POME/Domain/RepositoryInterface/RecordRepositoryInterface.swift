@@ -13,4 +13,6 @@ protocol RecordRepositoryInterface{
     func modifyRecord(id: Int, requestValue: RecordDTO) -> Observable<RecordResponseModel>
     func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<Int>
     func deleteRecord(requestValue: DeleteRecordRequestModel) -> Observable<BaseResponseStatus>
+    func getRecordsOfGoalInRecordTab(id: Int, pageable: PageableModel) -> Observable<PageableResponseModel<RecordResponseModel>>
+    func getNoSecondEmotionRecords(id: Int) -> Observable<PageableResponseModel<RecordResponseModel>>
 }
