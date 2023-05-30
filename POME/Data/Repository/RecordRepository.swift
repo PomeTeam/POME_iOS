@@ -69,4 +69,34 @@ class RecordRepository: RecordRepositoryInterface{
         }
         return observable
     }
+    
+    func getRecordsOfGoalInRecordTab(id: Int, pageable: PageableModel) -> Observable<PageableResponseModel<RecordResponseModel>> {
+        let observable = Observable<PageableResponseModel<RecordResponseModel>>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.getRecordsOfGoalAtRecordTab(id: id, pageable: pageable) { response in
+                switch response {
+                case .success(let data):
+                    observer.onNext(data)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
+    }
+    
+    func getNoSecondEmotionRecords(id: Int) -> Observable<PageableResponseModel<RecordResponseModel>> {
+        let observable = Observable<PageableResponseModel<RecordResponseModel>>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.getNoSecondEmotionRecords(id: id) { response in
+                switch response {
+                case .success(let data):
+                    observer.onNext(data)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
+    }
 }

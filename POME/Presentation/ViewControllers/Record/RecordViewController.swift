@@ -6,20 +6,34 @@
 //
 import UIKit
 import CloudKit
+import RxSwift
+import RxCocoa
 
 class RecordViewController: BaseTabViewController {
     var recordView: RecordView!
+    let viewModel = RecordTabViewModel()
+    
+    private let goalRelay = BehaviorRelay<Int>(value: 0)
+    private var selectedGoalIndex: Int{
+        goalRelay.value
+    }
+    
+    private var goalCategoryTableViewCell: GoalCategoryTableViewCell?{
+        recordView.recordTableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalCategoryTableViewCell.self)
+    }
+    
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 3
     }
+    
+    // Properties
+    
+    private let INFO_SECTION = 0
+    private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
+
     // GetGoal control
     private var isFirstLoad = true
-    // Goal Content
-    var goalContent: [GoalResponseModel] = []
-    var categorySelectedIdx = 0
-    // Records
-    var recordsOfGoal: [RecordResponseModel] = []
-    var noSecondEmotionRecords: [RecordResponseModel] = []
+    
     // Page
     var recordPage: Int?
     // Cell Height
@@ -27,20 +41,13 @@ class RecordViewController: BaseTabViewController {
     // Refresh Control
     var refreshControl = UIRefreshControl()
 
+    
+    // Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        initRefresh()
-        if(!isFirstLoad){
-            requestGetGoals()
-        }
+        viewModel.refreshData()
     }
-    override func viewWillAppear(_ animated: Bool) {
-//        if(!isFirstLoad){
-//            requestGetGoals()
-//        }
-        
-    }
+    
     override func style() {
         super.style()
         
@@ -48,6 +55,7 @@ class RecordViewController: BaseTabViewController {
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
     }
+    
     override func layout() {
         super.layout()
         
@@ -66,8 +74,11 @@ class RecordViewController: BaseTabViewController {
             make.top.equalTo(super.navigationView.snp.bottom)
         }
     }
+    
     override func initialize() {
         super.initialize()
+        
+        initRefresh()
         
         recordView.writeButton.rx.tap
             .bind {self.writeButtonDidTap()}
@@ -75,22 +86,80 @@ class RecordViewController: BaseTabViewController {
     }
     
     override func bind() {
+        
         GoalObserver.shared.generateGoal
             .subscribe{ [weak self] _ in
-                self?.requestGetGoals()
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
+        GoalObserver.shared.deleteGoal
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
+            }.disposed(by: disposeBag)
+        
+        RecordObserver.shared.deleteRecord
+            .subscribe{ [weak self] _ in
+                self?.viewModel.refreshData()
             }.disposed(by: disposeBag)
         
         RecordObserver.shared.generateRecord
             .subscribe{ _ in
-                self.recordPage = 0
-                self.recordsOfGoal.removeAll()
-                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+                self.viewModel.refreshData()
             }.disposed(by: disposeBag)
         
         RecordObserver.shared.registerSecondEmotion
             .subscribe{ _ in
-                self.getNoSecondEmotionRecords(id: self.goalContent[self.categorySelectedIdx].id)
+                self.viewModel.refreshData()
             }.disposed(by: disposeBag)
+        
+        viewModel.deleteRecordSubject
+            .subscribe{
+                self.recordView.recordTableView.deleteRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .fade)
+                self.showEmptyView()
+            }.disposed(by: disposeBag)
+        
+        viewModel.modifyRecordSubject
+            .subscribe{
+                self.recordView.recordTableView.reloadRows(at: [[self.INFO_SECTION, $0 + self.COUNT_OF_NOT_RECORD_CELL]], with: .none)
+            }.disposed(by: disposeBag)
+        
+        //현재 포커스인 목표가 삭제되었을 경우, 0번째 인덱스로 선택 변경
+        viewModel.changeGoalSelect
+            .subscribe{ [weak self] _ in
+                if let cell = self?.goalCategoryTableViewCell {
+                    self?.collectionView(cell.goalCollectionView, didSelectItemAt: [0,0])
+                }
+            }.disposed(by: disposeBag)
+        
+        viewModel.reloadTableView
+            .subscribe{ [weak self] _ in
+                self?.stopRefreshingOrPaging()
+                self?.reloadData()
+            }.disposed(by: disposeBag)
+        
+        viewModel.transform(RecordTabViewModel.Input(
+            selectedGoalIndex: goalRelay.asObservable())
+        )
+        
+    }
+    
+    private func stopRefreshingOrPaging(){
+//        isLoading = false
+//        if isRefreshing {
+//            recordView.recordTableView.refreshControl?.endRefreshing()
+//        }
+    }
+    
+    private func reloadData(){
+        recordView.recordTableView.reloadData()
+        goalCategoryTableViewCell?.goalCollectionView.reloadData()
+        showEmptyView()
+    }
+    
+    private func showEmptyView(){
+        viewModel.records.isEmpty || viewModel.records.isEmpty
+        ? EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
+        : EmptyView(self.recordView.recordTableView).hideEmptyView()
     }
     
     // MARK: - Actions
@@ -99,7 +168,7 @@ class RecordViewController: BaseTabViewController {
 //        self.navigationController?.pushViewController(NotificationViewController(), animated: true)
     }
     @objc func writeButtonDidTap() {
-        goalContent.isEmpty ? showNoGoalContentsWarning() : moveToGenerateRecord()
+        viewModel.goals.isEmpty ? showNoGoalContentsWarning() : moveToGenerateRecord()
     }
     
     @objc func finishGoalButtonDidTap(_ sender: GoalTapGesture) {
@@ -108,11 +177,11 @@ class RecordViewController: BaseTabViewController {
          7일 이전 기록은 없으나 2차감정 기록을 하지 않았을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우기 & 종료 페이지 진입 불가
          모든 감정기록 완료했을 때 -> 종료페이지 진입
          */
-        let isSecondEmotionNeeded = !self.recordsOfGoal.isEmpty || !self.noSecondEmotionRecords.isEmpty
+        let isSecondEmotionNeeded = !viewModel.records.isEmpty || !(viewModel.noSecondEmotionRecords == 0)
         isSecondEmotionNeeded ? showNoSecondEmotionWarning() : moveToAllRecords(sender)
     }
     @objc func addGoalButtonDidTap() {
-        goalContent.count < 10 ? moveToGenerateGoalDate() : cannotAddGoalWarning()
+        viewModel.goals.count < 10 ? moveToGenerateGoalDate() : cannotAddGoalWarning()
     }
     
     @objc func alertGoalMenuButtonDidTap(_ sender: GoalTapGesture) {
@@ -120,7 +189,7 @@ class RecordViewController: BaseTabViewController {
         let deleteAction =  UIAlertAction(title: "삭제하기", style: UIAlertAction.Style.default){(_) in
             let dialog = ImageAlert.deleteInProgressGoal.generateAndShow(in: self)
             dialog.completion = {
-                self.deleteGoal(id: sender.data?.id ?? 0)
+                self.viewModel.deleteGoal()
             }
         }
         let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
@@ -154,7 +223,7 @@ class RecordViewController: BaseTabViewController {
     }
     // MARK: Move to other pages
     func moveToGenerateRecord() {
-        let goal = goalContent[categorySelectedIdx]
+        let goal = viewModel.goals[selectedGoalIndex]
         let vc = GenerateRecordViewController(goal: goal)
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -171,10 +240,8 @@ class RecordViewController: BaseTabViewController {
 }
 //MARK: - CollectionView Delegate
 extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = self.goalContent.count ?? 0
-        return count
+        return viewModel.goals.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -182,35 +249,31 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
                 as? GoalTagCollectionViewCell else { fatalError() }
         
         let itemIdx = indexPath.row
-        cell.title = goalContent[itemIdx].name
+        cell.title = viewModel.goals[itemIdx].name
         
-        if itemIdx == self.categorySelectedIdx {cell.setSelectState()}
-        else if goalContent[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
+        if itemIdx == self.selectedGoalIndex {cell.setSelectState()}
+        else if viewModel.goals[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
         else {cell.setUnselectState()}
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let itemIdx = indexPath.row
-        self.categorySelectedIdx = itemIdx
-        
-        // 기간이 지난 목표
-//        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count != 0 {self.showNoSecondEmotionWarning()}
-        
-        // 목표에 저장된 씀씀이 조회
-        self.recordPage = 0
-        self.recordsOfGoal.removeAll()
-        getRecordsOfGoal(id: goalContent[itemIdx].id)
-        getNoSecondEmotionRecords(id: goalContent[itemIdx].id)
-        
-        self.recordView.recordTableView.reloadData()
-        
-        return true
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setSelectState()
+        }
+        goalRelay.accept(indexPath.row)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
+            $0.setUnselectState()
+        }
+    }
+    
     // 글자수에 따른 셀 너비 조정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let title = goalContent.isEmpty ? GoalTagCollectionViewCell.emptyTitle : goalContent[indexPath.row].name
+        let title = viewModel.goals.isEmpty ? GoalTagCollectionViewCell.emptyTitle : viewModel.goals[indexPath.row].name
         return GoalTagCollectionViewCell.estimatedSize(title: title)
     }
     
@@ -227,91 +290,41 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         let size = Const.requestPagingSize
         if (itemIdx % size == 0) && (itemIdx / size == recordPage ?? 0 - 1) {
             recordPage = (recordPage ?? 0) + 1
-            if !self.goalContent.isEmpty {
-                self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
+            if !viewModel.goals.isEmpty {
+                self.viewModel.refreshData()
             }
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = recordsOfGoal.count ?? 0
+        let count = viewModel.records.count
         if count == 0 {
             EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
         } else {
             EmptyView(self.recordView.recordTableView).hideEmptyView()
         }
-        return 3 + count
+        return count + COUNT_OF_NOT_RECORD_CELL
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tag = indexPath.row
         switch tag {
-        case 0:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalCategoryTableViewCell.self)
-            
-            cell.selectionStyle = .none
-            cell.goalCollectionView.delegate = self
-            cell.goalCollectionView.dataSource = self
-            cell.goalCollectionView.reloadData()
-            
-            // Add Goal
-            cell.goalPlusButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
-            
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalTableViewCell.self)
-            
-            if !self.goalContent.isEmpty {
-                cell.setUpData(self.goalContent[self.categorySelectedIdx])
-                // Alert Menu
-                let deleteGoalGesture = GoalTapGesture(target: self, action: #selector(alertGoalMenuButtonDidTap(_:)))
-                deleteGoalGesture.data = self.goalContent[self.categorySelectedIdx]
-                cell.menuButton.addGestureRecognizer(deleteGoalGesture)
-            }
-            
-            cell.selectionStyle = .none
-            
-            // MARK: 목표가 존재하지 않을 때
-            if self.goalContent.count == 0 {
+            case 0:     return getGoalCategoryTableViewCell(indexPath: indexPath)
+            case 1:
+                // MARK: 목표가 존재하지 않을 때
+                if viewModel.goals.isEmpty {return getNoGoalBannerTableViewCell(indexPath: indexPath)}
+                // MARK: 기간이 지난 목표 셀
+                else if viewModel.goals[selectedGoalIndex].isGoalEnd {return getFinishedGoalBannerTableViewCell(indexPath: indexPath)}
+                else {return getGoalTableViewCell(indexPath: indexPath)}
                 
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
-                    $0.banner = .registerInRecord
-                    $0.actionButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
-                }
-                return cell
-            }
-            
-            // MARK: 기간이 지난 목표 셀
-            if goalContent[self.categorySelectedIdx].isGoalEnd {
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self)
-                cell.banner = .finish
-                
-                let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
-                finishGoalGesture.data = self.goalContent[self.categorySelectedIdx]
-                cell.actionButton.addGestureRecognizer(finishGoalGesture)
-                return cell
-            }
-            
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: GoEmotionBannerTableViewCell.self)
-            cell.setUpCount(self.noSecondEmotionRecords.count ?? 0)
-            cell.selectionStyle = .none
-            return cell
-        default:
-            let cardIndex = dataIndexBy(indexPath)
-            let record = self.recordsOfGoal[cardIndex]
-            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
-                $0.delegate = self
-                $0.bindingData(with: record)
-            }
-            return cell
+            case 2:     return getNoSecondEmotionRecordsTableViewCell(indexPath: indexPath)
+            default:    return getRecordsOfGoalTableViewCell(indexPath: indexPath)
         }
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag == 2 && !self.goalContent.isEmpty {
+        if tag == 2 && !viewModel.goals.isEmpty {
             let vc = RecordEmotionViewController()
-            vc.goalContent = self.goalContent[self.categorySelectedIdx]
+            vc.goalContent = viewModel.goals[self.selectedGoalIndex]
             self.navigationController?.pushViewController(vc, animated: true)
         } else if tag > 2 {
              cannotAddEmotionWarning()
@@ -319,11 +332,64 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    private func getGoalTableViewCell(indexPath: IndexPath) -> GoalTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoalTableViewCell.self).then{
+            $0.setUpData(viewModel.goals[self.selectedGoalIndex])
+            // Alert Menu
+            let deleteGoalGesture = GoalTapGesture(target: self, action: #selector(alertGoalMenuButtonDidTap(_:)))
+            deleteGoalGesture.data = viewModel.goals[self.selectedGoalIndex]
+            $0.menuButton.addGestureRecognizer(deleteGoalGesture)
+        }
+    }
+    
+    private func getNoGoalBannerTableViewCell(indexPath: IndexPath) -> GoalBannerTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+            $0.banner = .registerInRecord
+            $0.actionButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+        }
+    }
+    
+    private func getFinishedGoalBannerTableViewCell(indexPath: IndexPath) -> GoalBannerTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoalBannerTableViewCell.self).then{
+            $0.banner = .finish
+            
+            let finishGoalGesture = GoalTapGesture(target: self, action: #selector(finishGoalButtonDidTap(_:)))
+            finishGoalGesture.data = viewModel.goals[self.selectedGoalIndex]
+            $0.actionButton.addGestureRecognizer(finishGoalGesture)
+        }
+    }
+    
+    private func getGoalCategoryTableViewCell(indexPath: IndexPath) -> GoalCategoryTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoalCategoryTableViewCell.self).then{
+            $0.selectionStyle = .none
+            $0.goalCollectionView.delegate = self
+            $0.goalCollectionView.dataSource = self
+            $0.goalCollectionView.reloadData()
+            
+            // Add Goal
+            $0.goalPlusButton.addTarget(self, action: #selector(addGoalButtonDidTap), for: .touchUpInside)
+        }
+    }
+    
+    private func getRecordsOfGoalTableViewCell(indexPath: IndexPath) -> ConsumeReviewTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: ConsumeReviewTableViewCell.self).then{
+            $0.delegate = self
+            $0.bindingData(with: viewModel.records[dataIndexBy(indexPath)])
+        }
+    }
+    
+    private func getNoSecondEmotionRecordsTableViewCell(indexPath: IndexPath) -> GoEmotionBannerTableViewCell{
+        recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoEmotionBannerTableViewCell.self).then{
+            $0.bindingData(viewModel.noSecondEmotionRecords)
+            $0.selectionStyle = .none
+        }
+    }
 }
 // MARK: - Record Cell delegate
 extension RecordViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = recordsOfGoal[dataIndexBy(indexPath)].friendReactions
+        let data = viewModel.records[dataIndexBy(indexPath)].friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
@@ -334,21 +400,20 @@ extension RecordViewController: RecordCellDelegate{
                                       message: nil,
                                       preferredStyle: .actionSheet)
         
-        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+        let editAction = UIAlertAction(title: "수정하기", style: .default){ [self] _ in
             alert.dismiss(animated: true)
-            let vc = ModifyRecordViewController(goal: self.goalContent[self.categorySelectedIdx],
-                                                    record: self.recordsOfGoal[recordIndex])
-            vc.completion = {
-                self.recordsOfGoal[self.dataIndexBy(indexPath)] = $0
-                self.recordView.recordTableView.reloadRows(at: [indexPath], with: .none)
-            }
+            let vc = ModifyRecordViewController(modifyViewModel: viewModel,
+                                                index: recordIndex,
+                                                goal: viewModel.goals[recordIndex])
+            
             self.navigationController?.pushViewController(vc, animated: true)
         }
         let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
-            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
-            alert.completion = {
-                self.deleteRecord(id: self.recordsOfGoal[recordIndex].id)
+            ImageAlert.deleteRecord.generateAndShow(in: self).do{
+                $0.completion = {
+                    self.viewModel.deleteRecord(index: recordIndex)
+                }
             }
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -373,117 +438,8 @@ extension RecordViewController {
     
     @objc func refreshTable(refresh: UIRefreshControl) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // DATA reload
-            self.requestGetGoals()
+            self.viewModel.refreshData()
             refresh.endRefreshing()
-        }
-    }
-}
-//MARK: - API
-extension RecordViewController {
-    // MARK: 목표 리스트 조회 API
-    func requestGetGoals(){
-        // api 호출할 때마다 Goal 배열 초기화
-        self.goalContent.removeAll()
-        GoalService.shared.getUserGoals{ result in
-            defer{
-                self.isFirstLoad = false
-            }
-            switch result{
-            case .success(let data):
-                print("success goal:", data.content)
-                for x in data.content {
-                    if !x.isEnd {
-                        self.goalContent.append(x)
-                    }
-                }
-                // 목표에 맞는 기록들 조회
-                if !self.goalContent.isEmpty {
-                    // 기록 초기화 후 다시 호출
-                    self.recordPage = 0
-                    self.recordsOfGoal.removeAll()
-                    self.getRecordsOfGoal(id: self.goalContent[self.categorySelectedIdx].id)
-                }
-                
-                if let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell {
-                    cell.goalCollectionView.reloadData()
-                    self.recordView.recordTableView.reloadData()
-                }
-                self.refreshControl.endRefreshing()
-                break
-            default:
-                print(result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.requestGetGoals()
-                }
-                break
-            }
-        }
-    }
-    // MARK: 목표 삭제 API
-    private func deleteGoal(id: Int){
-        GoalService.shared.deleteGoal(id: id) { result in
-            switch result{
-            case .success(let data):
-                if data.success {
-                    print("목표 삭제 성공")
-                    self.categorySelectedIdx = 0
-                    self.requestGetGoals()
-                    GoalObserver.shared.deleteGoal.onNext(Void())
-                }
-                break
-            default:
-                print(result)
-                break
-            }
-        }
-    }
-    // MARK: 목표에 해당하는 기록 조회 API
-    private func getRecordsOfGoal(id: Int) {
-        let pageModel = PageableModel(page: self.recordPage ?? 0)
-        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id, pageable: pageModel) { result in
-            switch result{
-            case .success(let data):
-//                print("LOG: 씀씀이 조회", data)
-                // Paging 때문에 append하는 방식으로 작업
-                for recordData in data.content {
-                    self.recordsOfGoal.append(recordData)
-                }
-                self.getNoSecondEmotionRecords(id: id)
-                
-                break
-            default:
-                print(result)
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.getRecordsOfGoal(id: id)
-                }
-                break
-            }
-
-        }
-    }
-    // MARK: 기록 삭제 API
-    private func deleteRecord(id: Int) {
-        RecordService.shared.deleteRecord(id: id) { result in
-            print("기록 삭제 성공")
-            self.requestGetGoals()
-        }
-    }
-    // MARK: 일주일이 지났고, 두 번째 감정이 없는 기록 조회 API
-    private func getNoSecondEmotionRecords(id: Int) {
-        RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
-            switch result{
-            case .success(let data):
-//                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
-                
-                self.noSecondEmotionRecords = data.content
-                self.recordView.recordTableView.reloadData()
-
-                break
-            default:
-                print(result)
-                break
-            }
         }
     }
 }

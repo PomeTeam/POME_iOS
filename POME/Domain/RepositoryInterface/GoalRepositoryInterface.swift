@@ -11,6 +11,6 @@ import RxSwift
 protocol GoalRepositoryInterface{
     func getGoals() -> Observable<[GoalResponseModel]>
     func generateGoal(requestValue: GenerateGoalRequestModel) -> Observable<GenerateGoalStatus>
-    func deleteGoal()
+    func deleteGoal(id: Int) -> Observable<BaseResponseStatus>
     func getFinishedGoals() -> Observable<[GoalResponseModel]>
 }

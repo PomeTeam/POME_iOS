@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 
-class RegisterProfileViewModel: BaseViewModel {
+final class RegisterProfileViewModel: BaseViewModel {
     // UseCase Properties
     private let checkNicknameUseCase: CheckNicknameUseCaseInterface
     private let signUpUseCase: SignUpUseCaseInterface

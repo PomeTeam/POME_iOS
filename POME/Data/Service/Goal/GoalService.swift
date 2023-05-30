@@ -28,8 +28,8 @@ extension GoalService{
         }
     }
     
-    func deleteGoal(id: Int, completion: @escaping (Result<BaseResponseModel<Bool>, Error>) -> Void) {
-        provider.requestDecoded(GoalRouter.deleteGoal(id: id)) { response in
+    func deleteGoal(id: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        provider.requestNoResultAPI(GoalRouter.deleteGoal(id: id)) { response in
             completion(response)
         }
     }

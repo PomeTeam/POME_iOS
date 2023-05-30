@@ -73,6 +73,7 @@ extension RecordService{
     }
     
     func getNoSecondEmotionRecords(id: Int, completion: @escaping (NetworkResult<PageableResponseModel<RecordResponseModel>>) -> Void) {
+        print("record service.")
         provider.requestDecoded(RecordRouter.getNoSecondEmoRecords(id: id), animate: true) { response in
             completion(response)
         }

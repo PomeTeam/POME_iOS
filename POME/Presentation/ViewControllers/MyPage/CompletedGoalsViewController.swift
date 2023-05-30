@@ -128,10 +128,8 @@ extension CompletedGoalsViewController {
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
-                if data.success {
-                    print("목표 삭제 성공")
-                    self.getFinishedGoals()
-                }
+                print("목표 삭제 성공")
+                self.getFinishedGoals()
                 break
             default:
                 print(result)

@@ -29,7 +29,7 @@ class TabBarController: UITabBarController {
             case .success(let data):
                 print("LOG: SUCCESS GENERATE TOKEN")
                 UserManager.token = data.accessToken
-                self.recordViewController.requestGetGoals()
+                self.recordViewController.viewModel.refreshData()
                 break
             default:
                 print("LOG: FAIL GENERATE TOKEN")

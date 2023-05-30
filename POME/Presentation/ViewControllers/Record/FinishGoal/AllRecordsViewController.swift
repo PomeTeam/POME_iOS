@@ -37,7 +37,7 @@ class AllRecordsViewController: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         if isGoalDeleted {
-            self.preVC.categorySelectedIdx = 0
+            self.preVC.viewModel.refreshData()
         }
     }
     
@@ -169,11 +169,11 @@ extension AllRecordsViewController {
         GoalService.shared.deleteGoal(id: id) { result in
             switch result{
             case .success(let data):
-                if data.success {
+//                if data.success {
                     print("목표 삭제 성공")
                     self.isGoalDeleted = true
                     self.navigationController?.popViewController(animated: true)
-                }
+//                }
                 break
             default:
                 print(result)

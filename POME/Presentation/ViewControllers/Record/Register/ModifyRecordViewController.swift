@@ -12,11 +12,11 @@ final class ModifyRecordViewController: Recordable{
     var completion: ((RecordResponseModel) -> Void)? //ViewModel 활용안하는 VC에게 데이터 전달 용도
     
     private let record: RecordResponseModel
-    private var modifyViewModel: (any ReviewViewModelInterface)?
+    private var modifyViewModel: (any GoalWithRecordViewModelInterface)?
     private var index: Int!
     private var tableViewIndexPath: IndexPath!
     
-    init(modifyViewModel: any ReviewViewModelInterface, index: Int, goal: GoalResponseModel){
+    init(modifyViewModel: any GoalWithRecordViewModelInterface, index: Int, goal: GoalResponseModel){
         self.modifyViewModel = modifyViewModel
         self.index = index
         self.record = modifyViewModel.records[index]
