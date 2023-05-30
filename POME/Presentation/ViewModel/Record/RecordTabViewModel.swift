@@ -17,74 +17,31 @@ import RxCocoa
  일주일이 지났고 두번째 감정이 필요한 기록 조회
  */
 
-protocol NoSecondEmotionViewModelInterface {
+protocol NoSecondEmotionRecordViewModelInterface {
     var noSecondEmotionRecords: Int { get }
 }
 
-protocol RecordTabViewModelInterface: BaseViewModel, ModifyRecordInterface {
-    var goals: [GoalResponseModel] { get }
-    var records: [RecordResponseModel] { get }
-}
+//protocol RecordTabViewModelInterface: BaseViewModel, ModifyRecordInterface {
+//    var goals: [GoalResponseModel] { get }
+//    var records: [RecordResponseModel] { get }
+//}
 
-final class RecordTabViewModel: ReviewViewModelInterface, NoSecondEmotionViewModelInterface {
+final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionViewModelInterface {
     
-    var goals = [GoalResponseModel]()
-    var records = [RecordResponseModel]()
-    var noSecondEmotionRecords: Int = 0
-    
-    private var page: Int = 0
-    private var selectedGoalIndex: Int = 0
-    var hasNextPage: Bool = false
-    
-    let changeGoalSelect = PublishSubject<Void>()
-    let reloadTableView = PublishRelay<Void>()
-    let deleteGoalSubject = PublishSubject<Void>()
-    let deleteRecordSubject = PublishSubject<Int>()
-    let modifyRecordSubject = PublishSubject<Int>()
-    
-    private let getGoalsUseCase: GetGoalUseCaseInterface
+    internal var noSecondEmotionRecords: Int = 0
+
     private let deleteGoalUseCase: DeleteGoalUseCaseInterface
-    private let getRecordsOfGoalInRecordTabUseCase: GetRecordsOfGoalInRecordTabUseCaseInterface
-    private let deleteRecordUseCase: DeleteRecordUseCaseInterface
+    private let getRecordsUseCase: GetRecordsOfGoalInRecordTabUseCaseInterface
     private let getNoSecondEmotionRecordsUseCase: GetNoSecondEmotionRecordsUseCaseInterface
+
     
-    
-    private let disposeBag = DisposeBag()
-    
-    struct Input{
-        let selectedGoalIndex: Observable<Int>
-    }
-    
-    struct Output{
-        
-    }
-    
-    init(getGoalsUseCase: GetGoalUseCaseInterface = GetGoalUseCase(),
-         deleteGoalUseCase: DeleteGoalUseCaseInterface = DeleteGoalUseCase(),
+    init(deleteGoalUseCase: DeleteGoalUseCaseInterface = DeleteGoalUseCase(),
          getRecordsOfGoalInRecordTabUseCase: GetRecordsOfGoalInRecordTabUseCaseInterface = GetRecordsOfGoalInRecordTabUseCase(),
-         deleteRecordUseCase: DeleteRecordUseCaseInterface = DeleteRecordUseCase(),
          getNoSecondEmotionRecordsUseCase: GetNoSecondEmotionRecordsUseCaseInterface = GetNoSecondEmotionRecordsUseCase()) {
         
-        self.getGoalsUseCase = getGoalsUseCase
         self.deleteGoalUseCase = deleteGoalUseCase
-        self.getRecordsOfGoalInRecordTabUseCase = getRecordsOfGoalInRecordTabUseCase
-        self.deleteRecordUseCase = deleteRecordUseCase
+        self.getRecordsUseCase = getRecordsOfGoalInRecordTabUseCase
         self.getNoSecondEmotionRecordsUseCase = getNoSecondEmotionRecordsUseCase
-    }
-    
-    @discardableResult
-    func transform(_ input: Input) -> Output{
-        
-//        let getGoalsResponse = getGoalsUseCase.execute()
-            
-        input.selectedGoalIndex
-            .subscribe{ [weak self] in
-                self?.selectedGoalIndex = $0
-                self?.initializeStateAndRequestRecord()
-            }.disposed(by: disposeBag)
-        
-        
-        return Output()
     }
     
     func deleteGoal() {
@@ -92,62 +49,18 @@ final class RecordTabViewModel: ReviewViewModelInterface, NoSecondEmotionViewMod
             .subscribe{ [weak self] in
                 if $0 == .success {
                     self?.goals.remove(at: self?.selectedGoalIndex ?? 0)
-                    self?.deleteGoalSubject.onNext(Void())
                     self?.changeGoalSelect.onNext(Void())
                 }
             }
     }
-    func deleteRecord(index: Int) {
-        deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: records[index].id))
-            .subscribe{ [weak self] in
-                if $0 == .success {
-                    self?.records.remove(at: index)
-                    self?.deleteRecordSubject.onNext(index)
-                }
-            }.disposed(by: disposeBag)
-    }
     
-    func modifyRecord(_ record: RecordResponseModel, index: Int){
-        records[index] = record
-        modifyRecordSubject.onNext(index)
-    }
-    
-}
-
-extension RecordTabViewModel {
-    func refreshData(){
-        getGoalsUseCase.execute()
-            .subscribe(onNext: { [weak self] goals in
-                self?.goals = goals.filter{ !$0.isEnd }
-                self?.initializeStateAndRequestRecord()
-            }).disposed(by: disposeBag)
-    }
-    
-    private func initializeStateAndRequestRecord(){
-        hasNextPage = false
-        page = 0
-        canRequestRecord()
-    }
-    
-    private func canRequestRecord(){
-        //goal이 존재할 때만 기록 조회 요청
-        if goals.isEmpty {
-            records = []
-            reloadTableView.accept(Void())
-        } else if selectedGoalIndex >= goals.count { //현재 선택 중인 목표가 삭제되었을 경우, 목표 변경 VC으로 전달
-            changeGoalSelect.onNext(Void())
-        } else {
-            requestRecords()
-            requestNoSecondEmotionRecords()
-        }
-    }
-    
-    private func requestRecords(){
-        let recordResponse = getRecordsOfGoalInRecordTabUseCase
+    override func requestRecords(){
+        requestNoSecondEmotionRecords()
+        
+        let recordResponse = getRecordsUseCase
             .execute(id: goals[self.selectedGoalIndex].id, pageable: PageableModel(page: page))
             .share()
-        
-        
+
         recordResponse
             .do(onNext: {
                 self.hasNextPage = !$0.last
@@ -168,5 +81,5 @@ extension RecordTabViewModel {
                 self?.noSecondEmotionRecords = $0.content.count
             }.disposed(by: disposeBag)
     }
-
+    
 }

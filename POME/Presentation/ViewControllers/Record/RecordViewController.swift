@@ -18,9 +18,6 @@ class RecordViewController: BaseTabViewController {
         goalRelay.value
     }
     
-    private let INFO_SECTION = 0
-    private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
-    
     private var goalCategoryTableViewCell: GoalCategoryTableViewCell?{
         recordView.recordTableView.cellForRow(at: [INFO_SECTION,0], cellType: GoalCategoryTableViewCell.self)
     }
@@ -29,15 +26,14 @@ class RecordViewController: BaseTabViewController {
         return indexPath.row - 3
     }
     
+    // Properties
     
+    private let INFO_SECTION = 0
+    private let COUNT_OF_NOT_RECORD_CELL = 3 //record 이외 UI 구성하는 cell 3개 존재
+
     // GetGoal control
     private var isFirstLoad = true
-    // Goal Content
-    var goalContent: [GoalResponseModel] = []
-//    var categorySelectedIdx = 0
-    // Records
-    var recordsOfGoal: [RecordResponseModel] = []
-    var noSecondEmotionRecords: [RecordResponseModel] = []
+    
     // Page
     var recordPage: Int?
     // Cell Height
@@ -45,6 +41,8 @@ class RecordViewController: BaseTabViewController {
     // Refresh Control
     var refreshControl = UIRefreshControl()
 
+    
+    // Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.refreshData()
@@ -57,6 +55,7 @@ class RecordViewController: BaseTabViewController {
         recordView.recordTableView.delegate = self
         recordView.recordTableView.dataSource = self
     }
+    
     override func layout() {
         super.layout()
         
@@ -75,6 +74,7 @@ class RecordViewController: BaseTabViewController {
             make.top.equalTo(super.navigationView.snp.bottom)
         }
     }
+    
     override func initialize() {
         super.initialize()
         
@@ -258,23 +258,6 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-//        goalRelay.accept(indexPath.row)
-        
-        // 기간이 지난 목표
-//        if isGoalDateEnd(goalContent[itemIdx]) || self.noSecondEmotionRecords.count != 0 {self.showNoSecondEmotionWarning()}
-        
-        // 목표에 저장된 씀씀이 조회
-//        self.recordPage = 0
-//        self.recordsOfGoal.removeAll()
-//        getRecordsOfGoal(id: goalContent[itemIdx].id)
-//        getNoSecondEmotionRecords(id: goalContent[itemIdx].id)
-//
-//        self.recordView.recordTableView.reloadData()
-        
-//        return true
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.cellForItem(at: indexPath, cellType: GoalTagCollectionViewCell.self)?.do{
             $0.setSelectState()
@@ -406,7 +389,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: - Record Cell delegate
 extension RecordViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
-        let data = recordsOfGoal[dataIndexBy(indexPath)].friendReactions
+        let data = viewModel.records[dataIndexBy(indexPath)].friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
     }
     
@@ -460,111 +443,3 @@ extension RecordViewController {
         }
     }
 }
-////MARK: - API
-//extension RecordViewController {
-//    // MARK: 목표 리스트 조회 API
-//    func requestGetGoals(){
-//        // api 호출할 때마다 Goal 배열 초기화
-//        self.goalContent.removeAll()
-//        GoalService.shared.getUserGoals{ result in
-//            defer{
-//                self.isFirstLoad = false
-//            }
-//            switch result{
-//            case .success(let data):
-//                print("success goal:", data.content)
-//                for x in data.content {
-//                    if !x.isEnd {
-//                        self.goalContent.append(x)
-//                    }
-//                }
-//                // 목표에 맞는 기록들 조회
-//                if !self.goalContent.isEmpty {
-//                    // 기록 초기화 후 다시 호출
-//                    self.recordPage = 0
-//                    self.recordsOfGoal.removeAll()
-//                    self.getRecordsOfGoal(id: self.goalContent[self.selectedGoalIndex].id)
-//                }
-//
-//                if let cell = self.recordView.recordTableView.cellForRow(at: [0,0]) as? GoalCategoryTableViewCell {
-//                    cell.goalCollectionView.reloadData()
-//                    self.recordView.recordTableView.reloadData()
-//                }
-//                self.refreshControl.endRefreshing()
-//                break
-//            default:
-//                print(result)
-//                NetworkAlert.show(in: self){ [weak self] in
-//                    self?.requestGetGoals()
-//                }
-//                break
-//            }
-//        }
-//    }
-//    // MARK: 목표 삭제 API
-//    private func deleteGoal(id: Int){
-//        GoalService.shared.deleteGoal(id: id) { result in
-//            switch result{
-//            case .success(let data):
-//                if data.success {
-//                    print("목표 삭제 성공")
-//                    self.selectedGoalIndex = 0
-//                    self.requestGetGoals()
-//                    GoalObserver.shared.deleteGoal.onNext(Void())
-//                }
-//                break
-//            default:
-//                print(result)
-//                break
-//            }
-//        }
-//    }
-//    // MARK: 목표에 해당하는 기록 조회 API
-//    private func getRecordsOfGoal(id: Int) {
-//        let pageModel = PageableModel(page: self.recordPage ?? 0)
-//        RecordService.shared.getRecordsOfGoalAtRecordTab(id: id, pageable: pageModel) { result in
-//            switch result{
-//            case .success(let data):
-////                print("LOG: 씀씀이 조회", data)
-//                // Paging 때문에 append하는 방식으로 작업
-//                for recordData in data.content {
-//                    self.recordsOfGoal.append(recordData)
-//                }
-//                self.getNoSecondEmotionRecords(id: id)
-//
-//                break
-//            default:
-//                print(result)
-//                NetworkAlert.show(in: self){ [weak self] in
-//                    self?.getRecordsOfGoal(id: id)
-//                }
-//                break
-//            }
-//
-//        }
-//    }
-//    // MARK: 기록 삭제 API
-//    private func deleteRecord(id: Int) {
-//        RecordService.shared.deleteRecord(id: id) { result in
-//            print("기록 삭제 성공")
-//            self.requestGetGoals()
-//        }
-//    }
-//    // MARK: 일주일이 지났고, 두 번째 감정이 없는 기록 조회 API
-//    private func getNoSecondEmotionRecords(id: Int) {
-//        RecordService.shared.getNoSecondEmotionRecords(id: id) { result in
-//            switch result{
-//            case .success(let data):
-////                print("LOG: 일주일이 지났고, 두 번째 감정이 없는 기록 조회", data)
-//
-//                self.noSecondEmotionRecords = data.content
-//                self.recordView.recordTableView.reloadData()
-//
-//                break
-//            default:
-//                print(result)
-//                break
-//            }
-//        }
-//    }
-//}
