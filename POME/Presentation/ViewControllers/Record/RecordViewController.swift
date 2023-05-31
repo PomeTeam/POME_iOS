@@ -157,7 +157,7 @@ class RecordViewController: BaseTabViewController {
     }
     
     private func showEmptyView(){
-        viewModel.records.isEmpty || viewModel.records.isEmpty
+        viewModel.records.isEmpty
         ? EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
         : EmptyView(self.recordView.recordTableView).hideEmptyView()
     }
@@ -177,7 +177,7 @@ class RecordViewController: BaseTabViewController {
          7일 이전 기록은 없으나 2차감정 기록을 하지 않았을 때 -> 아직 돌아보지 않은 기록이 있어요 바텀시트 띄우기 & 종료 페이지 진입 불가
          모든 감정기록 완료했을 때 -> 종료페이지 진입
          */
-        let isSecondEmotionNeeded = !viewModel.records.isEmpty || !(viewModel.noSecondEmotionRecords == 0)
+        let isSecondEmotionNeeded = !viewModel.records.isEmpty || !(viewModel.noSecondEmotionRecordsCount == 0)
         isSecondEmotionNeeded ? showNoSecondEmotionWarning() : moveToAllRecords(sender)
     }
     @objc func addGoalButtonDidTap() {
@@ -251,7 +251,7 @@ extension RecordViewController: UICollectionViewDelegate, UICollectionViewDataSo
         let itemIdx = indexPath.row
         cell.title = viewModel.goals[itemIdx].name
         
-        if itemIdx == self.selectedGoalIndex {cell.setSelectState()}
+        if itemIdx == viewModel.selectedGoalIndex {cell.setSelectState()}
         else if viewModel.goals[itemIdx].isGoalEnd {cell.setInactivateState()} // 기한이 지난 목표일 때
         else {cell.setUnselectState()}
         
@@ -297,11 +297,11 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = viewModel.records.count
-        if count == 0 {
-            EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
-        } else {
-            EmptyView(self.recordView.recordTableView).hideEmptyView()
-        }
+//        if count == 0 {
+//            EmptyView(self.recordView.recordTableView).showEmptyView(Image.noting, "기록한 씀씀이가 없어요")
+//        } else {
+//            EmptyView(self.recordView.recordTableView).hideEmptyView()
+//        }
         return count + COUNT_OF_NOT_RECORD_CELL
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -322,15 +322,18 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag == 2 && !viewModel.goals.isEmpty {
-            let vc = RecordEmotionViewController()
-            vc.goalContent = viewModel.goals[self.selectedGoalIndex]
-            self.navigationController?.pushViewController(vc, animated: true)
-        } else if tag > 2 {
-             cannotAddEmotionWarning()
-        }
+        if tag == 2 && !viewModel.goals.isEmpty {moveToSecondEmotionRecords()}
+        else if tag > 2 {cannotAddEmotionWarning()}
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // 일주일이 지났고, 두번째 감정을 남기지 않은 기록 페이지 이동
+    private func moveToSecondEmotionRecords() {
+        let vc = RecordEmotionViewController()
+        vc.goalContent = viewModel.goals[selectedGoalIndex]
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func getGoalTableViewCell(indexPath: IndexPath) -> GoalTableViewCell{
@@ -381,7 +384,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func getNoSecondEmotionRecordsTableViewCell(indexPath: IndexPath) -> GoEmotionBannerTableViewCell{
         recordView.recordTableView.dequeueReusableCell(for: indexPath, cellType: GoEmotionBannerTableViewCell.self).then{
-            $0.bindingData(viewModel.noSecondEmotionRecords)
+            $0.bindingData(viewModel.noSecondEmotionRecordsCount)
             $0.selectionStyle = .none
         }
     }

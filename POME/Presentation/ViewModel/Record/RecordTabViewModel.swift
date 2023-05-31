@@ -17,8 +17,8 @@ import RxCocoa
  일주일이 지났고 두번째 감정이 필요한 기록 조회
  */
 
-protocol NoSecondEmotionRecordViewModelInterface {
-    var noSecondEmotionRecords: Int { get }
+protocol NoSecondEmotionRecordCountViewModelInterface {
+    var noSecondEmotionRecordsCount: Int { get }
 }
 
 //protocol RecordTabViewModelInterface: BaseViewModel, ModifyRecordInterface {
@@ -26,9 +26,9 @@ protocol NoSecondEmotionRecordViewModelInterface {
 //    var records: [RecordResponseModel] { get }
 //}
 
-final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionRecordViewModelInterface {
+final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionRecordCountViewModelInterface {
     
-    internal var noSecondEmotionRecords: Int = 0
+    internal var noSecondEmotionRecordsCount: Int = 0
 
     private let deleteGoalUseCase: DeleteGoalUseCaseInterface
     private let getRecordsUseCase: GetRecordsOfGoalInRecordTabUseCaseInterface
@@ -78,7 +78,7 @@ final class RecordTabViewModel: GoalWithRecordViewModel, NoSecondEmotionRecordVi
         getNoSecondEmotionRecordsUseCase
             .execute(id: goals[self.selectedGoalIndex].id)
             .subscribe { [weak self] in
-                self?.noSecondEmotionRecords = $0.content.count
+                self?.noSecondEmotionRecordsCount = $0.content.count
             }.disposed(by: disposeBag)
     }
     
