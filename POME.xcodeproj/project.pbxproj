@@ -19,6 +19,7 @@
 		2308C5BF29B38B4D0046A76C /* OpenSourceLicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2308C5BE29B38B4D0046A76C /* OpenSourceLicenseViewController.swift */; };
 		230FD70F298626FA0043F6DA /* StatusResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD70E298626FA0043F6DA /* StatusResponseModel.swift */; };
 		230FD7112986279A0043F6DA /* GoalResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230FD7102986279A0043F6DA /* GoalResponseModel.swift */; };
+		23115DD72A2D6F270024D6CF /* SelectEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DD62A2D6F270024D6CF /* SelectEmotionView.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C1C892990CCEA0087B81A /* DeleteUserViewController.swift */; };
@@ -308,6 +309,7 @@
 		2308C5BE29B38B4D0046A76C /* OpenSourceLicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceLicenseViewController.swift; sourceTree = "<group>"; };
 		230FD70E298626FA0043F6DA /* StatusResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusResponseModel.swift; sourceTree = "<group>"; };
 		230FD7102986279A0043F6DA /* GoalResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalResponseModel.swift; sourceTree = "<group>"; };
+		23115DD62A2D6F270024D6CF /* SelectEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEmotionView.swift; sourceTree = "<group>"; };
 		2323CBC8299E70A7005C177B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
@@ -856,6 +858,7 @@
 			isa = PBXGroup;
 			children = (
 				23B3B7DE29319425008CB960 /* SecondEmotionView.swift */,
+				23115DD62A2D6F270024D6CF /* SelectEmotionView.swift */,
 			);
 			path = SecondEmotion;
 			sourceTree = "<group>";
@@ -2184,6 +2187,7 @@
 				57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionView.swift in Sources */,
 				232C1C922990CE850087B81A /* DeleteUserTableViewCell.swift in Sources */,
 				5724EC4A291644AE00DC529B /* Image.swift in Sources */,
+				23115DD72A2D6F270024D6CF /* SelectEmotionView.swift in Sources */,
 				EE39696329DAA143003F655F /* ReviewViewController.swift in Sources */,
 				57CCA76529265924007E22D1 /* ReactionStyle.swift in Sources */,
 				EE7D35EA29D5A16300D2AD60 /* ReviewViewModel.swift in Sources */,

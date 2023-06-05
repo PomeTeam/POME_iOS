@@ -16,9 +16,9 @@ class RegisterCommonTitleView: BaseView{
     }
     
     let subtitleLabel = UILabel().then{
-        $0.setTypoStyleWithSingleLine(typoStyle: .subtitle2)
+        $0.setTypoStyleWithMultiLine(typoStyle: .subtitle2)
         $0.textColor = Color.grey5
-        $0.numberOfLines = 1
+        $0.numberOfLines = 0
     }
     
     init(){
