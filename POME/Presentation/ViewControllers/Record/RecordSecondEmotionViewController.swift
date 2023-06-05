@@ -147,8 +147,7 @@ extension RecordSecondEmotionViewController: UITableViewDelegate, UITableViewDat
     }
     
     private func moveToSelectSecondEmotion(indexPath: IndexPath) {
-        let vc = SecondEmotionViewController()
-        vc.recordId = viewModel.records[dataIndexBy(indexPath)].id
+        let vc = PostSecondEmotionViewController(recordId: viewModel.records[dataIndexBy(indexPath)].id)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

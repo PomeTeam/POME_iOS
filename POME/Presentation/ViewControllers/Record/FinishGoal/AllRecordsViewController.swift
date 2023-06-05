@@ -133,8 +133,7 @@ extension AllRecordsViewController: UITableViewDelegate, UITableViewDataSource {
        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = SecondEmotionViewController()
-        vc.recordId = self.recordsOfGoal[indexPath.item].id
+        let vc = PostSecondEmotionViewController(recordId: recordsOfGoal[indexPath.item].id)
         self.navigationController?.pushViewController(vc, animated: true)
         
         tableView.deselectRow(at: indexPath, animated: true)

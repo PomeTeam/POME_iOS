@@ -99,4 +99,19 @@ class RecordRepository: RecordRepositoryInterface{
         }
         return observable
     }
+    
+    func postSecondEmotion(id: Int, requestValue: RecordSecondEmotionRequestModel) -> Observable<BaseResponseStatus> {
+        let observable = Observable<BaseResponseStatus>.create { observer -> Disposable in
+            let requestReference: () = RecordService.shared.postSecondEmotion(id: id, param: requestValue) { response in
+                switch response {
+                case .success:
+                    observer.onNext(.success)
+                default:
+                    break
+                }
+            }
+            return Disposables.create(with: { requestReference })
+        }
+        return observable
+    }
 }
