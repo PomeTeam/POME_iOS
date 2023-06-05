@@ -161,37 +161,41 @@ extension RecordSecondEmotionViewController: RecordCellDelegate{
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
+            $0.addAction(generateModifyAction($0, indexPath: indexPath))
+            $0.addAction(generateDeleteAction($0, indexPath: indexPath))
+            $0.addAction(generateCancelAction())
+        }
+        present(alert, animated: true)
+    }
+    private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
         let recordIndex = dataIndexBy(indexPath)
-
-        let alert = UIAlertController(title: nil,
-                                      message: nil,
-                                      preferredStyle: .actionSheet)
         
-        let editAction = UIAlertAction(title: "수정하기", style: .default){ _ in
+        return UIAlertAction(title: "수정하기", style: .default){ [self] _ in
             alert.dismiss(animated: true)
-            
-            let vc = ModifyRecordViewController(goal: self.goalContent,
-                                                record: self.viewModel.records[recordIndex])
-            
+            let vc = ModifyRecordViewController(goal: goalContent,
+                                                record: viewModel.records[recordIndex])
             vc.completion = {
                 self.viewModel.records[recordIndex] = $0
                 self.recordEmotionView.recordEmotionTableView.reloadRows(at: [indexPath], with: .none)
             }
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+    }
+    private func generateDeleteAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        let recordIndex = dataIndexBy(indexPath)
+        
+        return UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
-            let alert = ImageAlert.deleteRecord.generateAndShow(in: self)
-            alert.completion = {
-                self.viewModel.deleteRecord(index: recordIndex)
+            ImageAlert.deleteRecord.generateAndShow(in: self).do{
+                $0.completion = {
+                    self.viewModel.deleteRecord(index: recordIndex)
+                }
             }
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        alert.addAction(editAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-             
-        self.present(alert, animated: true)
+    }
+    
+    private func generateCancelAction() -> UIAlertAction{
+        return UIAlertAction(title: "취소", style: .cancel, handler: nil)
     }
 }
