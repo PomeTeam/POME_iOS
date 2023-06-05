@@ -54,7 +54,7 @@
 		2375E48E2A20409300843056 /* GetMarshmallowsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E48D2A20409200843056 /* GetMarshmallowsUseCase.swift */; };
 		2375E4902A2040FC00843056 /* MarshmallowRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */; };
 		2375E4922A20415B00843056 /* MarshmallowRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2375E4912A20415B00843056 /* MarshmallowRepository.swift */; };
-		237CDEE12A27604100B3010F /* NoSecondEmotionRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CDEE02A27604100B3010F /* NoSecondEmotionRecordViewModel.swift */; };
+		237CDEE12A27604100B3010F /* RecordSecondEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */; };
 		23808775291B3ACF00072763 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808774291B3ACF00072763 /* RegisterViewController.swift */; };
 		23808777291B404A00072763 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23808776291B404A00072763 /* UITextField.swift */; };
 		2380877B291B445100072763 /* DefaultButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2380877A291B445100072763 /* DefaultButton.swift */; };
@@ -64,7 +64,7 @@
 		23816885292EDE5100579DD4 /* SubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23816884292EDE5000579DD4 /* SubmitViewController.swift */; };
 		23858E5A292B6E4100707572 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E59292B6E4100707572 /* TermsViewController.swift */; };
 		23858E5C292B6E6B00707572 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23858E5B292B6E6B00707572 /* TermsView.swift */; };
-		2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */; };
+		2385A8CB292C5247003A62EA /* RecordSecondEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CA292C5247003A62EA /* RecordSecondEmotionViewController.swift */; };
 		2385A8CD292C5274003A62EA /* RecordEmotionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CC292C5274003A62EA /* RecordEmotionView.swift */; };
 		2385A8CF292C53B2003A62EA /* RecordEmotionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */; };
 		2385A8D1292C58F9003A62EA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2385A8D0292C58F9003A62EA /* EmptyView.swift */; };
@@ -344,7 +344,7 @@
 		2375E48D2A20409200843056 /* GetMarshmallowsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMarshmallowsUseCase.swift; sourceTree = "<group>"; };
 		2375E48F2A2040FC00843056 /* MarshmallowRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowRepositoryInterface.swift; sourceTree = "<group>"; };
 		2375E4912A20415B00843056 /* MarshmallowRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarshmallowRepository.swift; sourceTree = "<group>"; };
-		237CDEE02A27604100B3010F /* NoSecondEmotionRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSecondEmotionRecordViewModel.swift; sourceTree = "<group>"; };
+		237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSecondEmotionViewModel.swift; sourceTree = "<group>"; };
 		23808774291B3ACF00072763 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		23808776291B404A00072763 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		2380877A291B445100072763 /* DefaultButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButton.swift; sourceTree = "<group>"; };
@@ -354,7 +354,7 @@
 		23816884292EDE5000579DD4 /* SubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitViewController.swift; sourceTree = "<group>"; };
 		23858E59292B6E4100707572 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		23858E5B292B6E6B00707572 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
-		2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionViewController.swift; sourceTree = "<group>"; };
+		2385A8CA292C5247003A62EA /* RecordSecondEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordSecondEmotionViewController.swift; sourceTree = "<group>"; };
 		2385A8CC292C5274003A62EA /* RecordEmotionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionView.swift; sourceTree = "<group>"; };
 		2385A8CE292C53B2003A62EA /* RecordEmotionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordEmotionTableViewCell.swift; sourceTree = "<group>"; };
 		2385A8D0292C58F9003A62EA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -1141,7 +1141,7 @@
 				23816886292EDE6800579DD4 /* FinishGoal */,
 				23A17C55292BD3A300426825 /* BottomSheetViewControllers */,
 				5724EC582917734C00DC529B /* RecordViewController.swift */,
-				2385A8CA292C5247003A62EA /* RecordEmotionViewController.swift */,
+				2385A8CA292C5247003A62EA /* RecordSecondEmotionViewController.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -1608,7 +1608,7 @@
 			children = (
 				EE7D35D629D5A16300D2AD60 /* Register */,
 				23431C2F2A24262B00571286 /* RecordTabViewModel.swift */,
-				237CDEE02A27604100B3010F /* NoSecondEmotionRecordViewModel.swift */,
+				237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -2178,7 +2178,7 @@
 				EE98F0DD2980EFE0007BFCCD /* UserRouter.swift in Sources */,
 				23F5782C292D4329002DD28E /* MypageMarshmallowTableViewCell.swift in Sources */,
 				5724EC2D29162B3500DC529B /* UIFont.swift in Sources */,
-				237CDEE12A27604100B3010F /* NoSecondEmotionRecordViewModel.swift in Sources */,
+				237CDEE12A27604100B3010F /* RecordSecondEmotionViewModel.swift in Sources */,
 				EE9B05302994B09D00068503 /* NetworkErrorAlertViewController.swift in Sources */,
 				EEC28CB429D30B770075CD4C /* KeyboardController.swift in Sources */,
 				57CCA7C5292EEB55007E22D1 /* RecordFirstEmotionView.swift in Sources */,
@@ -2236,7 +2236,7 @@
 				EEC28CBC29D30C8C0075CD4C /* FriendRepository.swift in Sources */,
 				EE4CEA562A00AEDD002BF87E /* ResponseStatus.swift in Sources */,
 				EEC28CC429D30D250075CD4C /* GenerateRecordUseCase.swift in Sources */,
-				2385A8CB292C5247003A62EA /* RecordEmotionViewController.swift in Sources */,
+				2385A8CB292C5247003A62EA /* RecordSecondEmotionViewController.swift in Sources */,
 				2380877B291B445100072763 /* DefaultButton.swift in Sources */,
 				23061242292B51C800662007 /* AppRegisterView.swift in Sources */,
 				EE98F0E42980F036007BFCCD /* SMSService.swift in Sources */,

@@ -15,12 +15,12 @@ import RxCocoa
  기록 수정
  */
 
-protocol NoSecondEmotionRecordViewModelInterface: BaseViewModel, ModifyRecordInterface {
+protocol RecordSecondEmotionViewModelInterface: BaseViewModel, ModifyRecordInterface {
     var records: [RecordResponseModel] { get }
 }
 
 
-final class NoSecondEmotionRecordViewModel: NoSecondEmotionRecordViewModelInterface, DeleteRecord {
+final class RecordSecondEmotionViewModel: RecordSecondEmotionViewModelInterface, DeleteRecord {
     
     private let deleteRecordUseCase: DeleteRecordUseCaseInterface
     private let getNoSecondEmotionRecordsUseCase: GetNoSecondEmotionRecordsUseCaseInterface
@@ -82,7 +82,7 @@ final class NoSecondEmotionRecordViewModel: NoSecondEmotionRecordViewModelInterf
     
 }
 
-extension NoSecondEmotionRecordViewModel {
+extension RecordSecondEmotionViewModel {
     func deleteRecord(index: Int) {
         deleteRecordUseCase.execute(requestValue: DeleteRecordRequestModel(recordId: records[index].id))
             .subscribe{ [weak self] in

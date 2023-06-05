@@ -330,7 +330,7 @@ extension RecordViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 일주일이 지났고, 두번째 감정을 남기지 않은 기록 페이지 이동
     private func moveToSecondEmotionRecords() {
-        let vc = RecordEmotionViewController()
+        let vc = RecordSecondEmotionViewController()
         vc.goalContent = viewModel.goals[selectedGoalIndex]
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -397,21 +397,28 @@ extension RecordViewController: RecordCellDelegate{
     }
     
     func presentEtcActionSheet(indexPath: IndexPath) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then{
+            $0.addAction(generateModifyAction($0, indexPath: indexPath))
+            $0.addAction(generateDeleteAction($0, indexPath: indexPath))
+            $0.addAction(generateCancelAction())
+        }
+        present(alert, animated: true)
+    }
+    private func generateModifyAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
         let recordIndex = dataIndexBy(indexPath)
-
-        let alert = UIAlertController(title: nil,
-                                      message: nil,
-                                      preferredStyle: .actionSheet)
         
-        let editAction = UIAlertAction(title: "수정하기", style: .default){ [self] _ in
+        return UIAlertAction(title: "수정하기", style: .default){ [self] _ in
             alert.dismiss(animated: true)
             let vc = ModifyRecordViewController(modifyViewModel: viewModel,
                                                 index: recordIndex,
                                                 goal: viewModel.goals[recordIndex])
-            
-            self.navigationController?.pushViewController(vc, animated: true)
+            navigationController?.pushViewController(vc, animated: true)
         }
-        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { _ in
+    }
+    private func generateDeleteAction(_ alert: UIAlertController, indexPath: IndexPath) -> UIAlertAction{
+        let recordIndex = dataIndexBy(indexPath)
+        
+        return UIAlertAction(title: "삭제하기", style: .default) { _ in
             alert.dismiss(animated: true)
             ImageAlert.deleteRecord.generateAndShow(in: self).do{
                 $0.completion = {
@@ -419,13 +426,10 @@ extension RecordViewController: RecordCellDelegate{
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-        
-        alert.addAction(editAction)
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-             
-        self.present(alert, animated: true)
+    }
+    
+    private func generateCancelAction() -> UIAlertAction{
+        return UIAlertAction(title: "취소", style: .cancel, handler: nil)
     }
 }
 // MARK: - Refresh Control

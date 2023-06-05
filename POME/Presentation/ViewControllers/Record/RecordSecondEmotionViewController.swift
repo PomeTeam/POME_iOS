@@ -10,9 +10,9 @@ import RxSwift
 import RxCocoa
 
 
-class RecordEmotionViewController: BaseViewController {
+class RecordSecondEmotionViewController: BaseViewController {
     var recordEmotionView = RecordEmotionView()
-    let viewModel = NoSecondEmotionRecordViewModel()
+    let viewModel = RecordSecondEmotionViewModel()
     
     var dataIndexBy: (IndexPath) -> Int = { indexPath in
         return indexPath.row - 1
@@ -82,7 +82,7 @@ class RecordEmotionViewController: BaseViewController {
             }.disposed(by: disposeBag)
         
         
-        viewModel.transform(NoSecondEmotionRecordViewModel.Input(goal: goalRelay.asObservable()))
+        viewModel.transform(RecordSecondEmotionViewModel.Input(goal: goalRelay.asObservable()))
         
     }
     
@@ -105,7 +105,7 @@ class RecordEmotionViewController: BaseViewController {
 //    }
 }
 // MARK: - TableView delegate
-extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSource {
+extension RecordSecondEmotionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return COUNT_OF_NOT_RECORD_CELL + viewModel.records.count
     }
@@ -154,7 +154,7 @@ extension RecordEmotionViewController: UITableViewDelegate, UITableViewDataSourc
     
 }
 // MARK: - Record Cell delegate
-extension RecordEmotionViewController: RecordCellDelegate{
+extension RecordSecondEmotionViewController: RecordCellDelegate{
     func presentReactionSheet(indexPath: IndexPath) {
         let data = viewModel.records[dataIndexBy(indexPath)].friendReactions
         FriendReactionSheetViewController(reactions: data).show(in: self)
