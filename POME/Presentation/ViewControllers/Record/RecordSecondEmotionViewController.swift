@@ -129,13 +129,7 @@ extension RecordSecondEmotionViewController: UITableViewDelegate, UITableViewDat
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let tag = indexPath.row
-        if tag > 0 {
-            let vc = SecondEmotionViewController()
-            vc.recordId = viewModel.records[dataIndexBy(indexPath)].id
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        tag > 0 ? moveToSelectSecondEmotion(indexPath: indexPath) : tableView.deselectRow(at: indexPath, animated: true)
     }
     
     private func getGoalTableViewCell(indexPath: IndexPath) -> RecordEmotionTableViewCell{
@@ -150,6 +144,12 @@ extension RecordSecondEmotionViewController: UITableViewDelegate, UITableViewDat
             $0.delegate = self
             $0.bindingData(with: viewModel.records[dataIndexBy(indexPath)])
         }
+    }
+    
+    private func moveToSelectSecondEmotion(indexPath: IndexPath) {
+        let vc = SecondEmotionViewController()
+        vc.recordId = viewModel.records[dataIndexBy(indexPath)].id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }
