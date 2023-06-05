@@ -18,9 +18,9 @@ final class RecordFirstEmotionViewController: BaseViewController{
         super.init(nibName: nil, bundle: nil)
     }
     
-    private typealias emotionViewType = RecordFirstEmotionView.FirstEmotionView
+    private typealias emotionViewType = SelectEmotionView.EmotionElementView
     
-    private let mainView = RecordFirstEmotionView()
+    private let mainView = SelectEmotionView(type: .First)
     private let viewModel = RecordFirstEmotionViewModel()
     
     

@@ -31,7 +31,6 @@ final class PostSecondEmotionViewController: BaseViewController{
     
     override func style(){
         super.style()
-        setEtcButton(title: "닫기")
     }
     
     override func layout(){
@@ -78,17 +77,6 @@ final class PostSecondEmotionViewController: BaseViewController{
             }
         }).disposed(by: disposeBag)
         
-        etcButton.rx.tap
-            .bind{ [weak self] in
-                self?.closeButtonDidClicked()
-            }.disposed(by: disposeBag)
     }
     
-    private func closeButtonDidClicked(){
-        ImageAlert.quitRecord.generateAndShow(in: self).do{
-            $0.completion = { [weak self] in
-                self?.navigationController?.popToRootViewController(animated: true)
-            }
-        }
-    }
 }

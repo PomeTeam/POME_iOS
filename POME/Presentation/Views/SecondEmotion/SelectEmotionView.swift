@@ -9,9 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 
+enum SelectEmotionType {
+    case First
+    case Second
+}
+
 class SelectEmotionView: BaseView {
-    let titleView = RegisterCommonTitleView(title: "일주일이 지난 오늘의\n솔직한 감정을 남겨주세요",
-                                         subtitle: "포미는 순간의 감정에 집중해\n한번 기록된 감정은 바꿀 수 없어요")
+    var titleView: RegisterCommonTitleView
     
     let emotionStackView = UIStackView().then{
         $0.spacing = Device.isSmallDevice ? 32 : 40
@@ -26,6 +30,15 @@ class SelectEmotionView: BaseView {
     }
     
     init(type: SelectEmotionType) {
+        switch type {
+        case .First:
+            titleView = RegisterCommonTitleView(title: "소비한 순간의 \n솔직한 감정을 남겨주세요",
+                                                subtitle: "포미는 순간의 감정에 집중해\n한번 기록된 감정은 바꿀 수 없어요")
+        case .Second:
+            titleView = RegisterCommonTitleView(title: "일주일이 지난 오늘의\n솔직한 감정을 남겨주세요",
+                                                subtitle: "포미는 순간의 감정에 집중해\n한번 기록된 감정은 바꿀 수 없어요")
+        }
+        
         happyEmotionView = EmotionElementView.generateWithInfo(type: type, emotion: .happy)
         whatEmotionView = EmotionElementView.generateWithInfo(type: type, emotion: .what)
         sadEmotionView = EmotionElementView.generateWithInfo(type: type, emotion: .sad)
@@ -69,11 +82,6 @@ class SelectEmotionView: BaseView {
         }
     }
 
-}
-
-enum SelectEmotionType {
-    case First
-    case Second
 }
 
 extension SelectEmotionView{
