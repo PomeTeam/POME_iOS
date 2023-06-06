@@ -10,6 +10,14 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+/*
+     * 감정 남길 때 공통되는 부분
+     1) Input (happyEmotionSelect, whatEmotionSelect, sadEmotionSelect, ctaButtonTap)
+     2) Output (deselectEmotion, selectEmotion, ctaButtonActivate, registerStatusCode)
+ 
+     * 다른 부분
+     register logic -> Override
+ */
 
 class SelectEmotionViewModel{
     
@@ -62,7 +70,7 @@ class SelectEmotionViewModel{
                       registerStatusCode: registerStatusCode)
     }
     
-    func setEmotionSubjects(_ happyEmotionSelect: TapObservable, _ whatEmotionSelect: TapObservable, _ sadEmotionSelect:TapObservable) {
+    private func setEmotionSubjects(_ happyEmotionSelect: TapObservable, _ whatEmotionSelect: TapObservable, _ sadEmotionSelect:TapObservable) {
         happyEmotionSelect
             .subscribe(onNext: { [weak self] _ in
                 self?.emotionSubject.onNext(EmotionTag.happy.tagBinding)
@@ -79,21 +87,21 @@ class SelectEmotionViewModel{
             }).disposed(by: disposeBag)
     }
     
-    func getDeselectEmotion(_ emotionStorage: Observable<(Int?, Int?)>) -> Driver<Int> {
+    private func getDeselectEmotion(_ emotionStorage: Observable<(Int?, Int?)>) -> Driver<Int> {
         let deselectEmotion = emotionStorage
             .compactMap{
                 $0.0
             }.asDriver(onErrorJustReturn: -1)
         return deselectEmotion
     }
-    func getSelectEmotion(_ emotionStorage: Observable<(Int?, Int?)>) -> Driver<Int> {
+    private func getSelectEmotion(_ emotionStorage: Observable<(Int?, Int?)>) -> Driver<Int> {
         let selectEmotion = emotionStorage
             .compactMap{
                 $0.1
             }.asDriver(onErrorJustReturn: -1)
         return selectEmotion
     }
-    func getCTAButtonActivate(_ emotionSubject: PublishSubject<Int>) -> Driver<Bool> {
+    private func getCTAButtonActivate(_ emotionSubject: PublishSubject<Int>) -> Driver<Bool> {
         let ctaButtonActivate = emotionSubject
             .first()
             .map { _ in true }

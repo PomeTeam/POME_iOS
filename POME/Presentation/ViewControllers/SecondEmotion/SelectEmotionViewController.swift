@@ -24,6 +24,19 @@ class SelectEmotionViewController: BaseViewController{
     
     private typealias emotionViewType = SelectEmotionView.EmotionElementView
     
+    // First Emotion -> recordDTO
+    init(type: SelectEmotionType, record: RecordDTO){
+        self.type = type
+        self.recordId = DEFAULT_INT
+        self.record = record
+        
+        mainView = SelectEmotionView(type: type)
+        viewModel = RecordFirstEmotionViewModel()
+        viewModel.record = record
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    // Second Emotion -> recordId
     init(type: SelectEmotionType, recordId: Int){
         self.type = type
         self.recordId = recordId
@@ -32,17 +45,6 @@ class SelectEmotionViewController: BaseViewController{
         mainView = SelectEmotionView(type: type)
         viewModel = PostSecondEmotionViewModel()
         viewModel.recordId = recordId
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    init(type: SelectEmotionType, record: RecordDTO){
-        self.type = type
-        self.recordId = DEFAULT_INT
-        self.record = record
-        
-        mainView = SelectEmotionView(type: type)
-        viewModel = SelectEmotionViewModel()
-        viewModel.record = record
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,6 +92,13 @@ class SelectEmotionViewController: BaseViewController{
             .drive(mainView.completeButton.rx.isActivate)
             .disposed(by: disposeBag)
         
+        registerCompletion(output)
+        
+    }
+    
+    // 첫 번째 감정을 남긴 이후 -> generateRecord 완료
+    // 두 번째 감정을 남긴 이후 -> registerSecondEmotion 완료
+    private func registerCompletion(_ output: SelectEmotionViewModel.Output) {
         switch type {
         case .First:
             output.registerStatusCode.drive(onNext: { [weak self] status in
@@ -111,9 +120,8 @@ class SelectEmotionViewController: BaseViewController{
                 }
             }).disposed(by: disposeBag)
         }
-        
-        
     }
+    
     private func closeButtonDidClicked(){
         if type == .First {
             ImageAlert.quitRecord.generateAndShow(in: self).do{

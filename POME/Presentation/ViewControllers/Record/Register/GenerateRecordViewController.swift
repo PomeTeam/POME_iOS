@@ -31,7 +31,8 @@ final class GenerateRecordViewController: Recordable{
         viewModel.controlEvent(mainView.completeButton.rx.tap)
             .drive(onNext: { [weak self] record in
                 if let record = record {
-                    self?.navigationController?.pushViewController(RecordFirstEmotionViewController(record: record), animated: true)
+                    let vc = SelectEmotionViewController(type: .First, record: record)
+                    self?.navigationController?.pushViewController(vc, animated: true)
                 }
             }).disposed(by: disposeBag)
     }

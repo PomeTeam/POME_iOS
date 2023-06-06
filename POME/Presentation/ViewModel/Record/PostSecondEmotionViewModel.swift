@@ -9,6 +9,9 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
+/*
+ SelectEmotionViewModel + recordId
+ */
 
 final class PostSecondEmotionViewModel: SelectEmotionViewModel {
     

@@ -17,7 +17,7 @@ struct GenerateRecordRequestModel: Encodable{
 }
 
 protocol GenerateRecordUseCaseInterface {
-    func execute(requestValue: GenerateRecordRequestModel) -> Observable<Int>
+    func execute(requestValue: GenerateRecordRequestModel) -> Observable<BaseResponseStatus>
 }
 
 final class GenerateRecordUseCase: GenerateRecordUseCaseInterface {
@@ -28,7 +28,7 @@ final class GenerateRecordUseCase: GenerateRecordUseCaseInterface {
         self.recordRepository = recordRepository
     }
 
-    func execute(requestValue: GenerateRecordRequestModel) -> Observable<Int> {
+    func execute(requestValue: GenerateRecordRequestModel) -> Observable<BaseResponseStatus> {
         return recordRepository.generateRecord(requestValue: requestValue)
     }
 }

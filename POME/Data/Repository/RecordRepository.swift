@@ -40,12 +40,12 @@ class RecordRepository: RecordRepositoryInterface{
         return observable
     }
     
-    func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<Int>{
-        let observable = Observable<Int>.create { observer -> Disposable in
+    func generateRecord(requestValue: GenerateRecordRequestModel) -> Observable<BaseResponseStatus>{
+        let observable = Observable<BaseResponseStatus>.create { observer -> Disposable in
             let requestReference: () = RecordService.shared.generateRecord(request: requestValue){ response in
                 switch response {
                 case .success:
-                    observer.onNext(200)
+                    observer.onNext(.success)
                 default:
                     break
                 }
