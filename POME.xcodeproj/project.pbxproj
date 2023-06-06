@@ -23,7 +23,7 @@
 		23115DD92A2D763C0024D6CF /* PostSecondEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DD82A2D763C0024D6CF /* PostSecondEmotionViewModel.swift */; };
 		23115DDB2A2D773F0024D6CF /* SelectSecondEmotionUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DDA2A2D773F0024D6CF /* SelectSecondEmotionUseCase.swift */; };
 		23115DDD2A2E0C220024D6CF /* SelectEmotionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DDC2A2E0C220024D6CF /* SelectEmotionViewController.swift */; };
-		23115DDF2A2E10B60024D6CF /* SelectEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DDE2A2E10B60024D6CF /* SelectEmotionViewModel.swift */; };
+		23115DE12A2F1B340024D6CF /* SelectEmotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23115DE02A2F1B340024D6CF /* SelectEmotionViewModel.swift */; };
 		232B2BDF292B80EB00FFDF8B /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BDE292B80EB00FFDF8B /* UILabel.swift */; };
 		232B2BE1292B861F00FFDF8B /* TermDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */; };
 		232C1C8A2990CCEA0087B81A /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232C1C892990CCEA0087B81A /* DeleteUserViewController.swift */; };
@@ -316,7 +316,7 @@
 		23115DD82A2D763C0024D6CF /* PostSecondEmotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSecondEmotionViewModel.swift; sourceTree = "<group>"; };
 		23115DDA2A2D773F0024D6CF /* SelectSecondEmotionUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectSecondEmotionUseCase.swift; sourceTree = "<group>"; };
 		23115DDC2A2E0C220024D6CF /* SelectEmotionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEmotionViewController.swift; sourceTree = "<group>"; };
-		23115DDE2A2E10B60024D6CF /* SelectEmotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEmotionViewModel.swift; sourceTree = "<group>"; };
+		23115DE02A2F1B340024D6CF /* SelectEmotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEmotionViewModel.swift; sourceTree = "<group>"; };
 		2323CBC8299E70A7005C177B /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		232B2BDE292B80EB00FFDF8B /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		232B2BE0292B861F00FFDF8B /* TermDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermDetailViewController.swift; sourceTree = "<group>"; };
@@ -1620,7 +1620,7 @@
 				23431C2F2A24262B00571286 /* RecordTabViewModel.swift */,
 				237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */,
 				23115DD82A2D763C0024D6CF /* PostSecondEmotionViewModel.swift */,
-				23115DDE2A2E10B60024D6CF /* SelectEmotionViewModel.swift */,
+				23115DE02A2F1B340024D6CF /* SelectEmotionViewModel.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -2130,6 +2130,7 @@
 				EEC5EC002986AB34001D6460 /* NetworkResult.swift in Sources */,
 				2365150A29AA626E00A4AFD1 /* UITabBar.swift in Sources */,
 				EE1D5722299E208E00758683 /* UINavigationController.swift in Sources */,
+				23115DE12A2F1B340024D6CF /* SelectEmotionViewModel.swift in Sources */,
 				EEC28CB829D30C6A0075CD4C /* GoalRepository.swift in Sources */,
 				EE42F93B2A166BA000AFDD03 /* GoalObserver.swift in Sources */,
 				EE635F4429D1CD2800573F66 /* ModifyRecordViewController.swift in Sources */,
@@ -2275,7 +2276,6 @@
 				232F3FD2292D5AAD009F2EE5 /* SettingWithSeparatorTableViewCell.swift in Sources */,
 				EE9505D329879C0C00077B28 /* ControlIndexPath.swift in Sources */,
 				23061240292B51A600662007 /* SignInViewController.swift in Sources */,
-				23115DDF2A2E10B60024D6CF /* SelectEmotionViewModel.swift in Sources */,
 				23061236292B4B5E00662007 /* RecordView.swift in Sources */,
 				57543B782951BF0200A409E3 /* CalendarSheetViewController.swift in Sources */,
 				EE98F0C02980DF08007BFCCD /* BaseRouter.swift in Sources */,

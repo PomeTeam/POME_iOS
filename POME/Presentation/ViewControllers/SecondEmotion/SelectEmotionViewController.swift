@@ -31,6 +31,7 @@ class SelectEmotionViewController: BaseViewController{
         
         mainView = SelectEmotionView(type: type)
         viewModel = PostSecondEmotionViewModel()
+        viewModel.recordId = recordId
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -41,6 +42,7 @@ class SelectEmotionViewController: BaseViewController{
         
         mainView = SelectEmotionView(type: type)
         viewModel = SelectEmotionViewModel()
+        viewModel.record = record
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -63,26 +65,11 @@ class SelectEmotionViewController: BaseViewController{
     }
     
     override func bind(){
-        var output = SelectEmotionViewModel.Output.init(deselectEmotion: Driver<Int>.of(DEFAULT_INT),
-                                                        selectEmotion: Driver<Int>.of(DEFAULT_INT),
-                                                        ctaButtonActivate: Driver<Bool>.of(false),
-                                                        registerStatusCode: Driver<BaseResponseStatus>.of(BaseResponseStatus.fail))
-        switch type {
-        case .First:
-            let input = SelectEmotionViewModel.FirstInput(record: record,
-                                                           happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
-                                                           whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
-                                                           sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
-                                                           ctaButtonTap: mainView.completeButton.rx.tap)
-            output = viewModel.transform(input)
-        case .Second:
-            let input = SelectEmotionViewModel.SecondInput(record: recordId,
-                                                           happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
-                                                           whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
-                                                           sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
-                                                           ctaButtonTap: mainView.completeButton.rx.tap)
-            output = viewModel.transform(input)
-        }
+        let input = SelectEmotionViewModel.Input(happyEmotionSelect: mainView.happyEmotionView.rx.tapGesture().asObservable(),
+                                                   whatEmotionSelect: mainView.whatEmotionView.rx.tapGesture().asObservable(),
+                                                   sadEmotionSelect: mainView.sadEmotionView.rx.tapGesture().asObservable(),
+                                                   ctaButtonTap: mainView.completeButton.rx.tap)
+        let output = viewModel.transform(input)
         
         
         output.deselectEmotion

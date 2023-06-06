@@ -18,7 +18,7 @@ final class PostSecondEmotionViewModel: SelectEmotionViewModel {
         self.postSecondEmotionUseCase = postSecondEmotionUseCase
     }
     
-    override func register(_ input: SelectEmotionViewModel.SecondInput, _ selectEmotion: Driver<Int>) -> Driver<BaseResponseStatus> {
+    override func register(_ input: Input, _ selectEmotion: Driver<Int>) -> Driver<BaseResponseStatus> {
         let registerStatusCode = input.ctaButtonTap
                     .withLatestFrom(selectEmotion)
                     .compactMap{
@@ -26,7 +26,7 @@ final class PostSecondEmotionViewModel: SelectEmotionViewModel {
                     }.map{ emotion in
                         RecordSecondEmotionRequestModel(emotionId: emotion)
                     }.flatMap{
-                        self.postSecondEmotionUseCase.execute(recordId: input.record, requestValue: $0)
+                        self.postSecondEmotionUseCase.execute(recordId: self.recordId, requestValue: $0)
                     }.asDriver(onErrorJustReturn: BaseResponseStatus.fail)
         
         return registerStatusCode
