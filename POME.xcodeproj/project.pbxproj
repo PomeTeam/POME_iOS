@@ -660,6 +660,15 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		23115DE22A2F2B200024D6CF /* SecondEmotion */ = {
+			isa = PBXGroup;
+			children = (
+				237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */,
+				23115DD82A2D763C0024D6CF /* PostSecondEmotionViewModel.swift */,
+			);
+			path = SecondEmotion;
+			sourceTree = "<group>";
+		};
 		232C1C882990CCD90087B81A /* DeleteUser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1616,11 +1625,10 @@
 		EE7D35D529D5A16300D2AD60 /* Record */ = {
 			isa = PBXGroup;
 			children = (
+				23115DE02A2F1B340024D6CF /* SelectEmotionViewModel.swift */,
+				23115DE22A2F2B200024D6CF /* SecondEmotion */,
 				EE7D35D629D5A16300D2AD60 /* Register */,
 				23431C2F2A24262B00571286 /* RecordTabViewModel.swift */,
-				237CDEE02A27604100B3010F /* RecordSecondEmotionViewModel.swift */,
-				23115DD82A2D763C0024D6CF /* PostSecondEmotionViewModel.swift */,
-				23115DE02A2F1B340024D6CF /* SelectEmotionViewModel.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";

@@ -10,13 +10,16 @@ import RxSwift
 import RxCocoa
 import RxGesture
 
-/*
-     * 감정 남길 때 공통되는 부분
+/* 첫 번째 감정과 두 번째 감정을 남길 때 사용되는 ViewModel입니다.
+ 
+     * 공통되는 부분
      1) Input (happyEmotionSelect, whatEmotionSelect, sadEmotionSelect, ctaButtonTap)
      2) Output (deselectEmotion, selectEmotion, ctaButtonActivate, registerStatusCode)
  
      * 다른 부분
-     register logic -> Override
+     첫 번째 감정: recordDTO
+     두 번째 감정: recordId
+     -> Override register logic
  */
 
 class SelectEmotionViewModel{

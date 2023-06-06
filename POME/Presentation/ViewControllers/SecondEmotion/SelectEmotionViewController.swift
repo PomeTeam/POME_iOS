@@ -13,11 +13,6 @@ import RxCocoa
 class SelectEmotionViewController: BaseViewController{
     
     private var type: SelectEmotionType
-    private var recordId: Int
-    private var record: RecordDTO
-    
-    private let DEFAULT_INT: Int = -1
-    private let DEFAULT_STRING: String = ""
     
     private let mainView: SelectEmotionView
     private let viewModel: SelectEmotionViewModel
@@ -27,8 +22,6 @@ class SelectEmotionViewController: BaseViewController{
     // First Emotion -> recordDTO
     init(type: SelectEmotionType, record: RecordDTO){
         self.type = type
-        self.recordId = DEFAULT_INT
-        self.record = record
         
         mainView = SelectEmotionView(type: type)
         viewModel = RecordFirstEmotionViewModel()
@@ -39,8 +32,6 @@ class SelectEmotionViewController: BaseViewController{
     // Second Emotion -> recordId
     init(type: SelectEmotionType, recordId: Int){
         self.type = type
-        self.recordId = recordId
-        self.record = RecordDTO(goalId: DEFAULT_INT, useComment: DEFAULT_STRING, useDate: DEFAULT_STRING, usePrice: DEFAULT_INT)
         
         mainView = SelectEmotionView(type: type)
         viewModel = PostSecondEmotionViewModel()
@@ -121,7 +112,7 @@ class SelectEmotionViewController: BaseViewController{
             }).disposed(by: disposeBag)
         }
     }
-    
+    // 첫 번째 감정 남기는 페이지 > '닫기' Click Event
     private func closeButtonDidClicked(){
         if type == .First {
             ImageAlert.quitRecord.generateAndShow(in: self).do{
