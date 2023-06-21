@@ -131,7 +131,7 @@ final class SignInViewModel: BaseViewModel {
     func isValidPhone(_ phone: String) -> Bool {
         if phone.isEmpty {return false}
         
-        let pattern = "^00([0-9])([0-9]{3,4})([0-9]{4})$"
+        let pattern = "^0([0-1])([0-9])([0-9]{3,4})([0-9]{4})$"
         let regex = try? NSRegularExpression(pattern: pattern)
         var isPhoneNumValid = regex?.firstMatch(in: phone, options: [], range: NSRange(location: 0, length: phone.count))
         

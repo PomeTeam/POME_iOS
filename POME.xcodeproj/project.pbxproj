@@ -76,6 +76,7 @@
 		238AA432299FD7DD00036922 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238AA431299FD7DD00036922 /* UIImageView.swift */; };
 		238C23D0291B82E60005B92F /* FriendSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */; };
 		238F22A22A1A69EA00505065 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 238F22A12A1A69EA00505065 /* GoogleService-Info.plist */; };
+		239C7CAD2A4287BA003FF87B /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239C7CAC2A4287BA003FF87B /* OnboardingViewModel.swift */; };
 		23A17C51292BC93100426825 /* RecordCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */; };
 		23A17C57292BD3C900426825 /* RecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */; };
 		23ADE48F292D33C1003002D9 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23ADE48E292D33C1003002D9 /* NotificationViewController.swift */; };
@@ -370,6 +371,7 @@
 		238AA431299FD7DD00036922 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		238C23CF291B82E60005B92F /* FriendSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendSearchTableViewCell.swift; sourceTree = "<group>"; };
 		238F22A12A1A69EA00505065 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		239C7CAC2A4287BA003FF87B /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
 		23A17C50292BC93100426825 /* RecordCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCardTableViewCell.swift; sourceTree = "<group>"; };
 		23A17C56292BD3C900426825 /* RecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		23ADE48E292D33C1003002D9 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -1649,6 +1651,7 @@
 			children = (
 				EE7D35DD29D5A16300D2AD60 /* SignInViewModel.swift */,
 				23D5107C2A23B32C007330DB /* RegisterProfileViewModel.swift */,
+				239C7CAC2A4287BA003FF87B /* OnboardingViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -2333,6 +2336,7 @@
 				2345E1C829819471003185E0 /* UserRequestModel.swift in Sources */,
 				23ADE497292D3F0A003002D9 /* MypageProfileTableViewCell.swift in Sources */,
 				2339649F292EC9F7000F6BAC /* AllRecordsView.swift in Sources */,
+				239C7CAD2A4287BA003FF87B /* OnboardingViewModel.swift in Sources */,
 				EE98F0C22980DF14007BFCCD /* MultiMoyaService.swift in Sources */,
 				EEC28CC229D30CEF0075CD4C /* RecordRepositoryInterface.swift in Sources */,
 				EEC28CC829D30D3B0075CD4C /* GetRecordInReviewUseCase.swift in Sources */,

@@ -6,16 +6,21 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class OnboardingViewController: UIViewController {
     var onboardingView: OnboardingView!
+    private let viewModel = OnboardingViewModel()
+    
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         style()
         layout()
-        initialize()
+        bind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,65 +39,38 @@ class OnboardingViewController: UIViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
-    func initialize() {
+    
+    func bind() {
+        let input = OnboardingViewModel.Input(ctaButtonControlEvent: onboardingView.startButton.rx.tap)
         
-        onboardingView.startButton.addTarget(self, action: #selector(startButtonDidTap), for: .touchUpInside)
+        let output = viewModel.transform(input)
+        
+        // 토큰 부재 -> 로그인 페이지 이동
+        output.rememberMeDriver
+            .drive {
+                if !$0 {self.moveToLogin()}
+            }
+        
+        // 토큰 존재 -> 로그인 후 기록탭 이동
+        output.user.bind { _ in
+            self.moveToRecordTab()
+        }.disposed(by: disposeBag)
+        
     }
     
-    @objc func startButtonDidTap() {
-        // 자동 로그인
-        rememberMe()
+    func moveToLogin() {
+        // 회원가입 창으로 이동
+        let vc = SignInViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-}
-//MARK: - API
-extension OnboardingViewController {
-    private func rememberMe(){
-        // token이 존재하면, 기기 내에 저장된 phoneNum을 가지고 로그인API 연결
-        let token = UserManager.token ?? ""
-        let phoneNum = UserManager.phoneNum ?? ""
-        
-        if token != "" && phoneNum != "" {
-            signIn(phoneNum)
-        } else {
-            // 회원가입 창으로 이동
-            let vc = SignInViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+    
+    func moveToRecordTab() {
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        guard let delegate = sceneDelegate else {
+            // 에러 알림
+            return
         }
+        delegate.window?.rootViewController = TabBarController()
     }
-    private func signIn(_ phoneNum: String){
-        let signInRequestModel = SignInRequestModel(phoneNum: phoneNum)
-        UserService.shared.signIn(requestValue: signInRequestModel) { result in
-            switch result {
-                case .success(let data):
-                print("로그인 성공")
-                // 기록탭으로 이동
-                
-                // 유저 정보 저장
-                let token = data.accessToken ?? ""
-                let userId = data.userId ?? ""
-                let nickName = data.nickName ?? ""
-                let profileImg = data.imageURL ?? ""
-                
-                UserDefaults.standard.set(token, forKey: UserDefaultKey.token)
-                UserDefaults.standard.set(userId, forKey: UserDefaultKey.userId)
-                UserDefaults.standard.set(nickName, forKey: UserDefaultKey.nickName)
-                UserDefaults.standard.set(profileImg, forKey: UserDefaultKey.profileImg)
-                
-                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-                guard let delegate = sceneDelegate else {
-                    // 에러 알림
-                    return
-                }
-                delegate.window?.rootViewController = TabBarController()
-                
-                break
-            default:
-                NetworkAlert.show(in: self){ [weak self] in
-                    self?.signIn(phoneNum)
-                }
-                break
-            }
-        }
-    }
-
+    
 }
