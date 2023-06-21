@@ -91,6 +91,7 @@ final class SignInViewModel: BaseViewModel {
             2. 코드 입력값과 인증번호가 일치할 때
                 2-1. 유저일 때, 로그인 API 호출 후 기록탭 이동
                 2-2. 유저가 아닐 때, 회원가입 페이지로 이동
+                2-3. 
          */
         
         // 2-1
@@ -130,7 +131,7 @@ final class SignInViewModel: BaseViewModel {
     func isValidPhone(_ phone: String) -> Bool {
         if phone.isEmpty {return false}
         
-        let pattern = "^01([0-9])([0-9]{3,4})([0-9]{4})$"
+        let pattern = "^00([0-9])([0-9]{3,4})([0-9]{4})$"
         let regex = try? NSRegularExpression(pattern: pattern)
         var isPhoneNumValid = regex?.firstMatch(in: phone, options: [], range: NSRange(location: 0, length: phone.count))
         
